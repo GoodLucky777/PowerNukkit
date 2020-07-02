@@ -443,6 +443,8 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
             list[HONEY_BLOCK] = BlockHoney.class; //475
             list[HONEYCOMB_BLOCK] = BlockHoneycombBlock.class; //476
             
+            list[CRIMSON_STEM] = BlockCrimsonStem.class; //480
+            
             list[CRIMSON_PLANKS] = BlockCrimsonPlanks.class; //497
             list[WARPED_PLANKS] = BlockWarpedPlanks.class; //498
             list[CRIMSON_DOOR_BLOCK] = BlockDoorCrimson.class; //499

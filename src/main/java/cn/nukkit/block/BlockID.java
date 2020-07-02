@@ -418,7 +418,7 @@ public interface BlockID {
     //int LODESTONE = 477;
     //int CRIMSON_ROOTS = 478;
     //int WARPED_ROOTS = 479;
-    //int CRIMSON_STEM = 480;
+    int CRIMSON_STEM = 480;
     //int WARPED_STEM = 481;
     //int WARPED_WART_BLOCK = 482; 
     //int CRIMSON_FUNGUS = 483;
