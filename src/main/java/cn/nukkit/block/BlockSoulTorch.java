@@ -1,21 +1,8 @@
 package cn.nukkit.block;
 
-import cn.nukkit.Player;
-import cn.nukkit.item.Item;
-import cn.nukkit.item.ItemBlock;
-import cn.nukkit.level.Level;
-import cn.nukkit.math.BlockFace;
-import cn.nukkit.utils.BlockColor;
-import cn.nukkit.utils.Faceable;
-
-/**
- * BlockSoulTorch.java was made by using BlockTorch.java
- */
-/**
- * Created on 2015/12/2 by xtypr.
- * Package cn.nukkit.block in project Nukkit .
- */
-public class BlockSoulTorch extends BlockFlowable implements Faceable {
+public class BlockSoulTorch extends BlockTorch {
+    //private static final BlockProperty<SoulTorchFace> SOUL_TORCH_FACING_DIRECTION = new ArrayBlockProperty<>("torch_facing_direction", false, SoulTorchFace.class);
+    //public static final BlockProperties PROPERTIES = new BlockProperties(SOUL_TORCH_FACING_DIRECTION);
 
     public BlockSoulTorch() {
         this(0);
@@ -39,86 +26,58 @@ public class BlockSoulTorch extends BlockFlowable implements Faceable {
     public int getLightLevel() {
         return 10;
     }
-
+/*
     @Override
-    public int onUpdate(int type) {
-        if (type == Level.BLOCK_UPDATE_NORMAL) {
-            Block below = this.down();
-            int side = this.getDamage();
-            int[] faces = new int[]{
-                    0, //0
-                    4, //1
-                    5, //2
-                    2, //3
-                    3, //4
-                    0, //5
-                    0  //6
-            };
-
-            if (this.getSide(BlockFace.fromIndex(faces[side])).isTransparent() && !(side == 0 && (below instanceof BlockFence || below.getId() == COBBLE_WALL))) {
-                this.getLevel().useBreakOn(this);
-
-                return Level.BLOCK_UPDATE_NORMAL;
-            }
-        }
-
-        return 0;
-    }
-
-    @Override
-    public boolean place(Item item, Block block, Block target, BlockFace face, double fx, double fy, double fz, Player player) {
-        Block below = this.down();
-
-        if (!target.isTransparent() && face != BlockFace.DOWN) {
-            int[] faces = new int[]{
-                    0, //0, nerver used
-                    5, //1
-                    4, //2
-                    3, //3
-                    2, //4
-                    1, //5
-            };
-            this.setDamage(faces[face.getIndex()]);
-            this.getLevel().setBlock(block, this, true, true);
-
-            return true;
-        } else if (!below.isTransparent() || below instanceof BlockFence || below.getId() == COBBLE_WALL) {
-            this.setDamage(0);
-            this.getLevel().setBlock(block, this, true, true);
-
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public Item toItem() {
-        return new ItemBlock(this, 0);
-    }
-
-    @Override
-    public BlockColor getColor() {
-        return BlockColor.AIR_BLOCK_COLOR;
-    }
-
-    @Override
-    public BlockFace getBlockFace() {
-        return getBlockFace(this.getDamage() & 0x07);
-    }
-
-    public BlockFace getBlockFace(int meta) {
-        switch (meta) {
-            case 1:
-                return BlockFace.EAST;
-            case 2:
-                return BlockFace.WEST;
-            case 3:
-                return BlockFace.SOUTH;
-            case 4:
-                return BlockFace.NORTH;
+    public TorchFace getTorchFace() {
+        switch (getPropertyValue(SOUL_TORCH_FACING_DIRECTION)) {
             default:
-                return BlockFace.UP;
+            case UNKNOWN:
+                return TorchFace.UNKNOWN;
+            case WEST:
+                return TorchFace.EAST;
+            case EAST:
+                return TorchFace.WEST;
+            case NORTH:
+                return TorchFace.SOUTH;
+            case SOUTH:
+                return TorchFace.NORTH;
+            case TOP:
+                return TorchFace.TOP;
         }
     }
 
+    @Override
+    public void setTorchFace(TorchFace face) {
+        SoulTorchFace soulTorchFace;
+        switch (face) {
+            default:
+            case UNKNOWN:
+                soulTorchFace = SoulTorchFace.UNKNOWN;
+                break;
+            case EAST:
+                soulTorchFace = SoulTorchFace.WEST;
+                break;
+            case WEST:
+                soulTorchFace = SoulTorchFace.EAST;
+                break;
+            case SOUTH:
+                soulTorchFace = SoulTorchFace.NORTH;
+                break;
+            case NORTH:
+                soulTorchFace = SoulTorchFace.SOUTH;
+                break;
+            case TOP:
+                soulTorchFace = SoulTorchFace.TOP;
+                break;
+        }
+        setPropertyValue(SOUL_TORCH_FACING_DIRECTION, soulTorchFace);
+    }
+
+    *//**
+     * Mojang messed up.
+     *//*
+    private enum SoulTorchFace {
+        UNKNOWN, WEST, EAST, NORTH, SOUTH, TOP;
+    }*/
+    
 }
