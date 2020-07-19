@@ -5,13 +5,6 @@ import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemChain;
 import cn.nukkit.item.ItemTool;
 
-/**
- * BlockChain.java was made by using BlockIronBars.java
- */
-/**
- * Created on 2015/12/6 by xtypr.
- * Package cn.nukkit.block in project Nukkit .
- */
 public class BlockChain extends BlockTransparent {
 
     public BlockChain() {
