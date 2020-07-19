@@ -1,13 +1,9 @@
 package cn.nukkit.block;
 
 
-import cn.nukkit.Player;
 import cn.nukkit.item.Item;
-import cn.nukkit.item.ItemBlock;
 import cn.nukkit.item.ItemChain;
 import cn.nukkit.item.ItemTool;
-import cn.nukkit.math.BlockFace;
-import cn.nukkit.utils.BlockColor;
 
 /**
  * BlockChain.java was made by using BlockIronBars.java
@@ -52,16 +48,6 @@ public class BlockChain extends BlockTransparent {
     }
     
     @Override
-    public boolean place(Item item, Block block, Block target, BlockFace face, double fx, double fy, double fz, Player player) {
-        if (down().getId() != Block.AIR) {
-            getLevel().setBlock(block, this, true, true);
-
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public Item toItem() {
         return new ItemChain();
     }
@@ -75,11 +61,6 @@ public class BlockChain extends BlockTransparent {
         } else {
             return new Item[0];
         }
-    }
-
-    @Override
-    public BlockColor getColor() {
-        return BlockColor.BLACK_BLOCK_COLOR;
     }
 
     @Override
