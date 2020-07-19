@@ -7,6 +7,7 @@ import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.CommonBlockProperties;
+import cn.nukkit.blockproperty.exception.InvalidBlockPropertyException;
 import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.blockstate.BlockStateRegistry;
 import cn.nukkit.blockstate.IMutableBlockState;
@@ -27,7 +28,6 @@ import cn.nukkit.metadata.Metadatable;
 import cn.nukkit.plugin.Plugin;
 import cn.nukkit.potion.Effect;
 import cn.nukkit.utils.BlockColor;
-import cn.nukkit.utils.InvalidBlockPropertyException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
@@ -473,8 +473,89 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
             list[BEEHIVE] = BlockBeehive.class; //474
             list[HONEY_BLOCK] = BlockHoney.class; //475
             list[HONEYCOMB_BLOCK] = BlockHoneycombBlock.class; //476
-
+            //list[LODESTONE] = Block<Name>.class; //477
+            list[CRIMSON_ROOTS] = BlockRootsCrimson.class; //478
+            list[WARPED_ROOTS] = BlockRootsWarped.class; //479
+            list[CRIMSON_STEM] = BlockStemCrimson.class; //480
+            list[WARPED_STEM] = BlockStemWarped.class; //481
+            list[WARPED_WART_BLOCK] = BlockWarpedWartBlock.class; //482 
+            list[CRIMSON_FUNGUS] = BlockFungusCrimson.class; //483
+            list[WARPED_FUNGUS] = BlockFungusWarped.class; //484
+            list[SHROOMLIGHT] = BlockShroomlight.class; //485
+            //list[WEEPING_VINES] = Block<Name>.class; //486
+            list[CRIMSON_NYLIUM] = BlockNyliumCrimson.class; //487
+            list[WARPED_NYLIUM] = BlockNyliumWarped.class; //488
+            //list[BASALT] = Block<Name>.class; //489
+            //list[POLISHED_BASALT] = Block<Name>.class; //490 
+            list[SOUL_SOIL] = BlockSoulSoil.class; //491
+            //list[SOUL_FIRE] = Block<Name>.class; //492
+            list[NETHER_SPROUTS_BLOCK] = BlockNetherSprout.class; //493 
+            //list[TARGET] = Block<Name>.class; //494
+            list[STRIPPED_CRIMSON_STEM] = BlockStemStrippedCrimson.class; //495
+            list[STRIPPED_WARPED_STEM] = BlockStemStrippedWarped.class; //496
+            list[CRIMSON_PLANKS] = BlockPlanksCrimson.class; //497
+            list[WARPED_PLANKS] = BlockPlanksWarped.class; //498
+            list[CRIMSON_DOOR_BLOCK] = BlockDoorCrimson.class; //499
+            list[WARPED_DOOR_BLOCK] = BlockDoorWarped.class; //500
+            list[CRIMSON_TRAPDOOR] = BlockTrapdoorCrimson.class; //501
+            list[WARPED_TRAPDOOR] = BlockTrapdoorWarped.class; //502
+            // 503
+            // 504
+            list[CRIMSON_STANDING_SIGN] = BlockCrimsonSignPost.class; //505
+            list[CRIMSON_WALL_SIGN] = BlockCrimsonWallSign.class; //506
+            list[WARPED_STANDING_SIGN] = BlockWarpedSignPost.class; //507
+            list[WARPED_WALL_SIGN] = BlockWarpedWallSign.class; //508
+            list[CRIMSON_STAIRS] = BlockStairsCrimson.class; //509
+            list[WARPED_STAIRS] = BlockStairsWarped.class; //510
+            list[CRIMSON_FENCE] = BlockFenceCrimson.class; //511
+            list[WARPED_FENCE] = BlockFenceWarped.class; //512
+            list[CRIMSON_FENCE_GATE] = BlockFenceGateCrimson.class; //513
+            list[WARPED_FENCE_GATE] = BlockFenceGateWarped.class; //514
+            list[CRIMSON_BUTTON] = BlockButtonCrimson.class; //515
+            list[WARPED_BUTTON] = BlockButtonWarped.class; //516
+            list[CRIMSON_PRESSURE_PLATE] = BlockPressurePlateCrimson.class; //517
+            list[WARPED_PRESSURE_PLATE] = BlockPressurePlateWarped.class; //518
+            list[CRIMSON_SLAB] = BlockSlabCrimson.class; //519
+            list[WARPED_SLAB] = BlockSlabWarped.class; //520
+            list[CRIMSON_DOUBLE_SLAB] = BlockDoubleSlabCrimson.class; //521
+            list[WARPED_DOUBLE_SLAB] = BlockDoubleSlabWarped.class; //522
+            //list[SOUL_TORCH] = Block<Name>.class //523
+            //list[SOUL_LANTERN] = Block<Name>.class //524
             list[NETHERITE_BLOCK] = BlockNetherite.class; //525
+            //list[ANCIENT_DERBIS] = Block<Name>.class; //526
+            //list[RESPAWN_ANCHOR] = Block<Name>.class; //527
+            list[BLACKSTONE] = BlockBlackstone.class; //528
+            //list[POLISHED_BLACKSTONE_BRICKS] = Block<Name>.class; //529
+            //list[POLISHED_BLACKSTONE_BRICK_STAIRS] = Block<Name>.class; //530
+            //list[BLACKSTONE_STAIRS] = Block<Name>.class; //531
+            //list[BLACKSTONE_WALL] = Block<Name>.class; //532
+            //list[POLISHED_BLACKSTONE_BRICK_WALL] = Block<Name>.class; //533
+            //list[CHISELED_POLISHED_BLACKSTONE] = Block<Name>.class; //534
+            //list[CRACKED_POLISHED_BLACKSTONE_BRICKS] = Block<Name>.class; //535
+            //list[GILDED_BLACKSTONE] = Block<Name>.class; //536
+            list[BLACKSTONE_SLAB] = BlockSlabBlackstone.class; //537
+            list[BLACKSTONE_DOUBLE_SLAB] = BlockDoubleSlabBlackstone.class; //538
+            //list[POLISHED_BLACKSTONE_BRICK_SLAB] = Block<Name>.class; //539
+            //list[POLISHED_BLACKSTONE_BRICK_DOUBLE_SLAB] = Block<Name>.class; //540
+            //list[CHAIN_BLOCK] = Block<Name>.class; //541
+            //list[TWISTING_VINES] = Block<Name>.class; //542
+            //list[NETHER_GOLD_ORE] = Block<Name>.class; //543
+            //list[CRYING_OBSIDIAN] = Block<Name>.class; //544
+            //list[SOUL_CAMPFIRE] = Block<Name>.class; //545
+            //list[POLISHED_BLACKSTONE] = Block<Name>.class; //546
+            //list[POLISHED_BLACKSTONE_STAIRS] = Block<Name>.class; //547
+            //list[POLISHED_BLACKSTONE_SLAB] = Block<Name>.class; //548
+            //list[POLISHED_BLACKSTONE_DOUBLE_SLAB] = Block<Name>.class; //549
+            //list[POLISHED_BLACKSTONE_PRESSURE_PLATE] = Block<Name>.class; //550
+            //list[POLISHED_BLACKSTONE_BUTTON] = Block<Name>.class; //551
+            //list[POLISHED_BLACKSTONE_WALL] = Block<Name>.class; //552
+            list[WARPED_HYPHAE] = BlockHyphaeWarped.class; //553
+            list[CRIMSON_HYPHAE] = BlockHyphaeCrimson.class; //554
+            list[STRIPPED_CRIMSON_HYPHAE] = BlockHyphaeStrippedCrimson.class; //555
+            list[STRIPPED_WARPED_HYPHAE] = BlockHyphaeStrippedWarped.class; //556
+            //list[CHISELED_NETHER_BRICKS] = Block<Name>.class; //557
+            //list[CRACKED_NETHER_BRICKS] = Block<Name>.class; //558
+            //list[QUARTZ_BRICKS] = Block<Name>.class; //559
             
             list[SOUL_TORCH] = BlockSoulTorch.class; //523
             list[SOUL_LANTERN] = BlockSoulLantern.class; //524
@@ -489,7 +570,8 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
                     Block block;
                     try {
                         block = c.getDeclaredConstructor().newInstance();
-                        BlockStateRegistry.registerPersistenceName(id, block.getPersistenceName());
+                        String persistenceName = block.getPersistenceName();
+                        BlockStateRegistry.registerPersistenceName(id, persistenceName);
                         try {
                             Constructor<? extends Block> constructor = c.getDeclaredConstructor(int.class);
                             constructor.setAccessible(true);
@@ -524,7 +606,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
                         for (int data = 0; data < DATA_SIZE; ++data) {
                             fullList[(id << DATA_BITS) | data] = new BlockUnknown(id, data);
                         }
-                        return;
+                        block = fullList[id << DATA_BITS];
                     }
 
                     solid[id] = block.isSolid();
@@ -877,12 +959,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public int getMaxItemDamage() {
-        return 0xF;
-    }
-
-    @PowerNukkitOnly
-    @Since("1.4.0.0-PN")
+    @Nonnull
     public final BlockState getCurrentState() {
         return mutableState.getCurrentState();
     }
@@ -1415,7 +1492,12 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
             info = "Prevents players from getting invalid items by limiting the return to the maximum damage defined in getMaxItemDamage()", 
             since = "1.4.0.0-PN")
     public Item toItem() {
-        return new ItemBlock(this, Math.min(getMaxItemDamage(), this.getDamage()), 1);
+        return asItemBlock(1);
+    }
+
+    @Override
+    public final ItemBlock asItemBlock() {
+        return asItemBlock(1);
     }
 
     public boolean canSilkTouch() {
@@ -1469,6 +1551,20 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
     @Override
     public void setPropertyValue(@Nonnull String propertyName, @Nullable Object value) {
         mutableState.setPropertyValue(propertyName, value);
+    }
+
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public void setBooleanValue(@Nonnull String propertyName, boolean value) {
+        mutableState.setBooleanValue(propertyName, value);
+    }
+
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public void setIntValue(@Nonnull String propertyName, int value) {
+        mutableState.setIntValue(propertyName, value);
     }
 
     @PowerNukkitOnly
@@ -1542,5 +1638,10 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
     @Override
     public String getPersistenceValue(@Nonnull String propertyName) {
         return mutableState.getPersistenceValue(propertyName);
+    }
+
+    @Override
+    public final int getExactIntStorage() {
+        return mutableState.getExactIntStorage();
     }
 }

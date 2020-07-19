@@ -84,8 +84,18 @@ public class IntMutableBlockState extends MutableBlockState {
     }
 
     @Override
+    public void setBooleanValue(String propertyName, boolean value) {
+        storage = properties.setBooleanValue(storage, propertyName, value);
+    }
+
+    @Override
     public void setPropertyValue(String propertyName, @Nullable Object value) {
         storage = properties.setValue(storage, propertyName, value);
+    }
+
+    @Override
+    public void setIntValue(String propertyName, int value) {
+        storage = properties.setIntValue(storage, propertyName, value);
     }
 
     @Nonnull
@@ -114,6 +124,11 @@ public class IntMutableBlockState extends MutableBlockState {
     @Override
     public BlockState getCurrentState() {
         return BlockState.of(blockId, storage);
+    }
+
+    @Override
+    public int getExactIntStorage() {
+        return storage;
     }
 
     @Nonnull

@@ -92,6 +92,16 @@ public class LongMutableBlockState extends MutableBlockState {
         storage = properties.setValue(storage, propertyName, value);
     }
 
+    @Override
+    public void setBooleanValue(String propertyName, boolean value) {
+        storage = properties.setBooleanValue(storage, propertyName, value);
+    }
+
+    @Override
+    public void setIntValue(String propertyName, int value) {
+        storage = properties.setIntValue(storage, propertyName, value);
+    }
+
     @Nonnull
     @Override
     public Object getPropertyValue(String propertyName) {
@@ -118,6 +128,15 @@ public class LongMutableBlockState extends MutableBlockState {
     @Override
     public BlockState getCurrentState() {
         return BlockState.of(blockId, storage);
+    }
+
+    @Override
+    public int getExactIntStorage() {
+        int bits = getBitSize();
+        if (bits > 32) {
+            throw new ArithmeticException(storage+" can't be stored in an 32 bits integer. It has "+bits+" bits");
+        }
+        return (int) storage;
     }
 
     @Nonnull

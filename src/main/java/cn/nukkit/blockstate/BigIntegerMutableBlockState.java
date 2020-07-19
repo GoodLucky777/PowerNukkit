@@ -98,6 +98,16 @@ public class BigIntegerMutableBlockState extends MutableBlockState {
         storage = properties.setValue(storage, propertyName, value);
     }
 
+    @Override
+    public void setBooleanValue(String propertyName, boolean value) {
+        storage = properties.setValue(storage, propertyName, value);
+    }
+
+    @Override
+    public void setIntValue(String propertyName, int value) {
+        storage = properties.setValue(storage, propertyName, value);
+    }
+
     @Nonnull
     @Override
     public Object getPropertyValue(String propertyName) {
@@ -124,6 +134,11 @@ public class BigIntegerMutableBlockState extends MutableBlockState {
     @Override
     public BlockState getCurrentState() {
         return BlockState.of(blockId, storage);
+    }
+
+    @Override
+    public int getExactIntStorage() {
+        return storage.intValueExact();
     }
 
     @Nonnull

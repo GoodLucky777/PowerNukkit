@@ -138,6 +138,8 @@ public class Level implements ChunkManager, Metadatable {
         randomTickBlocks[BlockID.TURTLE_EGG] = true;
         randomTickBlocks[BlockID.BAMBOO] = true;
         randomTickBlocks[BlockID.BAMBOO_SAPLING] = true;
+        randomTickBlocks[BlockID.CRIMSON_NYLIUM] = true;
+        randomTickBlocks[BlockID.WARPED_NYLIUM] = true;
     }
 
     private final Long2ObjectOpenHashMap<BlockEntity> blockEntities = new Long2ObjectOpenHashMap<>();
@@ -2043,7 +2045,7 @@ public class Level implements ChunkManager, Metadatable {
 
             if (!setBlockDestroy) {
                 BlockBreakEvent ev = new BlockBreakEvent(player, target, face, item, eventDrops, player.isCreative(),
-                        (player.lastBreak + breakTime * 1000) > System.currentTimeMillis());
+                        (Long.sum(player.lastBreak, (long)breakTime*1000)) > System.currentTimeMillis());
 
                 if (player.isSurvival() && !target.isBreakable(item)) {
                     ev.setCancelled();
@@ -2240,8 +2242,7 @@ public class Level implements ChunkManager, Metadatable {
             return null;
         }
 
-        //TODO WOODEN_SLABS? stone_slab2? stone_slab3? stone_slab4?
-        if (!(block.canBeReplaced() || (hand.getId() == Item.SLAB && block.getId() == Item.SLAB))) {
+        if (!(block.canBeReplaced() || (hand instanceof BlockSlab && hand.getId() == block.getId()))) {
             return null;
         }
 
@@ -2303,6 +2304,10 @@ public class Level implements ChunkManager, Metadatable {
             if (event.isCancelled()) {
                 return null;
             }
+        }
+
+        if(hand.getWaterloggingLevel() == 0 && hand.canBeFlowedInto() && (block instanceof BlockLiquid || block.getLevelBlockAtLayer(1) instanceof BlockLiquid)) {
+            return null;
         }
 
         boolean liquidMoved = false;
