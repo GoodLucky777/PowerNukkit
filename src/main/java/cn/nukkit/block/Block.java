@@ -519,8 +519,8 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
             list[WARPED_SLAB] = BlockSlabWarped.class; //520
             list[CRIMSON_DOUBLE_SLAB] = BlockDoubleSlabCrimson.class; //521
             list[WARPED_DOUBLE_SLAB] = BlockDoubleSlabWarped.class; //522
-            //list[SOUL_TORCH] = Block<Name>.class //523
-            //list[SOUL_LANTERN] = Block<Name>.class //524
+            list[SOUL_TORCH] = BlockSoulTorch.class; //523
+            list[SOUL_LANTERN] = BlockSoulLantern.class; //524
             list[NETHERITE_BLOCK] = BlockNetherite.class; //525
             //list[ANCIENT_DERBIS] = Block<Name>.class; //526
             //list[RESPAWN_ANCHOR] = Block<Name>.class; //527
@@ -537,7 +537,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
             list[BLACKSTONE_DOUBLE_SLAB] = BlockDoubleSlabBlackstone.class; //538
             //list[POLISHED_BLACKSTONE_BRICK_SLAB] = Block<Name>.class; //539
             //list[POLISHED_BLACKSTONE_BRICK_DOUBLE_SLAB] = Block<Name>.class; //540
-            //list[CHAIN_BLOCK] = Block<Name>.class; //541
+            list[CHAIN_BLOCK] = BlockChain.class; //541
             //list[TWISTING_VINES] = Block<Name>.class; //542
             //list[NETHER_GOLD_ORE] = Block<Name>.class; //543
             //list[CRYING_OBSIDIAN] = Block<Name>.class; //544
@@ -556,11 +556,6 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
             //list[CHISELED_NETHER_BRICKS] = Block<Name>.class; //557
             //list[CRACKED_NETHER_BRICKS] = Block<Name>.class; //558
             //list[QUARTZ_BRICKS] = Block<Name>.class; //559
-            
-            list[SOUL_TORCH] = BlockSoulTorch.class; //523
-            list[SOUL_LANTERN] = BlockSoulLantern.class; //524
-            
-            list[CHAIN_BLOCK] = BlockChain.class; //541
             
             initializing = true;
             
