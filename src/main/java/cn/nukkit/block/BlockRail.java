@@ -99,8 +99,18 @@ public class BlockRail extends BlockFlowable implements Faceable {
     @Override
     public boolean place(Item item, Block block, Block target, BlockFace face, double fx, double fy, double fz, Player player) {
         Block down = this.down();
-        if (down == null || down.isTransparent()) {
+        if (down == null) {
             return false;
+        }
+        if (!down.isTransparent()) {
+            return true;
+        }
+        if (down instanceof BlockHopper) {
+            return true;
+        } else if (down instanceof BlockSlab) {
+            return (down.getDamage() & 0x8) == 0x8;
+        } else if (down instanceof BlockStairs) {
+            return (down.getDamage() & 0x4) == 0x4;
         }
         Map<BlockRail, BlockFace> railsAround = this.checkRailsAroundAffected();
         List<BlockRail> rails = new ArrayList<>(railsAround.keySet());
@@ -142,7 +152,8 @@ public class BlockRail extends BlockFlowable implements Faceable {
         if (!isAbstract()) {
             level.scheduleUpdate(this, this, 0);
         }
-        return true;
+        
+        return false;
     }
 
     private Orientation connect(BlockRail rail1, BlockFace face1, BlockRail rail2, BlockFace face2) {
