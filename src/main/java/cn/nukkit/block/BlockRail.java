@@ -99,18 +99,8 @@ public class BlockRail extends BlockFlowable implements Faceable {
     @Override
     public boolean place(Item item, Block block, Block target, BlockFace face, double fx, double fy, double fz, Player player) {
         Block down = this.down();
-        if (down == null) {
+        if (!checkCanBePlace(down)) {
             return false;
-        }
-        if (!down.isTransparent()) {
-            return true;
-        }
-        if (down instanceof BlockHopper) {
-            return true;
-        } else if (down instanceof BlockSlab) {
-            return (down.getDamage() & 0x8) == 0x8;
-        } else if (down instanceof BlockStairs) {
-            return (down.getDamage() & 0x4) == 0x4;
         }
         Map<BlockRail, BlockFace> railsAround = this.checkRailsAroundAffected();
         List<BlockRail> rails = new ArrayList<>(railsAround.keySet());
@@ -153,6 +143,23 @@ public class BlockRail extends BlockFlowable implements Faceable {
             level.scheduleUpdate(this, this, 0);
         }
         
+        return true;
+    }
+    
+    private boolean checkCanBePlace(Block check) {
+        if (check == null) {
+            return false;
+        }
+        if (!check.isTransparent()) {
+            return true;
+        }
+        if (check instanceof BlockHopper) {
+            return true;
+        } else if (check instanceof BlockSlab) {
+            return (check.getDamage() & 0x8) == 0x8;
+        } else if (check instanceof BlockStairs) {
+            return (check.getDamage() & 0x4) == 0x4;
+        }
         return false;
     }
 
