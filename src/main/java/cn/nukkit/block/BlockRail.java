@@ -156,9 +156,9 @@ public class BlockRail extends BlockFlowable implements Faceable {
         if (check instanceof BlockHopper) {
             return true;
         } else if (check instanceof BlockSlab) {
-            return (check.getDamage() & 0x8) == 0x8;
+            return ((BlockSlab)check).isOnTop();
         } else if (check instanceof BlockStairs) {
-            return (check.getDamage() & 0x4) == 0x4;
+            return ((BlockStairs)check).isUpsideDown();
         }
         return false;
     }
