@@ -7,6 +7,7 @@ import cn.nukkit.inventory.InventoryHolder;
 import cn.nukkit.inventory.MinecartHopperInventory;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.format.FullChunk;
+import cn.nukkit.math.AxisAlignedBB;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.CompoundTag;
@@ -18,6 +19,10 @@ public class EntityMinecartHopper extends EntityMinecartAbstract implements Inve
     public static final int NETWORK_ID = 96;
 
     protected MinecartHopperInventory inventory;
+    
+    public int transferCooldown = 8;
+    
+    private AxisAlignedBB pickupArea;
 
     public EntityMinecartHopper(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
@@ -69,7 +74,11 @@ public class EntityMinecartHopper extends EntityMinecartAbstract implements Inve
     @Override
     public void initEntity() {
         super.initEntity();
-
+        
+        if (this.namedTag.contains("TransferCooldown")) {
+            this.transferCooldown = this.namedTag.getInt("TransferCooldown");
+        }
+        
         this.inventory = new MinecartHopperInventory(this);
         if (this.namedTag.contains("Items") && this.namedTag.get("Items") instanceof ListTag) {
             ListTag<CompoundTag> inventoryList = this.namedTag.getList("Items", CompoundTag.class);
@@ -98,5 +107,6 @@ public class EntityMinecartHopper extends EntityMinecartAbstract implements Inve
                 }
             }
         }
+        this.namedTag.putInt("TransferCooldown", this.transferCooldown);
     }
 }
