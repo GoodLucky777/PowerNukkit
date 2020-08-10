@@ -106,8 +106,8 @@ public class BlockNoteblock extends BlockSolid {
             case JUNGLE_WOOD_STAIRS:
             case ACACIA_WOOD_STAIRS:
             case DARK_OAK_WOOD_STAIRS:
-            case CRIMSON_WOOD_STAIRS:
-            case WARPED_WOOD_STAIRS:
+            case CRIMSON_STAIRS:
+            case WARPED_STAIRS:
             case FENCE:
             case FENCE_GATE:
             case FENCE_GATE_SPRUCE:
@@ -115,8 +115,8 @@ public class BlockNoteblock extends BlockSolid {
             case FENCE_GATE_JUNGLE:
             case FENCE_GATE_DARK_OAK:
             case FENCE_GATE_ACACIA:
-            case FENCE_GATE_CRIMSON:
-            case FENCE_GATE_WARPED:
+            case CRIMSON_FENCE_GATE:
+            case WARPED_FENCE_GATE:
             case DOOR_BLOCK:
             case SPRUCE_DOOR_BLOCK:
             case BIRCH_DOOR_BLOCK:
