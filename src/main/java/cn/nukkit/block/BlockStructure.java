@@ -86,6 +86,21 @@ public class BlockStructure extends BlockSolidMeta {
     }
     
     @Override
+    public boolean isBreakable(Item item) {
+        return false;
+    }
+    
+    @Override
+    public boolean canBePushed() {
+        return false;
+    }
+    
+    @Override
+    public boolean canBePulled() {
+        return false;
+    }
+    
+    @Override
     public BlockColor getColor() {
         return BlockColor.LIGHT_GRAY_BLOCK_COLOR;
     }
