@@ -8,8 +8,20 @@ import cn.nukkit.item.ItemTool;
 /**
  * Created by good777LUCKY
  */
-public class BlockNetherReactor extends BlockSolid {
+public class BlockNetherReactor extends BlockSolidMeta {
 
+    public static final int NORMAL = 0;
+    public static final int INITIALIZED = 1;
+    public static final int FINISHED = 2;
+    
+    public BlockNetherReactor() {
+        // Does Nothing
+    }
+    
+    public BlockNetherReactor(int meta) {
+        super(meta);
+    }
+    
     @Override
     public int getId() {
         return NETHER_REACTOR;
@@ -17,7 +29,13 @@ public class BlockNetherReactor extends BlockSolid {
     
     @Override
     public String getName() {
-        return "Nether Reactor Core";
+        String[] names = new String[]{
+            "Nether Reactor Core",
+            "Initialized Nether Reactor Core",
+            "Finished Nether Reactor Core",
+            "Nether Reactor Core"
+        };
+        return names[this.getDamage() & 0x03];
     }
     
     @Override
