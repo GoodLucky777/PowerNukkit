@@ -4,6 +4,7 @@ import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemDiamond;
 import cn.nukkit.item.ItemIngotIron;
 import cn.nukkit.item.ItemTool;
+import cn.nukkit.utils.BlockColor;
 
 /**
  * Created by good777LUCKY
@@ -70,5 +71,8 @@ public class BlockNetherReactor extends BlockSolidMeta {
         }
     }
     
-    //TODO: Add Block Color
+    @Override
+    public BlockColor getColor() {
+        return BlockColor.IRON_BLOCK_COLOR;
+    }
 }
