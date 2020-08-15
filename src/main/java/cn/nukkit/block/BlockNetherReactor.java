@@ -22,7 +22,7 @@ public class BlockNetherReactor extends BlockSolid {
     
     @Override
     public double getHardness() {
-        return 30;
+        return 10;
     }
     
     @Override
