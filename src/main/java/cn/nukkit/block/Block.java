@@ -359,7 +359,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
             list[BEETROOT_BLOCK] = BlockBeetroot.class; //244
             list[STONECUTTER] = BlockStonecutter.class; //245
             list[GLOWING_OBSIDIAN] = BlockObsidianGlowing.class; //246
-            //list[NETHER_REACTOR] = BlockNetherReactor.class; //247 Should not be removed
+            list[NETHER_REACTOR] = BlockNetherReactor.class; //247 Should not be removed
 
             list[MOVING_BLOCK] = BlockMoving.class; //250
             list[OBSERVER] = BlockObserver.class; //251
@@ -523,14 +523,14 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
             list[WARPED_DOUBLE_SLAB] = BlockDoubleSlabWarped.class; //522
             list[SOUL_TORCH] = BlockSoulTorch.class; //523
             list[SOUL_LANTERN] = BlockSoulLantern.class; //524
-            list[NETHERITE_BLOCK] = BlockNetherite.class; //525
-            //list[ANCIENT_DERBIS] = Block<Name>.class; //526
+            list[NETHERITE_BLOCK] = BlockNetheriteBlock.class; //525
+            list[ANCIENT_DERBRIS] = BlockAncientDebris.class; //526
             //list[RESPAWN_ANCHOR] = Block<Name>.class; //527
             list[BLACKSTONE] = BlockBlackstone.class; //528
             //list[POLISHED_BLACKSTONE_BRICKS] = Block<Name>.class; //529
             //list[POLISHED_BLACKSTONE_BRICK_STAIRS] = Block<Name>.class; //530
-            //list[BLACKSTONE_STAIRS] = Block<Name>.class; //531
-            //list[BLACKSTONE_WALL] = Block<Name>.class; //532
+            list[BLACKSTONE_STAIRS] = BlockStairsBlackstone.class; //531
+            list[BLACKSTONE_WALL] = BlockWallBlackstone.class; //532
             //list[POLISHED_BLACKSTONE_BRICK_WALL] = Block<Name>.class; //533
             //list[CHISELED_POLISHED_BLACKSTONE] = Block<Name>.class; //534
             //list[CRACKED_POLISHED_BLACKSTONE_BRICKS] = Block<Name>.class; //535
@@ -1490,6 +1490,16 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
             since = "1.4.0.0-PN")
     public Item toItem() {
         return asItemBlock(1);
+    }
+
+    /**
+     * If the block, when in item form, is resistant to lava and fire and can float on lava like if it was on water.
+     * @since 1.4.0.0-PN
+     */
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean isLavaResistant() {
+        return true;
     }
 
     @Override
