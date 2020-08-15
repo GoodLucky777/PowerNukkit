@@ -15,7 +15,7 @@ public class BlockNetherReactor extends BlockSolidMeta {
     public static final int FINISHED = 2;
     
     public BlockNetherReactor() {
-        // Does Nothing
+        this(0);
     }
     
     public BlockNetherReactor(int meta) {
