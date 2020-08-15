@@ -1,6 +1,8 @@
 package cn.nukkit.block;
 
+import cn.nukkit.Player;
 import cn.nukkit.item.Item;
+import cn.nukkit.math.BlockFace;
 import cn.nukkit.utils.BlockColor;
 
 /**
@@ -48,7 +50,10 @@ public class BlockStructure extends BlockSolidMeta {
         if (player != null && (!player.isCreative() || !player.isOp())) {
             return false;
         }
-        return super.place(item, block, target, face, fx, fy, fz, player);
+        this.setDamage(SAVE);
+        this.getLevel().setBlock(block, this, true);
+        // TODO: Add Block Entity
+        return true;
     }
     
     @Override
