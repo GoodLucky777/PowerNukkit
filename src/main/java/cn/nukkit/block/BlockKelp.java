@@ -13,6 +13,7 @@ import cn.nukkit.math.MathHelper;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BlockKelp extends BlockFlowable {
+
     public BlockKelp() {
         this(0);
     }
@@ -133,7 +134,7 @@ public class BlockKelp extends BlockFlowable {
                             if (highestKelp.grow()) {
                                 this.level.addParticle(new BoneMealParticle(this));
     
-                                if (player != null && (player.gamemode & 0x01) == 0) {
+                                if (player != null && player.isSurvival()) {
                                     item.count--;
                                 }
                             }
