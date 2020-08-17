@@ -245,7 +245,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements ICo
     @Override
     public void setPowered(boolean powered) {
         this.powered = powered;
-        this.namedTag.putBoolean(TAG_POWERED, this.powered);
+        this.namedTag.putBoolean(TAG_POWERED, powered);
     }
 
     @Override
@@ -335,8 +335,8 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements ICo
     public void setCommand(String command) {
         this.command = command;
         this.successCount = 0;
-        this.namedTag.putString(TAG_COMMAND, this.command);
-        this.namedTag.putInt(TAG_SUCCESS_COUNT, this.successCount);
+        this.namedTag.putString(TAG_COMMAND, command);
+        this.namedTag.putInt(TAG_SUCCESS_COUNT, 0);
     }
 
     @Override
@@ -351,7 +351,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements ICo
         //if (!autoed && this.auto && !this.powered && this.getMode() != MODE_CHAIN) {
         //    this.setConditionMet();
         //}
-        this.namedTag.putBoolean(TAG_AUTO, this.auto);
+        this.namedTag.putBoolean(TAG_AUTO, auto);
     }
 
     @Override
@@ -396,7 +396,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements ICo
     @Override
     public void setSuccessCount(int count) {
         this.successCount = count;
-        this.namedTag.putInt(TAG_SUCCESS_COUNT, this.successCount);
+        this.namedTag.putInt(TAG_SUCCESS_COUNT, count);
     }
 
     @Override
@@ -407,7 +407,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements ICo
     @Override
     public void setLastExecution(long time) {
         this.lastExecution = time;
-        this.namedTag.putLong(TAG_LAST_EXECUTION, this.lastExecution);
+        this.namedTag.putLong(TAG_LAST_EXECUTION, time);
     }
 
     @Override
@@ -418,7 +418,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements ICo
     @Override
     public void setTrackOutput(boolean track) {
         this.trackOutput = track;
-        this.namedTag.putBoolean(TAG_TRACK_OUTPUT, this.trackOutput);
+        this.namedTag.putBoolean(TAG_TRACK_OUTPUT, track);
     }
 
     @Override
@@ -433,7 +433,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements ICo
         } else {
             this.lastOutput = output;
         }
-        this.namedTag.putString(TAG_LAST_OUTPUT, this.lastOutput);
+        this.namedTag.putString(TAG_LAST_OUTPUT, output);
     }
 
     @Override
@@ -444,7 +444,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements ICo
     @Override
     public void setLastOutputCommandMode(int mode) {
         this.lastOutputCommandMode = mode;
-        this.namedTag.putInt(TAG_LP_COMMAND_MODE, this.lastOutputCommandMode);
+        this.namedTag.putInt(TAG_LP_COMMAND_MODE, mode);
     }
 
     @Override
@@ -455,7 +455,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements ICo
     @Override
     public void setLastOutputCondionalMode(boolean condionalMode) {
         this.lastOutputCondionalMode = condionalMode;
-        this.namedTag.putBoolean(TAG_LP_CONDIONAL_MODE, this.lastOutputCondionalMode);
+        this.namedTag.putBoolean(TAG_LP_CONDIONAL_MODE, condionalMode);
     }
 
     @Override
@@ -466,13 +466,13 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements ICo
     @Override
     public void setLastOutputRedstoneMode(boolean redstoneMode) {
         this.lastOutputRedstoneMode = redstoneMode;
-        this.namedTag.putBoolean(TAG_LP_REDSTONE_MODE, this.lastOutputRedstoneMode);
+        this.namedTag.putBoolean(TAG_LP_REDSTONE_MODE, redstoneMode);
     }
 
     @Override
     public void setLastOutputParams(ListTag<StringTag> params) {
         this.lastOutputParams = params;
-        this.namedTag.putList(this.lastOutputParams);
+        this.namedTag.putList(parmas);
     }
 
     @Override
@@ -483,7 +483,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements ICo
     @Override
     public void setTickDelay(int tickDelay) {
         this.tickDelay = tickDelay;
-        this.namedTag.putInt(TAG_TICK_DELAY, this.tickDelay);
+        this.namedTag.putInt(TAG_TICK_DELAY, tickDelay);
     }
 
     @Override
@@ -494,7 +494,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements ICo
     @Override
     public void setExecutingOnFirstTick(boolean executingOnFirstTick) {
         this.executingOnFirstTick = executingOnFirstTick;
-        this.namedTag.putBoolean(TAG_EXECUTE_ON_FIRST_TICK, this.executingOnFirstTick);
+        this.namedTag.putBoolean(TAG_EXECUTE_ON_FIRST_TICK, executingOnFirstTick);
     }
 
     @Override
