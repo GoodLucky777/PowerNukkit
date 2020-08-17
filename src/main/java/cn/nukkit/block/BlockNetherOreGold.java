@@ -47,17 +47,17 @@ public class BlockNetherOreGold extends BlockSolid {
             
             Enchantment fortune = item.getEnchantment(Enchantment.ID_FORTUNE_DIGGING);
             if (fortune != null) {
-                if (fortune.getLevel == 1) {
-                    if (NukkitRandom().nextRange(0, 2) == 0) {
+                if (fortune.getLevel() == 1) {
+                    if (new NukkitRandom().nextRange(0, 2) == 0) {
                         count = count * 2;
                     }
-                } else if (fortune.getLevel == 2) {
-                    if (NukkitRandom().nextRange(0, 1) == 0) {
-                        count = count * NukkitRandom().nextRange(2, 3);
+                } else if (fortune.getLevel() == 2) {
+                    if (new NukkitRandom().nextRange(0, 1) == 0) {
+                        count = count * new NukkitRandom().nextRange(2, 3);
                     }
-                } else if (fortune.getLevel == 3) {
-                    if (NukkitRandom().nextRange(0, 4) < 3) {
-                        count = count * NukkitRandom().nextRange(2, 4);
+                } else if (fortune.getLevel() == 3) {
+                    if (new NukkitRandom().nextRange(0, 4) < 3) {
+                        count = count * new NukkitRandom().nextRange(2, 4);
                     }
                 }
             }
