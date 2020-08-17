@@ -1,7 +1,7 @@
 package cn.nukkit.block;
 
 import cn.nukkit.item.Item;
-import cn.nukkit.item.ItemGoldNugget;
+import cn.nukkit.item.ItemNuggetGold;
 import cn.nukkit.item.ItemTool;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.utils.BlockColor;
@@ -45,7 +45,7 @@ public class BlockNetherOreGold extends BlockSolid {
             int count = new NukkitRandom().nextRange(2, 6);
             
             return new Item[]{
-                new ItemGoldNugget(0, count)
+                new ItemNuggetGold(0, count)
             };
         } else {
             return new Item[0];
