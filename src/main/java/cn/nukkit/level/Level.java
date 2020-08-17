@@ -12,6 +12,7 @@ import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.item.EntityItem;
 import cn.nukkit.entity.item.EntityXPOrb;
+import cn.nukkit.entity.mob.EntitySnowGolem;
 import cn.nukkit.entity.projectile.EntityArrow;
 import cn.nukkit.entity.weather.EntityLightning;
 import cn.nukkit.event.block.BlockBreakEvent;
@@ -3972,7 +3973,20 @@ public class Level implements ChunkManager, Metadatable {
         this.setBlock(target, Block.get(BlockID.AIR));
         this.setBlock(target.down(), Block.get(BlockID.AIR));
         
-        Entity.createEntity("SnowGolem", target.add(0.5, -1, 0.5)).spawnToAll();
+        CompoundTag nbt = new CompoundTag()
+            .putList(new ListTag<DoubleTag>("Pos")
+                 .add(new DoubleTag("", target.getX() + 0.5))
+                 .add(new DoubleTag("", target.getY() - 1))
+                 .add(new DoubleTag("", target.getZ() + 0.5)))
+            .putList(new ListTag<DoubleTag>("Motion")
+                 .add(new DoubleTag("", 0))
+                 .add(new DoubleTag("", 0))
+                 .add(new DoubleTag("", 0)))
+            .putList(new ListTag<FloatTag>("Rotation")
+                 .add(new FloatTag("", 0))
+                 .add(new FloatTag("", 0)));
+        EntitySnowGolem snowGolem = new EntitySnowGolem(chunk, nbt);
+        snowGolem.spawnToAll();
         
         return true;
     }
