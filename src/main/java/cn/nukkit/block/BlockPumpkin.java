@@ -55,7 +55,7 @@ public class BlockPumpkin extends BlockSolidMeta implements Faceable {
     @Override
     public boolean place(Item item, Block block, Block target, BlockFace face, double fx, double fy, double fz, Player player) {
         if (target.getId() == BlockID.SNOW_BLOCK) {
-            if (level.createSnowGolem(target)) 
+            if (level.createSnowGolem(target)) {
                 return true;
             }
         }
