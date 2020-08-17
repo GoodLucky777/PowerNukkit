@@ -1,5 +1,6 @@
 package cn.nukkit.block;
 
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemNuggetGold;
 import cn.nukkit.item.ItemTool;
@@ -43,6 +44,23 @@ public class BlockNetherOreGold extends BlockSolid {
     public Item[] getDrops(Item item) {
         if (item.isPickaxe()) {
             int count = new NukkitRandom().nextRange(2, 6);
+            
+            Enchantment fortune = item.getEnchantment(Enchantment.ID_FORTUNE_DIGGING);
+            if (fortune != null) {
+                if (fortune.getLevel == 1) {
+                    if (NukkitRandom().nextRange(0, 2) == 0) {
+                        count = count * 2;
+                    }
+                } else if (fortune.getLevel == 2) {
+                    if (NukkitRandom().nextRange(0, 1) == 0) {
+                        count = count * NukkitRandom().nextRange(2, 3);
+                    }
+                } else if (fortune.getLevel == 3) {
+                    if (NukkitRandom().nextRange(0, 4) < 3) {
+                        count = count * NukkitRandom().nextRange(2, 4);
+                    }
+                }
+            }
             
             return new Item[]{
                 new ItemNuggetGold(0, count)
