@@ -1,6 +1,7 @@
 package cn.nukkit.block;
 
 import cn.nukkit.Player;
+import cn.nukkit.block.BlockID;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBlock;
 import cn.nukkit.item.ItemTool;
@@ -53,6 +54,11 @@ public class BlockPumpkin extends BlockSolidMeta implements Faceable {
 
     @Override
     public boolean place(Item item, Block block, Block target, BlockFace face, double fx, double fy, double fz, Player player) {
+        if (target.getId() == BlockID.SNOW_BLOCK) {
+            if (level.createSnowGolem(target)) 
+                return true;
+            }
+        }
         this.setDamage(player != null ? player.getDirection().getOpposite().getHorizontalIndex() : 0);
         this.getLevel().setBlock(block, this, true, true);
         return true;
