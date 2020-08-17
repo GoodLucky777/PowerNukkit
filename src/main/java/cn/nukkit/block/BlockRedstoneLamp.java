@@ -82,6 +82,6 @@ public class BlockRedstoneLamp extends BlockSolid {
 
     @Override
     public BlockColor getColor() {
-        return BlockColor.AIR_BLOCK_COLOR;
+        return BlockColor.TRANSPARENT_BLOCK_COLOR;
     }
 }
