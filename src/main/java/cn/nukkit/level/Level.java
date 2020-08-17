@@ -3963,6 +3963,19 @@ public class Level implements ChunkManager, Metadatable {
 
         return false;
     }
+    
+    public boolean createSnowGolem(Block target) {
+        if (!(target.getId() == BlockID.SNOW_BLOCK && target.down().getId() == BlockID.SNOW_BLOCK)) {
+            return false;
+        }
+        
+        this.setBlock(target, Block.get(BlockID.AIR));
+        this.setBlock(target.down(), Block.get(BlockID.AIR));
+        
+        Entity.createEntity("SnowGolem", target.add(0.5, -1, 0.5)).spawnToAll();
+        
+        return true;
+    }
 
 //    private static void orderGetRidings(Entity entity, LongSet set) {
 //        if (entity.riding != null) {
