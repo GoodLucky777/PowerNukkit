@@ -46,6 +46,15 @@ public class SpawnSnowGolemEvent extends Event implements Cancellable {
     }
     
     /**
+     * Gets the cause of the Snow Golem spawn
+     *
+     * @return A BlockCause value detailing the cause of Snow Golem spawn.
+     */
+    public BlockCause getCause() {
+        return cause;
+    }
+    
+    /**
      * An enum to specify the cause of spawn the Snow Golem
      */
     public enum BlockCause {
