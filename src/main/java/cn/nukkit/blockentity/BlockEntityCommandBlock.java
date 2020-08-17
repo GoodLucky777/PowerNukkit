@@ -472,7 +472,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements ICo
     @Override
     public void setLastOutputParams(ListTag<StringTag> params) {
         this.lastOutputParams = params;
-        this.namedTag.putList(parmas);
+        this.namedTag.putList(params);
     }
 
     @Override
