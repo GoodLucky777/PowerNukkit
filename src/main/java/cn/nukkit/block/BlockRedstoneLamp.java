@@ -79,9 +79,4 @@ public class BlockRedstoneLamp extends BlockSolid {
                 new ItemBlock(Block.get(BlockID.REDSTONE_LAMP))
         };
     }
-
-    @Override
-    public BlockColor getColor() {
-        return BlockColor.TRANSPARENT_BLOCK_COLOR;
-    }
 }
