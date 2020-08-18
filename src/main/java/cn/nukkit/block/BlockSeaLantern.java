@@ -5,7 +5,7 @@ import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemPrismarineCrystals;
 import cn.nukkit.utils.BlockColor;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 
 public class BlockSeaLantern extends BlockTransparent {
