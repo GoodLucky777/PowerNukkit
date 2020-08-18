@@ -1,6 +1,7 @@
 package cn.nukkit.block;
 
 import cn.nukkit.Player;
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemSeedsWheat;
 import cn.nukkit.item.ItemTool;
@@ -142,7 +143,7 @@ public class BlockTallGrass extends BlockFlowable {
         if (random.nextInt(7) == 0) {
             Enchantment fortune = item.getEnchantment(Enchantment.ID_FORTUNE_DIGGING);
             if (fortune != null && fortune.getLevel() >= 1) {
-                int maxCount = 1 + (fortune.getLevel() * 2);
+                int maxCount = (1 + (fortune.getLevel() * 2));
                 return new Item[]{ new ItemSeedsWheat(0, 1 + random.nextInt(maxCount - 1)) };
             }
             return new Item[]{ new ItemSeedsWheat() };
