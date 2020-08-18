@@ -41,9 +41,9 @@ public class BlockWheat extends BlockCrops {
         if (this.getDamage() >= 0x07) {
             Enchantment fortune = item.getEnchantment(Enchantment.ID_FORTUNE_DIGGING);
             if (fortune != null && fortune.getLevel() >= 1) {
-                fortuneLevel = fortune.getLevel();
+                int fortuneLevel = fortune.getLevel();
             } else {
-                fortuneLevel = 0;
+                int fortuneLevel = 0;
             }
             
             Random random = new Random();
