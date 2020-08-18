@@ -68,7 +68,7 @@ public class BlockGravel extends BlockFallable {
                 }
                 break;
             default:
-            case:3
+            case 3:
                 return new Item[]{ Item.get(ItemID.FLINT, 0, 1) };
         }
         return new Item[]{ toItem() };
