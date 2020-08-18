@@ -1,13 +1,18 @@
 package cn.nukkit.block;
 
+import cn.nukkit.blockentity.BlockEntity;
+import cn.nukkit.blockentity.BlockEntityLodestone;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
 import cn.nukkit.utils.BlockColor;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author good777LUCKY
  */
-public class BlockLodestone extends BlockSolid {
+public class BlockLodestone extends BlockSolid implements BlockEntityHolder<BlockEntityLodestone> {
 
     public BlockLodestone() {
         // Does Nothing
@@ -23,9 +28,16 @@ public class BlockLodestone extends BlockSolid {
         return LODESTONE;
     }
     
+    @Nonnull
     @Override
-    public int getToolType() {
-        return ItemTool.TYPE_PICKAXE;
+    public String getBlockEntityType() {
+        return BlockEntity.LODESTONE;
+    }
+    
+    @Nonnull
+    @Override
+    public Class<? extends BlockEntityLodestone> getBlockEntityClass() {
+        return BlockEntityLodestone.class;
     }
     
     @Override
@@ -36,6 +48,16 @@ public class BlockLodestone extends BlockSolid {
     @Override
     public double getResistance() {
         return 3.5;
+    }
+    
+    @Override
+    public int getToolType() {
+        return ItemTool.TYPE_PICKAXE;
+    }
+    
+    @Override
+    public boolean canHarvestWithHand() {
+        return false;
     }
     
     @Override
@@ -60,8 +82,8 @@ public class BlockLodestone extends BlockSolid {
     }
     
     @Override
-    public boolean canHarvestWithHand() {
-        return false;
+    public boolean place(@Nonnull Item item, @Nonnull Block block, @Nonnull Block target, @Nonnull BlockFace face, double fx, double fy, double fz, @Nullable Player player) {
+        return BlockEntityHolder.setBlockAndCreateEntity(this) != null;
     }
     
     @Override
