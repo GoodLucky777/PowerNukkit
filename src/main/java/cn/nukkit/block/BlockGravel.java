@@ -43,7 +43,7 @@ public class BlockGravel extends BlockFallable {
 
     @Override
     public Item[] getDrops(Item item) {
-        Enchantment enchantment = item.getEnchantment(Enchantment.ID_FORTUNE_DIGGING)
+        Enchantment enchantment = item.getEnchantment(Enchantment.ID_FORTUNE_DIGGING);
         int fortune = 0;
         if (enchantment != null) {
             fortune = enchantment.getLevel();
