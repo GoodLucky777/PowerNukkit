@@ -1,8 +1,11 @@
 package cn.nukkit.block;
 
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemSeedsWheat;
 import cn.nukkit.item.ItemWheat;
+
+import java.util.Random;
 
 /**
  * @author xtypr
@@ -36,14 +39,23 @@ public class BlockWheat extends BlockCrops {
     @Override
     public Item[] getDrops(Item item) {
         if (this.getDamage() >= 0x07) {
-            return new Item[]{
-                    new ItemWheat(),
-                    new ItemSeedsWheat(0, (int) (4d * Math.random()))
-            };
+            Enchantment fortune = item.getEnchantment(Enchantment.ID_FORTUNE_DIGGING);
+            if (fortune != null && fortune.getLevel() >= 1) {
+                fortuneLevel = fortune.getLevel();
+            } else {
+                fortuneLevel = 0;
+            }
+            
+            Random random = new Random();
+            for (int i = 0; i < (3 + fortuneLevel); i++) {
+                if (random.nextInt(99) < 57) {
+                    count++;
+                }
+            }
+            
+            return new Item[]{ new ItemWheat(), new ItemSeedsWheat(0, count) };
         } else {
-            return new Item[]{
-                    new ItemSeedsWheat()
-            };
+            return new Item[]{ new ItemSeedsWheat() };
         }
     }
 }
