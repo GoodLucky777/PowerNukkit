@@ -47,6 +47,7 @@ public class BlockWheat extends BlockCrops {
             }
             
             Random random = new Random();
+            int count = 0;
             for (int i = 0; i < (3 + fortuneLevel); i++) {
                 if (random.nextInt(99) < 57) {
                     count++;
