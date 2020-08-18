@@ -419,7 +419,7 @@ public interface BlockID {
     int HONEY_BLOCK = 475;
     int HONEYCOMB_BLOCK = 476;
     
-    //int LODESTONE = 477;
+    int LODESTONE = 477;
     int CRIMSON_ROOTS = 478;
     int WARPED_ROOTS = 479;
     int CRIMSON_STEM = 480;
