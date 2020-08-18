@@ -66,6 +66,6 @@ public class BlockLodestone extends BlockSolid {
     
     @Override
     public BlockColor getColor() {
-        return BlockColor.METAL_BLOCK_COLOR;
+        return BlockColor.IRON_BLOCK_COLOR;
     }
 }
