@@ -1,5 +1,6 @@
 package cn.nukkit.block;
 
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemPrismarineCrystals;
 import cn.nukkit.utils.BlockColor;
@@ -8,7 +9,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 
 public class BlockSeaLantern extends BlockTransparent {
+
     public BlockSeaLantern() {
+        // Does Nothing
     }
 
     @Override
@@ -38,9 +41,15 @@ public class BlockSeaLantern extends BlockTransparent {
 
     @Override
     public Item[] getDrops(Item item) {
-        return new Item[]{
-                new ItemPrismarineCrystals(0, ThreadLocalRandom.current().nextInt(2, 4))
-        };
+        Random random = new Random();
+        int count = 2 + random.nextInt(1);
+        
+        Enchantment fortune = item.getEnchantment(Enchantment.ID_FORTUNE_DIGGING);
+        if (fortune != null && fortune.getLevel() >= 1) {
+            count += fortune.getLevel();
+        }
+        
+        return new Item[]{ new ItemPrismarineCrystals(0, Math.min(5, count)) };
     }
 
     @Override
