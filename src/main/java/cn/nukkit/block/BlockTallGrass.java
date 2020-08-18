@@ -11,6 +11,7 @@ import cn.nukkit.utils.BlockColor;
 
 import javax.annotation.Nonnull;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 /**
  * @author Angelic47 (Nukkit Project)
@@ -122,8 +123,8 @@ public class BlockTallGrass extends BlockFlowable {
 
     @Override
     public Item[] getDrops(Item item) {
-        boolean dropSeeds = ThreadLocalRandom.current().nextInt(10) == 0;
         if (item.isShears()) {
+            boolean dropSeeds = ThreadLocalRandom.current().nextInt(10) == 0;
             //todo enchantment
             if (dropSeeds) {
                 return new Item[]{
@@ -136,11 +137,15 @@ public class BlockTallGrass extends BlockFlowable {
                 };
             }
         }
-
-        if (dropSeeds) {
-            return new Item[]{
-                    new ItemSeedsWheat()
-            };
+        
+        Random random = new Random();
+        if (random.nextInt(7) == 0) {
+            Enchantment fortune = item.getEnchantment(Enchantment.ID_FORTUNE_DIGGING);
+            if (fortune != null && fortune.getLevel() >= 1) {
+                int maxCount = 1 + (fortune.getLevel() * 2);
+                return new Item[]{ new ItemSeedsWheat(0, 1 + random.nextInt(maxCount - 1)) };
+            }
+            return new Item[]{ new ItemSeedsWheat() };
         } else {
             return new Item[0];
         }
