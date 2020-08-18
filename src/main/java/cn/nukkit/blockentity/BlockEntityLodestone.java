@@ -53,7 +53,7 @@ public class BlockEntityLodestone extends BlockEntitySpawnable {
     
     @Override
     public CompoundTag getSpawnCompound() {
-        Compound compound = new Compound()
+        CompoundTag compound = new CompoundTag()
             .putString("id", BlockEntity.LODESTONE)
             .putInt("x", (int) this.x)
             .putInt("y", (int) this.y)
