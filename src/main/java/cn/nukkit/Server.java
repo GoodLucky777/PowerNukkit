@@ -2523,6 +2523,7 @@ public class Server {
         BlockEntity.registerBlockEntity(BlockEntity.DROPPER, BlockEntityDropper.class);
         BlockEntity.registerBlockEntity(BlockEntity.MOVING_BLOCK, BlockEntityMovingBlock.class);
         BlockEntity.registerBlockEntity(BlockEntity.NETHER_REACTOR, BlockEntityNetherReactor.class);
+        BlockEntity.registerBlockEntity(BlockEntity.LODESTONE, BlockEntityLodestone.class);
     }
 
     public boolean isNetherAllowed() {
