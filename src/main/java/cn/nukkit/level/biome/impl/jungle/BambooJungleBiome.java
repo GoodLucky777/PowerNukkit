@@ -1,10 +1,12 @@
 package cn.nukkit.level.biome.impl.jungle;
 
+import cn.nukkit.block.Block;
 import cn.nukkit.level.biome.type.GrassyBiome;
 import cn.nukkit.level.generator.noise.nukkit.f.SimplexF;
 import cn.nukkit.level.generator.populator.impl.PopulatorBamboo;
 import cn.nukkit.level.generator.populator.impl.PopulatorMelon;
 import cn.nukkit.level.generator.populator.impl.tree.JungleBigTreePopulator;
+import cn.nukkit.math.NukkitRandom;
 
 /**
  * @author good777LUCKY
@@ -16,7 +18,7 @@ public class BambooJungleBiome extends GrassyBiome {
     public BambooJungleBiome() {
         super();
         
-        BambooPopulator bigTrees = new BambooPopulator();
+        BambooPopulator bamboo = new BambooPopulator();
         bamboo.setBaseAmount(8);
         this.addPopulator(bamboo);
         
