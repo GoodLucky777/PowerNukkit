@@ -1,7 +1,7 @@
 package cn.nukkit.level.biome.impl.jungle;
 
 import cn.nukkit.level.biome.type.GrassyBiome;
-import cn.nukkit.level.generator.populator.impl.BambooMelon;
+import cn.nukkit.level.generator.populator.impl.PopulatorBamboo;
 import cn.nukkit.level.generator.populator.impl.PopulatorMelon;
 import cn.nukkit.level.generator.populator.impl.tree.JungleBigTreePopulator;
 
