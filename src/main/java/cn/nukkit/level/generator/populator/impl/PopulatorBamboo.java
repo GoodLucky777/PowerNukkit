@@ -38,4 +38,12 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
     protected int getBlockId(int x, int z, NukkitRandom random, FullChunk chunk) {
         return (BAMBOO << Block.DATA_BITS) | 1;
     }
+    
+    @Override
+    protected void placeBlock(int x, int y, int z, int id, FullChunk chunk, NukkitRandom random) {
+        int height = ThreadLocalRandom.current().nextInt(10) + 5;
+        for (int i = 0; i < height; i++) {
+            chunk.setFullBlockId(x, y + i, z, id);
+        }
+    }
 }
