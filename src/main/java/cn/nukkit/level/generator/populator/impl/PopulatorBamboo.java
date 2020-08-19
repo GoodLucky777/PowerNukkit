@@ -19,12 +19,12 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
     private boolean findSpace(int x, int y, int z, Level level) {
         int count = 0;
         for (int i = x - 1; i < (x + 2); i++) {
-            if (level.getBlockIdAt(i, y, j) == Block.AIR) {
+            if (level.getBlockIdAt(i, y, z) == Block.AIR) {
                 count++;
             }
         }
         for (int j = z - 1; j < (z + 2); j++) {
-            if (level.getBlockIdAt(i, y, j) == Block.AIR) {
+            if (level.getBlockIdAt(x, y, j) == Block.AIR) {
                 count++;
             }
         }
