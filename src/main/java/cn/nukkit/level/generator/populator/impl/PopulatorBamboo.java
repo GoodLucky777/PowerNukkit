@@ -14,6 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * @author good777LUCKY
  */
+// TODO: Correct all values
 public class PopulatorBamboo extends PopulatorSurfaceBlock {
 
     private boolean findSpace(int x, int y, int z, Level level) {
