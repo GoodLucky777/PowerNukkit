@@ -45,6 +45,7 @@ public class DayLockCommand extends VanillaCommand {
             lock = Boolean.parseBoolean(args[0]);
         }
         
+        Level level;
         if (sender instanceof Player) {
             level = ((Player) sender).getLevel();
         } else {
