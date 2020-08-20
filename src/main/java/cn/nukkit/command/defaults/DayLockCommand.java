@@ -10,8 +10,6 @@ import cn.nukkit.level.GameRule;
 import cn.nukkit.level.GameRules;
 import cn.nukkit.level.Level;
 
-import java.util.ArrayList;
-
 /**
  * @author good777LUCKY
  */
