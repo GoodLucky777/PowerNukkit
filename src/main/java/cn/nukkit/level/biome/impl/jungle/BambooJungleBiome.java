@@ -28,7 +28,7 @@ public class BambooJungleBiome extends GrassyBiome {
         bigTrees.setBaseAmount(3);
         this.addPopulator(bigTrees);
         
-        trees = new PopulatorTree(BlockSapling.OAK);
+        PopulatorTree trees = new PopulatorTree(BlockSapling.OAK);
         trees.setBaseAmount(1);
         this.addPopulator(trees);
         
