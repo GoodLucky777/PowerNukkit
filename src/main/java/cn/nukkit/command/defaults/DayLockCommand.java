@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class DayLockCommand extends VanillaCommand {
 
     public DayLockCommand(String name) {
-        super(name, "%nukkit.command.daylock.description", "%commands.daylock.usage");
+        super(name, "%nukkit.command.daylock.description", "%commands.daylock.usage", new String[]{"alwaysday"});
         this.setPermission("nukkit.command.daylock");
         this.commandParameters.clear();
         this.commandParameters.put("default", new CommandParameter[]{
