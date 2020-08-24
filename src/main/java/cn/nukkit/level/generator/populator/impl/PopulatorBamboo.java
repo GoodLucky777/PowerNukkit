@@ -17,24 +17,19 @@ import java.util.concurrent.ThreadLocalRandom;
 // TODO: Correct all values
 public class PopulatorBamboo extends PopulatorSurfaceBlock {
 
-    private boolean findSpace(int x, int y, int z, Level level) {
+    private boolean checkSpace(int x, int y, int z, Level level) {
         int count = 0;
-        for (int i = (x - 1); i <= (x + 1); i++) {
-            if (level.getBlockIdAt(i, y, z) == Block.AIR) {
+        for (int i = 0; i < 6; i++) {
+            if (level.getBlockIdAt(x, (y + i), z) == Block.AIR) {
                 count++;
             }
         }
-        for (int j = (z - 1); j <= (z + 1); j++) {
-            if (level.getBlockIdAt(x, y, j) == Block.AIR) {
-                count++;
-            }
-        }
-        return (count >= 4);
+        return (count >= 5);
     }
     
     @Override
     protected boolean canStay(int x, int y, int z, FullChunk chunk) {
-        return EnsureCover.ensureCover(x, y, z, chunk) && (EnsureGrassBelow.ensureGrassBelow(x, y, z, chunk) || EnsureBelow.ensureBelow(x, y, z, PODZOL, chunk)) && findSpace(x, y, z, chunk.getProvider().getLevel());
+        return EnsureCover.ensureCover(x, y, z, chunk) && (EnsureGrassBelow.ensureGrassBelow(x, y, z, chunk) || EnsureBelow.ensureBelow(x, y, z, PODZOL, chunk)) && checkSpace(x, y, z, chunk.getProvider().getLevel());
     }
     
     @Override
