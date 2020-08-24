@@ -46,7 +46,7 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
     
     @Override
     protected int getBlockId(int x, int z, NukkitRandom random, FullChunk chunk) {
-        return (BAMBOO << Block.DATA_BITS) | 1;
+        return BAMBOO << Block.DATA_BITS;
     }
     
     @Override
@@ -59,11 +59,11 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
         for (int i = 0; i <= height; i++) {
             if (i >= (height - 3)) {
                 if (i == height) {
-                    chunk.setFullBlockId(x, y + i, z, ((BAMBOO << Block.DATA_BITS) | 5));
+                    chunk.setBlock(x, y + i, z, id, 5);
                 }
-                chunk.setFullBlockId(x, y + i, z, ((BAMBOO << Block.DATA_BITS) | 3));
+                chunk.setBlock(x, y + i, z, id, 3);
             }
-            chunk.setFullBlockId(x, y + i, z, id);
+            chunk.setBlock(x, y + i, z, id, 1);
         }
     }
 }
