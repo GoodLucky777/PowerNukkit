@@ -27,6 +27,18 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
         return (count >= 5);
     }
     
+    private int checkMaxHeight(int x, int y, int z, Level level, int height) {
+        int maxHeight = 0;
+        for (int i = 1; i <= height; i++) {
+            if (level.getBlockIdAt(x, (y + i), z) == Block.AIR) {
+                maxHeight++;
+            } else {
+                break;
+            }
+        }
+        return height + maxHeight;
+    }
+    
     @Override
     protected boolean canStay(int x, int y, int z, FullChunk chunk) {
         return EnsureCover.ensureCover(x, y, z, chunk) && (EnsureGrassBelow.ensureGrassBelow(x, y, z, chunk) || EnsureBelow.ensureBelow(x, y, z, PODZOL, chunk)) && checkSpace(x, y, z, chunk.getProvider().getLevel());
@@ -40,6 +52,10 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
     @Override
     protected void placeBlock(int x, int y, int z, int id, FullChunk chunk, NukkitRandom random) {
         int height = ThreadLocalRandom.current().nextInt(10) + 5;
+        int maxHeight = checkMaxHeight(x, y, z, chunk.getProvider().getLevel(), height);
+        if (maxHeight < height) {
+            height = maxHeight;
+        }
         for (int i = 0; i < height; i++) {
             if (i >= (height - 3)) {
                 if (i == (height - 1)) {
