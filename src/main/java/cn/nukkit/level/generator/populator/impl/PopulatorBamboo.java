@@ -56,9 +56,9 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
         if (maxHeight < height) {
             height = maxHeight;
         }
-        for (int i = 0; i < height; i++) {
+        for (int i = 0; i <= height; i++) {
             if (i >= (height - 3)) {
-                if (i == (height - 1)) {
+                if (i == height) {
                     chunk.setFullBlockId(x, y + i, z, ((BAMBOO << Block.DATA_BITS) | 5));
                 }
                 chunk.setFullBlockId(x, y + i, z, ((BAMBOO << Block.DATA_BITS) | 3));
