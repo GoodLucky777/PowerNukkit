@@ -22,7 +22,7 @@ public class BambooJungleBiome extends GrassyBiome {
         super();
         
         PopulatorBamboo bamboo = new PopulatorBamboo();
-        bamboo.setBaseAmount(10);
+        bamboo.setBaseAmount(15);
         this.addPopulator(bamboo);
         
         JungleBigTreePopulator bigTrees = new JungleBigTreePopulator();
