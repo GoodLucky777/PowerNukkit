@@ -1,6 +1,7 @@
 package cn.nukkit.level.generator.populator.impl;
 
 import cn.nukkit.block.Block;
+import cn.nukkit.block.BlockID;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.level.generator.populator.helper.EnsureBelow;
@@ -59,11 +60,11 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
         for (int i = 0; i <= height; i++) {
             if (i >= (height - 3)) {
                 if (i == height) {
-                    chunk.setBlock(x, y + i, z, id, 5);
+                    chunk.setBlock(x, y + i, z, BlockID.BAMBOO, 5);
                 }
-                chunk.setBlock(x, y + i, z, id, 3);
+                chunk.setBlock(x, y + i, z, BlockID.BAMBOO, 3);
             }
-            chunk.setBlock(x, y + i, z, id, 1);
+            chunk.setBlock(x, y + i, z, BlockID.BAMBOO, 1);
         }
     }
 }
