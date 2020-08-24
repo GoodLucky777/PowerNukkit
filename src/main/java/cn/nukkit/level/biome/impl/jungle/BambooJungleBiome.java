@@ -16,7 +16,7 @@ import cn.nukkit.math.NukkitRandom;
 // TODO: Correct all values
 public class BambooJungleBiome extends GrassyBiome {
 
-    private static final SimplexF podzolNoise = new SimplexF(new NukkitRandom(0), 1f, 1 / 4f, 1 / 16f);
+    private static final SimplexF podzolNoise = new SimplexF(new NukkitRandom(0), 1f, 1 / 4f, 1 / 32f);
     
     public BambooJungleBiome() {
         super();
