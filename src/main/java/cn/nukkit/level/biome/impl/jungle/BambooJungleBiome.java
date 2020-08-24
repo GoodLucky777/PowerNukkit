@@ -16,13 +16,13 @@ import cn.nukkit.math.NukkitRandom;
 // TODO: Correct all values
 public class BambooJungleBiome extends GrassyBiome {
 
-    private static final SimplexF podzolNoise = new SimplexF(new NukkitRandom(0), 1f, 1 / 4f, 1 / 32f);
+    private static final SimplexF podzolNoise = new SimplexF(new NukkitRandom(0), 1f, 1 / 8f, 1 / 32f);
     
     public BambooJungleBiome() {
         super();
         
         PopulatorBamboo bamboo = new PopulatorBamboo();
-        bamboo.setBaseAmount(20);
+        bamboo.setBaseAmount(30);
         this.addPopulator(bamboo);
         
         JungleBigTreePopulator bigTrees = new JungleBigTreePopulator();
@@ -41,7 +41,7 @@ public class BambooJungleBiome extends GrassyBiome {
     
     @Override
     public int getSurfaceId(int x, int y, int z) {
-        return podzolNoise.noise2D(x, z, true) < -0.75f ? PODZOL << Block.DATA_BITS : super.getSurfaceId(x, y, z);
+        return podzolNoise.noise2D(x, z, true) < -0.5f ? PODZOL << Block.DATA_BITS : super.getSurfaceId(x, y, z);
     }
     
     @Override
