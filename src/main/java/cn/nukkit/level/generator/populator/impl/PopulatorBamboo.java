@@ -29,7 +29,7 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
                 count++;
             }
         }
-        return (count <= 4);
+        return (count >= 4);
     }
     
     @Override
