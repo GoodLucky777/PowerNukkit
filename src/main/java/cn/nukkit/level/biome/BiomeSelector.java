@@ -189,9 +189,17 @@ public class BiomeSelector {
                         }
                     } else if (rainfall > 0.1f) {
                         if (noiseOcean < 0.155f)  {
-                            biome = EnumBiome.JUNGLE_M;
-                        } else {
-                            biome = EnumBiome.JUNGLE;
+                            if (noiseOcean < 0f)  {
+                                if (hills < 0f) {
+                                    biome = EnumBiome.BAMBOO_JUNGLE_HILLS;
+                                } else {
+                                    biome = EnumBiome.BAMBOO_JUNGLE;
+                                }
+                            } else if (noiseOcean < 0.155f) {
+                                biome = EnumBiome.JUNGLE_M;
+                            } else {
+                                biome = EnumBiome.JUNGLE;
+                            }
                         }
                     } else {
                         if (noiseOcean < 0f)    {
