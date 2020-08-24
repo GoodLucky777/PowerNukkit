@@ -41,7 +41,7 @@ public class BambooJungleBiome extends GrassyBiome {
     
     @Override
     public int getSurfaceId(int x, int y, int z) {
-        return podzolNoise.noise2D(x, z, true) < -0.5f ? PODZOL << Block.DATA_BITS : super.getSurfaceId(x, y, z);
+        return podzolNoise.noise2D(x, z, true) < -0.25f ? PODZOL << Block.DATA_BITS : super.getSurfaceId(x, y, z);
     }
     
     @Override
