@@ -26,7 +26,7 @@ public class BambooJungleBiome extends GrassyBiome {
         this.addPopulator(bamboo);
         
         JungleBigTreePopulator bigTrees = new JungleBigTreePopulator();
-        bigTrees.setBaseAmount(1);
+        bigTrees.setBaseAmount(2);
         this.addPopulator(bigTrees);
         
         PopulatorTree trees = new PopulatorTree(BlockSapling.OAK); // TODO: Should be only Fancy Oak Tree
