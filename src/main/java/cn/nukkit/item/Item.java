@@ -286,7 +286,9 @@ public class Item implements Cloneable, BlockID, ItemID {
             list[BANNER] = ItemBanner.class; //446
 
             list[TOTEM] = ItemTotem.class; //450
-
+            
+            list[IRON_NUGGET] = ItemIronNugget.class; //452
+            
             list[TRIDENT] = ItemTrident.class; //455
 
             list[BEETROOT] = ItemBeetroot.class; //457
