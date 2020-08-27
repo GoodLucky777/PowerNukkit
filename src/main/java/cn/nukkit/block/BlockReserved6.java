@@ -1,6 +1,5 @@
 package cn.nukkit.block;
 
-import cn.nukkit.item.Item;
 import cn.nukkit.utils.BlockColor;
 
 /**
@@ -30,11 +29,6 @@ public class BlockReserved6 extends BlockSolid {
     @Override
     public double getResistance() {
         return 0;
-    }
-    
-    @Override
-    public Item[] getDrops(Item item) {
-       return new Item[]{ toItem() };
     }
     
     @Override
