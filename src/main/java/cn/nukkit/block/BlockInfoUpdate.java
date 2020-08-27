@@ -1,6 +1,5 @@
 package cn.nukkit.block;
 
-import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
 import cn.nukkit.utils.BlockColor;
 
@@ -36,11 +35,6 @@ public class BlockInfoUpdate extends BlockSolid {
     @Override
     public int getToolType() {
         return ItemTool.TYPE_SWORD;
-    }
-    
-    @Override
-    public Item[] getDrops(Item item) {
-       return new Item[]{ toItem() };
     }
     
     @Override
