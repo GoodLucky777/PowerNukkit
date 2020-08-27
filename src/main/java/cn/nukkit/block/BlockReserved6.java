@@ -14,7 +14,7 @@ public class BlockReserved6 extends BlockSolid {
     
     @Override
     public String getName() {
-        return "Reserved6";
+        return "reserved6";
     }
     
     @Override
