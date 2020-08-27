@@ -262,7 +262,7 @@ public interface BlockID {
     int ITEM_FRAME_BLOCK = 199;
     int CHORUS_FLOWER = 200;
     int PURPUR_BLOCK = 201;
-    //int COLORED_TORCH_RG = 204;
+    //int COLORED_TORCH_RG = 202;
     int PURPUR_STAIRS = 203;
     //int COLORED_TORCH_BP = 204;
     int UNDYED_SHULKER_BOX = 205;
@@ -316,6 +316,8 @@ public interface BlockID {
 
     int OBSERVER = 251;
     int STRUCTURE_BLOCK = 252;
+    
+    int RESERVED6 = 255;
     
     int PRISMARINE_STAIRS = 257;
     int DARK_PRISMARINE_STAIRS = 258;
