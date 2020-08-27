@@ -311,7 +311,8 @@ public interface BlockID {
     int GLOWING_OBSIDIAN = 246;
     int NETHERREACTOR = 247;
     int NETHER_REACTOR = 247;
-
+    int INFO_UPDATE = 248;
+    int INFO_UPDATE2 = 249;
     int MOVING_BLOCK = 250;
 
     int OBSERVER = 251;
