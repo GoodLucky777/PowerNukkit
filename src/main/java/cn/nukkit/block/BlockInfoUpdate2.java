@@ -39,11 +39,6 @@ public class BlockInfoUpdate2 extends BlockSolid {
     }
     
     @Override
-    public Item[] getDrops(Item item) {
-       return new Item[]{ toItem() };
-    }
-    
-    @Override
     public BlockColor getColor() {
         return BlockColor.DIRT_BLOCK_COLOR;
     }
