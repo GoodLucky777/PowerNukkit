@@ -30,7 +30,7 @@ public class BlockInfoUpdate extends BlockSolid {
     
     @Override
     public double getResistance() {
-        return 0.5;
+        return 0.5; // TODO: Correct Resistance
     }
     
     @Override
