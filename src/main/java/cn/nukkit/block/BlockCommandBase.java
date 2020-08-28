@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import static cn.nukkit.blockproperty.CommonBlockProperties.FACING_DIRECTION;
 
 /**
- * Created by good777LUCKY
+ * @author good777LUCKY
  */
 public abstract class BlockCommandBase extends BlockSolidMeta implements Faceable, BlockEntityHolder<BlockEntityCommandBlock> {
     protected static final BooleanBlockProperty CONDITIONAL_BIT = new BooleanBlockProperty("conditional_bit", false);
