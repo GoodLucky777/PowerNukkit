@@ -4,12 +4,12 @@ import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.utils.BlockColor;
 
 /**
- * Created by good777LUCKY
+ * @author good777LUCKY
  */
 public class BlockCommand extends BlockCommandBase {
 
     public BlockCommand() {
-        this(0);
+        // Does Nothing
     }
 
     public BlockCommand(int meta) {
