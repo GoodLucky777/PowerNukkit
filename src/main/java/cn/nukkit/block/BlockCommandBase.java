@@ -74,9 +74,9 @@ public abstract class BlockCommandBase extends BlockSolidMeta implements Faceabl
     @Override
     public boolean onActivate(Item item, Player player) {
         if (player != null) {
-            BlockEntityCommandBlock tile = this.getBlockEntity();
-            tile.spawnTo(player);
-            player.addWindow(tile.getInventory());
+            BlockEntityCommandBlock blockentity = this.getBlockEntity();
+            blockentity.spawnTo(player);
+            player.addWindow(blockentity.getInventory());
         }
         return true;
     }
@@ -116,11 +116,6 @@ public abstract class BlockCommandBase extends BlockSolidMeta implements Faceabl
             }
         }
         return super.onUpdate(type);
-    }
-    
-    @Override
-    public BlockFace getBlockFace() {
-        return BlockFace.fromIndex(this.getDamage() & 0x7);
     }
     
     @Override
@@ -165,6 +160,14 @@ public abstract class BlockCommandBase extends BlockSolidMeta implements Faceabl
     @Override
     public BlockFace getBlockFace() {
         return getFacing();
+    }
+    
+    public boolean isConditional() {
+        return getBooleanValue(CONDITIONAL_BIT);
+    }
+    
+    public void setConditional(boolean condional) {
+        setBooleanValue(CONDITIONAL_BIT, condional);
     }
     
     public BlockEntityCommandBlock getBlockEntity() {
