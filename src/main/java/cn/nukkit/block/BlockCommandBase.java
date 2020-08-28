@@ -102,7 +102,6 @@ public abstract class BlockCommandBase extends BlockSolidMeta implements Faceabl
         return BlockEntityHolder.setBlockAndCreateEntity(this) != null;
     }
     
-
     @Override
     public int onUpdate(int type) {
         if (type == Level.BLOCK_UPDATE_REDSTONE) {
