@@ -54,7 +54,7 @@ public class SetMaxPlayersCommand extends VanillaCommand {
         
         if (fail == 1) {
             sender.sendMessage(new TranslationContainer("commands.setmaxplayers.success.lowerbound"));
-        else if (fail == 2) {
+        } else if (fail == 2) {
             sender.sendMessage(new TranslationContainer("commands.setmaxplayers.success.upperbound"));
         }
         
