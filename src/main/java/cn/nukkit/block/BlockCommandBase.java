@@ -3,6 +3,8 @@ package cn.nukkit.block;
 import cn.nukkit.Player;
 import cn.nukkit.blockentity.BlockEntity;
 import cn.nukkit.blockentity.BlockEntityCommandBlock;
+import cn.nukkit.blockproperty.BlockProperties;
+import cn.nukkit.blockproperty.BooleanBlockProperty;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.BlockFace;
@@ -17,17 +19,30 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import static cn.nukkit.blockproperty.CommonBlockProperties.FACING_DIRECTION;
+
 /**
  * Created by good777LUCKY
  */
 public abstract class BlockCommandBase extends BlockSolidMeta implements Faceable, BlockEntityHolder<BlockEntityCommandBlock> {
-
+    protected static final BooleanBlockProperty CONDITIONAL_BIT = new BooleanBlockProperty("conditional_bit", false);
+    public static final BlockProperties PROPERTIES = new BlockProperties(
+        CONDITIONAL_BIT,
+        FACING_DIRECTION
+    );
+    
     public BlockCommandBase() {
         // Does Nothing
     }
     
     public BlockCommandBase(int meta) {
         super(meta);
+    }
+    
+    @Nonnull
+    @Override
+    public BlockProperties getProperties() {
+        return PROPERTIES;
     }
     
     @Nonnull
@@ -138,8 +153,21 @@ public abstract class BlockCommandBase extends BlockSolidMeta implements Faceabl
     public int getComparatorInputOverride() {
         return Math.min(this.getBlockEntity().getSuccessCount(), 0xf);
     }
-
-
+    
+    public BlockFace getFacing() {
+        return getPropertyValue(FACING_DIRECTION);
+    }
+    
+    @Override
+    public void setBlockFace(BlockFace face) {
+        setPropertyValue(FACING_DIRECTION, face);
+    }
+    
+    @Override
+    public BlockFace getBlockFace() {
+        return getFacing();
+    }
+    
     public BlockEntityCommandBlock getBlockEntity() {
         BlockEntity blockEntity = this.getLevel().getBlockEntity(this);
         if (blockEntity instanceof BlockEntityCommandBlock) {
