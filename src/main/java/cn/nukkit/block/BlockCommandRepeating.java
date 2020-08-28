@@ -5,7 +5,7 @@ import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.utils.BlockColor;
 
 /**
- * Created by good777LUCKY
+ * @author good777LUCKY
  */
 public class BlockCommandRepeating extends BlockCommandBase {
 
