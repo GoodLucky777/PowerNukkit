@@ -32,7 +32,7 @@ public abstract class BlockCommandBase extends BlockSolidMeta implements Faceabl
     );
     
     public BlockCommandBase() {
-        // Does Nothing
+        this(0);
     }
     
     public BlockCommandBase(int meta) {
