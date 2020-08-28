@@ -61,10 +61,6 @@ public abstract class BlockEntity extends Position {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public static final String NETHER_REACTOR = "NetherReactor";
-    
-    @PowerNukkitOnly
-    @Since("1.4.0.0-PN")
     public static final String COMMAND_BLOCK = "CommandBlock";
     
     @PowerNukkitOnly
