@@ -14,17 +14,31 @@ import cn.nukkit.scheduler.CommandBlockTrigger;
 
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * Created by good777LUCKY
  */
-public abstract class BlockCommandBase extends BlockSolidMeta implements Faceable {
+public abstract class BlockCommandBase extends BlockSolidMeta implements Faceable, BlockEntityHolder<BlockEntityCommandBlock> {
 
     public BlockCommandBase() {
-        this(0);
+        // Does Nothing
     }
     
     public BlockCommandBase(int meta) {
         super(meta);
+    }
+    
+    @Nonnull
+    @Override public String getBlockEntityType() {
+        return BlockEntity.COMMAND_BLOCK;
+    }
+    
+    @Nonnull
+    @Override
+    public Class<? extends BlockEntityCommandBlock> getBlockEntityClass() {
+        return BlockEntityCommandBlock.class;
     }
     
     @Override
@@ -53,7 +67,7 @@ public abstract class BlockCommandBase extends BlockSolidMeta implements Faceabl
     }
 
     @Override
-    public boolean place(Item item, Block block, Block target, BlockFace face, double fx, double fy, double fz, Player player) {
+    public boolean place(@Nonnull Item item, @Nonnull Block block, @Nonnull Block target, @Nonnull BlockFace face, double fx, double fy, double fz, @Nullable Player player) {
         if (player != null) {
             if (Math.abs(player.getFloorX() - this.x) < 2 && Math.abs(player.getFloorZ() - this.z) < 2) {
                 double y = player.y + player.getEyeHeight();
@@ -70,9 +84,7 @@ public abstract class BlockCommandBase extends BlockSolidMeta implements Faceabl
         } else {
             this.setDamage(0);
         }
-        this.getLevel().setBlock(block, this, true);
-        this.createBlockEntity(item);
-        return true;
+        return BlockEntityHolder.setBlockAndCreateEntity(this) != null;
     }
     
 
