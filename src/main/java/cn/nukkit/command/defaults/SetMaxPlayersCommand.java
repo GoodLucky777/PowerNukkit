@@ -5,10 +5,8 @@ import cn.nukkit.Server;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.data.CommandParameter;
+import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.lang.TranslationContainer;
-import cn.nukkit.level.GameRule;
-import cn.nukkit.level.GameRules;
-import cn.nukkit.level.Level;
 
 /**
  * @author good777LUCKY
@@ -39,11 +37,26 @@ public class SetMaxPlayersCommand extends VanillaCommand {
         
         maxPlayers = Integer.parseInt(args[0]);
         
-        if (maxPlayers < 1 || maxPlayers > 30 || maxPlayers < Server.getInstance().getOnlinePlayers().values) {
-            
+        int fail = -1;
+        if (maxPlayers < 1) {
+            maxPlayers = 1;
+            fail = 1;
+        } else if (maxPlayers > 30) {
+            maxPlayers = 30;
+            fail = 2;
+        } else if (maxPlayers < Server.getInstance().getOnlinePlayers().values()) {
+            maxPlayers = Server.getInstance().getOnlinePlayers().values();
+            fail = 1;
         }
         
         Server.getInstance().setMaxPlayers(maxPlayers);
+        Command.broadcastCommandMessage(sender, new TranslationContainer("commands.setmaxplayers.success", maxPlayers));
+        
+        if (fail == 1) {
+            sender.sendMessage(new TranslationContainer("commands.setmaxplayers.success.lowerbound"));
+        else if (fail == 2) {
+            sender.sendMessage(new TranslationContainer("commands.setmaxplayers.success.upperbound"));
+        }
         
         return true;
     }
