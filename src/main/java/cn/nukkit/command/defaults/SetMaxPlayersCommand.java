@@ -36,6 +36,7 @@ public class SetMaxPlayersCommand extends VanillaCommand {
         int maxPlayers = 1;
         
         maxPlayers = Integer.parseInt(args[0]);
+        int onlinePlayers = Integer.valueOf(Server.getInstance().getOnlinePlayers().values());
         
         int failType = -1;
         if (maxPlayers < 1) {
@@ -44,8 +45,8 @@ public class SetMaxPlayersCommand extends VanillaCommand {
         } else if (maxPlayers > 30) {
             maxPlayers = 30;
             failType = 2;
-        } else if (maxPlayers < Server.getInstance().getOnlinePlayers().values()) {
-            maxPlayers = Server.getInstance().getOnlinePlayers().values();
+        } else if (maxPlayers < onlinePlayers) {
+            maxPlayers = onlinePlayers;
             failType = 1;
         }
         
