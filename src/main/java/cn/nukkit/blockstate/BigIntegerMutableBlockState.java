@@ -6,13 +6,22 @@ import cn.nukkit.api.Since;
 import cn.nukkit.block.Block;
 import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.BlockProperty;
+import cn.nukkit.blockproperty.exception.InvalidBlockPropertyException;
+import cn.nukkit.blockproperty.exception.InvalidBlockPropertyMetaException;
+import cn.nukkit.blockstate.exception.InvalidBlockStateException;
+import cn.nukkit.math.NukkitMath;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.NoSuchElementException;
+
+import static cn.nukkit.blockstate.IMutableBlockState.handleUnsupportedStorageType;
 
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
@@ -35,10 +44,14 @@ public class BigIntegerMutableBlockState extends MutableBlockState {
         BigInteger state;
         if (storage instanceof BigInteger) {
             state = (BigInteger) storage;
-        } else if (storage instanceof Long || storage instanceof Integer) {
+        } else if (storage instanceof Long || storage instanceof Integer || storage instanceof Short || storage instanceof Byte) {
             state = BigInteger.valueOf(storage.longValue());
         } else {
-            state = new BigInteger(storage.toString());
+            try {
+                state = new BigDecimal(storage.toString()).toBigIntegerExact();
+            } catch (NumberFormatException | ArithmeticException e) {
+                throw handleUnsupportedStorageType(getBlockId(), storage, e);
+            }
         }
         validate(state);
         this.storage = state;
@@ -58,10 +71,23 @@ public class BigIntegerMutableBlockState extends MutableBlockState {
     
     private void validate(BigInteger state) {
         BlockProperties properties = this.properties;
+        if (!BigInteger.ZERO.equals(state)) {
+            int bitLength = NukkitMath.bitLength(state);
+            if (bitLength > properties.getBitSize()) {
+                throw new InvalidBlockStateException(
+                        BlockState.of(getBlockId(), state),
+                        "The state have more data bits than specified in the properties. Bits: " + bitLength + ", Max: " + properties.getBitSize()
+                );
+            }
+        }
         
-        for (String name : properties.getNames()) {
-            BlockProperty<?> property = properties.getBlockProperty(name);
-            property.validateMeta(state, properties.getOffset(name));
+        try {
+            for (String name : properties.getNames()) {
+                BlockProperty<?> property = properties.getBlockProperty(name);
+                property.validateMeta(state, properties.getOffset(name));
+            }
+        } catch (InvalidBlockPropertyException e) {
+            throw new InvalidBlockStateException(BlockState.of(getBlockId(), state), e);
         }
     }
 
@@ -94,7 +120,7 @@ public class BigIntegerMutableBlockState extends MutableBlockState {
     }
 
     @Override
-    public void setPropertyValue(String propertyName, @Nullable Object value) {
+    public void setPropertyValue(String propertyName, @Nullable Serializable value) {
         storage = properties.setValue(storage, propertyName, value);
     }
 
@@ -124,6 +150,10 @@ public class BigIntegerMutableBlockState extends MutableBlockState {
         return properties.getBooleanValue(storage, propertyName);
     }
 
+    /**
+     * @throws NoSuchElementException If the property is not registered
+     * @throws InvalidBlockPropertyMetaException If the meta contains invalid data
+     */
     @Nonnull
     @Override
     public String getPersistenceValue(String propertyName) {

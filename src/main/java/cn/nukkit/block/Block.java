@@ -7,11 +7,8 @@ import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.CommonBlockProperties;
-import cn.nukkit.blockproperty.exception.InvalidBlockPropertyException;
-import cn.nukkit.blockstate.BlockState;
-import cn.nukkit.blockstate.BlockStateRegistry;
-import cn.nukkit.blockstate.IMutableBlockState;
-import cn.nukkit.blockstate.MutableBlockState;
+import cn.nukkit.blockstate.*;
+import cn.nukkit.blockstate.exception.InvalidBlockStateException;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBlock;
@@ -35,12 +32,14 @@ import lombok.extern.log4j.Log4j2;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import static cn.nukkit.utils.Utils.dynamic;
@@ -633,7 +632,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
                                     }
                                 } catch (InvocationTargetException wrapper) {
                                     Throwable uncaught = wrapper.getTargetException();
-                                    if (!(uncaught instanceof InvalidBlockPropertyException)) {
+                                    if (!(uncaught instanceof InvalidBlockStateException)) {
                                         log.error("Error while registering " + c.getName()+" with meta "+data, uncaught);
                                     }
                                     b = new BlockUnknown(id, data);
@@ -870,7 +869,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
                         }
                     } catch (InvocationTargetException wrapper) {
                         Throwable uncaught = wrapper.getTargetException();
-                        if (uncaught instanceof InvalidBlockPropertyException) {
+                        if (uncaught instanceof InvalidBlockStateException) {
                             b = new BlockUnknown(blockId, data);
                         }
                     } catch (ReflectiveOperationException e) {
@@ -880,8 +879,8 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
                 
                 if (b == null) {
                     try {
-                        b = mainBlock.getCurrentState().withData(data).getBlock();
-                    } catch (InvalidBlockPropertyException e) {
+                        b = BlockState.of(blockId, data).getBlock();
+                    } catch (InvalidBlockStateException e) {
                         b = new BlockUnknown(blockId, data);
                     } catch (Exception e) {
                         b = new BlockUnknown(blockId, data);
@@ -1076,6 +1075,16 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
         return 0;
     }
 
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean canHarvest(Item item) {
+        return getToolTier() == 0 || getToolType() == 0 || correctTool0(getToolType(), item, getId()) && item.getTier() >= getToolTier();
+    }
+
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getToolTier() { return 0; }
+
     public boolean canBeClimbed() {
         return false;
     }
@@ -1160,11 +1169,16 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
     public Item[] getDrops(Item item) {
         if (this.getId() < 0 || this.getId() > list.length) { //Unknown blocks
             return new Item[0];
-        } else {
+        } else if(canHarvestWithHand() || canHarvest(item)) {
             return new Item[]{
                     this.toItem()
             };
         }
+        return new Item[0];
+    }
+
+    private double toolBreakTimeBonus0(Item item) {
+        return toolBreakTimeBonus0(toolType0(item, getId()), item.getTier(), getId() == BlockID.WOOL, getId() == BlockID.COBWEB);
     }
 
     private static double toolBreakTimeBonus0(
@@ -1238,6 +1252,80 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
         return 1.0 / speed;
     }
 
+    @Nonnull
+    @PowerNukkitOnly
+    public double calculateBreakTime(@Nonnull Item item) {
+        return calculateBreakTime(item, null);
+    }
+
+    @Nonnull
+    @PowerNukkitOnly
+    public double calculateBreakTime(@Nonnull Item item, @Nullable Player player) {
+        double seconds = 0;
+        double blockHardness = getHardness();
+        boolean canHarvest = canHarvest(item);
+
+        if (canHarvest) {
+            seconds = blockHardness * 1.5;
+        } else {
+            seconds = blockHardness * 5;
+        }
+
+        double speedMultiplier = 1;
+        boolean hasConduitPower = false;
+        boolean hasAquaAffinity = false;
+        int hasteEffectLevel = 0;
+        int miningFatigueLevel = 0;
+
+        if (player != null) {
+            hasConduitPower = player.hasEffect(Effect.CONDUIT_POWER);
+            hasAquaAffinity = Optional.ofNullable(player.getInventory().getHelmet().getEnchantment(Enchantment.ID_WATER_WORKER))
+                    .map(Enchantment::getLevel).map(l -> l >= 1).orElse(false);
+            hasteEffectLevel = Optional.ofNullable(player.getEffect(Effect.HASTE))
+                    .map(Effect::getAmplifier).orElse(0);
+            miningFatigueLevel = Optional.ofNullable(player.getEffect(Effect.MINING_FATIGUE))
+                    .map(Effect::getAmplifier).orElse(0);
+        }
+
+        if (correctTool0(getToolType(), item, getId())) {
+            speedMultiplier = toolBreakTimeBonus0(item);
+
+            int efficiencyLevel = Optional.ofNullable(item.getEnchantment(Enchantment.ID_EFFICIENCY))
+                    .map(Enchantment::getLevel).orElse(0);
+
+            if (canHarvest && efficiencyLevel > 0) {
+                speedMultiplier += efficiencyLevel ^ 2 + 1;
+            }
+
+            if (hasConduitPower) hasteEffectLevel = Integer.max(hasteEffectLevel, 2);
+
+            if (hasteEffectLevel > 0) {
+                speedMultiplier *= 1 + (0.2 * hasteEffectLevel);
+            }
+
+        }
+
+        if (miningFatigueLevel > 0) {
+            speedMultiplier /= 3 ^ miningFatigueLevel;
+        }
+
+        seconds /= speedMultiplier;
+
+        if (player != null) {
+            if (player.isInsideOfWater() && !hasAquaAffinity ) {
+                seconds *= hasConduitPower && blockHardness >= 0.5 ? 2.5 : 5;
+            }
+
+            if (!player.isOnGround()) {
+                seconds *= 5;
+            }
+        }
+
+        return seconds;
+    }
+  
+    @DeprecationDetails(since = "1.4.0.0-PN", reason = "Not completely accurate", replaceWith = "calculateBreakeTime()")
+    @Deprecated
     @PowerNukkitDifference(info = "Special condition for the leaves", since = "1.4.0.0-PN")
     public double getBreakTime(Item item, Player player) {
         Objects.requireNonNull(item, "getBreakTime: Item can not be null");
@@ -1738,6 +1826,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
         return true;
     }
 
+    @Nonnull
     @Override
     public final ItemBlock asItemBlock() {
         return asItemBlock(1);
@@ -1789,10 +1878,20 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
         mutableState.setDataStorageFromInt(storage);
     }
 
+    @Override
+    public boolean setDataStorage(@Nonnull Number storage, boolean repair, Consumer<BlockStateRepair> callback) {
+        return mutableState.setDataStorage(storage, repair, callback);
+    }
+
+    @Override
+    public boolean setDataStorageFromInt(int storage, boolean repair, Consumer<BlockStateRepair> callback) {
+        return mutableState.setDataStorageFromInt(storage, repair, callback);
+    }
+
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     @Override
-    public void setPropertyValue(@Nonnull String propertyName, @Nullable Object value) {
+    public void setPropertyValue(@Nonnull String propertyName, @Nullable Serializable value) {
         mutableState.setPropertyValue(propertyName, value);
     }
 
