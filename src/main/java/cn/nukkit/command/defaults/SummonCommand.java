@@ -13,8 +13,8 @@ import cn.nukkit.utils.TextFormat;
 /**
  * @author good777LUCKY
  */
-public class SpawnpointCommand extends VanillaCommand {
-    public SpawnpointCommand(String name) {
+public class SummonCommand extends VanillaCommand {
+    public SummonCommand(String name) {
         super(name, "%nukkit.command.summon.description", "%commands.summon.usage");
         this.setPermission("nukkit.command.summon");
         this.commandParameters.clear();
