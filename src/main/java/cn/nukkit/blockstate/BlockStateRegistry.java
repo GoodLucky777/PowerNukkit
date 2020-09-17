@@ -2,11 +2,14 @@ package cn.nukkit.blockstate;
 
 import cn.nukkit.Server;
 import cn.nukkit.api.DeprecationDetails;
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockID;
 import cn.nukkit.block.BlockUnknown;
 import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.CommonBlockProperties;
+import cn.nukkit.blockstate.exception.InvalidBlockStateException;
 import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.ListTag;
@@ -30,12 +33,15 @@ import java.nio.ByteOrder;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @UtilityClass
 @ParametersAreNonnullByDefault
 @Log4j2
 public class BlockStateRegistry {
     public final int BIG_META_MASK = 0xFFFFFFFF;
+    private final Pattern BLOCK_ID_NAME_PATTERN = Pattern.compile("^blockid:(\\d+)$"); 
     private final Set<String> LEGACY_NAME_SET = Collections.singleton(CommonBlockProperties.LEGACY_PROPERTY_NAME);
     
     private final Registration updateBlockRegistration;
@@ -45,6 +51,7 @@ public class BlockStateRegistry {
 
     private final AtomicInteger runtimeIdAllocator = new AtomicInteger(0);
     private final Int2ObjectMap<String> blockIdToPersistenceName = new Int2ObjectOpenHashMap<>();
+    private final Map<String, Integer> persistenceNameToBlockId = new LinkedHashMap<>();
     
     private final byte[] blockPaletteBytes;
 
@@ -91,7 +98,9 @@ public class BlockStateRegistry {
                     String[] parts = line.split(",");
                     Preconditions.checkArgument(parts.length == 2 || parts[0].matches("^[0-9]+$"));
                     if (parts.length > 1 && parts[1].startsWith("minecraft:")) {
-                        blockIdToPersistenceName.put(Integer.parseInt(parts[0]), parts[1]);
+                        int id = Integer.parseInt(parts[0]);
+                        blockIdToPersistenceName.put(id, parts[1]);
+                        persistenceNameToBlockId.put(parts[1], id);
                     }
                 }
             } catch (Exception e) {
@@ -246,16 +255,36 @@ public class BlockStateRegistry {
     }
 
     private Registration findRegistrationByStateId(BlockState state) {
-        Registration registration = stateIdRegistration.remove(state.getStateId());
-        if (registration != null) {
-            registration.state = state;
-            return registration;
+        Registration registration;
+        try {
+            registration = stateIdRegistration.remove(state.getStateId());
+            if (registration != null) {
+                registration.state = state;
+                return registration;
+            }
+        } catch (Exception e) {
+            try {
+                log.fatal("An error has occurred while trying to get the stateId of state: " +
+                        state.getBlockId() + ":" + state.getDataStorage()
+                        + " - " + state.getProperties()
+                        + " - " + blockIdToPersistenceName.get(state.getBlockId()),
+                        e);
+            } catch (Exception e2) {
+                e.addSuppressed(e2);
+                log.fatal("An error has occurred while trying to get the stateId of state: " +
+                        state.getBlockId() + ":" + state.getDataStorage(), 
+                        e);
+            }
         }
-
-        registration = stateIdRegistration.remove(state.getLegacyStateId());
-        if (registration != null) {
-            registration.state = state;
-            return registration;
+        
+        try {
+            registration = stateIdRegistration.remove(state.getLegacyStateId());
+            if (registration != null) {
+                registration.state = state;
+                return registration;
+            }
+        } catch (Exception e) {
+            log.fatal("An error has occurred while trying to parse the legacyStateId of "+state.getBlockId()+":"+state.getDataStorage(), e);
         }
 
         return logDiscoveryError(state);
@@ -272,20 +301,39 @@ public class BlockStateRegistry {
                 + " - " + state.getStateId()
                 + " - " + state.getProperties()
                 + " - " + blockIdToPersistenceName.get(state.getBlockId())
-                + ", replacing with an \"UPDATE!\" block.");
+                + ", trying to repair or replacing with an \"UPDATE!\" block.");
         return updateBlockRegistration;
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public List<String> getPersistenceNames() {
+        return new ArrayList<>(persistenceNameToBlockId.keySet());
+    }
 
-    @Nullable
+    @Nonnull
     public String getPersistenceName(int blockId) {
-        return blockIdToPersistenceName.get(blockId);
+        String persistenceName = blockIdToPersistenceName.get(blockId);
+        if (persistenceName == null) {
+            String fallback = "blockid:"+ blockId;
+            log.warn("The persistence name of the block id "+ blockId +" is unknown! Using "+fallback+" as an alternative!");
+            registerPersistenceName(blockId, fallback);
+            return fallback;
+        }
+        return persistenceName;
     }
 
     public void registerPersistenceName(int blockId, String persistenceName) {
         synchronized (blockIdToPersistenceName) {
-            String oldName = blockIdToPersistenceName.putIfAbsent(blockId, persistenceName.toLowerCase());
+            String newName = persistenceName.toLowerCase();
+            String oldName = blockIdToPersistenceName.putIfAbsent(blockId, newName);
             if (oldName != null && !persistenceName.equalsIgnoreCase(oldName)) {
                 throw new UnsupportedOperationException("The persistence name registration tried to replaced a name. Name:" + persistenceName + ", Old:" + oldName + ", Id:" + blockId);
+            }
+            Integer oldId = persistenceNameToBlockId.putIfAbsent(newName, blockId);
+            if (oldId != null && blockId != oldId) {
+                blockIdToPersistenceName.remove(blockId);
+                throw new UnsupportedOperationException("The persistence name registration tried to replaced an id. Name:" + persistenceName + ", OldId:" + oldId + ", Id:" + blockId);
             }
         }
     }
@@ -360,6 +408,9 @@ public class BlockStateRegistry {
         return blockState;
     }
 
+    /**
+     * @throws InvalidBlockStateException
+     */
     @Nonnull
     public MutableBlockState createMutableState(int blockId, Number storage) {
         MutableBlockState blockState = createMutableState(blockId);
@@ -370,7 +421,36 @@ public class BlockStateRegistry {
     public int getUpdateBlockRegistration() {
         return updateBlockRegistration.runtimeId;
     }
+    
+    @Nullable
+    public Integer getBlockId(String persistenceName) {
+        Integer blockId = persistenceNameToBlockId.get(persistenceName);
+        if (blockId != null) {
+            return blockId;
+        }
+        
+        Matcher matcher = BLOCK_ID_NAME_PATTERN.matcher(persistenceName);
+        if (matcher.matches()) {
+            try {
+                return Integer.parseInt(matcher.group(1));
+            } catch (NumberFormatException ignored) {
+            }
+        }
+        return null;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getFallbackRuntimeId() {
+        return updateBlockRegistration.runtimeId;
+    }
 
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public BlockState getFallbackBlockState() {
+        return updateBlockRegistration.state;
+    }
+    
     @AllArgsConstructor
     @ToString
     @EqualsAndHashCode

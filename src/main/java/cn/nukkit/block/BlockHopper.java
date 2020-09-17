@@ -172,12 +172,8 @@ public class BlockHopper extends BlockTransparentMeta implements Faceable, Block
     }
 
     @Override
-    public Item[] getDrops(Item item) {
-        if (item.getTier() >= ItemTool.TIER_WOODEN) {
-            return new Item[]{toItem()};
-        }
-
-        return new Item[0];
+    public int getToolTier() {
+        return ItemTool.TIER_WOODEN;
     }
 
     @Override
@@ -193,5 +189,12 @@ public class BlockHopper extends BlockTransparentMeta implements Faceable, Block
     @Override
     public BlockFace getBlockFace() {
         return BlockFace.fromHorizontalIndex(this.getDamage() & 0x07);
+    }
+
+    @Since("1.3.0.0-PN")
+    @PowerNukkitOnly
+    @Override
+    public boolean isSolid(BlockFace side) {
+        return side == BlockFace.UP;
     }
 }

@@ -7,10 +7,11 @@ import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockID;
-import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.UnknownRuntimeIdException;
 import cn.nukkit.blockproperty.exception.InvalidBlockPropertyMetaException;
 import cn.nukkit.blockstate.BlockState;
+import cn.nukkit.blockstate.BlockStateRegistry;
+import cn.nukkit.blockstate.exception.InvalidBlockStateException;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.inventory.Fuel;
 import cn.nukkit.item.enchantment.Enchantment;
@@ -31,10 +32,15 @@ import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
-import java.math.BigInteger;
+import java.io.UncheckedIOException;
+import java.lang.reflect.Modifier;
 import java.nio.ByteOrder;
 import java.util.*;
+import java.util.function.Function;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author MagicDroidX (Nukkit Project)
@@ -51,7 +57,7 @@ public class Item implements Cloneable, BlockID, ItemID {
     protected int meta;
     protected boolean hasMeta = true;
     private byte[] tags = new byte[0];
-    private CompoundTag cachedNBT = null;
+    private transient CompoundTag cachedNBT = null;
     public int count;
     protected int durability = 0;
     protected String name;
@@ -286,7 +292,9 @@ public class Item implements Cloneable, BlockID, ItemID {
             list[BANNER] = ItemBanner.class; //446
 
             list[TOTEM] = ItemTotem.class; //450
-
+            
+            list[IRON_NUGGET] = ItemNuggetIron.class; //452
+            
             list[TRIDENT] = ItemTrident.class; //455
 
             list[BEETROOT] = ItemBeetroot.class; //457
@@ -331,7 +339,7 @@ public class Item implements Cloneable, BlockID, ItemID {
             list[HONEYCOMB] = ItemHoneycomb.class; //736
             list[HONEY_BOTTLE] = ItemHoneyBottle.class; //737
                         
-            //list[LODESTONECOMPASS] = ItemCompassLodestone.class; //741;
+            list[LODESTONECOMPASS] = ItemCompassLodestone.class; //741;
             list[NETHERITE_INGOT] = ItemIngotNetherite.class; //742
             list[NETHERITE_SWORD] = ItemSwordNetherite.class; //743
             list[NETHERITE_SHOVEL] = ItemShovelNetherite.class; //744
@@ -351,6 +359,8 @@ public class Item implements Cloneable, BlockID, ItemID {
             list[CHAIN] = ItemChain.class; //758
             list[RECORD_PIGSTEP] = ItemRecordPigstep.class; //759
             list[NETHER_SPROUTS] = ItemNetherSprouts.class; //760
+            
+            list[SOUL_CAMPFIRE] = ItemCampfireSoul.class; //801
 
             for (int i = 0; i < 256; ++i) {
                 if (Block.list[i] != null) {
@@ -360,6 +370,31 @@ public class Item implements Cloneable, BlockID, ItemID {
         }
 
         initCreativeItems();
+    }
+
+    private static List<String> itemList;
+
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static List<String> rebuildItemList() {
+        return itemList = Collections.unmodifiableList(Stream.of(
+                BlockStateRegistry.getPersistenceNames().stream()
+                        .map(name-> name.substring(name.indexOf(':') + 1)),
+                Arrays.stream(ItemID.class.getDeclaredFields())
+                        .filter(field -> field.getModifiers() == (Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL))
+                        .filter(field -> field.getType().equals(int.class))
+                        .map(field -> field.getName().toLowerCase())
+        ).flatMap(Function.identity()).collect(Collectors.toList()));
+    }
+
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static List<String> getItemList() {
+        List<String> itemList = Item.itemList;
+        if (itemList == null) {
+            return rebuildItemList();
+        }
+        return itemList;
     }
 
     private static final ArrayList<Item> creative = new ArrayList<>();
@@ -475,27 +510,15 @@ public class Item implements Cloneable, BlockID, ItemID {
                     // Special case for item instances used in fuzzy recipes
                     item = new ItemBlock(Block.get(blockId), -1);
                 } else {
+                    BlockState state = BlockState.of(blockId, meta);
                     try {
-                        BlockState state = BlockState.of(blockId, meta);
                         state.validate();
                         item = state.asItemBlock(count);
-                    } catch (InvalidBlockPropertyMetaException e) {
-                        BlockState state = BlockState.of(blockId);
-                        BlockProperties properties = state.getProperties();
-                        BigInteger newStorage = properties.reduce(BigInteger.valueOf(meta), (property, offset, current) -> {
-                            try {
-                                if (property.isExportedToItem()) {
-                                    property.validateMeta(current, offset);
-                                    return current;
-                                }
-                            } catch (Exception invalid) {
-                                e.addSuppressed(invalid);
-                            }
-                            return property.setValue(current, offset, null);
-                        });
-                        newStorage = newStorage.and(BigInteger.ONE.shiftLeft(properties.getBitSize()).subtract(BigInteger.ONE)); 
-                        log.error("Attempted to get an illegal item block " + id + ":" + meta + " ("+blockId+"), the meta was changed to " + newStorage);
-                        item = BlockState.of(id, newStorage).asItemBlock(count);
+                    } catch (InvalidBlockPropertyMetaException | InvalidBlockStateException e) {
+                        log.warn("Attempted to get an ItemBlock with invalid block state in memory: "+state+", trying to repair the block state...");
+                        Block repaired = state.getBlockRepairing(null, 0, 0, 0);
+                        item = repaired.asItemBlock(count);
+                        log.error("Attempted to get an illegal item block " + id + ":" + meta + " ("+blockId+"), the meta was changed to " + item.getDamage());
                     } catch (UnknownRuntimeIdException e) {
                         log.warn("Attempted to get an illegal item block "+id+":"+meta+ " ("+blockId+"), the runtime id was unknown and the meta was changed to 0");
                         item = BlockState.of(id).asItemBlock(count);
@@ -522,33 +545,59 @@ public class Item implements Cloneable, BlockID, ItemID {
         }
     }
 
+    private static final Pattern NAMESPACED = Pattern.compile("^(?:([a-zA-Z][a-zA-Z0-9_-]*):)?([a-zA-Z][a-zA-Z0-9_-]*)(?::(\\d+))?$");
+    private static final Pattern ITEM_ID = Pattern.compile("^(-?[1-9]\\d*)(?::(\\d+))?$");
+    
+    @PowerNukkitDifference(since = "1.4.0.0-PN", info = "Improve namespaced name handling and allows to get custom blocks by name")
     public static Item fromString(String str) {
-        String[] b = str.trim().replace(' ', '_').replace("minecraft:", "").split(":");
-
+        Matcher matcher = NAMESPACED.matcher(str);
         int id = 0;
         int meta = 0;
-
-        Pattern integerPattern = Pattern.compile("^-?[1-9]\\d*$");
-        if (integerPattern.matcher(b[0]).matches()) {
-            id = Integer.parseInt(b[0]);
-        } else {
-            try {
-                id = BlockID.class.getField(b[0].toUpperCase()).getInt(null);
+        String metaNumber;
+        if (matcher.matches()) {
+            String namespace = matcher.group(1);
+            String itemName = matcher.group(2);
+            metaNumber = matcher.group(3);
+            if (namespace == null || namespace.isEmpty()) {
+                namespace = "minecraft";
+            } else {
+                namespace = namespace.toLowerCase();
+            }
+            Integer blockId = BlockStateRegistry.getBlockId(namespace + ":" + itemName.toLowerCase());
+            if (blockId != null) {
+                id = blockId;
                 if (id > 255) {
                     id = 255 - id;
                 }
-            } catch (Exception ignore1) {
+            } else if (namespace.equals("minecraft")) {
                 try {
-                    id = ItemID.class.getField(b[0].toUpperCase()).getInt(null);
-                } catch (Exception ignore2) {
-
+                    id = BlockID.class.getField(itemName.toUpperCase()).getInt(null);
+                    if (id > 255) {
+                        id = 255 - id;
+                    }
+                } catch (Exception ignore1) {
+                    try {
+                        id = ItemID.class.getField(itemName.toUpperCase()).getInt(null);
+                    } catch (Exception ignore2) {
+                        return get(0, 0);
+                    }
                 }
             }
+        } else {
+            matcher = ITEM_ID.matcher(str);
+            if (matcher.matches()) {
+                String itemId = matcher.group(1);
+                metaNumber = matcher.group(2);
+                id = Integer.parseInt(itemId);
+            } else {
+                return get(0, 0);
+            }
         }
-
-        //id = id & 0xFFFF;
-        if (b.length != 1) meta = Integer.parseInt(b[1]) & 0xFFFF;
-
+        
+        if (metaNumber != null && !metaNumber.isEmpty()) {
+            meta = Integer.parseInt(metaNumber) & 0xFFFF;
+        }
+        
         return get(id, meta);
     }
 
@@ -668,6 +717,27 @@ public class Item implements Cloneable, BlockID, ItemID {
         }
 
         return false;
+    }
+
+    /**
+     * Find the enchantment level by the enchantment id.
+     * @param id The enchantment ID from {@link Enchantment} constants.
+     * @return {@code 0} if the item don't have that enchantment or the current level of the given enchantment.
+     */
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getEnchantmentLevel(int id) {
+        if (!this.hasEnchantments()) {
+            return 0;
+        }
+
+        for (CompoundTag entry : this.getNamedTag().getList("ench", CompoundTag.class).getAll()) {
+            if (entry.getShort("id") == id) {
+                return entry.getShort("lvl");
+            }
+        }
+        
+        return 0;
     }
 
     public Enchantment getEnchantment(int id) {
@@ -910,7 +980,7 @@ public class Item implements Cloneable, BlockID, ItemID {
         try {
             return NBTIO.read(tag, ByteOrder.LITTLE_ENDIAN);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -919,7 +989,7 @@ public class Item implements Cloneable, BlockID, ItemID {
             tag.setName("");
             return NBTIO.write(tag, ByteOrder.LITTLE_ENDIAN);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -1236,9 +1306,11 @@ public class Item implements Cloneable, BlockID, ItemID {
         try {
             Item item = (Item) super.clone();
             item.tags = this.tags.clone();
+            item.cachedNBT = null;
             return item;
         } catch (CloneNotSupportedException e) {
             return null;
         }
     }
+
 }

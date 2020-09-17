@@ -44,7 +44,7 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.powernukkit', name: 'powernukkit', version: '1.3.1.4-PN'
+    compile group: 'org.powernukkit', name: 'powernukkit', version: '1.3.1.5-PN'
 }
 ```
 
@@ -54,7 +54,7 @@ dependencies {
     <dependency>
         <groupId>org.powernukkit</groupId>
         <artifactId>powernukkit</artifactId>
-        <version>1.3.1.4-PN</version>
+        <version>1.3.1.5-PN</version>
     </dependency>
 </dependencies>
 ```
@@ -88,13 +88,13 @@ curl -sSL https://raw.githubusercontent.com/PowerNukkit/PowerNukkit/master/docke
 If you want to keep your server always updated when it restarts, run with:   
 (edit the docker-compose.yml file to choose the base version you want)
 ```sh
-docker-compose run --rm --name powernukkit server
+docker-compose run --rm --service-ports --name powernukkit server
 ```
 
 But if you want to keep using the same version and update, use this command to create a fixed container
 
 ```sh
-docker-compose run --name powernukkit server
+docker-compose run --service-ports --name powernukkit server
 ```
 
 <b>To return to the terminal and keep the server running:</b>  
@@ -118,7 +118,8 @@ Check the [docker-compose.yml](docker-compose.yml) file for more details.
 
 ### Supported tags
 * _bleeding_ (⚠️ **use with care, may contains unstable code!** ⚠️)
-* 1.3.1.4, 1.3.1, 1.3, 1, latest
+* 1.3.1.5, 1.3.1, 1.3, 1, latest
+* 1.3.1.4
 * 1.3.1.3
 * 1.3.1.2
 * 1.3.1.1

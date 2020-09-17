@@ -56,7 +56,7 @@ public abstract class BlockStairs extends BlockTransparentMeta implements Faceab
     @PowerNukkitOnly
     @Override
     public boolean isSolid(BlockFace side) {
-        return side == BlockFace.UP && (getDamage() & 0x04) == 0x04 || side == BlockFace.DOWN && (getDamage() & 0x04) != 0x04;
+        return side == BlockFace.UP && isUpsideDown() || side == BlockFace.DOWN && !isUpsideDown();
     }
 
     @Override
@@ -71,17 +71,6 @@ public abstract class BlockStairs extends BlockTransparentMeta implements Faceab
         this.getLevel().setBlock(block, this, true, true);
 
         return true;
-    }
-
-    @Override
-    public Item[] getDrops(Item item) {
-        if (item.isPickaxe() && item.getTier() >= ItemTool.TIER_WOODEN) {
-            return new Item[]{
-                    toItem()
-            };
-        } else {
-            return new Item[0];
-        }
     }
 
     @Override

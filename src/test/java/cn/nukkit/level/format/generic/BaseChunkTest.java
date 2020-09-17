@@ -18,8 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class BaseChunkTest {
@@ -37,6 +36,7 @@ class BaseChunkTest {
     
     @BeforeEach
     void setup() {
+        chunk.setPaletteUpdatesDelayed(true);
         chunk.sections = new ChunkSection[16];
         System.arraycopy(EmptyChunkSection.EMPTY, 0, chunk.sections, 0, 16);
         chunk.setProvider(anvil);
@@ -168,11 +168,12 @@ class BaseChunkTest {
         assertEquals(1, section.getContentVersion());
         
         Level level = mock(Level.class, Answers.CALLS_REAL_METHODS);
+        doReturn("FakeLevel").when(level).getName();
         doReturn(chunk).when(level).getChunk(x >> 4, z >> 4);
         
         chunk.backwardCompatibilityUpdate(level);
         
-        assertEquals(ChunkUpdater.getContentVersion(), section.getContentVersion());
+        assertEquals(ChunkUpdater.getCurrentContentVersion(), section.getContentVersion());
         assertEquals(BlockID.COBBLE_WALL, chunk.getBlockId(x, y, z));
         assertEquals(BlockID.COBBLE_WALL, chunk.getBlockId(x, y+1, z));
         

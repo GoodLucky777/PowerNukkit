@@ -6,10 +6,13 @@ import cn.nukkit.api.Since;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockID;
 import cn.nukkit.blockstate.BlockState;
+import cn.nukkit.blockstate.BlockStateRegistry;
+import cn.nukkit.blockstate.exception.InvalidBlockStateException;
 import cn.nukkit.level.util.PalettedBlockStorage;
 import cn.nukkit.utils.BinaryStream;
 import cn.nukkit.utils.functional.BlockPositionDataConsumer;
 import com.google.common.base.Preconditions;
+import lombok.extern.log4j.Log4j2;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -17,6 +20,7 @@ import java.util.Arrays;
 import java.util.BitSet;
 
 @ParametersAreNonnullByDefault
+@Log4j2
 public class BlockStorage {
     private static final byte FLAG_HAS_ID           = 0b00_0001;
     private static final byte FLAG_HAS_ID_EXTRA     = 0b00_0010;
@@ -167,6 +171,17 @@ public class BlockStorage {
     }
 
     private BlockState setBlockState(int index, BlockState state) {
+        if (log.isTraceEnabled() && !state.isCachedValidationValid()) {
+            try {
+                int runtimeId = state.getBlock().getRuntimeId();
+                if (runtimeId == BlockStateRegistry.getFallbackRuntimeId()) {
+                    log.trace("Setting a state that will become info update! State: {}", state, new RuntimeException());
+                }
+            } catch (InvalidBlockStateException e) {
+                log.trace("Setting an invalid state! State: {}", state, e);
+            }
+        }
+
         BlockState previous = states[index];
         if (previous.equals(state)) {
             return previous;
@@ -174,15 +189,28 @@ public class BlockStorage {
         
         states[index] = state;
         updateFlags(index, previous, state);
-        try {
-            palette.setBlock(index, state.getRuntimeId());
-        } catch (Exception ignored) {
-            // This allow the API to be used before the Block.init() gets called, useful for testing or usage on early
-            // states of the server initialization
-            setFlag(FLAG_PALETTE_UPDATED, false);
+        if (getFlag(FLAG_PALETTE_UPDATED)) {
+            int runtimeId = state.getRuntimeId();
+            if (runtimeId == BlockStateRegistry.getFallbackRuntimeId() && !state.equals(BlockStateRegistry.getFallbackBlockState())) {
+                delayPaletteUpdates();
+            } else {
+                palette.setBlock(index, runtimeId);
+            }
         }
         
         return previous;
+    }
+
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void delayPaletteUpdates() {
+        setFlag(FLAG_PALETTE_UPDATED, false);
+    }
+
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean isPaletteUpdateDelayed() {
+        return !getFlag(FLAG_PALETTE_UPDATED);
     }
 
     @PowerNukkitOnly

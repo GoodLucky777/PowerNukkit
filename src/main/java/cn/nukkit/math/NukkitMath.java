@@ -1,5 +1,6 @@
 package cn.nukkit.math;
 
+import cn.nukkit.api.PowerNukkitDifference;
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 
@@ -15,9 +16,10 @@ public class NukkitMath {
         return n >= i ? i : i - 1;
     }
 
+    @PowerNukkitDifference(since = "1.4.0.0-PN", info = "Fixed math problem")
     public static int ceilDouble(double n) {
-        int i = (int) (n + 1);
-        return n >= i ? i : i - 1;
+        int i = (int) n;
+        return n > i ? i + 1 : i;
     }
 
     public static int floorFloat(float n) {
@@ -25,9 +27,10 @@ public class NukkitMath {
         return n >= i ? i : i - 1;
     }
 
+    @PowerNukkitDifference(since = "1.4.0.0-PN", info = "Fixed math problem")
     public static int ceilFloat(float n) {
-        int i = (int) (n + 1);
-        return n >= i ? i : i - 1;
+        int i = (int) n;
+        return n > i ? i + 1 : i;
     }
 
     public static int randomRange(NukkitRandom random) {
@@ -46,8 +49,10 @@ public class NukkitMath {
         return round(d, 0);
     }
 
+    @PowerNukkitDifference(since = "1.4.0.0-PN", info = "Optimized")
     public static double round(double d, int precision) {
-        return ((double) Math.round(d * Math.pow(10, precision))) / Math.pow(10, precision);
+        double pow = Math.pow(10, precision);
+        return ((double) Math.round(d * pow)) / pow;
     }
 
     public static double clamp(double value, double min, double max) {

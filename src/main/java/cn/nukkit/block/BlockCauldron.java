@@ -355,12 +355,8 @@ public class BlockCauldron extends BlockSolidMeta implements BlockEntityHolder<B
     }
 
     @Override
-    public Item[] getDrops(Item item) {
-        if (item.getTier() >= ItemTool.TIER_WOODEN) {
-            return new Item[]{new ItemCauldron()};
-        }
-
-        return new Item[0];
+    public int getToolTier() {
+        return ItemTool.TIER_WOODEN;
     }
 
     @Override
@@ -381,5 +377,25 @@ public class BlockCauldron extends BlockSolidMeta implements BlockEntityHolder<B
     @Override
     public boolean canHarvestWithHand() {
         return false;
+    }
+
+    @Since("1.3.0.0-PN")
+    @PowerNukkitOnly
+    @Override
+    public boolean isSolid(BlockFace side) {
+        return false;
+    }
+
+    @PowerNukkitDifference(since = "1.4.0.0-PN", info = "Will return true")
+    @Override
+    public boolean isTransparent() {
+        return true;
+    }
+
+    @Since("1.4.0.0-PN")
+    @PowerNukkitOnly
+    @Override
+    public int getLightFilter() {
+        return 3;
     }
 }

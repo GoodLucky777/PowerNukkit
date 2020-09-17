@@ -64,9 +64,12 @@ import cn.nukkit.permission.Permission;
 import cn.nukkit.permission.PermissionAttachment;
 import cn.nukkit.permission.PermissionAttachmentInfo;
 import cn.nukkit.plugin.Plugin;
+import cn.nukkit.positiontracking.PositionTracking;
+import cn.nukkit.positiontracking.PositionTrackingService;
 import cn.nukkit.potion.Effect;
 import cn.nukkit.resourcepacks.ResourcePack;
 import cn.nukkit.scheduler.AsyncTask;
+import cn.nukkit.scheduler.TaskHandler;
 import cn.nukkit.utils.*;
 import co.aikar.timings.Timing;
 import co.aikar.timings.Timings;
@@ -82,6 +85,8 @@ import it.unimi.dsi.fastutil.longs.LongIterator;
 import it.unimi.dsi.fastutil.objects.ObjectIterator;
 import lombok.extern.log4j.Log4j2;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -101,6 +106,7 @@ import java.util.function.Consumer;
  */
 @Log4j2
 public class Player extends EntityHuman implements CommandSender, InventoryHolder, ChunkLoader, IPlayer {
+    private static final int NO_SHIELD_DELAY = 10;
 
     public static final int SURVIVAL = 0;
     public static final int CREATIVE = 1;
@@ -116,9 +122,9 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     public static final int CRAFTING_ANVIL = 2;
     public static final int CRAFTING_ENCHANT = 3;
     public static final int CRAFTING_BEACON = 4;
-    public static final int CRAFTING_GRINDSTONE = 5;
-    public static final int CRAFTING_STONECUTTER = 6;
-    public static final int CRAFTING_CARTOGRAPHY = 7;
+    public static final @PowerNukkitOnly int CRAFTING_GRINDSTONE = 1000;
+    public static final @PowerNukkitOnly int CRAFTING_STONECUTTER = 1001;
+    public static final @PowerNukkitOnly int CRAFTING_CARTOGRAPHY = 1002;
 
     public static final float DEFAULT_SPEED = 0.1f;
     public static final float MAXIMUM_SPEED = 0.5f;
@@ -210,6 +216,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     protected int inAirTicks = 0;
     protected int startAirTicks = 5;
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private int noShieldTicks;
 
     protected AdventureSettings adventureSettings;
 
@@ -262,6 +272,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     protected Vector3 lastRightClickPos = null;
 
     protected int lastPlayerdLevelUpSoundTime = 0;
+    
+    private TaskHandler delayedPosTrackingUpdate;
 
     public int getStartActionTick() {
         return startAction;
@@ -949,8 +961,30 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
         if (this.getHealth() < 1) {
             this.respawn();
+        } else {
+            updateTrackingPositions(false);
         }
+    }
 
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void updateTrackingPositions() {
+        updateTrackingPositions(false);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void updateTrackingPositions(boolean delayed) {
+        Server server = getServer();
+        if (delayed) {
+            if (delayedPosTrackingUpdate != null) {
+                delayedPosTrackingUpdate.cancel();
+            }
+            delayedPosTrackingUpdate = server.getScheduler().scheduleDelayedTask(null, this::updateTrackingPositions, 10);
+            return;
+        }
+        PositionTrackingService positionTrackingService = server.getPositionTrackingService();
+        positionTrackingService.forceRecheck(this);
     }
 
     protected boolean orderChunks() {
@@ -1410,7 +1444,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         boolean endPortal = false;
         for (Block block : this.getCollisionBlocks()) {
             switch (block.getId()) {
-                case Block.NETHER_PORTAL:
+                case BlockID.NETHER_PORTAL:
                     portal = true;
                     break;
                 case BlockID.SCAFFOLDING:
@@ -1831,10 +1865,34 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             this.dummyBossBars.values().forEach(DummyBossBar::updateBossEntityPosition);
         }
 
-        this.setDataFlag(DATA_FLAGS_EXTENDED, DATA_FLAG_BLOCKING, this.isSneaking() && (this.getInventory().getItemInHand().getId() == Item.SHIELD || this.getOffhandInventory().getItem(0).getId() == Item.SHIELD));
+        this.setDataFlag(DATA_FLAGS_EXTENDED, DATA_FLAG_BLOCKING,
+                getNoShieldTicks() == 0
+                && (this.isSneaking() || getRiding() != null) 
+                && (this.getInventory().getItemInHand().getId() == ItemID.SHIELD || this.getOffhandInventory().getItem(0).getId() == ItemID.SHIELD));
 
         updateBlockingFlag();
         return true;
+    }
+
+    @Override
+    public boolean entityBaseTick(int tickDiff) {
+        boolean hasUpdated = false;
+        if (isUsingItem()) {
+            if (noShieldTicks < NO_SHIELD_DELAY) {
+                noShieldTicks = NO_SHIELD_DELAY;
+                hasUpdated = true;
+            }
+        } else {
+            if (noShieldTicks > 0) {
+                noShieldTicks -= tickDiff;
+                hasUpdated = true;
+            }
+            if (noShieldTicks < 0) {
+                noShieldTicks = 0;
+                hasUpdated = true;
+            }
+        }
+        return super.entityBaseTick(tickDiff) || hasUpdated;
     }
 
     public void checkInteractNearby() {
@@ -2537,7 +2595,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     break;
                             }
                             Block block = target.getSide(face);
-                            if (block.getId() == Block.FIRE) {
+                            if (block.getId() == Block.FIRE || block.getId() == BlockID.SOUL_FIRE) {
                                 this.level.setBlock(block, Block.get(BlockID.AIR), true);
                                 this.level.addLevelSoundEvent(block, LevelSoundEventPacket.SOUND_EXTINGUISH_FIRE);
                                 break;
@@ -2563,7 +2621,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                 
                                 //improved this to take stuff like swimming, ladders, enchanted tools into account, fix wrong tool break time calculations for bad tools (pmmp/PocketMine-MP#211)
                                 //Done by lmlstarqaq
-                                double breakTime = Math.ceil(target.getBreakTime(this.inventory.getItemInHand(), this) * 20);
+                                double breakTime = Math.ceil(target.calculateBreakTime(this.inventory.getItemInHand(), this) * 20);
                                 if (breakTime > 0) {
                                     LevelEventPacket pk = new LevelEventPacket();
                                     pk.evid = LevelEventPacket.EVENT_BLOCK_START_BREAK;
@@ -2868,6 +2926,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                 ((EntityBoat) this.riding).onPaddle(animation, ((AnimatePacket) packet).rowingTime);
                             }
                             break;
+                    }
+                    
+                    if (animationEvent.getAnimationType() == AnimatePacket.Action.SWING_ARM) {
+                        setNoShieldTicks(NO_SHIELD_DELAY);
                     }
 
                     AnimatePacket animatePacket = new AnimatePacket();
@@ -3385,6 +3447,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     if (target.onInteract(this, item, useItemOnEntityData.clickPos) && this.isSurvival()) {
                                         if (item.isTool()) {
                                             if (item.useOn(target) && item.getDamage() >= item.getMaxDurability()) {
+                                                level.addSound(this, Sound.RANDOM_BREAK);
                                                 item = new ItemBlock(Block.get(BlockID.AIR));
                                             }
                                         } else {
@@ -3423,12 +3486,23 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     if ((target instanceof Player) && !this.level.getGameRules().getBoolean(GameRule.PVP)) {
                                         entityDamageByEntityEvent.setCancelled();
                                     }
-
-                                    if (!target.attack(entityDamageByEntityEvent)) {
-                                        if (item.isTool() && this.isSurvival()) {
-                                            this.inventory.sendContents(this);
+                                    
+                                    
+                                    if (target instanceof EntityLiving) {
+                                        ((EntityLiving) target).preAttack(this);
+                                    }
+                                    
+                                    try {
+                                        if (!target.attack(entityDamageByEntityEvent)) {
+                                            if (item.isTool() && this.isSurvival()) {
+                                                this.inventory.sendContents(this);
+                                            }
+                                            break;
                                         }
-                                        break;
+                                    } finally {
+                                        if (target instanceof EntityLiving) {
+                                            ((EntityLiving) target).postAttack(this);
+                                        }
                                     }
 
                                     for (Enchantment enchantment : item.getEnchantments()) {
@@ -3437,6 +3511,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
                                     if (item.isTool() && this.isSurvival()) {
                                         if (item.useOn(target) && item.getDamage() >= item.getMaxDurability()) {
+                                            level.addSound(this, Sound.RANDOM_BREAK);
                                             this.inventory.setItemInHand(new ItemBlock(Block.get(BlockID.AIR)));
                                         } else {
                                             this.inventory.setItemInHand(item);
@@ -3564,6 +3639,21 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             this.inventory.setItem(bookEditPacket.inventorySlot, editBookEvent.getNewBook());
                         }
                     }
+                    break;
+                case ProtocolInfo.POS_TRACKING_CLIENT_REQUEST_PACKET:
+                    PositionTrackingDBClientRequestPacket posTrackReq = (PositionTrackingDBClientRequestPacket) packet;
+                    try {
+                        PositionTracking positionTracking = this.server.getPositionTrackingService().startTracking(this, posTrackReq.getTrackingId(), true);
+                        if (positionTracking != null) {
+                            break;
+                        }
+                    } catch (IOException e) {
+                        log.warn("Failed to track the trackingHandler "+posTrackReq.getTrackingId(), e);
+                    }
+                    PositionTrackingDBServerBroadcastPacket notFound = new PositionTrackingDBServerBroadcastPacket();
+                    notFound.setAction(PositionTrackingDBServerBroadcastPacket.Action.NOT_FOUND);
+                    notFound.setTrackingId(posTrackReq.getTrackingId());
+                    dataPacket(notFound);
                     break;
                 default:
                     break;
@@ -4427,6 +4517,31 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         return true;
     }
 
+    /**
+     * Drops an item on the ground in front of the player. Returns the dropped item.
+     *
+     * @param item to drop
+     * @return EntityItem if the item was dropped or null if the item was null
+     */
+    @Since("1.4.0.0-PN")
+    @Nullable
+    public EntityItem dropAndGetItem(@Nonnull Item item) {
+        if (!this.spawned || !this.isAlive()) {
+            return null;
+        }
+
+        if (item.isNull()) {
+            this.server.getLogger().debug(this.getName() + " attempted to drop a null item (" + item + ")");
+            return null;
+        }
+
+        Vector3 motion = this.getDirectionVector().multiply(0.4);
+
+        this.setDataFlag(DATA_FLAGS, DATA_FLAG_ACTION, false);
+
+        return this.level.dropAndGetItem(this.add(0, 1.3, 0), item, motion, 40);
+    }
+
     public void sendPosition(Vector3 pos) {
         this.sendPosition(pos, this.yaw);
     }
@@ -4571,6 +4686,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             this.getLevel().sendWeather(this);
             //Update time
             this.getLevel().sendTime(this);
+            updateTrackingPositions(true);
             return true;
         }
 
@@ -4629,6 +4745,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             this.getLevel().sendWeather(this);
             //Update time
             this.getLevel().sendTime(this);
+            updateTrackingPositions(true);
         }
     }
 
@@ -4792,6 +4909,9 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         }
 
         if (this.spawned && inventory.open(this)) {
+            if (!isPermanent) {
+                updateTrackingPositions(true);
+            }
             return cnt;
         } else if (!alwaysOpen) {
             this.removeWindow(inventory);
@@ -4799,6 +4919,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             return -1;
         } else {
             inventory.getViewers().add(this);
+        }
+        
+        if (!isPermanent) {
+            updateTrackingPositions(true);
         }
 
         return cnt;
@@ -4815,8 +4939,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     public void removeWindow(Inventory inventory) {
         inventory.close(this);
-        if (!this.permanentWindows.contains(this.getWindowId(inventory)))
+        if (!this.permanentWindows.contains(this.getWindowId(inventory))) {
             this.windows.remove(inventory);
+            updateTrackingPositions(true);
+        }
     }
 
     public void sendAllInventories() {
@@ -5039,6 +5165,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             if (oldLevel.getDimension() != level.getDimension()) {
                 this.setDimension(level.getDimension());
             }
+            updateTrackingPositions(true);
             return true;
         }
 
@@ -5327,10 +5454,34 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         }
     }
 
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getNoShieldTicks() {
+        return noShieldTicks;
+    }
+
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setNoShieldTicks(int noShieldTicks) {
+        this.noShieldTicks = noShieldTicks;
+    }
+
     @Override
     public String toString() {
         return "Player(name='" + getName() +
                 "', location=" + super.toString() +
                 ')';
+    }
+
+    /**
+     * Adds the items to the main player inventory and drops on the floor any excess. 
+     * @param items The items to give to the player.
+     */
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void giveItem(Item... items) {
+        for(Item failed: getInventory().addItem(items)) {
+            getLevel().dropItem(this, failed);
+        }
     }
 }

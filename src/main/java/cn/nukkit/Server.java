@@ -1,5 +1,6 @@
 package cn.nukkit;
 
+import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.block.Block;
 import cn.nukkit.blockentity.*;
@@ -70,6 +71,7 @@ import cn.nukkit.plugin.PluginLoadOrder;
 import cn.nukkit.plugin.PluginManager;
 import cn.nukkit.plugin.service.NKServiceManager;
 import cn.nukkit.plugin.service.ServiceManager;
+import cn.nukkit.positiontracking.PositionTrackingService;
 import cn.nukkit.potion.Effect;
 import cn.nukkit.potion.Potion;
 import cn.nukkit.resourcepacks.ResourcePackManager;
@@ -80,6 +82,7 @@ import cn.nukkit.utils.bugreport.ExceptionHandler;
 import co.aikar.timings.Timings;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.io.Files;
 import io.netty.buffer.ByteBuf;
 import lombok.extern.log4j.Log4j2;
 import org.iq80.leveldb.CompressionType;
@@ -87,6 +90,7 @@ import org.iq80.leveldb.DB;
 import org.iq80.leveldb.Options;
 import org.iq80.leveldb.impl.Iq80DBFactory;
 
+import javax.annotation.Nonnull;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -212,6 +216,8 @@ public class Server {
     private final Map<InetSocketAddress, Player> players = new HashMap<>();
 
     private final Map<UUID, Player> playerList = new HashMap<>();
+    
+    private PositionTrackingService positionTrackingService;
 
     private final Map<Integer, Level> levels = new HashMap<Integer, Level>() {
         public Level put(Integer key, Level value) {
@@ -250,6 +256,50 @@ public class Server {
     private PlayerDataSerializer playerDataSerializer = new DefaultPlayerDataSerializer(this);
 
     private final Set<String> ignoredPackets = new HashSet<>();
+
+    /**
+     * Minimal initializer for testing
+     */
+    @SuppressWarnings("UnstableApiUsage")
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    Server(File tempDir) throws IOException {
+        if (tempDir.isFile() && !tempDir.delete()) {
+            throw new IOException("Failed to delete " + tempDir);
+        }
+        instance = this;
+        CraftingManager.packet = new BatchPacket();
+        CraftingManager.packet.payload = new byte[0];
+        
+        currentThread = Thread.currentThread();
+        File abs = tempDir.getAbsoluteFile();
+        filePath = abs.getPath();
+        dataPath = filePath;
+        
+        File dir = new File(tempDir, "plugins");
+        pluginPath = dir.getPath();
+        
+        Files.createParentDirs(dir);
+        Files.createParentDirs(new File(tempDir, "worlds"));
+        Files.createParentDirs(new File(tempDir, "players"));
+        
+        baseLang = new BaseLang(BaseLang.FALLBACK_LANGUAGE);
+        
+        console = new NukkitConsole(this);
+        consoleThread = new ConsoleThread();
+        config = new Config();
+        properties = new Config();
+        banByName = new BanList(dataPath + "banned-players.json");
+        banByIP = new BanList(dataPath + "banned-ips.json");
+        operators = new Config();
+        whitelist = new Config();
+        commandMap = new SimpleCommandMap(this);
+        
+        setMaxPlayers(10);
+
+        this.registerEntities();
+        this.registerBlockEntities();
+    }
 
     Server(final String filePath, String dataPath, String pluginPath, String predefinedLanguage) {
         Preconditions.checkState(instance == null, "Already initialized!");
@@ -598,7 +648,15 @@ public class Server {
         this.queryRegenerateEvent = new QueryRegenerateEvent(this, 5);
 
         this.network.registerInterface(new RakNetInterface(this));
-
+        
+        try {
+            getLogger().debug("Loading position tracking service");
+            this.positionTrackingService = new PositionTrackingService(new File(Nukkit.DATA_PATH, "services/position_tracking_db"));
+            //getScheduler().scheduleRepeatingTask(null, positionTrackingService::forceRecheckAllPlayers, 20 * 5);
+        } catch (IOException e) {
+            getLogger().emergency("Failed to start the Position Tracking DB service!", e);
+        }
+        
         this.pluginManager.loadPowerNukkitPlugins();
         this.pluginManager.loadPlugins(this.pluginPath);
 
@@ -983,6 +1041,11 @@ public class Server {
             this.getLogger().debug("Unloading all levels");
             for (Level level : this.levelArray) {
                 this.unloadLevel(level, true);
+            }
+
+            if (positionTrackingService != null) {
+                this.getLogger().debug("Closing position tracking service");
+                positionTrackingService.close();
             }
 
             this.getLogger().debug("Closing console");
@@ -2523,6 +2586,7 @@ public class Server {
         BlockEntity.registerBlockEntity(BlockEntity.DROPPER, BlockEntityDropper.class);
         BlockEntity.registerBlockEntity(BlockEntity.MOVING_BLOCK, BlockEntityMovingBlock.class);
         BlockEntity.registerBlockEntity(BlockEntity.NETHER_REACTOR, BlockEntityNetherReactor.class);
+        BlockEntity.registerBlockEntity(BlockEntity.LODESTONE, BlockEntityLodestone.class);
     }
 
     public boolean isNetherAllowed() {
@@ -2544,6 +2608,13 @@ public class Server {
 
     public static Server getInstance() {
         return instance;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Nonnull
+    public PositionTrackingService getPositionTrackingService() {
+        return positionTrackingService;
     }
 
     private class ConsoleThread extends Thread implements InterruptibleThread {

@@ -94,6 +94,13 @@ public class BlockSignPost extends BlockTransparentMeta implements Faceable, Blo
         return false;
     }
 
+    @Since("1.3.0.0-PN")
+    @PowerNukkitOnly
+    @Override
+    public boolean isSolid(BlockFace side) {
+        return false;
+    }
+
     @Override
     public String getName() {
         return "Sign Post";
@@ -139,10 +146,10 @@ public class BlockSignPost extends BlockTransparentMeta implements Faceable, Blo
             );
 
             BlockState post = BlockState.of(getPostId()).withProperty(GROUND_SIGN_DIRECTION, direction);
-            getLevel().setBlock(block, post.getBlock(), true);
+            getLevel().setBlock(block, post.getBlock(block), true);
         } else {
             BlockState wall = BlockState.of(getWallId()).withProperty(FACING_DIRECTION, face);
-            getLevel().setBlock(block, wall.getBlock(), true);
+            getLevel().setBlock(block, wall.getBlock(block), true);
         }
 
         if (player != null) {
@@ -208,6 +215,8 @@ public class BlockSignPost extends BlockTransparentMeta implements Faceable, Blo
         return getSignDirection().getClosestBlockFace();
     }
 
+    @PowerNukkitOnly
+    @Since("1.3.0.0-PN")
     @Override
     public void setBlockFace(BlockFace face) {
         setSignDirection(face.getCompassRoseDirection());
