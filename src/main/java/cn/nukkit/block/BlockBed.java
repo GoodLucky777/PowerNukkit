@@ -128,7 +128,7 @@ public class BlockBed extends BlockTransparentMeta implements Faceable, BlockEnt
         }
 
         if (player != null) {
-            Location spawn = Location.fromObject(block.add(0.5, 0.5, 0.5), player.getLevel(), player.getYaw(), player.getPitch());
+            Location spawn = Location.fromObject(b.add(0.5, 0.5, 0.5), player.getLevel(), player.getYaw(), player.getPitch());
             if (!player.getSpawn().equals(spawn)) {
                 player.setSpawn(spawn);
                 player.sendMessage(new TranslationContainer("tile.bed.respawnSet"));
