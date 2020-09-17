@@ -11,7 +11,7 @@ import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBed;
 import cn.nukkit.lang.TranslationContainer;
 import cn.nukkit.level.Level;
-import cn.nukkit.level.Location
+import cn.nukkit.level.Location;
 import cn.nukkit.math.BlockFace;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.utils.BlockColor;
