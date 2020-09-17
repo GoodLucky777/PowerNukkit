@@ -36,26 +36,26 @@ public class SetMaxPlayersCommand extends VanillaCommand {
         int maxPlayers = 1;
         
         maxPlayers = Integer.parseInt(args[0]);
-        int onlinePlayers = Integer.valueOf(Server.getInstance().getOnlinePlayers().values());
+        int onlinePlayers = Server.getInstance().getOnlinePlayers().size();
         
-        int failType = -1;
+        byte failType = -1;
         if (maxPlayers < 1) {
             maxPlayers = 1;
-            failType = 1;
+            failType = 0;
         } else if (maxPlayers > 30) {
             maxPlayers = 30;
-            failType = 2;
+            failType = 1;
         } else if (maxPlayers < onlinePlayers) {
             maxPlayers = onlinePlayers;
-            failType = 1;
+            failType = 0;
         }
         
         Server.getInstance().setMaxPlayers(maxPlayers);
         Command.broadcastCommandMessage(sender, new TranslationContainer("commands.setmaxplayers.success", maxPlayers));
         
-        if (failType == 1) {
+        if (failType == 0) {
             sender.sendMessage(new TranslationContainer("commands.setmaxplayers.success.lowerbound"));
-        } else if (failType == 2) {
+        } else if (failType == 1) {
             sender.sendMessage(new TranslationContainer("commands.setmaxplayers.success.upperbound"));
         }
         
