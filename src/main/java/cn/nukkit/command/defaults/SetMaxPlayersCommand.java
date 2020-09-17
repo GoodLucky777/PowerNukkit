@@ -51,7 +51,7 @@ public class SetMaxPlayersCommand extends VanillaCommand {
         }
         
         Server.getInstance().setMaxPlayers(maxPlayers);
-        Command.broadcastCommandMessage(sender, new TranslationContainer("commands.setmaxplayers.success", maxPlayers));
+        Command.broadcastCommandMessage(sender, new TranslationContainer("commands.setmaxplayers.success", Integer.toString(maxPlayers)));
         
         if (failType == 0) {
             sender.sendMessage(new TranslationContainer("commands.setmaxplayers.success.lowerbound"));
