@@ -1,8 +1,8 @@
 package cn.nukkit.utils;
 
-import java.io.ByteArrayInputStream;
+import cn.nukkit.api.PowerNukkitDifference;
+
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.zip.Deflater;
 
 
@@ -40,15 +40,18 @@ public abstract class Zlib {
         provider = providers[providerIndex];
     }
 
-    public static byte[] deflate(byte[] data) throws Exception {
+    @PowerNukkitDifference(since = "1.4.0.0-PN", info = "Throws IOException instead of Exception")
+    public static byte[] deflate(byte[] data) throws IOException {
         return deflate(data, Deflater.DEFAULT_COMPRESSION);
     }
 
-    public static byte[] deflate(byte[] data, int level) throws Exception {
+    @PowerNukkitDifference(since = "1.4.0.0-PN", info = "Throws IOException instead of Exception")
+    public static byte[] deflate(byte[] data, int level) throws IOException {
         return provider.deflate(data, level);
     }
 
-    public static byte[] deflate(byte[][] data, int level) throws Exception {
+    @PowerNukkitDifference(since = "1.4.0.0-PN", info = "Throws IOException instead of Exception")
+    public static byte[] deflate(byte[][] data, int level) throws IOException {
         return provider.deflate(data, level);
     }
 

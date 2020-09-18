@@ -1,12 +1,22 @@
 package cn.nukkit.block;
 
 import cn.nukkit.Player;
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
+import cn.nukkit.blockproperty.BlockProperties;
+import cn.nukkit.blockproperty.CommonBlockProperties;
+import cn.nukkit.blockproperty.exception.InvalidBlockPropertyValueException;
+import cn.nukkit.blockproperty.value.DirtType;
 import cn.nukkit.item.Item;
 import cn.nukkit.utils.BlockColor;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Optional;
+
 /**
- * Created on 2015/11/22 by xtypr.
- * Package cn.nukkit.block in project Nukkit .
+ * @author xtypr
+ * @since 2015/11/22
  */
 public class BlockPodzol extends BlockDirt {
 
@@ -19,6 +29,14 @@ public class BlockPodzol extends BlockDirt {
         super(0);
     }
 
+    @Since("1.4.0.0-PN")
+    @PowerNukkitOnly
+    @Nonnull
+    @Override
+    public BlockProperties getProperties() {
+        return CommonBlockProperties.EMPTY_PROPERTIES;
+    }
+
     @Override
     public int getId() {
         return PODZOL;
@@ -27,6 +45,23 @@ public class BlockPodzol extends BlockDirt {
     @Override
     public String getName() {
         return "Podzol";
+    }
+
+    @Since("1.4.0.0-PN")
+    @PowerNukkitOnly
+    @Nonnull
+    @Override
+    public Optional<DirtType> getDirtType() {
+        return Optional.empty();
+    }
+
+    @Since("1.4.0.0-PN")
+    @PowerNukkitOnly
+    @Override
+    public void setDirtType(@Nullable DirtType dirtType) {
+        if (dirtType != null) {
+            throw new InvalidBlockPropertyValueException(DIRT_TYPE, null, dirtType, getName()+" don't support DirtType");
+        }
     }
 
     @Override
@@ -40,18 +75,8 @@ public class BlockPodzol extends BlockDirt {
     }
 
     @Override
-    public boolean onActivate(Item item, Player player) {
+    public boolean onActivate(@Nonnull Item item, Player player) {
         return false;
-    }
-
-    @Override
-    public int getFullId() {
-        return this.getId() << DATA_BITS;
-    }
-
-    @Override
-    public void setDamage(int meta) {
-
     }
 
     @Override

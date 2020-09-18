@@ -1,6 +1,7 @@
 package cn.nukkit.inventory;
 
 import cn.nukkit.Player;
+import cn.nukkit.api.DeprecationDetails;
 import cn.nukkit.block.Block;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.enchantment.Enchantment;
@@ -16,8 +17,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 /**
- * author: MagicDroidX
- * Nukkit Project
+ * @author MagicDroidX (Nukkit Project)
  */
 public class AnvilInventory extends FakeBlockUIComponent {
     
@@ -328,9 +328,8 @@ public class AnvilInventory extends FakeBlockUIComponent {
         return setItem(2, item, send);
     }
 
-    /**
-     * @deprecated the client won't see this change, and the transaction might fail. This method will be removed from public in 1.3.0.0-PN.
-     */
+    @DeprecationDetails(since = "TBD", reason = "the client won't see this change, and the transaction might fail",
+        toBeRemovedAt = "1.4.0.0-PN")
     @Deprecated
     public boolean setResult(Item item) {
         if (item == null || item.isNull()) {
@@ -379,6 +378,10 @@ public class AnvilInventory extends FakeBlockUIComponent {
             case Item.IRON_CHESTPLATE:
             case Item.IRON_LEGGINGS:
             case Item.IRON_BOOTS:
+            case Item.CHAIN_HELMET:
+            case Item.CHAIN_CHESTPLATE:
+            case Item.CHAIN_LEGGINGS:
+            case Item.CHAIN_BOOTS:
                 return Item.IRON_INGOT;
         
             case Item.GOLD_SWORD:
@@ -415,7 +418,18 @@ public class AnvilInventory extends FakeBlockUIComponent {
             case Item.STONE_AXE:
             case Item.STONE_HOE:
                 return Item.COBBLESTONE;
-                
+
+            case Item.NETHERITE_SWORD:
+            case Item.NETHERITE_PICKAXE:
+            case Item.NETHERITE_SHOVEL:
+            case Item.NETHERITE_AXE:
+            case Item.NETHERITE_HOE:
+            case Item.NETHERITE_HELMET:
+            case Item.NETHERITE_CHESTPLATE:
+            case Item.NETHERITE_LEGGINGS:
+            case Item.NETHERITE_BOOTS:
+                return Item.NETHERITE_INGOT;
+
             default:
                 return 0;
         }

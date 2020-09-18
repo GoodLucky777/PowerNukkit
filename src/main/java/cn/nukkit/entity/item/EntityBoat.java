@@ -29,7 +29,8 @@ import cn.nukkit.network.protocol.SetEntityLinkPacket;
 import java.util.ArrayList;
 
 /**
- * Created by yescallop on 2016/2/13.
+ * @author yescallop
+ * @since 2016/2/13
  */
 public class EntityBoat extends EntityVehicle {
 
@@ -94,6 +95,11 @@ public class EntityBoat extends EntityVehicle {
     @Override
     public int getNetworkId() {
         return NETWORK_ID;
+    }
+
+    @Override
+    public String getInteractButtonText() {
+        return "action.interact.ride.boat";
     }
 
     @Override

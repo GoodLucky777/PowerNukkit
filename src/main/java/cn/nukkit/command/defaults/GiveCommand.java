@@ -10,8 +10,8 @@ import cn.nukkit.lang.TranslationContainer;
 import cn.nukkit.utils.TextFormat;
 
 /**
- * Created on 2015/12/9 by xtypr.
- * Package cn.nukkit.command.defaults in project Nukkit .
+ * @author xtypr
+ * @since 2015/12/9
  */
 public class GiveCommand extends VanillaCommand {
     public GiveCommand(String name) {
@@ -20,7 +20,7 @@ public class GiveCommand extends VanillaCommand {
         this.commandParameters.clear();
         this.commandParameters.put("default", new CommandParameter[]{
                 new CommandParameter("player", CommandParamType.TARGET, false),
-                new CommandParameter("item", false, CommandParameter.ENUM_TYPE_ITEM_LIST),
+                new CommandParameter("itemName", false, CommandParameter.ENUM_TYPE_ITEM_LIST),
                 new CommandParameter("amount", CommandParamType.INT, true),
                 new CommandParameter("meta", CommandParamType.INT, true),
                 new CommandParameter("tags...", CommandParamType.RAWTEXT, true)
