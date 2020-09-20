@@ -119,7 +119,7 @@ public class BlockBed extends BlockTransparentMeta implements Faceable, BlockEnt
     @Override
     public boolean onActivate(@Nonnull Item item, Player player) {
 
-        if (this.level.getDimension() == Level.DIMENSION_NETHER || this.level.getDimension() == Level.DIMENSION_THE_END) {
+        if (!(this.level.getDimension() == Level.DIMENSION_OVERWORLD)) {
             CompoundTag tag = EntityPrimedTNT.getDefaultNBT(this).putShort("Fuse", 0);
             new EntityPrimedTNT(this.level.getChunk(this.getFloorX() >> 4, this.getFloorZ() >> 4), tag);
             return true;
