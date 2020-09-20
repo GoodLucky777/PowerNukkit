@@ -8,7 +8,9 @@ import cn.nukkit.blockentity.BlockEntity;
 import cn.nukkit.blockentity.BlockEntityBed;
 import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.BooleanBlockProperty;
+import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.item.EntityPrimedTNT;
+import cn.nukkit.entity.mob.EntityMob;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBed;
 import cn.nukkit.lang.TranslationContainer;
@@ -168,9 +170,16 @@ public class BlockBed extends BlockTransparentMeta implements Faceable, BlockEnt
         }
 
         if (player != null && !player.isCreative()) {
-            AxisAlignedBB checkMonsterArea = new SimpleAxisAlignedBB(b.x - 8, b.y - 5.5, b.z - 8, b.x + 9, b.y + 5.5, b.z + 9)
+            AxisAlignedBB checkMonsterArea = new SimpleAxisAlignedBB(b.x - 8, b.y - 6.5, b.z - 8, b.x + 9, b.y + 5.5, b.z + 9)
                     .addCoord(footPart.getXOffset(), 0, footPart.getZOffset());
-            
+
+            for (Entity entity : this.level.getCollidingEntities(checkMonsterArea)) {
+                if (entity.isClosed() || !(entity instanceof EntityMob)) {
+                    continue;
+                }
+
+                
+            }
         }
 
         if (player != null && !player.sleepOn(b)) {
