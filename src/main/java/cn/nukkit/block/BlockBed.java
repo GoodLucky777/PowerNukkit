@@ -143,8 +143,8 @@ public class BlockBed extends BlockTransparentMeta implements Faceable, BlockEnt
             }
         }
 
+        BlockFace footPart = dir.getOpposite();
         if (player != null) {
-            BlockFace footPart = dir.getOpposite();
             AxisAlignedBB accessArea = new SimpleAxisAlignedBB(b.x - 2, b.y - 5.5, b.z - 2, b.x + 3, b.y + 2.5, b.z + 3)
                     .addCoord(footPart.getXOffset(), 0, footPart.getZOffset());
             
