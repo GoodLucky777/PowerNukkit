@@ -117,16 +117,14 @@ public class NetworkInventoryAction {
 
         switch (this.sourceType) {
             case SOURCE_CONTAINER:
+            case SOURCE_CRAFT_SLOT:
+            case SOURCE_TODO:
                 packet.putVarInt(this.windowId);
                 break;
             case SOURCE_WORLD:
                 packet.putUnsignedVarInt(this.unknown);
                 break;
             case SOURCE_CREATIVE:
-                break;
-            case SOURCE_CRAFT_SLOT:
-            case SOURCE_TODO:
-                packet.putVarInt(this.windowId);
                 break;
         }
 
@@ -220,7 +218,6 @@ public class NetworkInventoryAction {
                 if (this.windowId >= SOURCE_TYPE_ANVIL_OUTPUT && this.windowId <= SOURCE_TYPE_ANVIL_INPUT) { //anvil actions
                     Inventory inv = player.getWindowById(Player.ANVIL_WINDOW_ID);
 
-                    //TODO Anvil and Grindstones are completely hackable! Needs to be fixed!
                     if (inv instanceof AnvilInventory) {
                         AnvilInventory anvil = (AnvilInventory) inv;
 
@@ -253,7 +250,7 @@ public class NetworkInventoryAction {
                                 break;
                             case SOURCE_TYPE_ANVIL_RESULT:
                                 this.inventorySlot = 2;
-                                return new CraftingTakeResultAction(this.oldItem, this.newItem);
+                                return new CraftingTakeResultExperienceAction(this.oldItem, this.newItem, ((GrindstoneInventory) inv).getResultExperience());
                         }
                     } else {
                         player.getServer().getLogger().debug("Player " + player.getName() + " has no open anvil or grindstone inventory");

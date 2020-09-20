@@ -8,6 +8,8 @@ import cn.nukkit.level.Level;
 import cn.nukkit.math.BlockFace;
 import cn.nukkit.utils.BlockColor;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BlockChorusPlant extends BlockTransparent {
@@ -87,7 +89,7 @@ public class BlockChorusPlant extends BlockTransparent {
     }
 
     @Override
-    public boolean place(Item item, Block block, Block target, BlockFace face, double fx, double fy, double fz, Player player) {
+    public boolean place(@Nonnull Item item, @Nonnull Block block, @Nonnull Block target, @Nonnull BlockFace face, double fx, double fy, double fz, @Nullable Player player) {
         if (!isPositionValid()) {
             return false;
         }
