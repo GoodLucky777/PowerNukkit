@@ -167,6 +167,12 @@ public class BlockBed extends BlockTransparentMeta implements Faceable, BlockEnt
             return true;
         }
 
+        if (player != null && !player.isCreative()) {
+            AxisAlignedBB checkMonsterArea = new SimpleAxisAlignedBB(b.x - 8, b.y - 5.5, b.z - 8, b.x + 9, b.y + 5.5, b.z + 9)
+                    .addCoord(footPart.getXOffset(), 0, footPart.getZOffset());
+            
+        }
+
         if (player != null && !player.sleepOn(b)) {
             player.sendMessage(new TranslationContainer(TextFormat.GRAY + "%tile.bed.occupied"));
         }
