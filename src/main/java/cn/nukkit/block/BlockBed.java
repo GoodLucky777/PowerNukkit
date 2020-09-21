@@ -10,7 +10,7 @@ import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.BooleanBlockProperty;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.item.EntityPrimedTNT;
-import cn.nukkit.entity.mob.EntityMob;
+import cn.nukkit.entity.mob.*;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBed;
 import cn.nukkit.lang.TranslationContainer;
@@ -44,6 +44,8 @@ public class BlockBed extends BlockTransparentMeta implements Faceable, BlockEnt
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public static final BlockProperties PROPERTIES = new BlockProperties(DIRECTION, OCCUPIED, HEAD_PIECE);
+
+    public static final int[] preventSleepMonsterId = {EntityBlaze.getNetworkId(), EntityCaveSpider.getNetworkId(), EntityCreeper.getNetworkId(), EntityDrowned.getNetworkId(), EntityElderGuardian.getNetworkId(), EntityEndermite.getNetworkId(), EntityEvoker.getNetworkId(), EntityGuardian.getNetworkId(), EntityHusk.getNetworkId(), EntityPiglinBrute.getNetworkId(), EntityPillager.getNetworkId(), EntityPhantom.getNetworkId(), EntityRavager.getNetworkId(), EntitySilverfish.getNetworkId(), EntitySkeleton.getNetworkId(), EntityStray.getNetworkId(), EntityVex.getNetworkId(), EntityVindicator.getNetworkId(), EntityWitch.getNetworkId(), EntityWither.getNetworkId(), EntityWitherSkeleton.getNetworkId(), EntityZoglin.getNetworkId(), EntityZombie.getNetworkId(), EntityZombieVillager.getNetworkId(), EntityZombiePigman.getNetworkId()}; // TODO: Add Spider Jockey
 
     public BlockBed() {
         this(0);
