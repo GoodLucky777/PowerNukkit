@@ -45,7 +45,9 @@ public class BlockBed extends BlockTransparentMeta implements Faceable, BlockEnt
     @Since("1.4.0.0-PN")
     public static final BlockProperties PROPERTIES = new BlockProperties(DIRECTION, OCCUPIED, HEAD_PIECE);
 
-    public static final int[] preventSleepMonsterId = {EntityBlaze.NETWORK_ID, EntityCaveSpider.NETWORK_ID, EntityCreeper.NETWORK_ID, EntityDrowned.NETWORK_ID, EntityElderGuardian.NETWORK_ID, EntityEndermite.NETWORK_ID, EntityEvoker.NETWORK_ID, EntityGuardian.NETWORK_ID, EntityHusk.NETWORK_ID, EntityPiglinBrute.NETWORK_ID, EntityPillager.NETWORK_ID, EntityPhantom.NETWORK_ID, EntityRavager.NETWORK_ID, EntitySilverfish.NETWORK_ID, EntitySkeleton.NETWORK_ID, EntityStray.NETWORK_ID, EntityVex.NETWORK_ID, EntityVindicator.NETWORK_ID, EntityWitch.NETWORK_ID, EntityWither.NETWORK_ID, EntityWitherSkeleton.NETWORK_ID, EntityZoglin.NETWORK_ID, EntityZombie.NETWORK_ID, EntityZombieVillager.NETWORK_ID, EntityZombiePigman.NETWORK_ID}; // TODO: Add Spider Jockey
+    public static final int[] preventSleepMonsterId = {EntityBlaze.NETWORK_ID, EntityCaveSpider.NETWORK_ID, EntityCreeper.NETWORK_ID, EntityDrowned.NETWORK_ID, EntityElderGuardian.NETWORK_ID, EntityEndermite.NETWORK_ID, EntityEvoker.NETWORK_ID, EntityGuardian.NETWORK_ID, EntityHusk.NETWORK_ID, EntityPiglinBrute.NETWORK_ID, EntityPillager.NETWORK_ID, EntityPhantom.NETWORK_ID, EntityRavager.NETWORK_ID, EntitySilverfish.NETWORK_ID, EntitySkeleton.NETWORK_ID, EntityStray.NETWORK_ID, EntityVex.NETWORK_ID, EntityVindicator.NETWORK_ID, EntityWitch.NETWORK_ID, EntityWither.NETWORK_ID, EntityWitherSkeleton.NETWORK_ID, EntityZoglin.NETWORK_ID, EntityZombie.NETWORK_ID, EntityZombieVillager.NETWORK_ID}; // TODO: Add Spider Jockey
+
+    public static final int[] preventSleepOnlyHostileMonsterId = {EntityEnderman.NETWORK_ID, EntityZombiePigman.NETWORK_ID}; // TODO: Add Chicken Jockey
 
     public BlockBed() {
         this(0);
@@ -180,7 +182,14 @@ public class BlockBed extends BlockTransparentMeta implements Faceable, BlockEnt
                     continue;
                 }
 
-                
+                for (int i = 0; i < preventSleepMonsterId.size(); i++) {
+                    if (entity.getNetworkId() == preventSleepMonsterId[i]) {
+                        player.sendMessage(new TranslationContainer(TextFormat.GRAY + "%tile.bed.notSafe"));
+                        return true;
+                    }
+                }
+
+                // TODO: Check hostile mob, Piglin (check wearing golden armor)
             }
         }
 
