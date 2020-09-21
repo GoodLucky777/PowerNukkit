@@ -182,7 +182,7 @@ public class BlockBed extends BlockTransparentMeta implements Faceable, BlockEnt
                     continue;
                 }
 
-                for (int i = 0; i < preventSleepMonsterId.size(); i++) {
+                for (int i = 0; i < preventSleepMonsterId.length; i++) {
                     if (entity.getNetworkId() == preventSleepMonsterId[i]) {
                         player.sendMessage(new TranslationContainer(TextFormat.GRAY + "%tile.bed.notSafe"));
                         return true;
