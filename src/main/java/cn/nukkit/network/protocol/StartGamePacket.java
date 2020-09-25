@@ -82,6 +82,7 @@ public class StartGamePacket extends DataPacket {
     public int dayCycleStopTime = -1; //-1 = not stopped, any positive value = stopped at that time
     public int eduEditionOffer = 0;
     public boolean hasEduFeaturesEnabled = false;
+    public String educationProductionId;
     public float rainLevel;
     public float lightningLevel;
     public boolean hasConfirmedPlatformLockedContent = false;
@@ -105,6 +106,11 @@ public class StartGamePacket extends DataPacket {
     public boolean isWorldTemplateOptionLocked = false;
     public boolean isOnlySpawningV1Villagers = false;
     public String vanillaVersion = ProtocolInfo.MINECRAFT_VERSION_NETWORK;
+    public int limitedWorldWidth;
+    public int limitedWorldHeight;
+    public boolean netherType;
+    public boolean forceExperimentalGameplay;
+    
     public String levelId = ""; //base64 string, usually the same as world folder name in vanilla
     public String worldName;
     public String premiumWorldTemplateId = "";
@@ -144,7 +150,7 @@ public class StartGamePacket extends DataPacket {
         this.putVarInt(this.dayCycleStopTime);
         this.putVarInt(this.eduEditionOffer);
         this.putBoolean(this.hasEduFeaturesEnabled);
-        this.putString(""); // UnknownString0
+        this.putString(this.educationProductionId);
         this.putLFloat(this.rainLevel);
         this.putLFloat(this.lightningLevel);
         this.putBoolean(this.hasConfirmedPlatformLockedContent);
@@ -167,10 +173,10 @@ public class StartGamePacket extends DataPacket {
         this.putBoolean(this.isWorldTemplateOptionLocked);
         this.putBoolean(this.isOnlySpawningV1Villagers);
         this.putString(this.vanillaVersion);
-        this.putLInt(0); // UnknownInt0
-        this.putLInt(0); // UnknownInt1
-        this.putBoolean(false);
-        this.putBoolean(false);
+        this.putLInt(this.limitedWorldWidth);
+        this.putLInt(this.limitedWorldHeight);
+        this.putBoolean(this.netherType);
+        this.putBoolean(this.forceExperimentalGameplay);
 
         this.putString(this.levelId);
         this.putString(this.worldName);
