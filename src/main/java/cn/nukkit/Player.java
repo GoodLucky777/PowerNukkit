@@ -2179,23 +2179,36 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         startGamePacket.yaw = (float) this.yaw;
         startGamePacket.pitch = (float) this.pitch;
         startGamePacket.seed = -1;
-        startGamePacket.dimension = /*(byte) (this.level.getDimension() & 0xff)*/0;
+        startGamePacket.dimension = (byte) getLevel().getDimension();
+        startGamePacket.trustingPlayers = false;
         startGamePacket.worldGamemode = getClientFriendlyGamemode(this.gamemode);
         startGamePacket.difficulty = this.server.getDifficulty();
         startGamePacket.spawnX = spawnPosition.getFloorX();
         startGamePacket.spawnY = spawnPosition.getFloorY();
         startGamePacket.spawnZ = spawnPosition.getFloorZ();
         startGamePacket.hasAchievementsDisabled = true;
-        startGamePacket.dayCycleStopTime = -1;
+        startGamePacket.dayCycleStopTime = getLevel().getTime();
+        startGamePacket.eduEditionOffer = 0;
+        startGamePacket.hasEduFeaturesEnabled = false;
         startGamePacket.rainLevel = 0;
         startGamePacket.lightningLevel = 0;
+        startGamePacket.multiplayerGame = true;
+        startGamePacket.broadcastToLAN = true;
+        startGamePacket.xblBroadcastIntent = StartGamePacket.GAME_PUBLISH_SETTING_PUBLIC;
+        startGamePacket.platformBroadcastIntent = StartGamePacket.GAME_PUBLISH_SETTING_PUBLIC;
         startGamePacket.commandsEnabled = this.isEnableClientCommand();
+        startGamePacket.isTexturePacksRequired = false;
         startGamePacket.gameRules = getLevel().getGameRules();
         startGamePacket.levelId = "";
         startGamePacket.worldName = this.getServer().getNetwork().getName();
         startGamePacket.generator = 1; //0 old, 1 infinite, 2 flat
-        startGamePacket.dimension = (byte) getLevel().getDimension();
-        //startGamePacket.isInventoryServerAuthoritative = true;
+        startGamePacket.permissionLevel = PERMISSION_MEMBER;
+        startGamePacket.serverChunkTickRange = 4;
+        //startGamePacket.vanillaVersion = "";
+        startGamePacket.premiumWorldTemplateId = "";
+        startGamePacket.multiplayerCorrelationId = "";
+        startGamePacket.isInventoryServerAuthoritative = false;
+        startGamePacket.isMovementServerAuthoritative = false; // CLIENT
         this.dataPacket(startGamePacket);
 
         this.dataPacket(new BiomeDefinitionListPacket());
