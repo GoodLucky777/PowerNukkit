@@ -2198,7 +2198,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         startGamePacket.xblBroadcastIntent = StartGamePacket.GAME_PUBLISH_SETTING_PUBLIC;
         startGamePacket.platformBroadcastIntent = StartGamePacket.GAME_PUBLISH_SETTING_PUBLIC;
         startGamePacket.commandsEnabled = this.isEnableClientCommand();
-        startGamePacket.isTexturePacksRequired = false;
+        startGamePacket.isTexturePacksRequired = this.getServer().getForceResources();
         startGamePacket.bonusChestEnabled = false;
         startGamePacket.startingWithMap = false;
         startGamePacket.gameRules = getLevel().getGameRules();
