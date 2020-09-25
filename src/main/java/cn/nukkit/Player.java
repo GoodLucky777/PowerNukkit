@@ -2190,6 +2190,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         startGamePacket.dayCycleStopTime = getLevel().getTime();
         startGamePacket.eduEditionOffer = 0;
         startGamePacket.hasEduFeaturesEnabled = false;
+        startGamePacket.educationProductionId = "";
         startGamePacket.rainLevel = 0;
         startGamePacket.lightningLevel = 0;
         startGamePacket.multiplayerGame = true;
@@ -2198,13 +2199,20 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         startGamePacket.platformBroadcastIntent = StartGamePacket.GAME_PUBLISH_SETTING_PUBLIC;
         startGamePacket.commandsEnabled = this.isEnableClientCommand();
         startGamePacket.isTexturePacksRequired = false;
+        startGamePacket.bonusChestEnabled = false;
+        startGamePacket.startingWithMap = false;
         startGamePacket.gameRules = getLevel().getGameRules();
+        
         startGamePacket.levelId = "";
-        startGamePacket.worldName = this.getServer().getNetwork().getName();
-        startGamePacket.generator = 1; //0 old, 1 infinite, 2 flat
+        startGamePacket.worldName = this.getServer().getNetwork().getName(); // Use MOTD
+        startGamePacket.generator = 1; // 0 old, 1 infinite, 2 flat
         startGamePacket.permissionLevel = PERMISSION_MEMBER;
         startGamePacket.serverChunkTickRange = 4;
-        //startGamePacket.vanillaVersion = "";
+        startGamePacket.vanillaVersion = "*";
+        startGamePacket.limitedWorldWidth = 16;
+        startGamePacket.limitedWorldHeight = 16;
+        startGamePacket.netherType = false;
+        startGamePacket.forceExperimentalGameplay = false;
         startGamePacket.premiumWorldTemplateId = "";
         startGamePacket.multiplayerCorrelationId = "";
         startGamePacket.isInventoryServerAuthoritative = false;
