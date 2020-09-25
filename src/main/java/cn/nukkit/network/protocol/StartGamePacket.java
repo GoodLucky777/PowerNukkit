@@ -161,8 +161,8 @@ public class StartGamePacket extends DataPacket {
         this.putBoolean(this.commandsEnabled);
         this.putBoolean(this.isTexturePacksRequired);
         this.putGameRules(this.gameRules);
-        this.putBoolean(this.bonusChest);
-        this.putBoolean(this.hasStartWithMapEnabled);
+        this.putBoolean(this.bonusChestEnabled);
+        this.putBoolean(this.startingWithMap);
         this.putVarInt(this.permissionLevel);
         this.putLInt(this.serverChunkTickRange);
         this.putBoolean(this.hasLockedBehaviorPack);
