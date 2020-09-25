@@ -93,8 +93,8 @@ public class StartGamePacket extends DataPacket {
     public boolean commandsEnabled;
     public boolean isTexturePacksRequired = false;
     public GameRules gameRules;
-    public boolean bonusChest = false;
-    public boolean hasStartWithMapEnabled = false;
+    public boolean bonusChestEnabled = false;
+    public boolean startingWithMap = false;
     @Since("1.3.0.0-PN") public boolean trustingPlayers;
     public int permissionLevel = 1;
     public int serverChunkTickRange = 4;
