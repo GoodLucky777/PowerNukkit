@@ -1532,7 +1532,8 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
 
     @Override
     public String toString() {
-        return "Block[" + this.getName() + "] (" + this.getId() + ":" + (mutableState != null? mutableState.getDataStorage() : "0")  + ")";
+        return "Block[" + this.getName() + "] (" + this.getId() + ":" + (mutableState != null? mutableState.getDataStorage() : "0")  + ")" + 
+                (isValid()? " at "+super.toString() : "");
     }
 
     public boolean collidesWithBB(AxisAlignedBB bb) {
@@ -1873,7 +1874,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
     }
     
     public Optional<Block> firstInLayers(int startingLayer, Predicate<Block> condition) {
-        int maximumLayer = this.level.getProvider().getMaximumLayer();
+        int maximumLayer = this.level.requireProvider().getMaximumLayer();
         for (int layer = startingLayer; layer <= maximumLayer; layer++) {
             Block block = this.getLevelBlockAtLayer(layer);
             if (condition.test(block)) {
