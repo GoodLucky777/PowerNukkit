@@ -41,4 +41,9 @@ public class EntityZoglin extends EntityMob {
     public String getName() {
         return "Zoglin";
     }
+
+    @Override
+    public boolean isUndead() {
+        return true;
+    }
 }
