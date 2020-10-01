@@ -45,6 +45,11 @@ public class EntityPiglin extends EntityMob implements EntityAgeable {
     }
 
     @Override
+    public boolean isBaby() {
+        return this.getDataFlag(DATA_FLAGS, Entity.DATA_FLAG_BABY);
+    }
+
+    @Override
     public boolean isPreventingSleep(Player player) {
         return !this.isBaby()/*TODO: Should this check player's golden armor?*/;
     }
