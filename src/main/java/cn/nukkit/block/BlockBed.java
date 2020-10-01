@@ -152,7 +152,7 @@ public class BlockBed extends BlockTransparentMeta implements Faceable, BlockEnt
                     .addCoord(footPart.getXOffset(), 0, footPart.getZOffset());
             
             if (!accessArea.isVectorInside(player)) {
-                player.sendMessage(new TranslationContainer(TextFormat.GRAY+"%tile.bed.tooFar"));
+                player.sendMessage(new TranslationContainer(TextFormat.GRAY + "%tile.bed.tooFar"));
                 return true;
             }
             
@@ -177,7 +177,7 @@ public class BlockBed extends BlockTransparentMeta implements Faceable, BlockEnt
                     .addCoord(footPart.getXOffset(), 0, footPart.getZOffset());
 
             for (Entity entity : this.level.getCollidingEntities(checkMonsterArea)) {
-                if (!entity.isClosed() && entity.isPreventSleep(player)) {
+                if (!entity.isClosed() && entity.isPreventingSleep(player)) {
                     player.sendTranslation(TextFormat.GRAY + "%tile.bed.notSafe");
                     return true;
                 }
