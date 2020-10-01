@@ -181,6 +181,7 @@ public class BlockBed extends BlockTransparentMeta implements Faceable, BlockEnt
                     player.sendTranslation(TextFormat.GRAY + "%tile.bed.notSafe");
                     return true;
                 }
+                // TODO: Check Chicken Jockey, Spider Jockey
             }
         }
 
