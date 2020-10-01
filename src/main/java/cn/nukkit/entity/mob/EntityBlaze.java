@@ -39,4 +39,9 @@ public class EntityBlaze extends EntityMob {
     public String getName() {
         return "Blaze";
     }
+
+    @Override
+    public boolean isPreventingSleep(Player player) {
+        return true;
+    }
 }
