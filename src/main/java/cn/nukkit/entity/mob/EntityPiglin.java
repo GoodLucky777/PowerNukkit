@@ -1,5 +1,6 @@
 package cn.nukkit.entity.mob;
 
+import cn.nukkit.Player;
 import cn.nukkit.api.Since;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
@@ -40,5 +41,10 @@ public class EntityPiglin extends EntityMob {
     @Override
     public String getName() {
         return "Piglin";
+    }
+
+    @Override
+    public boolean isPreventingSleep(Player player) {
+        return !this.isBaby()/*TODO: Should this check player's golden armor?*/;
     }
 }
