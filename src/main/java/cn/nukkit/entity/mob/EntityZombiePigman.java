@@ -49,6 +49,6 @@ public class EntityZombiePigman extends EntityMob implements EntitySmite {
 
     @Override
     public boolean isPreventingSleep(Player player) {
-        return this.getPropertyBoolean(DATA_FLAG_ANGRY);
+        return this.getDataPropertyBoolean(DATA_FLAG_ANGRY);
     }
 }
