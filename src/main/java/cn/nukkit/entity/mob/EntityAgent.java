@@ -56,4 +56,9 @@ public class EntityAgent extends EntityMob implements InventoryHolder {
     public boolean attack(EntityDamageEvent source) {
         return false;
     }
+    
+    @Override
+    public ContainerInventory getInventory() {
+        return inventory;
+    }
 }
