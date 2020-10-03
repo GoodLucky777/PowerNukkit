@@ -2543,6 +2543,7 @@ public class Server {
         Entity.registerEntity("ThrownTrident", EntityThrownTrident.class);
         Entity.registerEntity("XpOrb", EntityXPOrb.class);
 
+        Entity.registerEntity("Agent", EntityAgent.class);
         Entity.registerEntity("Human", EntityHuman.class, true);
         //Vehicle
         Entity.registerEntity("Boat", EntityBoat.class);
