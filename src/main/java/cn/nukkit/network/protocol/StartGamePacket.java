@@ -93,8 +93,8 @@ public class StartGamePacket extends DataPacket {
     public boolean commandsEnabled;
     public boolean isTexturePacksRequired = false;
     public GameRules gameRules;
-    public boolean bonusChestEnabled = false;
-    public boolean startingWithMap = false;
+    public boolean bonusChest = false;
+    public boolean hasStartWithMapEnabled = false;
     @Since("1.3.0.0-PN") public boolean trustingPlayers;
     public int permissionLevel = 1;
     public int serverChunkTickRange = 4;
@@ -161,8 +161,8 @@ public class StartGamePacket extends DataPacket {
         this.putBoolean(this.commandsEnabled);
         this.putBoolean(this.isTexturePacksRequired);
         this.putGameRules(this.gameRules);
-        this.putBoolean(this.bonusChestEnabled);
-        this.putBoolean(this.startingWithMap);
+        this.putBoolean(this.bonusChest);
+        this.putBoolean(this.hasStartWithMapEnabled);
         this.putVarInt(this.permissionLevel);
         this.putLInt(this.serverChunkTickRange);
         this.putBoolean(this.hasLockedBehaviorPack);
