@@ -1,20 +1,19 @@
 package cn.nukkit.entity.mob;
 
 import cn.nukkit.event.entity.EntityDamageEvent;
-import cn.nukkit.inventory.ContainerInventory;
-import cn.nukkit.inventory.InventoryHolder;
+//import cn.nukkit.inventory.InventoryHolder;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
 
 /**
  * @author good777LUCKY
  */
-public class EntityAgent extends EntityMob implements InventoryHolder {
+public class EntityAgent extends EntityMob /*implements InventoryHolder*/ {
 
     // TODO: tick world, inventory (size 27, type container), save inventory, not rename able with nametag, persistent
     public final static int NETWORK_ID = 56;
     
-    protected ContainerInventory inventory;
+    //protected Inventory inventory;
     
     @Override
     public int getNetworkId() {
@@ -58,8 +57,8 @@ public class EntityAgent extends EntityMob implements InventoryHolder {
         return false;
     }
     
-    @Override
-    public ContainerInventory getInventory() {
+    /*@Override
+    public Inventory getInventory() {
         return inventory;
-    }
+    }*/
 }
