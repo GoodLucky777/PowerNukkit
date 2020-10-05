@@ -82,7 +82,7 @@ public class StartGamePacket extends DataPacket {
     public int dayCycleStopTime = -1; //-1 = not stopped, any positive value = stopped at that time
     public int eduEditionOffer = 0;
     public boolean hasEduFeaturesEnabled = false;
-    public String educationProductionId;
+    public String educationProductionId = "";
     public float rainLevel;
     public float lightningLevel;
     public boolean hasConfirmedPlatformLockedContent = false;
