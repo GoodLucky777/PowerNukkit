@@ -68,6 +68,7 @@ public class SimpleCommandMap implements CommandMap {
         this.register("nukkit", new XpCommand("xp"));
         this.register("nukkit", new SetBlockCommand("setblock"));
         this.register("nukkit", new DayLockCommand("daylock"));
+        this.register("nukkit", new SetMaxPlayersCommand("setmaxplayers"));
 
 //        if ((boolean) this.server.getConfig("debug.commands", false)) {
         this.register("nukkit", new StatusCommand("status"));
