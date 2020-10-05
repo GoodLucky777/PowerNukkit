@@ -11,6 +11,7 @@ import cn.nukkit.nbt.tag.CompoundTag;
  */
 public class EntityAgent extends EntityMob implements InventoryHolder {
 
+    // TODO: tick world, inventory (size 27, type container), save inventory, not rename able with nametag, persistent
     public final static int NETWORK_ID = 56;
     
     protected ContainerInventory inventory;
