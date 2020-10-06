@@ -1,11 +1,12 @@
 package cn.nukkit.block;
 
-import cn.nukkit.item.Item;
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.item.ItemTool;
 import cn.nukkit.utils.BlockColor;
 
 /**
- * Created by good777LUCKY
+ * @author good777LUCKY
  */
 public class BlockObsidianCrying extends BlockSolid {
 
@@ -41,16 +42,12 @@ public class BlockObsidianCrying extends BlockSolid {
     public int getLightLevel() {
         return 10;
     }
-    
+
+    @Since("1.4.0.0-PN")
+    @PowerNukkitOnly
     @Override
-    public Item[] getDrops(Item item) {
-        if (item.isPickaxe() && item.getTier() > ItemTool.DIAMOND_PICKAXE) {
-            return new Item[]{
-                toItem()
-            };
-        } else {
-            return new Item[0];
-        }
+    public int getToolTier() {
+        return ItemTool.TIER_DIAMOND;
     }
     
     @Override

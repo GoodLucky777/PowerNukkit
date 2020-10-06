@@ -105,10 +105,10 @@ public class BlockLantern extends BlockFlowable {
         if (type == Level.BLOCK_UPDATE_NORMAL) {
             if (!isHanging()) {
                 if (!isBlockUnderValid()) {
-                    level.useBreakOn(this);
+                    level.useBreakOn(this, ItemTool.getBestTool(getToolType()));
                 }
             } else if (!isBlockAboveValid()) {
-                level.useBreakOn(this);
+                level.useBreakOn(this, ItemTool.getBestTool(getToolType()));
             }
             return type;
         }
@@ -184,6 +184,12 @@ public class BlockLantern extends BlockFlowable {
     public BlockColor getColor() {
         return BlockColor.IRON_BLOCK_COLOR;
     }
+
+    @Override
+    public int getToolTier() {
+        return ItemTool.TIER_WOODEN;
+    }
+
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")

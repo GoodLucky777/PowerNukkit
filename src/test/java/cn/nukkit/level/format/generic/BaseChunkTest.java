@@ -1,6 +1,5 @@
 package cn.nukkit.level.format.generic;
 
-import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockID;
 import cn.nukkit.block.BlockWall;
 import cn.nukkit.blockstate.BlockState;
@@ -9,19 +8,18 @@ import cn.nukkit.level.format.ChunkSection;
 import cn.nukkit.level.format.anvil.Anvil;
 import cn.nukkit.level.format.updater.ChunkUpdater;
 import cn.nukkit.math.BlockFace;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.powernukkit.tests.junit.jupiter.PowerNukkitExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(PowerNukkitExtension.class)
 class BaseChunkTest {
     
     @Mock
@@ -29,11 +27,6 @@ class BaseChunkTest {
     
     @Mock(answer = Answers.CALLS_REAL_METHODS)
     BaseChunk chunk;
-    
-    @BeforeAll
-    static void setupEnvironment() {
-        Block.init();
-    }
     
     @BeforeEach
     void setup() {
@@ -169,6 +162,7 @@ class BaseChunkTest {
         assertEquals(1, section.getContentVersion());
         
         Level level = mock(Level.class, Answers.CALLS_REAL_METHODS);
+        doReturn("FakeLevel").when(level).getName();
         doReturn(chunk).when(level).getChunk(x >> 4, z >> 4);
         
         chunk.backwardCompatibilityUpdate(level);

@@ -1,5 +1,7 @@
 package cn.nukkit.block;
 
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
 import cn.nukkit.utils.BlockColor;
@@ -29,6 +31,11 @@ public class BlockObsidian extends BlockSolid {
     }
 
     @Override
+    public int getToolTier() {
+        return ItemTool.TIER_DIAMOND;
+    }
+
+    @Override
     public double getHardness() {
         return 35; //TODO Should be 50 but the break time calculation is broken
     }
@@ -36,17 +43,6 @@ public class BlockObsidian extends BlockSolid {
     @Override
     public double getResistance() {
         return 6000;
-    }
-
-    @Override
-    public Item[] getDrops(Item item) {
-        if (item.isPickaxe() && item.getTier() >= ItemTool.TIER_DIAMOND) {
-            return new Item[]{
-                    toItem()
-            };
-        } else {
-            return new Item[0];
-        }
     }
 
     @Override
@@ -58,11 +54,20 @@ public class BlockObsidian extends BlockSolid {
                 this.west(), this.east(),
         };
         for (Block aNearby : nearby) {
-            if (aNearby != null) if (aNearby.getId() == NETHER_PORTAL) {
+            if (aNearby != null && aNearby.getId() == NETHER_PORTAL) {
                 aNearby.onBreak(item);
             }
         }
         return super.onBreak(item);
+    }
+
+    @Since("1.2.1.0-PN")
+    @PowerNukkitOnly
+    @Override
+    public void afterRemoval(Block newBlock, boolean update) {
+        if (update) {
+            onBreak(Item.get(BlockID.AIR));
+        }
     }
 
     @Override

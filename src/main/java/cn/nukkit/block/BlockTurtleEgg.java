@@ -2,6 +2,7 @@ package cn.nukkit.block;
 
 import cn.nukkit.Player;
 import cn.nukkit.api.DeprecationDetails;
+import cn.nukkit.api.PowerNukkitDifference;
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.blockproperty.ArrayBlockProperty;
@@ -39,7 +40,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @PowerNukkitOnly
 public class BlockTurtleEgg extends BlockFlowable {
     public static final BlockProperty<Integer> EGG_COUNT = new ArrayBlockProperty<>("turtle_egg_count", false,
-            new Integer[]{1,2,3,4}, 1, 2, "turtle_egg_count", false,
+            new Integer[]{1,2,3,4}, 2, "turtle_egg_count", false,
             new String[]{"one_egg", "two_egg", "three_egg", "four_egg"});
     
     @PowerNukkitOnly
@@ -145,7 +146,7 @@ public class BlockTurtleEgg extends BlockFlowable {
             if (eggCount >= 4) {
                 return false;
             }
-            Block newState = getCurrentState().withProperty(EGG_COUNT, eggCount + 1).getBlock();
+            Block newState = getCurrentState().withProperty(EGG_COUNT, eggCount + 1).getBlock(this);
             BlockPlaceEvent placeEvent = new BlockPlaceEvent(
                     player,
                     newState,
@@ -248,6 +249,7 @@ public class BlockTurtleEgg extends BlockFlowable {
     }
 
     @PowerNukkitOnly
+    @PowerNukkitDifference(info = "Using new method to play sounds", since = "1.4.0.0-PN")
     public void hatch(int eggs, Block newState) {
         TurtleEggHatchEvent turtleEggHatchEvent = new TurtleEggHatchEvent(this, eggs, newState);
         //TODO Cancelled by default because EntityTurtle doesn't have AI yet, remove it when AI is added
@@ -260,7 +262,7 @@ public class BlockTurtleEgg extends BlockFlowable {
             boolean hasFailure = false;
             for (int i = 0; i < eggsHatching; i++) {
 
-                this.level.addLevelSoundEvent(this, LevelSoundEventPacket.SOUND_BLOCK_TURTLE_EGG_BREAK);
+                this.level.addSound(this, Sound.BLOCK_TURTLE_EGG_CRACK);
 
                 CreatureSpawnEvent creatureSpawnEvent = new CreatureSpawnEvent(
                         EntityTurtle.NETWORK_ID,
@@ -365,7 +367,7 @@ public class BlockTurtleEgg extends BlockFlowable {
 
     @Override
     public Item[] getDrops(Item item) {
-        return new Item[0];
+        return Item.EMPTY_ARRAY;
     }
 
     @Override

@@ -63,6 +63,11 @@ public class BlockJukebox extends BlockSolid implements BlockEntityHolder<BlockE
     }
 
     @Override
+    public double getHardness() {
+        return 1;
+    }
+
+    @Override
     public boolean onActivate(@Nonnull Item item, @Nullable Player player) {
         BlockEntityJukebox jukebox = getOrCreateBlockEntity();
         if (jukebox.getRecordItem().getId() != 0) {
@@ -83,7 +88,7 @@ public class BlockJukebox extends BlockSolid implements BlockEntityHolder<BlockE
     }
 
     @Override
-    public boolean place(@Nonnull Item item, @Nonnull Block block, @Nonnull Block target, @Nonnull BlockFace face, double fx, double fy, double fz, Player player) {
+    public boolean place(@Nonnull Item item, @Nonnull Block block, @Nonnull Block target, @Nonnull BlockFace face, double fx, double fy, double fz, @Nullable Player player) {
         return BlockEntityHolder.setBlockAndCreateEntity(this) != null;
     }
 

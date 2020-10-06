@@ -4,7 +4,10 @@ import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.nbt.stream.NBTInputStream;
 import cn.nukkit.nbt.stream.NBTOutputStream;
+import io.netty.util.internal.EmptyArrays;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
@@ -93,7 +96,7 @@ public class CompoundTag extends Tag implements Cloneable {
         return this;
     }
 
-    public CompoundTag putString(String name, String value) {
+    public CompoundTag putString(@Nullable String name, @Nonnull String value) {
         tags.put(name, new StringTag(name, value));
         return this;
     }
@@ -259,12 +262,12 @@ public class CompoundTag extends Tag implements Cloneable {
     }
 
     public byte[] getByteArray(String name) {
-        if (!tags.containsKey(name)) return new byte[0];
+        if (!tags.containsKey(name)) return EmptyArrays.EMPTY_BYTES;
         return ((ByteArrayTag) tags.get(name)).data;
     }
 
     public int[] getIntArray(String name) {
-        if (!tags.containsKey(name)) return new int[0];
+        if (!tags.containsKey(name)) return EmptyArrays.EMPTY_INTS;
         return ((IntArrayTag) tags.get(name)).data;
     }
 

@@ -108,7 +108,7 @@ public class BlockFire extends BlockFlowable {
 
     @Override
     public Item[] getDrops(Item item) {
-        return new Item[0];
+        return Item.EMPTY_ARRAY;
     }
 
     @PowerNukkitDifference(info = "Soul Fire Implementation", since = "1.4.0.0-PN")
@@ -121,7 +121,7 @@ public class BlockFire extends BlockFlowable {
             if (type == Level.BLOCK_UPDATE_NORMAL) {
                 int downId = down.getId();
                 if (downId == Block.SOUL_SAND || downId == Block.SOUL_SOIL) {
-                    this.getLevel().setBlock(this, getCurrentState().withBlockId(BlockID.SOUL_FIRE).getBlock());
+                    this.getLevel().setBlock(this, getCurrentState().withBlockId(BlockID.SOUL_FIRE).getBlock(this));
                     return type;
                 }
             }
