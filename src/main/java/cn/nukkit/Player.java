@@ -1914,6 +1914,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                 if (this.isSurvival() || this.isAdventure()) {
                     if (this.getFoodData() != null) this.getFoodData().update(tickDiff);
                 }
+
+                if (!this.isSleeping()) {
+                    this.timeSinceRest++;
+                }
             }
         }
 
@@ -4309,6 +4313,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                 }
                 this.setExperience(0, 0);
             }
+
+            this.timeSinceRest = 0;
 
             if (showMessages && !ev.getDeathMessage().toString().isEmpty()) {
                 this.server.broadcast(ev.getDeathMessage(), Server.BROADCAST_CHANNEL_USERS);
