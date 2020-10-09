@@ -1914,10 +1914,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                 if (this.isSurvival() || this.isAdventure()) {
                     if (this.getFoodData() != null) this.getFoodData().update(tickDiff);
                 }
+            }
 
-                if (!this.isSleeping()) {
-                    this.timeSinceRest++;
-                }
+            if (!this.isSleeping()) {
+                this.timeSinceRest++;
             }
         }
 
