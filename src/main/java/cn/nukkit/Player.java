@@ -1224,6 +1224,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
         this.level.sleepTicks = 60;
 
+        this.timeSinceRest = 0;
+
         return true;
     }
 
