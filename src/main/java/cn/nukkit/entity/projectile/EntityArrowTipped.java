@@ -47,4 +47,18 @@ public class EntityArrowTipped extends EntityArrow {
             .putByte("Id", (byte) effect.getId())
             .putByte("ShowParticles", (byte) (effect.isVisible() ? 1 : 0)));
     }
+    
+    public CompoundTag getMobEffect(int index) {
+        return (this.mobEffects.size() > index && index >= 0) ? this.mobEffects.get(index) : new CompoundTag();
+    }
+    
+    public void removeMobEffect(int index) {
+        if(this.mobEffects.size() > index && index >= 0) {
+            this.mobEffects.remove(index);
+        }
+    }
+    
+    public int getMobEffectsSize() {
+        return this.mobEffects.size();
+    }
 }
