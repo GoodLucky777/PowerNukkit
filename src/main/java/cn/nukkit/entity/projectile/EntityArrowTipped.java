@@ -16,7 +16,7 @@ public class EntityArrowTipped extends EntityArrow {
     ListTag<CompoundTag> mobEffects = new ArrayList<>();
     
     public EntityArrowTipped(FullChunk chunk, CompoundTag nbt) {
-        this(chunk, nbt, null);
+        this(chunk, nbt);
     }
     
     @Override
