@@ -30,11 +30,17 @@ public class EntityHoglin extends EntityMob implements EntityAgeable {
 
     @Override
     public float getWidth() {
+        if (this.isBaby()) {
+            return 0.85f;
+        }
         return 0.9f;
     }
 
     @Override
     public float getHeight() {
+        if (this.isBaby()) {
+            return 0.85f;
+        }
         return 0.9f;
     }
 
