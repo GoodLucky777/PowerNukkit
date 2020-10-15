@@ -34,7 +34,7 @@ public class EntityWither extends EntityMob implements EntitySmite {
     @Override
     protected void initEntity() {
         super.initEntity();
-        this.setMaxHealth(300);
+        this.setMaxHealth(600);
     }
 
     @Override
