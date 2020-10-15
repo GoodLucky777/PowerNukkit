@@ -36,6 +36,6 @@ public class EntityTropicalFish extends EntityAnimal {
     @Override
     public void initEntity() {
         super.initEntity();
-        this.setMaxHealth(3);
+        this.setMaxHealth(6);
     }
 }
