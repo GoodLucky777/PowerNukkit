@@ -23,12 +23,12 @@ public class EntityWither extends EntityMob implements EntitySmite {
 
     @Override
     public float getWidth() {
-        return 0.9f;
+        return 1.0f;
     }
 
     @Override
     public float getHeight() {
-        return 3.5f;
+        return 3.0f;
     }
 
     @Override
