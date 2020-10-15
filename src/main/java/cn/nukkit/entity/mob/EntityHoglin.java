@@ -48,4 +48,13 @@ public class EntityHoglin extends EntityMob implements EntityAgeable {
     public String getName() {
         return "Hoglin";
     }
+    
+    public boolean isBaby() {
+        return this.getDataFlag(DATA_FLAGS, DATA_FLAG_BABY);
+    }
+
+    public void setBaby(boolean baby) {
+        this.setDataFlag(DATA_FLAGS, DATA_FLAG_BABY, baby);
+        this.setScale(baby ? 0.5f : 1.0f);
+    }
 }
