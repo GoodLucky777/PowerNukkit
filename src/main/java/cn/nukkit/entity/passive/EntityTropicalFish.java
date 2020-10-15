@@ -25,7 +25,7 @@ public class EntityTropicalFish extends EntityAnimal {
 
     @Override
     public float getWidth() {
-        return 0.5f;
+        return 0.4f;
     }
 
     @Override
