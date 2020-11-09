@@ -1,15 +1,16 @@
 package cn.nukkit.block;
 
 import cn.nukkit.Player;
+import cn.nukkit.api.DeprecationDetails;
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.blockproperty.ArrayBlockProperty;
 import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.BlockProperty;
 import cn.nukkit.blockproperty.BooleanBlockProperty;
-import cn.nukkit.event.block.BlockGrowEvent;
 import cn.nukkit.blockproperty.value.BambooLeafSize;
 import cn.nukkit.blockproperty.value.BambooStalkThickness;
+import cn.nukkit.event.block.BlockGrowEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBlock;
 import cn.nukkit.item.ItemID;
@@ -45,8 +46,16 @@ public class BlockBamboo extends BlockTransparentMeta {
     @Since("1.4.0.0-PN")
     public static final BlockProperties PROPERTIES = new BlockProperties(BAMBOO_LEAF_SIZE, AGE_BIT, BAMBOO_STALK_THICKNESS);
     
+    @Deprecated
+    @DeprecationDetails(since = "1.4.0.0-PN", replaceWith = "BambooLeafSize.NO_LEAVES", reason = "Use the new BlockProperty system instead")
     public static final int LEAF_SIZE_NONE = 0;
+    
+    @Deprecated
+    @DeprecationDetails(since = "1.4.0.0-PN", replaceWith = "BambooLeafSize.SMALL_LEAVES", reason = "Use the new BlockProperty system instead")
     public static final int LEAF_SIZE_SMALL = 1;
+    
+    @Deprecated
+    @DeprecationDetails(since = "1.4.0.0-PN", replaceWith = "BambooLeafSize.LARGE_LEAVES", reason = "Use the new BlockProperty system instead")
     public static final int LEAF_SIZE_LARGE = 2;
 
     public BlockBamboo() {
@@ -74,7 +83,43 @@ public class BlockBamboo extends BlockTransparentMeta {
     public BlockProperties getProperties() {
         return BlockBamboo.PROPERTIES;
     }
-        
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public BambooLeafSize getBambooLeafSize() {
+        return getPropertyValue(BAMBOO_LEAF_SIZE);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setBambooLeafSize(BambooLeafSize bambooLeafSize) {
+        setPropertyValue(BAMBOO_LEAF_SIZE, bambooLeafSize);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean getAgeBit() {
+        return getBooleanValue(AGE_BIT);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setAgeBit(boolean ageBit) {
+        setBooleanValue(AGE_BIT, ageBit);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public BambooStalkThickness getBambooStalkThickness() {
+        return getPropertyValue(BAMBOO_STALK_THICKNESS);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setBambooStalkThickness(BambooStalkThickness bambooStalkThickness) {
+        setPropertyValue(BAMBOO_STALK_THICKNESS, bambooStalkThickness);
+    }
+    
     @Override
     public int onUpdate(int type) {
         if (type == Level.BLOCK_UPDATE_NORMAL) {
@@ -260,11 +305,15 @@ public class BlockBamboo extends BlockTransparentMeta {
     public double getResistance() {
         return 5;
     }
-
+    
+    @Deprecated
+    @DeprecationDetails(since = "1.4.0.0-PN", reason = "Checking magic value directly is depreacated")
     public boolean isThick() {
         return (getDamage() & 0x1) == 0x1;
     }
-
+    
+    @Deprecated
+    @DeprecationDetails(since = "1.4.0.0-PN", reason = "Checking magic value directly is depreacated")
     public void setThick(boolean thick) {
         setDamage(getDamage() & (DATA_MASK ^ 0x1) | (thick? 0x1 : 0x0));
     }
@@ -273,11 +322,15 @@ public class BlockBamboo extends BlockTransparentMeta {
     public int getToolType() {
         return ItemTool.TYPE_AXE;
     }
-
+    
+    @Deprecated
+    @DeprecationDetails(since = "1.4.0.0-PN", reason = "Checking magic value directly is depreacated")
     public int getLeafSize() {
         return (getDamage() >> 1) & 0x3;
     }
-
+    
+    @Deprecated
+    @DeprecationDetails(since = "1.4.0.0-PN", reason = "Checking magic value directly is depreacated")
     public void setLeafSize(int leafSize) {
         leafSize = MathHelper.clamp(leafSize, LEAF_SIZE_NONE, LEAF_SIZE_LARGE) & 0b11;
         setDamage(getDamage() & (DATA_MASK ^ 0b110) | (leafSize << 1));
@@ -351,11 +404,15 @@ public class BlockBamboo extends BlockTransparentMeta {
         }
         return false;
     }
-
+    
+    @Deprecated
+    @DeprecationDetails(since = "1.4.0.0-PN", reason = "Checking magic value directly is depreacated")
     public int getAge() {
         return (getDamage() & 0x8) >> 3;
     }
-
+    
+    @Deprecated
+    @DeprecationDetails(since = "1.4.0.0-PN", reason = "Checking magic value directly is depreacated")
     public void setAge(int age) {
         age = MathHelper.clamp(age, 0, 1) << 3;
         setDamage(getDamage() & (DATA_MASK ^ 0b1000) | age);
