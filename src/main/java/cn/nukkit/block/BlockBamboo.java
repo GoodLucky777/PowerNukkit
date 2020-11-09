@@ -1,7 +1,15 @@
 package cn.nukkit.block;
 
 import cn.nukkit.Player;
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
+import cn.nukkit.blockproperty.ArrayBlockProperty;
+import cn.nukkit.blockproperty.BlockProperties;
+import cn.nukkit.blockproperty.BlockProperty;
+import cn.nukkit.blockproperty.BooleanBlockProperty;
 import cn.nukkit.event.block.BlockGrowEvent;
+import cn.nukkit.blockproperty.value.BambooLeafSize;
+import cn.nukkit.blockproperty.value.BambooStalkThickness;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBlock;
 import cn.nukkit.item.ItemID;
@@ -14,12 +22,29 @@ import cn.nukkit.math.MathHelper;
 import cn.nukkit.network.protocol.AnimatePacket;
 import cn.nukkit.utils.BlockColor;
 
-import javax.annotation.Nonnull;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.annotation.Nonnull;
+
 public class BlockBamboo extends BlockTransparentMeta {
 
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static final BlockProperty<BambooLeafSize> BAMBOO_LEAF_SIZE = new ArrayBlockProperty<>("bamboo_leaf_size", false, BambooLeafSize.class);
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static final BooleanBlockProperty AGE_BIT = new BooleanBlockProperty("age_bit", false);
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static final BlockProperty<BambooStalkThickness> BAMBOO_STALK_THICKNESS = new ArrayBlockProperty<>("bamboo_stalk_thickness", false, BambooStalkThickness.class);
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static final BlockProperties PROPERTIES = new BlockProperties(BAMBOO_LEAF_SIZE, AGE_BIT, BAMBOO_STALK_THICKNESS);
+    
     public static final int LEAF_SIZE_NONE = 0;
     public static final int LEAF_SIZE_SMALL = 1;
     public static final int LEAF_SIZE_LARGE = 2;
@@ -41,7 +66,15 @@ public class BlockBamboo extends BlockTransparentMeta {
     public String getName() {
         return "Bamboo";
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Nonnull
+    @Override
+    public BlockProperties getProperties() {
+        return BlockBamboo.PROPERTIES;
+    }
+        
     @Override
     public int onUpdate(int type) {
         if (type == Level.BLOCK_UPDATE_NORMAL) {
