@@ -116,6 +116,12 @@ public class BlockBamboo extends BlockTransparentMeta {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
+    public boolean isBambooStalkThick() {
+        return getPropertyValue(BAMBOO_STALK_THICKNESS) == BambooStalkThickness.THICK;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     public void setBambooStalkThickness(BambooStalkThickness bambooStalkThickness) {
         setPropertyValue(BAMBOO_STALK_THICKNESS, bambooStalkThickness);
     }
@@ -141,11 +147,11 @@ public class BlockBamboo extends BlockTransparentMeta {
 
     public boolean grow(Block up) {
         BlockBamboo newState = new BlockBamboo();
-        if (isThick()) {
-            newState.setThick(true);
-            newState.setLeafSize(LEAF_SIZE_LARGE);
+        if (isBambooStalkThick()) {
+            newState.setBambooStalkThickness(BambooStalkThickness.THICK);
+            newState.setBambooLeafSize(BambooLeafSize.LARGE_LEAVES);
         } else {
-            newState.setLeafSize(LEAF_SIZE_SMALL);
+            newState.setBambooLeafSize(BambooLeafSize.SMALL_LEAVES);
         }
         BlockGrowEvent blockGrowEvent = new BlockGrowEvent(up, newState);
         level.getServer().getPluginManager().callEvent(blockGrowEvent);
@@ -196,11 +202,11 @@ public class BlockBamboo extends BlockTransparentMeta {
                 animatePacket.eid = player.getId();
                 this.getLevel().addChunkPacket(player.getChunkX(), player.getChunkZ(), animatePacket);
             }
-            setLeafSize(LEAF_SIZE_SMALL);
+            setBambooLeafSize(BambooLeafSize.SMALL_LEAVES);
         } if (down instanceof BlockBamboo) {
             BlockBamboo bambooDown = (BlockBamboo) down;
             canGrow = bambooDown.getAge() == 0;
-            boolean thick = bambooDown.isThick();
+            boolean thick = bambooDown.isBambooStalkThick();
             if (!thick) {
                 boolean setThick = true;
                 for (int i = 2; i <= 3; i++) {
@@ -209,42 +215,42 @@ public class BlockBamboo extends BlockTransparentMeta {
                     }
                 }
                 if (setThick) {
-                    setThick(true);
-                    setLeafSize(LEAF_SIZE_LARGE);
-                    bambooDown.setLeafSize(LEAF_SIZE_SMALL);
-                    bambooDown.setThick(true);
-                    bambooDown.setAge(1);
+                    setBambooStalkThickness(BambooStalkThickness.THICK);
+                    setBambooLeafSize(BambooLeafSize.LARGE_LEAVES);
+                    bambooDown.setBambooLeafSize(BambooLeafSize.SMALL_LEAVES);
+                    bambooDown.setBambooStalkThickness(BambooStalkThickness.THICK);
+                    bambooDown.setAgeBit(true);
                     this.level.setBlock(bambooDown, bambooDown, false, true);
                     while ((down = down.down()) instanceof BlockBamboo) {
                         bambooDown = (BlockBamboo) down;
-                        bambooDown.setThick(true);
-                        bambooDown.setLeafSize(LEAF_SIZE_NONE);
-                        bambooDown.setAge(1);
+                        bambooDown.setBambooStalkThickness(BambooStalkThickness.THICK);
+                        bambooDown.setBambooLeafSize(BambooLeafSize.NO_LEAVES);
+                        bambooDown.setAgeBit(true);
                         this.level.setBlock(bambooDown, bambooDown, false, true);
                     }
                 } else {
-                    setLeafSize(LEAF_SIZE_SMALL);
-                    bambooDown.setAge(1);
+                    setBambooLeafSize(BambooLeafSize.SMALL_LEAVES);
+                    bambooDown.setAgeBit(true);
                     this.level.setBlock(bambooDown, bambooDown, false, true);
                 }
             } else {
-                setThick(true);
-                setLeafSize(LEAF_SIZE_LARGE);
-                setAge(0);
-                bambooDown.setLeafSize(LEAF_SIZE_LARGE);
-                bambooDown.setAge(1);
+                setBambooStalkThickness(BambooStalkThickness.THICK);
+                setBambooLeafSize(BambooLeafSize.LARGE_LEAVES);
+                setAgeBit(false);
+                bambooDown.setBambooLeafSize(BambooLeafSize.LARGE_LEAVES);
+                bambooDown.setAgeBit(true);
                 this.level.setBlock(bambooDown, bambooDown, false, true);
                 down = bambooDown.down();
                 if (down instanceof BlockBamboo) {
                     bambooDown = (BlockBamboo) down;
-                    bambooDown.setLeafSize(LEAF_SIZE_SMALL);
-                    bambooDown.setAge(1);
+                    bambooDown.setBambooLeafSize(BambooLeafSize.SMALL_LEAVES);
+                    bambooDown.setAgeBit(true);
                     this.level.setBlock(bambooDown, bambooDown, false, true);
                     down = bambooDown.down();
                     if (down instanceof BlockBamboo) {
                         bambooDown = (BlockBamboo) down;
-                        bambooDown.setLeafSize(LEAF_SIZE_NONE);
-                        bambooDown.setAge(1);
+                        bambooDown.setBambooLeafSize(BambooLeafSize.NO_LEAVES);
+                        bambooDown.setAgeBit(true);
                         this.level.setBlock(bambooDown, bambooDown, false, true);
                     }
                 }
@@ -255,7 +261,7 @@ public class BlockBamboo extends BlockTransparentMeta {
 
         int height = canGrow? countHeight() : 0;
         if (!canGrow || height >= 15 || height >= 11 && ThreadLocalRandom.current().nextFloat() < 0.25F) {
-            setAge(1);
+            setAgeBit(true);
         }
 
         this.level.setBlock(this, this, false, true);
@@ -269,7 +275,7 @@ public class BlockBamboo extends BlockTransparentMeta {
             BlockBamboo bambooDown = (BlockBamboo) down.get();
             int height = bambooDown.countHeight();
             if (height < 15 && (height < 11 || !(ThreadLocalRandom.current().nextFloat() < 0.25F))) {
-                bambooDown.setAge(0);
+                bambooDown.setAgeBit(false);
                 this.level.setBlock(bambooDown, bambooDown.layer, bambooDown, false, true);
             }
         }
