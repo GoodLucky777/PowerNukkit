@@ -137,7 +137,7 @@ public class BlockBamboo extends BlockTransparentMeta {
             level.useBreakOn(this, null, null, true);
         } else if (type == Level.BLOCK_UPDATE_RANDOM) {
             Block up = up();
-            if (getAge() == 0 && up.getId() == AIR && level.getFullLight(up) >= BlockCrops.MINIMUM_LIGHT_LEVEL && ThreadLocalRandom.current().nextInt(3) == 0) {
+            if (getAgeBit() == false && up.getId() == AIR && level.getFullLight(up) >= BlockCrops.MINIMUM_LIGHT_LEVEL && ThreadLocalRandom.current().nextInt(3) == 0) {
                 grow(up);
             }
             return type;
@@ -205,7 +205,7 @@ public class BlockBamboo extends BlockTransparentMeta {
             setBambooLeafSize(BambooLeafSize.SMALL_LEAVES);
         } if (down instanceof BlockBamboo) {
             BlockBamboo bambooDown = (BlockBamboo) down;
-            canGrow = bambooDown.getAge() == 0;
+            canGrow = bambooDown.getAgeBit() == false;
             boolean thick = bambooDown.isBambooStalkThick();
             if (!thick) {
                 boolean setThick = true;
