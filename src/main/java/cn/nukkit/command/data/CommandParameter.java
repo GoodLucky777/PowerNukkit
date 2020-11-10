@@ -12,6 +12,38 @@ public class CommandParameter {
     @Since("1.4.0.0-PN")
     public static final CommandParameter[] EMPTY_ARRAY = new CommandParameter[0];
 
+    @Deprecated
+    public final static String ARG_TYPE_STRING = "string";
+    @Deprecated
+    public final static String ARG_TYPE_STRING_ENUM = "stringenum";
+    @Deprecated
+    public final static String ARG_TYPE_BOOL = "bool";
+    @Deprecated
+    public final static String ARG_TYPE_TARGET = "target";
+    @Deprecated
+    public final static String ARG_TYPE_PLAYER = "target";
+    @Deprecated
+    public final static String ARG_TYPE_BLOCK_POS = "blockpos";
+    @Deprecated
+    public final static String ARG_TYPE_RAW_TEXT = "rawtext";
+    @Deprecated
+    public final static String ARG_TYPE_INT = "int";
+
+    @Deprecated
+    public static final String ENUM_TYPE_ITEM_LIST = "Item";
+    @Deprecated
+    public static final String ENUM_TYPE_BLOCK_LIST = "blockType";
+    @Deprecated
+    public static final String ENUM_TYPE_COMMAND_LIST = "commandName";
+    @Deprecated
+    public static final String ENUM_TYPE_ENCHANTMENT_LIST = "enchantmentType";
+    @Deprecated
+    public static final String ENUM_TYPE_ENTITY_LIST = "entityType";
+    @Deprecated
+    public static final String ENUM_TYPE_EFFECT_LIST = "effectType";
+    @Deprecated
+    public static final String ENUM_TYPE_PARTICLE_LIST = "particleType";
+
     public String name;
     public CommandParamType type;
     public boolean optional;
