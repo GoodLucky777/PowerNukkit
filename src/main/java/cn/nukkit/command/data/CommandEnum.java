@@ -2,7 +2,7 @@ package cn.nukkit.command.data;
 
 import cn.nukkit.block.BlockID;
 import cn.nukkit.item.Item;
-import cn.nukkit.item.ItemID;
+
 import com.google.common.collect.ImmutableList;
 
 import java.lang.reflect.Field;
