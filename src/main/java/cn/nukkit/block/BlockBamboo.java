@@ -81,7 +81,7 @@ public class BlockBamboo extends BlockTransparentMeta {
     @Nonnull
     @Override
     public BlockProperties getProperties() {
-        return BlockBamboo.PROPERTIES;
+        return PROPERTIES;
     }
     
     @PowerNukkitOnly
