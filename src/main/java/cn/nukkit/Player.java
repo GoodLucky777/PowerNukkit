@@ -2260,8 +2260,12 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         this.dataPacket(new ItemComponentPacket());
         // TODO: SetSpawnPositionPacket
         SetDifficultyPacket difficultyPacket = new SetDifficultyPacket();
-        diffucultyPacket.difficulty = this.server.getDifficulty();
-        this.dataPacket(diffucultyPacket);
+        difficultyPacket.difficulty = this.server.getDifficulty();
+        this.dataPacket(difficultyPacket);
+        SetCommandsEnabledPacket setCommandsEnabledPacket = new SetCommandsEnabledPacket();
+        setCommandsEnabledPacket.enabled = this.isEnableClientCommand();
+        this.dataPacket(setCommandsEnabledPacket);
+        
         this.dataPacket(new BiomeDefinitionListPacket());
         this.dataPacket(new AvailableEntityIdentifiersPacket());
         this.inventory.sendCreativeContents();
