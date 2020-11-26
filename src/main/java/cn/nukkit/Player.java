@@ -2265,11 +2265,13 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         SetCommandsEnabledPacket setCommandsEnabledPacket = new SetCommandsEnabledPacket();
         setCommandsEnabledPacket.enabled = this.isEnableClientCommand();
         this.dataPacket(setCommandsEnabledPacket);
-        
+        this.getAdventureSettings().update();
+        GameRulesChangedPacket gameRulesChangedPacket = new GameRulesChangedPacket();
+        gameRulesChangedPacket.gameRules = getLevel().getGameRules();
+        this.dataPacket(gameRulesChangedPacket);
         this.dataPacket(new BiomeDefinitionListPacket());
         this.dataPacket(new AvailableEntityIdentifiersPacket());
         this.inventory.sendCreativeContents();
-        this.getAdventureSettings().update();
 
         this.sendAttributes();
 
