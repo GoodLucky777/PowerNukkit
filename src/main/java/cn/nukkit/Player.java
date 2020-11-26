@@ -2251,7 +2251,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         startGamePacket.limitedWorldHeight = 16;
         startGamePacket.netherType = false;
         startGamePacket.forceExperimentalGameplay = false;
-        startGamePacket.premiumWorldTemplateId = "";
+        startGamePacket.premiumWorldTemplateId = "00000000-0000-0000-0000-000000000000";
         startGamePacket.multiplayerCorrelationId = "";
         startGamePacket.isInventoryServerAuthoritative = false;
         startGamePacket.isMovementServerAuthoritative = false; // CLIENT
