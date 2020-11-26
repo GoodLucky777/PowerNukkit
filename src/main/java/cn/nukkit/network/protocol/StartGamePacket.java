@@ -1,6 +1,6 @@
 package cn.nukkit.network.protocol;
 
-import cn.nukkit.Server;
+import cn.nukkit.item.RuntimeItems;
 import cn.nukkit.api.Since;
 import cn.nukkit.blockstate.BlockStateRegistry;
 import cn.nukkit.level.GameRules;
@@ -10,18 +10,11 @@ import com.google.gson.reflect.TypeToken;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-
 /**
  * @since 15-10-13
  */
 @Log4j2
-@ToString(exclude = {"blockPalette"})
+@ToString
 public class StartGamePacket extends DataPacket {
 
     public static final byte NETWORK_ID = ProtocolInfo.START_GAME_PACKET;
@@ -31,31 +24,6 @@ public class StartGamePacket extends DataPacket {
     public static final int GAME_PUBLISH_SETTING_FRIENDS_ONLY = 2;
     public static final int GAME_PUBLISH_SETTING_FRIENDS_OF_FRIENDS = 3;
     public static final int GAME_PUBLISH_SETTING_PUBLIC = 4;
-
-    private static final byte[] ITEM_DATA_PALETTE;
-
-    static {
-        InputStream stream = Server.class.getClassLoader().getResourceAsStream("runtime_item_ids.json");
-        if (stream == null) {
-            throw new AssertionError("Unable to locate RuntimeID table");
-        }
-        Reader reader = new InputStreamReader(stream, StandardCharsets.UTF_8);
-
-        Gson gson = new Gson();
-        Type collectionType = new TypeToken<Collection<ItemData>>() {
-        }.getType();
-        Collection<ItemData> entries = gson.fromJson(reader, collectionType);
-        BinaryStream paletteBuffer = new BinaryStream();
-
-        paletteBuffer.putUnsignedVarInt(entries.size());
-
-        for (ItemData data : entries) {
-            paletteBuffer.putString(data.name);
-            paletteBuffer.putLShort(data.id);
-        }
-
-        ITEM_DATA_PALETTE = paletteBuffer.getBuffer();
-    }
 
     @Override
     public byte pid() {
@@ -139,8 +107,8 @@ public class StartGamePacket extends DataPacket {
         this.putLFloat(this.pitch);
 
         this.putVarInt(this.seed);
-        this.putLShort(0x00); // SpawnBiomeType
-        this.putString(""); // UserDefinedBiomeName
+        this.putLShort(0x00); // SpawnBiomeType - Default
+        this.putString("plains"); // UserDefinedBiomeName
         this.putVarInt(this.dimension);
         this.putVarInt(this.generator);
         this.putVarInt(this.worldGamemode);
@@ -161,6 +129,8 @@ public class StartGamePacket extends DataPacket {
         this.putBoolean(this.commandsEnabled);
         this.putBoolean(this.isTexturePacksRequired);
         this.putGameRules(this.gameRules);
+        this.putLInt(0); // Experiment count
+        this.putBoolean(false); // Were experiments previously toggled
         this.putBoolean(this.bonusChest);
         this.putBoolean(this.hasStartWithMapEnabled);
         this.putVarInt(this.permissionLevel);
@@ -177,22 +147,16 @@ public class StartGamePacket extends DataPacket {
         this.putLInt(this.limitedWorldHeight);
         this.putBoolean(this.netherType);
         this.putBoolean(this.forceExperimentalGameplay);
-
         this.putString(this.levelId);
         this.putString(this.worldName);
         this.putString(this.premiumWorldTemplateId);
         this.putBoolean(this.isTrial);
-        this.putBoolean(this.isMovementServerAuthoritative);
+        this.putVarInt(this.isMovementServerAuthoritative ? 1 : 0); // 2 - rewind
         this.putLLong(this.currentTick);
         this.putVarInt(this.enchantmentSeed);
-        BlockStateRegistry.putBlockPaletteBytes(this);
-        this.put(ITEM_DATA_PALETTE);
+        this.putUnsignedVarInt(0); // Custom blocks
+        this.put(RuntimeItems.ITEM_DATA_PALETTE);
         this.putString(this.multiplayerCorrelationId);
         this.putBoolean(this.isInventoryServerAuthoritative);
-    }
-
-    private static class ItemData {
-        private String name;
-        private int id;
     }
 }
