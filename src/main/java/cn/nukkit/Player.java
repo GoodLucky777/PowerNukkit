@@ -2255,8 +2255,9 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         startGamePacket.multiplayerCorrelationId = "";
         startGamePacket.isInventoryServerAuthoritative = false;
         startGamePacket.isMovementServerAuthoritative = false; // CLIENT
-        this.dataPacket(startGamePacket);
-
+        this.directDataPacket(startGamePacket);
+        
+        this.dataPacket(new ItemComponentPacket());
         this.dataPacket(new BiomeDefinitionListPacket());
         this.dataPacket(new AvailableEntityIdentifiersPacket());
         this.inventory.sendCreativeContents();
