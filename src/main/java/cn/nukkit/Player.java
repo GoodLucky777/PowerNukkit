@@ -2257,6 +2257,17 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         startGamePacket.isMovementServerAuthoritative = false; // CLIENT
         this.directDataPacket(startGamePacket);
         
+        this.loggedIn = true;
+        this.server.getLogger().info(this.getServer().getLanguage().translateString("nukkit.player.logIn",
+                TextFormat.AQUA + this.username + TextFormat.WHITE,
+                this.getAddress(),
+                String.valueOf(this.getPort()),
+                String.valueOf(this.id),
+                this.level.getName(),
+                String.valueOf(NukkitMath.round(this.x, 4)),
+                String.valueOf(NukkitMath.round(this.y, 4)),
+                String.valueOf(NukkitMath.round(this.z, 4))));
+        
         this.dataPacket(new ItemComponentPacket());
         // TODO: SetSpawnPositionPacket
         SetDifficultyPacket difficultyPacket = new SetDifficultyPacket();
@@ -2269,34 +2280,24 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         GameRulesChangedPacket gameRulesChangedPacket = new GameRulesChangedPacket();
         gameRulesChangedPacket.gameRules = getLevel().getGameRules();
         this.dataPacket(gameRulesChangedPacket);
+        // TODO: PlayerListPacket
         this.dataPacket(new BiomeDefinitionListPacket());
         this.dataPacket(new AvailableEntityIdentifiersPacket());
-        this.inventory.sendCreativeContents();
-
+        // TODO: PlayerFogPacket
         this.sendAttributes();
-
+        this.inventory.sendCreativeContents();
+        this.sendAllInventories();
+        // TODO: PlayerHotbarPacket
+        this.server.sendRecipeList(this);
+        this.sendCommandData();
+        
         this.sendPotionEffects(this);
         this.sendData(this);
-
-        this.loggedIn = true;
-
-        this.level.sendTime(this);
-
-        this.sendAttributes();
+        //this.level.sendTime(this);
         this.setNameTagVisible(true);
         this.setNameTagAlwaysVisible(true);
         this.setCanClimb(true);
-
-        this.server.getLogger().info(this.getServer().getLanguage().translateString("nukkit.player.logIn",
-                TextFormat.AQUA + this.username + TextFormat.WHITE,
-                this.getAddress(),
-                String.valueOf(this.getPort()),
-                String.valueOf(this.id),
-                this.level.getName(),
-                String.valueOf(NukkitMath.round(this.x, 4)),
-                String.valueOf(NukkitMath.round(this.y, 4)),
-                String.valueOf(NukkitMath.round(this.z, 4))));
-
+        
         if (this.isOp() || this.hasPermission("nukkit.textcolor")) {
             this.setRemoveFormat(false);
         }
