@@ -288,7 +288,15 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     private int timeSinceRest;
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private int selectedContainerId;
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private int selectedInventorySlot;
+    
     public float getSoulSpeedMultiplier() {
         return this.soulSpeedMultiplier;
     }
@@ -5601,5 +5609,29 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     @Since("1.4.0.0-PN")
     public void setTimeSinceRest(int timeSinceRest) {
         this.timeSinceRest = timeSinceRest;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getSelectedContainerId() {
+        return selectedContainerId;
+    }
+
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setSelectedContainerId(int selectedContainerId) {
+        this.selectedContainerId = selectedContainerId;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getSelectedInventorySlot() {
+        return selectedInventorySlot;
+    }
+
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setSelectedInventorySlot(int selectedContainerId) {
+        this.selectedInventorySlot = selectedInventorySlot;
     }
 }
