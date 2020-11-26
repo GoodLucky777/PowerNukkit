@@ -1783,11 +1783,24 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         UpdateAttributesPacket pk = new UpdateAttributesPacket();
         pk.entityId = this.getId();
         pk.entries = new Attribute[]{
+                Attribute.getAttribute(Attribute.ABSORPTION),
+                Attribute.getAttribute(Attribute.SATURATION),
+                Attribute.getAttribute(Attribute.EXHAUSTION),
+                Attribute.getAttribute(Attribute.KNOCKBACK_RESISTANCE),
                 Attribute.getAttribute(Attribute.MAX_HEALTH).setMaxValue(this.getMaxHealth()).setValue(health > 0 ? (health < getMaxHealth() ? health : getMaxHealth()) : 0),
-                Attribute.getAttribute(Attribute.MAX_HUNGER).setValue(this.getFoodData().getLevel()),
                 Attribute.getAttribute(Attribute.MOVEMENT_SPEED).setValue(this.getMovementSpeed()),
+                Attribute.getAttribute(Attribute.FOLLOW_RANGE),
+                Attribute.getAttribute(Attribute.MAX_HUNGER).setValue(this.getFoodData().getLevel()),
+                Attribute.getAttribute(Attribute.FOOD),
+                Attribute.getAttribute(Attribute.ATTACK_DAMAGE),
                 Attribute.getAttribute(Attribute.EXPERIENCE_LEVEL).setValue(this.getExperienceLevel()),
-                Attribute.getAttribute(Attribute.EXPERIENCE).setValue(((float) this.getExperience()) / calculateRequireExperience(this.getExperienceLevel()))
+                Attribute.getAttribute(Attribute.EXPERIENCE).setValue(((float) this.getExperience()) / calculateRequireExperience(this.getExperienceLevel())),
+                Attribute.getAttribute(Attribute.UNDERWATER_MOVEMENT),
+                Attribute.getAttribute(Attribute.LUCK),
+                Attribute.getAttribute(Attribute.FALL_DAMAGE),
+                //Attribute.getAttribute(Attribute.HORSE_JUMP_STRENGTH),
+                //Attribute.getAttribute(Attribute.ZOMBIE_SPAWN_REINFORCEMENTS),
+                Attribute.getAttribute(Attribute.LAVA_MOVEMENT)
         };
         this.dataPacket(pk);
     }
