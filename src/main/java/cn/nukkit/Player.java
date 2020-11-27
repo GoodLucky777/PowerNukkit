@@ -3710,7 +3710,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     if (hotbarPacket.windowId != ContainerIds.INVENTORY) {
                         return; //In PE this should never happen
                     }
-
+                    
+                    this.selectedContainerId = hotbarPacket.windowId;
+                    this.selectedInventorySlot = hotbarPacket.selectedHotbarSlot;
+                    
                     this.inventory.equipItem(hotbarPacket.selectedHotbarSlot);
                     break;
                 case ProtocolInfo.SERVER_SETTINGS_REQUEST_PACKET:
@@ -5645,7 +5648,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public void setSelectedInventorySlot(int selectedContainerId) {
+    public void setSelectedInventorySlot(int selectedInventorySlot) {
         this.selectedInventorySlot = selectedInventorySlot;
     }
 }
