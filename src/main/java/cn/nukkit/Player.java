@@ -1224,13 +1224,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             level = ((Position) pos).getLevel();
         }
         this.spawnPosition = new Position(pos.x, pos.y, pos.z, level);
-        SetSpawnPositionPacket pk = new SetSpawnPositionPacket();
-        pk.spawnType = SetSpawnPositionPacket.TYPE_PLAYER_SPAWN;
-        pk.x = (int) this.spawnPosition.x;
-        pk.y = (int) this.spawnPosition.y;
-        pk.z = (int) this.spawnPosition.z;
-        pk.dimension = this.getLevel().getDimension();
-        this.dataPacket(pk);
+        this.sendSpawnPosition((int) pos.x, (int) pos.y, (int) pos.z, level.getDimension());
     }
 
     public void stopSleep() {
@@ -2301,7 +2295,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                 String.valueOf(NukkitMath.round(this.z, 4))));
         
         this.dataPacket(new ItemComponentPacket());
-        // TODO: SetSpawnPositionPacket
+        this.sendSpawnPosition(spawnPosition.getFloorX(), spawnPosition.getFloorY(), spawnPosition.getFloorZ(), level.getDimension());
         this.level.sendTime(this);
         SetDifficultyPacket difficultyPacket = new SetDifficultyPacket();
         difficultyPacket.difficulty = this.server.getDifficulty();
@@ -5653,5 +5647,17 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     @Since("1.4.0.0-PN")
     public void setSelectedInventorySlot(int selectedInventorySlot) {
         this.selectedInventorySlot = selectedInventorySlot;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void sendSpawnPosition(int x, int y, int z, int dimension) {
+        SetSpawnPositionPacket pk = new SetSpawnPositionPacket();
+        pk.spawnType = SetSpawnPositionPacket.TYPE_PLAYER_SPAWN;
+        pk.x = x;
+        pk.y = y;
+        pk.z = z;
+        pk.dimension = dimension;
+        this.dataPacket(pk);
     }
 }
