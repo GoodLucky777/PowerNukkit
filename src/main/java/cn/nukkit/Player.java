@@ -2319,7 +2319,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         this.sendAttributes();
         this.inventory.sendCreativeContents();
         this.sendAllInventories();
-        // TODO: PlayerHotbarPacket
+        PlayerHotbarPacket playerHotbarPacket = new PlayerHotbarPacket();
+        playerHotbarPacket.windowId = this.selectedContainerId;
+        playerHotbarPacket.selectedHotbarSlot = this.selectedInventorySlot;
+        this.dataPacket(playerHotbarPacket);
         this.server.sendRecipeList(this);
         this.sendCommandData();
         
