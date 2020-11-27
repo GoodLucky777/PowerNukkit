@@ -1791,6 +1791,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         UpdateAttributesPacket pk = new UpdateAttributesPacket();
         pk.entityId = this.getId();
         pk.entries = new Attribute[]{
+                // TODO
                 Attribute.getAttribute(Attribute.ABSORPTION),
                 Attribute.getAttribute(Attribute.SATURATION),
                 Attribute.getAttribute(Attribute.EXHAUSTION),
@@ -2200,7 +2201,17 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             this.namedTag.putInt("TimeSinceRest", 0);
         }
         this.timeSinceRest = this.namedTag.getInt("TimeSinceRest");
-
+        
+        if (!this.namedTag.contains("SelectedContainerId")) {
+            this.namedTag.putInt("SelectedContainerId", ContainerIds.INVENTORY);
+        }
+        this.selectedContainerId = this.namedTag.getInt("SelectedContainerId");
+        
+        if (!this.namedTag.contains("SelectedInventorySlot")) {
+            this.namedTag.putInt("SelectedInventorySlot", 0);
+        }
+        this.selectedInventorySlot = this.namedTag.getInt("SelectedInventorySlot");
+        
         if (!this.server.isCheckMovement()) {
             this.checkMovement = false;
         }
@@ -4185,7 +4196,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             this.namedTag.putFloat("foodSaturationLevel", this.getFoodData().getFoodSaturationLevel());
 
             this.namedTag.putInt("TimeSinceRest", this.timeSinceRest);
-
+            
+            this.namedTag.putInt("SelectedContainerId", this.selectedContainerId);
+            this.namedTag.putInt("SelectedInventorySlot", this.selectedInventorySlot);
+            
             if (!this.username.isEmpty() && this.namedTag != null) {
                 this.server.saveOfflinePlayerData(this.uuid, this.namedTag, async);
             }
