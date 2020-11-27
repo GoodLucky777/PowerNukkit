@@ -2302,6 +2302,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         
         this.dataPacket(new ItemComponentPacket());
         // TODO: SetSpawnPositionPacket
+        this.level.sendTime(this);
         SetDifficultyPacket difficultyPacket = new SetDifficultyPacket();
         difficultyPacket.difficulty = this.server.getDifficulty();
         this.dataPacket(difficultyPacket);
@@ -2312,7 +2313,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         GameRulesChangedPacket gameRulesChangedPacket = new GameRulesChangedPacket();
         gameRulesChangedPacket.gameRules = getLevel().getGameRules();
         this.dataPacket(gameRulesChangedPacket);
-        // TODO: PlayerListPacket
+        this.server.sendFullPlayerListData(this);
         this.dataPacket(new BiomeDefinitionListPacket());
         this.dataPacket(new AvailableEntityIdentifiersPacket());
         // TODO: PlayerFogPacket
@@ -2328,7 +2329,6 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         
         this.sendPotionEffects(this);
         this.sendData(this);
-        //this.level.sendTime(this);
         this.setNameTagVisible(true);
         this.setNameTagAlwaysVisible(true);
         this.setCanClimb(true);
