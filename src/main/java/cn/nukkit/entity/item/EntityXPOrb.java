@@ -135,7 +135,15 @@ public class EntityXPOrb extends Entity {
                     }
                 }
             }
-
+            
+            if (this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == BlockID.WATER || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z) == BlockID.STILL_WATER) {
+                this.motionY -= this.getGravity() * -0.015;
+            } else if (this.isInsideOfWater()) {
+                this.motionY = this.getGravity() - 0.06;
+            } else {
+                this.motionY -= this.getGravity();
+            }
+            
             this.motionY -= this.getGravity();
 
             if (this.checkObstruction(this.x, this.y, this.z)) {
