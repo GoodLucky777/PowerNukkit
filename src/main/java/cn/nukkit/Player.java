@@ -4982,7 +4982,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     protected void removeWindow(Inventory inventory, boolean isResponse) {
         inventory.close(this);
-        if (isResponse && !this.permanentWindows.contains(this.getWindowId(inventory)))
+        if (isResponse && !this.permanentWindows.contains(this.getWindowId(inventory))) {
             this.windows.remove(inventory);
             updateTrackingPositions(true);
         }
