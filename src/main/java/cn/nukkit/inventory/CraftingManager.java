@@ -5,6 +5,7 @@ import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemID;
 import cn.nukkit.network.protocol.BatchPacket;
 import cn.nukkit.network.protocol.CraftingDataPacket;
+import cn.nukkit.network.protocol.DataPacket;
 import cn.nukkit.utils.BinaryStream;
 import cn.nukkit.utils.Config;
 import cn.nukkit.utils.MainLogger;
@@ -27,7 +28,7 @@ public class CraftingManager {
 
     public final Collection<Recipe> recipes = new ArrayDeque<>();
 
-    public static BatchPacket packet = null;
+    public static DataPacket packet = null;
     protected final Map<Integer, Map<UUID, ShapedRecipe>> shapedRecipes = new Int2ObjectOpenHashMap<>();
 
     public final Map<Integer, FurnaceRecipe> furnaceRecipes = new Int2ObjectOpenHashMap<>();
@@ -224,7 +225,6 @@ public class CraftingManager {
     public void rebuildPacket() {
         CraftingDataPacket pk = new CraftingDataPacket();
         pk.cleanRecipes = true;
-
         for (Recipe recipe : this.getRecipes()) {
             if (recipe instanceof ShapedRecipe) {
                 pk.addShapedRecipe((ShapedRecipe) recipe);
@@ -232,7 +232,7 @@ public class CraftingManager {
                 pk.addShapelessRecipe((ShapelessRecipe) recipe);
             }
         }
-    
+
         for (Map<UUID, CartographyRecipe> map : cartographyRecipes.values()) {
             for (CartographyRecipe recipe : map.values()) {
                 pk.addCartographyRecipe(recipe);
@@ -268,8 +268,9 @@ public class CraftingManager {
         }
 
         pk.encode();
-
-        packet = pk.compress(Deflater.BEST_COMPRESSION);
+        // TODO: find out whats wrong with compression
+        // packet = pk.compress(Deflater.BEST_COMPRESSION);
+        packet = pk;
     }
 
     public Collection<Recipe> getRecipes() {
