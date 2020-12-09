@@ -1,5 +1,6 @@
 package cn.nukkit.network.protocol;
 
+import cn.nukkit.api.Since;
 import cn.nukkit.resourcepacks.ResourcePack;
 import lombok.ToString;
 
@@ -10,6 +11,8 @@ public class ResourcePacksInfoPacket extends DataPacket {
 
     public boolean mustAccept;
     public boolean scripting;
+    @Since("1.4.0.0-PN")
+    public boolean raytracingCapable;
     public ResourcePack[] behaviourPackEntries = ResourcePack.EMPTY_ARRAY;
     public ResourcePack[] resourcePackEntries = ResourcePack.EMPTY_ARRAY;
 
@@ -23,6 +26,7 @@ public class ResourcePacksInfoPacket extends DataPacket {
         this.reset();
         this.putBoolean(this.mustAccept);
         this.putBoolean(this.scripting);
+        this.putBoolean(this.raytracingCapable);
 
         encodePacks(this.resourcePackEntries);
         encodePacks(this.behaviourPackEntries);
@@ -38,6 +42,7 @@ public class ResourcePacksInfoPacket extends DataPacket {
             this.putString(""); // sub-pack name
             this.putString(""); // content identity
             this.putBoolean(false); // scripting
+            this.putBoolean(false); // raytracing capable
         }
     }
 
