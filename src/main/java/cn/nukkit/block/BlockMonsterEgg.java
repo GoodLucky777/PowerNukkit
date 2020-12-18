@@ -8,6 +8,8 @@ import cn.nukkit.blockproperty.BlockProperty;
 import cn.nukkit.blockproperty.value.MonsterEggStoneType;
 import cn.nukkit.item.Item;
 
+import javax.annotation.Nonnull;
+
 public class BlockMonsterEgg extends BlockSolidMeta {
 
     @Since("1.4.0.0-PN")
@@ -22,14 +24,19 @@ public class BlockMonsterEgg extends BlockSolidMeta {
     
     @Deprecated
     public static final int STONE = 0;
+    
     @Deprecated
     public static final int COBBLESTONE = 1;
+    
     @Deprecated
     public static final int STONE_BRICK = 2;
+    
     @Deprecated
     public static final int MOSSY_BRICK = 3;
+    
     @Deprecated
     public static final int CRACKED_BRICK = 4;
+    
     @Deprecated
     public static final int CHISELED_BRICK = 5;
     
