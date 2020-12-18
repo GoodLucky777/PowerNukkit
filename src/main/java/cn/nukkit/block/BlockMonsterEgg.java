@@ -6,6 +6,8 @@ import cn.nukkit.blockproperty.ArrayBlockProperty;
 import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.BlockProperty;
 import cn.nukkit.blockproperty.value.MonsterEggStoneType;
+import cn.nukkit.entity.passive.EntitySilverfish;
+import cn.nukkit.event.entity.CreatureSpawnEvent;
 import cn.nukkit.item.Item;
 
 import javax.annotation.Nonnull;
@@ -101,5 +103,21 @@ public class BlockMonsterEgg extends BlockSolidMeta {
     @Override
     public Item[] getDrops(Item item) {
         return Item.EMPTY_ARRAY;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public boolean onBreak(Item item) {
+        // TODO: Check the player is Survival or Adventure
+        CreatureSpawnEvent creatureSpawnEvent = new CreatureSpawnEvent(EntitySilverfish.NETWORK_ID, this, CreatureSpawnEvent.SpawnReason.SILVERFISH_BLOCK);
+        this.level.getServer().getPluginManager().callEvent(creatureSpawnEvent);
+        if (!creatureSpawnEvent.isCancelled()) {
+            EntitySilverfish silverfish = (EntitySilverfish) Entity.createEntity(creatureSpawnEvent.getEntityNetworkId(), creatureSpawnEvent.getPosition());
+            if (silverfish != null) {
+                silverfish.spawnToAll();
+            }
+        }
+        return super.onBreak(item);
     }
 }
