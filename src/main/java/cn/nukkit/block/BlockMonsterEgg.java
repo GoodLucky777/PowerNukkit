@@ -6,6 +6,7 @@ import cn.nukkit.blockproperty.ArrayBlockProperty;
 import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.BlockProperty;
 import cn.nukkit.blockproperty.value.MonsterEggStoneType;
+import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.mob.EntitySilverfish;
 import cn.nukkit.event.entity.CreatureSpawnEvent;
 import cn.nukkit.item.Item;
