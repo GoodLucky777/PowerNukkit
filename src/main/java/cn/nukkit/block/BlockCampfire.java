@@ -8,6 +8,7 @@ import cn.nukkit.blockentity.BlockEntityCampfire;
 import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.BooleanBlockProperty;
 import cn.nukkit.entity.Entity;
+import cn.nukkit.entity.item.EntityPotion;
 import cn.nukkit.entity.projectile.EntityArrow;
 import cn.nukkit.event.entity.EntityDamageByBlockEvent;
 import cn.nukkit.event.entity.EntityDamageEvent;
@@ -15,6 +16,7 @@ import cn.nukkit.inventory.CampfireInventory;
 import cn.nukkit.inventory.CampfireRecipe;
 import cn.nukkit.inventory.ContainerInventory;
 import cn.nukkit.item.*;
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
 import cn.nukkit.level.Sound;
@@ -31,7 +33,6 @@ import cn.nukkit.utils.MainLogger;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static cn.nukkit.blockproperty.CommonBlockProperties.DIRECTION;
 
@@ -111,7 +112,7 @@ public class BlockCampfire extends BlockTransparentMeta implements Faceable, Blo
 
     @Override
     public Item[] getDrops(Item item) {
-        return new Item[] { new ItemCoal(0, 1 + ThreadLocalRandom.current().nextInt(1)) };
+        return new Item[] { new ItemCharcoal(0, 2) };
     }
 
     @Override
@@ -169,8 +170,13 @@ public class BlockCampfire extends BlockTransparentMeta implements Faceable, Blo
 
     @Override
     public void onEntityCollide(Entity entity) {
-        if (!isExtinguished() && !entity.isSneaking()) {
+        if (!isExtinguished()) {
             entity.attack(new EntityDamageByBlockEvent(this, entity, EntityDamageEvent.DamageCause.FIRE, 1));
+        } else {
+            if (entity.isOnFire()) {
+                setExtinguished(false);
+                level.setBlock(this, this, true);
+            }
         }
     }
 
@@ -204,18 +210,29 @@ public class BlockCampfire extends BlockTransparentMeta implements Faceable, Blo
         BlockEntityCampfire campfire = getOrCreateBlockEntity();
 
         boolean itemUsed = false;
-        if (item.isShovel() && !isExtinguished()) {
-            setExtinguished(true);
-            this.level.setBlock(this, this, true, true);
-            this.level.addSound(this, Sound.RANDOM_FIZZ, 0.5f, 2.2f);
-            itemUsed = true;
-        } else if (item.getId() == ItemID.FLINT_AND_STEEL) {
-            item.useOn(this);
-            setExtinguished(false);
-            this.level.setBlock(this, this, true, true);
-            campfire.scheduleUpdate();
-            this.level.addSound(this, Sound.FIRE_IGNITE);
-            itemUsed = true;
+        if (!isExtinguished()) {
+            if (item.isShovel()) {
+                setExtinguished(true);
+                this.level.setBlock(this, this, true, true);
+                this.level.addSound(this, Sound.RANDOM_FIZZ, 0.5f, 2.2f);
+                itemUsed = true;
+            }
+        } else {
+            if (item.getId() == ItemID.FLINT_AND_STEEL) {
+                item.useOn(this);
+                setExtinguished(false);
+                this.level.setBlock(this, this, true, true);
+                campfire.scheduleUpdate();
+                this.level.addSound(this, Sound.FIRE_IGNITE);
+                itemUsed = true;
+            } else if (item.getEnchantment(Enchantment.ID_FIRE_ASPECT) != null) {
+                item.useOn(this);
+                setExtinguished(false);
+                this.level.setBlock(this, this, true, true);
+                campfire.scheduleUpdate();
+                this.level.addSound(this, Sound.FIRE_IGNITE);
+                itemUsed = true;
+            }
         }
 
         Item cloned = item.clone();
@@ -241,6 +258,12 @@ public class BlockCampfire extends BlockTransparentMeta implements Faceable, Blo
             setExtinguished(false);
             level.setBlock(this, this, true);
             return true;
+        } else if (projectile instanceof EntityPotion && !isExtinguished()) {
+            if (((EntityPotion) projectile).getPotionId() == 0) {
+                setExtinguished(true);
+                level.setBlock(this, this, true);
+                return true;
+            }
         }
         return false;
     }
