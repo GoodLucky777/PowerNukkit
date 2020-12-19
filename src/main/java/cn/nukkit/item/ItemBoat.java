@@ -92,8 +92,7 @@ public class ItemBoat extends Item {
     @Override
     public boolean onActivate(Level level, Player player, Block block, Block target, BlockFace face, double fx, double fy, double fz) {
         if (face != BlockFace.UP) return false;
-        EntityBoat boat = (EntityBoat) Entity.createEntity("Boat",
-                level.getChunk(block.getFloorX() >> 4, block.getFloorZ() >> 4), new CompoundTag("")
+        CompoundTag nbt = new CompoundTag("")
                 .putList(new ListTag<DoubleTag>("Pos")
                         .add(new DoubleTag("", block.getX() + 0.5))
                         .add(new DoubleTag("", block.getY() - (target instanceof BlockWater ? 0.0625 : 0)))
@@ -105,9 +104,14 @@ public class ItemBoat extends Item {
                 .putList(new ListTag<FloatTag>("Rotation")
                         .add(new FloatTag("", (float) ((player.yaw + 90f) % 360)))
                         .add(new FloatTag("", 0)))
-                .putInt("Variant", getLegacyBoatDamage().orElse(0))
-        );
-
+                .putInt("Variant", getLegacyBoatDamage().orElse(0));
+        
+        if (this.hasCustomName()) {
+            nbt.putString("CustomName", this.getCustomName());
+        }
+        
+        EntityBoat boat = (EntityBoat) Entity.createEntity("Boat", level.getChunk(block.getFloorX() >> 4, block.getFloorZ() >> 4), nbt);
+        
         if (boat == null) {
             return false;
         }
