@@ -1,6 +1,7 @@
 package cn.nukkit.block;
 
 import cn.nukkit.Player;
+import cn.nukkit.api.DeprecationDetails;
 import cn.nukkit.api.PowerNukkitDifference;
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
@@ -78,6 +79,7 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
     }
 
     @Override
+    @PowerNukkitDifference(info = "Using new method for checking if powered", since = "1.4.0.0-PN")
     public boolean place(@Nonnull Item item, @Nonnull Block block, @Nonnull Block target, @Nonnull BlockFace face, double fx, double fy, double fz, @Nullable Player player) {
         if (player != null) {
             if (Math.abs(player.getFloorX() - this.x) <= 1 && Math.abs(player.getFloorZ() - this.z) <= 1) {
@@ -94,7 +96,7 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
                 this.setDamage(player.getHorizontalFacing().getIndex());
             }
         }
-        
+
         if(this.level.getBlockEntity(this) != null) {
             BlockEntity blockEntity = this.level.getBlockEntity(this);
             MainLogger.getLogger().warning("Found unused BlockEntity at world=" + blockEntity.getLevel().getName() + " x=" + blockEntity.getX() + " y=" + blockEntity.getY() + " z=" + blockEntity.getZ() + " whilst attempting to place piston, closing it.");
@@ -105,7 +107,7 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
         CompoundTag nbt = new CompoundTag()
                 .putInt("facing", this.getBlockFace().getIndex())
                 .putBoolean("Sticky", this.sticky)
-                .putBoolean("powered", isPowered());
+                .putBoolean("powered", isGettingPower());
 
 
         BlockEntityPistonArm piston = BlockEntityHolder.setBlockAndCreateEntity(this, true, true, nbt);
@@ -137,6 +139,7 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
     }
 
     @Override
+    @PowerNukkitDifference(info = "Using new method for checking if powered", since = "1.4.0.0-PN")
     public int onUpdate(int type) {
         if (type != Level.BLOCK_UPDATE_NORMAL && type != Level.BLOCK_UPDATE_REDSTONE && type != Level.BLOCK_UPDATE_SCHEDULED) {
             return 0;
@@ -145,8 +148,14 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
                 return 0;
             }
 
-            BlockEntityPistonArm arm = getOrCreateBlockEntity();
-            boolean powered = this.isPowered();
+            // We can't use getOrCreateBlockEntity(), because the update method is called on block place,
+            // before the "real" BlockEntity is set. That means, if we'd use the other method here,
+            // it would create two BlockEntities.
+            BlockEntityPistonArm arm = this.getBlockEntity();
+            if (arm == null)
+                return 0;
+
+            boolean powered = this.isGettingPower();
 
             if (arm.state % 2 == 0 && arm.powered != powered && checkState(powered)) {
                 arm.powered = powered;
@@ -161,13 +170,14 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
     }
 
     @PowerNukkitDifference(info = "Using new method to play sounds", since = "1.4.0.0-PN")
+    @PowerNukkitDifference(info = "Using new method for checking if powered", since = "1.4.0.0-PN")
     private boolean checkState(Boolean isPowered) {
         if (!this.level.getServer().isRedstoneEnabled()) {
             return false;
         }
 
         if (isPowered == null) {
-            isPowered = this.isPowered();
+            isPowered = this.isGettingPower();
         }
 
         if (isPowered && !isExtended()) {
@@ -189,7 +199,9 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
         return false;
     }
 
-    private boolean isPowered() {
+    @PowerNukkitDifference(info = "Piston shouldn't be powered from redstone under it.", since = "1.4.0.0-PN")
+    @Override
+    public boolean isGettingPower() {
         BlockFace face = getBlockFace();
 
         for (BlockFace side : BlockFace.values()) {
@@ -199,7 +211,7 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
 
             Block b = this.getSide(side);
 
-            if (b.getId() == Block.REDSTONE_WIRE && b.getDamage() > 0) {
+            if (b.getId() == Block.REDSTONE_WIRE && b.getDamage() > 0 && b.y >= this.getY()) {
                 return true;
             }
 
@@ -209,6 +221,11 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
         }
 
         return false;
+    }
+
+    @Deprecated @DeprecationDetails(reason = "New method; keeping for plugin compatibility.", replaceWith = "#isGettingPower()", since = "1.4.0.0-PN", by = "PowerNukkit")
+    public boolean isPowered() {
+        return this.isGettingPower();
     }
 
     private boolean doMove(boolean extending) {
@@ -404,6 +421,7 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
             return true;
         }
 
+        @PowerNukkitDifference(info = "Fix honeyblock on piston facing direction and fix block pushing limit for slime/honey blocks.", since = "1.4.0.0-PN")
         private boolean addBlockLine(Block origin, Block from) {
             Block block = origin.clone();
 
@@ -437,7 +455,7 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
             int count = 1;
             List<Block> sticked = new ArrayList<>();
 
-            while (block.getId() == SLIME_BLOCK) {
+            while (block.getId() == SLIME_BLOCK || block.getId() == HONEY_BLOCK) {
                 block = origin.getSide(this.moveDirection.getOpposite(), count);
 
                 if (block.getId() == AIR || !canPush(block, this.moveDirection, false, extending) || block.equals(this.pistonPos)) {
@@ -449,9 +467,10 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
                     break;
                 }
 
-                if (++count + this.toMove.size() > 12) {
+                if (count + this.toMove.size() > 12) {
                     return false;
                 }
+                count++;
 
                 sticked.add(block);
             }
@@ -474,7 +493,7 @@ public abstract class BlockPistonBase extends BlockSolidMeta implements Faceable
                     for (int i = 0; i <= index + stickedCount; ++i) {
                         Block b = this.toMove.get(i);
 
-                        if (b.getId() == SLIME_BLOCK && !this.addBranchingBlocks(b)) {
+                        if ((b.getId() == SLIME_BLOCK || b.getId() == HONEY_BLOCK) && !this.addBranchingBlocks(b)) {
                             return false;
                         }
                     }
