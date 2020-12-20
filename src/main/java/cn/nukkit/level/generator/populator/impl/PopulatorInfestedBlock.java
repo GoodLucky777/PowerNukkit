@@ -14,11 +14,11 @@ import static cn.nukkit.block.BlockID.STONE;
 /**
  * @author good777LUCKY
  */
-public class PopulatorInfestedStone extends Populator {
+public class PopulatorInfestedBlock extends Populator {
 
     public final OreType oreType;
     
-    public PopulatorInfestedStone() {
+    public PopulatorInfestedBlock() {
         oreType = new OreType(Block.get(MONSTER_EGG), 7, 9, 0, 63);
     }
     
