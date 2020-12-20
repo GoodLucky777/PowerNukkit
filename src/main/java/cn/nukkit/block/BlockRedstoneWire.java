@@ -93,6 +93,7 @@ public class BlockRedstoneWire extends BlockFlowable {
         this.calculateCurrentChanges(force);
     }
 
+    @PowerNukkitDifference(info = "Let redstone go down transparent blocks.", since = "1.4.0.0-PN")
     private void calculateCurrentChanges(boolean force) {
         Vector3 pos = this.getLocation();
 
@@ -116,14 +117,12 @@ public class BlockRedstoneWire extends BlockFlowable {
                 continue;
             }
 
-
             strength = this.getMaxCurrentStrength(v, strength);
 
-            boolean vNormal = this.level.getBlock(v).isNormalBlock();
-
-            if (vNormal && !this.level.getBlock(pos.up()).isNormalBlock()) {
+            if (this.getMaxCurrentStrength(v.up(), strength) > strength && !this.level.getBlock(pos.up()).isNormalBlock()) {
                 strength = this.getMaxCurrentStrength(v.up(), strength);
-            } else if (!vNormal) {
+            }
+            if (this.getMaxCurrentStrength(v.down(), strength) > strength && !this.level.getBlock(v).isNormalBlock()) {
                 strength = this.getMaxCurrentStrength(v.down(), strength);
             }
         }
@@ -289,13 +288,14 @@ public class BlockRedstoneWire extends BlockFlowable {
         return canConnectTo(block, null);
     }
 
+    @PowerNukkitDifference(info = "Can connect to BlockBell.", since = "1.4.0.0-PN")
     protected static boolean canConnectTo(Block block, BlockFace side) {
         if (block.getId() == Block.REDSTONE_WIRE) {
             return true;
         } else if (BlockRedstoneDiode.isDiode(block)) {
             BlockFace face = ((BlockRedstoneDiode) block).getFacing();
             return face == side || face.getOpposite() == side;
-        } else if (block instanceof BlockPistonBase) {
+        } else if (block instanceof BlockPistonBase || block instanceof BlockBell) {
 //            return ((BlockPistonBase) block).getBlockFace() != side.getOpposite();
             return true;
         } else {

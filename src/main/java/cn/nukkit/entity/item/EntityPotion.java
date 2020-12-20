@@ -1,6 +1,7 @@
 package cn.nukkit.entity.item;
 
 import cn.nukkit.api.PowerNukkitDifference;
+import cn.nukkit.api.Since;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.projectile.EntityProjectile;
 import cn.nukkit.event.potion.PotionCollideEvent;
@@ -161,5 +162,10 @@ public class EntityPotion extends EntityProjectile {
 
         this.timing.stopTiming();
         return hasUpdate;
+    }
+    
+    @Since("1.4.0.0-PN")
+    public int getPotionId() {
+        return this.potionId;
     }
 }
