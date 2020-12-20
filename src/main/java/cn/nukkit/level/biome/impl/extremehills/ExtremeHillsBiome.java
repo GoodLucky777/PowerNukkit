@@ -2,6 +2,7 @@ package cn.nukkit.level.biome.impl.extremehills;
 
 import cn.nukkit.block.BlockSapling;
 import cn.nukkit.level.biome.type.GrassyBiome;
+import cn.nukkit.level.generator.populator.impl.PopulatorInfestedStone;
 import cn.nukkit.level.generator.populator.impl.PopulatorTree;
 
 /**
@@ -18,7 +19,10 @@ public class ExtremeHillsBiome extends GrassyBiome {
 
     public ExtremeHillsBiome(boolean tree) {
         super();
-
+        
+        PopulatorInfestedStone infestedStone = new PopulatorInfestedStone();
+        this.addPopulator(infestedStone);
+        
         if (tree) {
             PopulatorTree trees = new PopulatorTree(BlockSapling.SPRUCE);
             trees.setBaseAmount(2);
