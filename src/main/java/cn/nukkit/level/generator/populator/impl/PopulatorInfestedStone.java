@@ -8,6 +8,7 @@ import cn.nukkit.level.generator.populator.type.Populator;
 import cn.nukkit.math.NukkitMath;
 import cn.nukkit.math.NukkitRandom;
 
+import static cn.nukkit.block.BlockID.MONSTER_EGG;
 import static cn.nukkit.block.BlockID.STONE;
 
 /**
@@ -18,7 +19,7 @@ public class PopulatorInfestedStone extends Populator {
     public final OreType oreType;
     
     public PopulatorInfestedStone() {
-        oreType = new OreType(Block.MONSTER_EGG, 7, 9, 0, 63);
+        oreType = new OreType(Block.get(MONSTER_EGG), 7, 9, 0, 63);
     }
     
     @Override
