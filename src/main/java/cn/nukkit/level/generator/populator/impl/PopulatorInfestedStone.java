@@ -17,7 +17,7 @@ public class PopulatorInfestedStone extends Populator {
 
     public final OreType oreType;
     
-    public PopulatorInfestedStone {
+    public PopulatorInfestedStone() {
         oreType = new OreType(Block.MONSTER_EGG, 7, 9, 0, 63);
     }
     
