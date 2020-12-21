@@ -1,5 +1,7 @@
 package cn.nukkit.entity.item;
 
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.Player;
 import cn.nukkit.block.Block;
 import cn.nukkit.entity.Entity;
@@ -18,6 +20,10 @@ public class EntityMinecartHopper extends EntityMinecartAbstract implements Inve
     public static final int NETWORK_ID = 96;
 
     protected MinecartHopperInventory inventory;
+    
+    private int transferCooldown;
+    
+    private boolean enabled; // TODO: Use Definitions
 
     public EntityMinecartHopper(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
@@ -74,7 +80,7 @@ public class EntityMinecartHopper extends EntityMinecartAbstract implements Inve
     @Override
     public void initEntity() {
         super.initEntity();
-
+        
         this.inventory = new MinecartHopperInventory(this);
         if (this.namedTag.contains("Items") && this.namedTag.get("Items") instanceof ListTag) {
             ListTag<CompoundTag> inventoryList = this.namedTag.getList("Items", CompoundTag.class);
@@ -82,11 +88,17 @@ public class EntityMinecartHopper extends EntityMinecartAbstract implements Inve
                 this.inventory.setItem(item.getByte("Slot"), NBTIO.getItemHelper(item));
             }
         }
-
+        
         this.dataProperties
                 .putByte(DATA_CONTAINER_TYPE, 11)
                 .putInt(DATA_CONTAINER_BASE_SIZE, this.inventory.getSize())
                 .putInt(DATA_CONTAINER_EXTRA_SLOTS_PER_STRENGTH, 0);
+        
+        if (this.namedTag.contains("TransferCooldown")) {
+            this.transferCooldown = this.namedTag.getInt("TransferCooldown");
+        } else {
+            this.transferCooldown = 8;
+        }
     }
 
     @Override
@@ -103,5 +115,37 @@ public class EntityMinecartHopper extends EntityMinecartAbstract implements Inve
                 }
             }
         }
+        
+        this.namedTag.putInt("TransferCooldown", this.transferCooldown);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean isEnabled() {
+        return enabled;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getTransferCooldown() {
+        return transferCooldown;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean isOnTransferCooldown() {
+        return this.transferCooldown > 0;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setTransferCooldown(int transferCooldown) {
+        this.transferCooldown = transferCooldown;
     }
 }
