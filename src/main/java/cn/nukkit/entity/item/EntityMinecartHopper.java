@@ -148,4 +148,55 @@ public class EntityMinecartHopper extends EntityMinecartAbstract implements Inve
     public void setTransferCooldown(int transferCooldown) {
         this.transferCooldown = transferCooldown;
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean pickupItems() {
+        if (this.inventory.isFull()) {
+            return false;
+        }
+
+        boolean pickedUpItem = false;
+
+        for (Entity entity : this.level.getCollidingEntities(this.getBoundingBox().grow(0.25, 0, 0.25))) {
+            if (entity.isClosed() || !(entity instanceof EntityItem)) {
+                continue;
+            }
+
+            EntityItem itemEntity = (EntityItem) entity;
+            Item item = itemEntity.getItem();
+
+            if (item.isNull()) {
+                continue;
+            }
+            
+            int originalCount = item.getCount();
+
+            if (!this.inventory.canAddItem(item)) {
+                continue;
+            }
+
+            InventoryMoveItemEvent ev = new InventoryMoveItemEvent(null, this.inventory, this, item, InventoryMoveItemEvent.Action.PICKUP);
+            this.server.getPluginManager().callEvent(ev);
+
+            if (ev.isCancelled()) {
+                continue;
+            }
+
+            Item[] items = this.inventory.addItem(item);
+
+            if (items.length == 0) {
+                entity.close();
+                pickedUpItem = true;
+                continue;
+            }
+
+            if (items[0].getCount() != originalCount) {
+                pickedUpItem = true;
+                item.setCount(items[0].getCount());
+            }
+        }
+        
+        return pickedUpItem;
+    }
 }
