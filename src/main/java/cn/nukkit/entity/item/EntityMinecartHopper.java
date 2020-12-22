@@ -120,6 +120,30 @@ public class EntityMinecartHopper extends EntityMinecartAbstract implements Inve
         this.namedTag.putInt("TransferCooldown", this.transferCooldown);
     }
     
+    @Since("1.4.0.0-PN")
+    @Override
+    public boolean onUpdate(int currentTick) {
+        if (this.closed) {
+            return false;
+        }
+        
+        boolean update = super.onUpdate(currentTick);
+        
+        if (this.isAlive() && this.enabled) {
+            if (!isOnTransferCooldown()) {
+                if (pickupItems()) {
+                    this.transferCooldown = 4;
+                } else {
+                    this.transferCooldown = 0;
+                }
+            } else {
+                this.transferCooldown--;
+            }
+        }
+        
+        return update;
+    }
+    
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public boolean isEnabled() {
