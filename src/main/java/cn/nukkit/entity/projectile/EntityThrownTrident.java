@@ -30,6 +30,18 @@ public class EntityThrownTrident extends EntityProjectile {
     public static final int DATA_SOURCE_ID = 17;
 
     protected Item trident;
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private int favoredSlot;
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private boolean isCreative;
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private byte player;
 
     @Override
     public int getNetworkId() {
@@ -79,10 +91,37 @@ public class EntityThrownTrident extends EntityProjectile {
     @Override
     protected void initEntity() {
         super.initEntity();
-
-        this.damage = namedTag.contains("damage") ? namedTag.getDouble("damage") : 8;
-        this.trident = namedTag.contains("Trident") ? NBTIO.getItemHelper(namedTag.getCompound("Trident")) : Item.get(0);
-
+        
+        if (namedTag.contains("Trident")) {
+            this.trident = NBTIO.getItemHelper(namedTag.getCompound("Trident"));
+        } else {
+            this.trident = Item.get(0);
+        }
+        
+        if (namedTag.contains("damage")) {
+            this.damage = namedTag.getDouble("damage");
+        } else {
+            this.damage = 8;
+        }
+        
+        if (namedTag.contains("favoredSlot")) {
+            this.favoredSlot = namedTag.getInt("favoredSlot");
+        } else {
+            this.favoredSlot = 0;
+        }
+        
+        if (namedTag.contains("isCreative")) {
+            this.isCreative = namedTag.getBoolean("isCreative");
+        } else {
+            this.isCreative = false;
+        }
+        
+        if (namedTag.contains("player")) {
+            this.player = namedTag.getByte("player");
+        } else {
+            this.player = 0;
+        }
+        
         closeOnCollide = false;
     }
 
@@ -91,6 +130,9 @@ public class EntityThrownTrident extends EntityProjectile {
         super.saveNBT();
 
         this.namedTag.put("Trident", NBTIO.putItemHelper(this.trident));
+        this.namedTag.putInt("favoredSlot", this.favoredSlot);
+        this.namedTag.putBoolean("isCreative", this.isCreative);
+        this.namedTag.putByte("player", this.player);
     }
 
     public Item getItem() {
@@ -210,5 +252,41 @@ public class EntityThrownTrident extends EntityProjectile {
         );
 
         return Entity.createEntity(type.toString(), chunk, nbt, args);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getFavoredSlot() {
+        return favoredSlot;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setFavoredSlot(int favoredSlot) {
+        this.favoredSlot = favoredSlot;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean isCreative() {
+        return isCreative;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setCreative(boolean isCreative) {
+        this.isCreative = isCreative;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public byte getPlayer() {
+        return player;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setPlayer(byte player) {
+        this.player = player;
     }
 }
