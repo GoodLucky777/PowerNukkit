@@ -15,10 +15,12 @@ import cn.nukkit.level.MovingObjectPosition;
 import cn.nukkit.level.Position;
 import cn.nukkit.level.Sound;
 import cn.nukkit.level.format.FullChunk;
+import cn.nukkit.math.BlockVector3;
 import cn.nukkit.math.Vector3f;
 import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.FloatTag;
+import cn.nukkit.nbt.tag.IntTag;
 import cn.nukkit.nbt.tag.ListTag;
 import cn.nukkit.network.protocol.AddEntityPacket;
 
@@ -42,6 +44,10 @@ public class EntityThrownTrident extends EntityProjectile {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
+    private BlockVector3 StuckToBlockPos;
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     private int favoredSlot;
     
     @PowerNukkitOnly
@@ -51,7 +57,7 @@ public class EntityThrownTrident extends EntityProjectile {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     private boolean player;
-
+    
     @Override
     public int getNetworkId() {
         return NETWORK_ID;
@@ -120,6 +126,13 @@ public class EntityThrownTrident extends EntityProjectile {
             collisionPos = this.collisionPos.setComponents(0, 0, 0);
         }
         
+        if (namedTag.contains("StuckToBlockPos")) {
+            ListTag<IntTag> stuckToBlockPosList = this.namedTag.getList("StuckToBlockPos", IntTag.class);
+            stuckToBlockPosList = this.stuckToBlockPosList.setComponents(stuckToBlockPosList.get(0).data, stuckToBlockPosList.get(1).data, stuckToBlockPosList.get(2).data);
+        } else {
+            stuckToBlockPosList = this.stuckToBlockPosList.setComponents(0, 0, 0);
+        }
+        
         if (namedTag.contains("favoredSlot")) {
             this.favoredSlot = namedTag.getInt("favoredSlot");
         } else {
@@ -150,6 +163,11 @@ public class EntityThrownTrident extends EntityProjectile {
             .add(new FloatTag("0", this.collisionPos.x))
             .add(new FloatTag("1", this.collisionPos.y))
             .add(new FloatTag("2", this.collisionPos.z))
+        );
+        this.namedTag.putList(new ListTag<IntTag>("StuckToBlockPos")
+            .add(new IntTag("0", this.stuckToBlockPos.x))
+            .add(new IntTag("1", this.stuckToBlockPos.y))
+            .add(new IntTag("2", this.stuckToBlockPos.z))
         );
         this.namedTag.putInt("favoredSlot", this.favoredSlot);
         this.namedTag.putBoolean("isCreative", this.isCreative);
