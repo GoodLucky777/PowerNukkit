@@ -65,6 +65,11 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     private int loyaltyLevel;
     
+    /* Others */
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private boolean finished;
+    
     @Override
     public int getNetworkId() {
         return NETWORK_ID;
@@ -373,6 +378,18 @@ public class EntityThrownTrident extends EntityProjectile {
     public void setLoyaltyLevel(int loyaltyLevel) {
         this.loyaltyLevel = loyaltyLevel;
         this.trident.addEnchantment(Enchantment.getEnchantment(Enchantment.ID_TRIDENT_LOYALTY).setLevel(loyaltyLevel));
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean isFinished() {
+        return finished;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setFinished(boolean finished) {
+        this.finished = finished;
     }
     
     @PowerNukkitOnly
