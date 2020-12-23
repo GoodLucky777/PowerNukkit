@@ -300,10 +300,10 @@ public class EntityThrownTrident extends EntityProjectile {
         entity.attack(ev);
         this.getLevel().addSound(this, Sound.ITEM_TRIDENT_HIT);
         this.hadCollision = true;
+        this.setCollisionPos(this);
         this.setMotion(new Vector3(this.getMotion().getX() * -0.01, this.getMotion().getY() * -0.1, this.getMotion().getZ() * -0.01));
         if (this.canReturnToShooter()) {
             this.getLevel().addSound(this, Sound.ITEM_TRIDENT_RETURN);
-            this.setCollisionPos(this);
             this.setTridentRope(true);
         }
     }
