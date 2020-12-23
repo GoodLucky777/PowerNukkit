@@ -308,7 +308,7 @@ public class EntityThrownTrident extends EntityProjectile {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public BlockVector3 getStuckToBlockPos() {
-        return favoredSlot;
+        return stuckToBlockPos;
     }
     
     @PowerNukkitOnly
