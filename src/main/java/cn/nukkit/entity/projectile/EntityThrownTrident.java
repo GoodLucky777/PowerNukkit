@@ -107,9 +107,9 @@ public class EntityThrownTrident extends EntityProjectile {
         }
         
         if (namedTag.contains("favoredSlot")) {
-            this.favoredSlot = namedTag.getInt("favoredSlot");
+            this.favoredSlot = namedTag.getByte("favoredSlot");
         } else {
-            this.favoredSlot = (byte) 0;
+            this.favoredSlot = 0;
         }
         
         if (namedTag.contains("isCreative")) {
