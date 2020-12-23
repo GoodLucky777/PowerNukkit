@@ -68,7 +68,7 @@ public class EntityThrownTrident extends EntityProjectile {
     /* Others */
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    private boolean finished = false;
+    private boolean returnable = false;
     
     @Override
     public int getNetworkId() {
@@ -244,7 +244,7 @@ public class EntityThrownTrident extends EntityProjectile {
         }
         
         Entity shooter = this.shootingEntity;
-        if (this.returnable()) {
+        if (this.canReturnToShooter()) {
             Vector3 vector3 = new Vector3(shooter.x - this.x, shooter.y + shooter.getEyeHeight() - this.y, shooter.z - this.z);
             this.setMotion(this.getMotion().multiply(0.95).add(vector3.multiply(loyaltyLevel * 0.05)));
         }
@@ -388,14 +388,14 @@ public class EntityThrownTrident extends EntityProjectile {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public boolean isFinished() {
-        return finished;
+    public boolean isReturnable() {
+        return returnable;
     }
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public void setFinished(boolean finished) {
-        this.finished = finished;
+    public void setReturnable(boolean returnable) {
+        this.returnable = returnable;
     }
     
     @PowerNukkitOnly
@@ -412,8 +412,8 @@ public class EntityThrownTrident extends EntityProjectile {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public boolean isReturnable() {
-        if (!this.finished) {
+    public boolean canReturnToShooter() {
+        if (!this.isReturnable()) {
             return false;
         }
         
