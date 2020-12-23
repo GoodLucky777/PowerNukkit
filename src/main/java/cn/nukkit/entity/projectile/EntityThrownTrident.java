@@ -68,7 +68,7 @@ public class EntityThrownTrident extends EntityProjectile {
     /* Others */
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    private boolean finished;
+    private boolean finished = false;
     
     @Override
     public int getNetworkId() {
@@ -166,8 +166,6 @@ public class EntityThrownTrident extends EntityProjectile {
         } else {
             this.player = false;
         }
-        
-        this.finished = false;
     }
 
     @Override
