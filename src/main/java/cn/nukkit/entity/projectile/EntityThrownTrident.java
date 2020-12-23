@@ -386,4 +386,20 @@ public class EntityThrownTrident extends EntityProjectile {
     public void setTridentRope(boolean tridentRope) {
         this.setDataFlag(DATA_FLAGS, DATA_FLAG_SHOW_TRIDENT_ROPE, tridentRope);
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean isReturnable() {
+        if (this.loyaltyLevel <= 0) {
+            return false;
+        }
+        
+        Entity shooter = this.shootingEntity;
+        if (shooter != null) {
+            if (shooter.isAlive() && shooter.isPlayer) {
+                return !((Player) shooter.isSpectator());
+            }
+        }
+        return false;
+    }
 }
