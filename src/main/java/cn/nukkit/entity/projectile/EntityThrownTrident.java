@@ -96,7 +96,7 @@ public class EntityThrownTrident extends EntityProjectile {
 
     @Override
     public float getGravity() {
-        return 0.04f;
+        return 0.1f;
     }
 
     @Override
@@ -104,7 +104,7 @@ public class EntityThrownTrident extends EntityProjectile {
         return 0.01f;
     }
 
-    protected float gravity = 0.04f;
+    protected float gravity = 0.1f;
     protected float drag = 0.01f;
 
     public EntityThrownTrident(FullChunk chunk, CompoundTag nbt) {
