@@ -298,7 +298,6 @@ public class EntityThrownTrident extends EntityProjectile {
         entity.attack(ev);
         this.getLevel().addSound(this, Sound.ITEM_TRIDENT_HIT);
         this.hadCollision = true;
-        this.close();
         Entity newTrident = create("ThrownTrident", this);
         ((EntityThrownTrident) newTrident).setItem(this.trident);
         if (this.canReturnToShooter()) {
@@ -306,6 +305,7 @@ public class EntityThrownTrident extends EntityProjectile {
             ((EntityThrownTrident) newTrident).setCollisionPos(this);
             ((EntityThrownTrident) newTrident).setTridentRope(true);
         }
+        this.close();
         newTrident.spawnToAll();
     }
 
