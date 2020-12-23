@@ -300,15 +300,12 @@ public class EntityThrownTrident extends EntityProjectile {
         entity.attack(ev);
         this.getLevel().addSound(this, Sound.ITEM_TRIDENT_HIT);
         this.hadCollision = true;
-        Entity newTrident = create("ThrownTrident", this);
-        ((EntityThrownTrident) newTrident).setItem(this.trident);
+        this.setMotion(this.getMotion().multiply(-0.01, -0.1, -0.01));
         if (this.canReturnToShooter()) {
             this.getLevel().addSound(this, Sound.ITEM_TRIDENT_RETURN);
             ((EntityThrownTrident) newTrident).setCollisionPos(this);
             ((EntityThrownTrident) newTrident).setTridentRope(true);
         }
-        this.close();
-        newTrident.spawnToAll();
     }
 
     public Entity create(Object type, Position source, Object... args) {
