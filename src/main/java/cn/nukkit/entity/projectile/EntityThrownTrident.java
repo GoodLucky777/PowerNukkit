@@ -119,7 +119,7 @@ public class EntityThrownTrident extends EntityProjectile {
     protected void initEntity() {
         super.initEntity();
         
-        closeOnCollide = false;
+        this.closeOnCollide = false;
         
         if (namedTag.contains("Trident")) {
             this.trident = NBTIO.getItemHelper(namedTag.getCompound("Trident"));
@@ -166,6 +166,8 @@ public class EntityThrownTrident extends EntityProjectile {
         } else {
             this.player = false;
         }
+        
+        this.finished = false;
     }
 
     @Override
