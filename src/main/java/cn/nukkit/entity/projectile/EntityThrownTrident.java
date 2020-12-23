@@ -44,7 +44,7 @@ public class EntityThrownTrident extends EntityProjectile {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    private BlockVector3 StuckToBlockPos;
+    private BlockVector3 stuckToBlockPos;
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
@@ -291,6 +291,30 @@ public class EntityThrownTrident extends EntityProjectile {
         );
 
         return Entity.createEntity(type.toString(), chunk, nbt, args);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public Vector3f getCollisionPos() {
+        return collisionPos;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setCollisionPos(Vector3f collisionPos) {
+        this.collisionPos = collisionPos;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public BlockVector3 getStuckToBlockPos() {
+        return favoredSlot;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setStuckToBlockPos(BlockVector3 stuckToBlockPos) {
+        this.stuckToBlockPos = stuckToBlockPos;
     }
     
     @PowerNukkitOnly
