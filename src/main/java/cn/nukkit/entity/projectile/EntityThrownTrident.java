@@ -118,13 +118,7 @@ public class EntityThrownTrident extends EntityProjectile {
         
         if (namedTag.contains("Trident")) {
             this.trident = NBTIO.getItemHelper(namedTag.getCompound("Trident"));
-            
-            Enchantment loyaltyEnchantment = this.trident.getEnchantment(Enchantment.ID_TRIDENT_LOYALTY);
-            if (loyaltyEnchantment != null) {
-                this.loyaltyLevel = loyaltyEnchantment.getLevel();
-            } else {
-                this.loyaltyLevel = 0;
-            }
+            this.loyaltyLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_LOYALTY);
         } else {
             this.trident = Item.get(0);
             this.loyaltyLevel = 0;
@@ -153,7 +147,7 @@ public class EntityThrownTrident extends EntityProjectile {
         if (namedTag.contains("favoredSlot")) {
             this.favoredSlot = namedTag.getInt("favoredSlot");
         } else {
-            this.favoredSlot = 0;
+            this.favoredSlot = -1;
         }
         
         if (namedTag.contains("isCreative")) {
@@ -366,6 +360,19 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     public void setPlayer(boolean player) {
         this.player = player;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getLoyaltyLevel() {
+        return loyaltyLevel;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setLoyaltyLevel(int loyaltyLevel) {
+        this.loyaltyLevel = loyaltyLevel;
+        this.trident = this.trident.addEnchantment(Enchantment.get(Enchantment.ID_TRIDENT_LOYALTY).setLevel(loyaltyLevel));
     }
     
     @PowerNukkitOnly
