@@ -300,8 +300,8 @@ public class EntityThrownTrident extends EntityProjectile {
         ((EntityThrownTrident) newTrident).setItem(this.trident);
         if (this.canReturnToShooter()) {
             this.getLevel().addSound(this, Sound.ITEM_TRIDENT_RETURN);
-            newTrident.setReturnable(true);
-            newTrident.setTridentRope(true);
+            ((EntityThrownTrident) newTrident).setReturnable(true);
+            ((EntityThrownTrident) newTrident).setTridentRope(true);
         }
         newTrident.spawnToAll();
     }
