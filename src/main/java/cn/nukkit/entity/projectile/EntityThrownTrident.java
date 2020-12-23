@@ -303,8 +303,8 @@ public class EntityThrownTrident extends EntityProjectile {
         this.setMotion(this.getMotion().multiply(-0.01, -0.1, -0.01));
         if (this.canReturnToShooter()) {
             this.getLevel().addSound(this, Sound.ITEM_TRIDENT_RETURN);
-            ((EntityThrownTrident) newTrident).setCollisionPos(this);
-            ((EntityThrownTrident) newTrident).setTridentRope(true);
+            this.setCollisionPos(this);
+            this.setTridentRope(true);
         }
     }
 
