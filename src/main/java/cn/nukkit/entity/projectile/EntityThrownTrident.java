@@ -43,7 +43,7 @@ public class EntityThrownTrident extends EntityProjectile {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    private byte player;
+    private boolean player;
 
     @Override
     public int getNetworkId() {
