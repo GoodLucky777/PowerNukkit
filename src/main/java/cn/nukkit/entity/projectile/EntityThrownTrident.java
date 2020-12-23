@@ -372,7 +372,7 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     public void setLoyaltyLevel(int loyaltyLevel) {
         this.loyaltyLevel = loyaltyLevel;
-        this.trident = this.trident.addEnchantment(Enchantment.get(Enchantment.ID_TRIDENT_LOYALTY).setLevel(loyaltyLevel)).clone();
+        this.trident = this.trident.clone().addEnchantment(Enchantment.get(Enchantment.ID_TRIDENT_LOYALTY).setLevel(loyaltyLevel));
     }
     
     @PowerNukkitOnly
@@ -397,7 +397,7 @@ public class EntityThrownTrident extends EntityProjectile {
         Entity shooter = this.shootingEntity;
         if (shooter != null) {
             if (shooter.isAlive() && shooter instanceof Player) {
-                return !((Player) shooter.isSpectator());
+                return !(((Player) shooter.isSpectator()));
             }
         }
         return false;
