@@ -352,4 +352,16 @@ public class EntityThrownTrident extends EntityProjectile {
     public void setPlayer(boolean player) {
         this.player = player;
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean getTridentRope() {
+        return this.getDataFlag(DATA_FLAGS, DATA_FLAG_SHOW_TRIDENT_ROPE);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setTridentRope(boolean tridentRope) {
+        this.setDataFlag(DATA_FLAGS, DATA_FLAG_SHOW_TRIDENT_ROPE, tridentRope);
+    }
 }
