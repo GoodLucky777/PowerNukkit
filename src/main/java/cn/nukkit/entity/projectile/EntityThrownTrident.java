@@ -128,9 +128,9 @@ public class EntityThrownTrident extends EntityProjectile {
         
         if (namedTag.contains("StuckToBlockPos")) {
             ListTag<IntTag> stuckToBlockPosList = this.namedTag.getList("StuckToBlockPos", IntTag.class);
-            stuckToBlockPosList = this.stuckToBlockPosList.setComponents(stuckToBlockPosList.get(0).data, stuckToBlockPosList.get(1).data, stuckToBlockPosList.get(2).data);
+            stuckToBlockPos = this.stuckToBlockPos.setComponents(stuckToBlockPosList.get(0).data, stuckToBlockPosList.get(1).data, stuckToBlockPosList.get(2).data);
         } else {
-            stuckToBlockPosList = this.stuckToBlockPosList.setComponents(0, 0, 0);
+            stuckToBlockPos = this.stuckToBlockPos.setComponents(0, 0, 0);
         }
         
         if (namedTag.contains("favoredSlot")) {
