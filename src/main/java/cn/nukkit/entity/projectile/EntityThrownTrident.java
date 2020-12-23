@@ -247,8 +247,8 @@ public class EntityThrownTrident extends EntityProjectile {
             this.setCritical(false);
         }
         
-        Entity shooter = this.shootingEntity;
         if (this.canReturnToShooter()) {
+            Entity shooter = this.shootingEntity;
             Vector3 vector3 = new Vector3(shooter.x - this.x, shooter.y + shooter.getEyeHeight() - this.y, shooter.z - this.z);
             this.setMotion(this.getMotion().multiply(0.95).add(vector3.multiply(loyaltyLevel * 0.05)));
         }
