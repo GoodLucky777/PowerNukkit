@@ -65,6 +65,15 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     private int loyaltyLevel;
     
+    /* Default Values */
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private static final Vector3 defaultCollisionPos = new Vector3(0, 0, 0);
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private static final BlockVector3 defaultCollisionPos = new BlockVector3(0, 0, 0);
+    
     @Override
     public int getNetworkId() {
         return NETWORK_ID;
@@ -134,14 +143,14 @@ public class EntityThrownTrident extends EntityProjectile {
             ListTag<DoubleTag> collisionPosList = this.namedTag.getList("CollisionPos", DoubleTag.class);
             collisionPos = this.collisionPos.setComponents(collisionPosList.get(0).data, collisionPosList.get(1).data, collisionPosList.get(2).data);
         } else {
-            collisionPos = this.collisionPos.setComponents(0, 0, 0);
+            collisionPos = this.defaultCollisionPos;
         }
         
         if (namedTag.contains("StuckToBlockPos")) {
             ListTag<IntTag> stuckToBlockPosList = this.namedTag.getList("StuckToBlockPos", IntTag.class);
             stuckToBlockPos = this.stuckToBlockPos.setComponents(stuckToBlockPosList.get(0).data, stuckToBlockPosList.get(1).data, stuckToBlockPosList.get(2).data);
         } else {
-            stuckToBlockPos = this.stuckToBlockPos.setComponents(0, 0, 0);
+            stuckToBlockPos = this.defaultStuckToBlockPos;
         }
         
         if (namedTag.contains("favoredSlot")) {
@@ -405,7 +414,7 @@ public class EntityThrownTrident extends EntityProjectile {
             return false;
         }
         
-        if (this.getCollisionPos().equals(new Vector3(0, 0, 0)) && this.getStuckToBlockPos().equals(new BlockVector3(0, 0, 0))) {
+        if (this.getCollisionPos().equals(this.defaultCollisionPos) && this.getStuckToBlockPos().equals(this.defaultStuckToBlockPos)) {
             return false;
         }
         
