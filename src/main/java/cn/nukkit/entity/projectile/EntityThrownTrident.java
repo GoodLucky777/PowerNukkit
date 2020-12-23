@@ -134,7 +134,7 @@ public class EntityThrownTrident extends EntityProjectile {
         this.namedTag.put("Trident", NBTIO.putItemHelper(this.trident));
         this.namedTag.putInt("favoredSlot", this.favoredSlot);
         this.namedTag.putBoolean("isCreative", this.isCreative);
-        this.namedTag.putByte("player", this.player);
+        this.namedTag.putBoolean("player", this.player);
     }
 
     public Item getItem() {
