@@ -35,7 +35,8 @@ public class EntityThrownTrident extends EntityProjectile {
     public static final int NETWORK_ID = 73;
 
     public static final int DATA_SOURCE_ID = 17;
-
+    
+    /* NBT data */
     protected Item trident;
     
     @PowerNukkitOnly
@@ -57,6 +58,11 @@ public class EntityThrownTrident extends EntityProjectile {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     private boolean player;
+    
+    /* Enchantment */
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private int loyaltyLevel;
     
     @Override
     public int getNetworkId() {
@@ -107,10 +113,20 @@ public class EntityThrownTrident extends EntityProjectile {
     protected void initEntity() {
         super.initEntity();
         
+        closeOnCollide = false;
+        
         if (namedTag.contains("Trident")) {
             this.trident = NBTIO.getItemHelper(namedTag.getCompound("Trident"));
+            
+            Enchantment loyaltyEnchantment = this.trident.getEnchantment(Enchantment.ID_TRIDENT_LOYALTY);
+            if (loyaltyEnchantment != null) {
+                this.loyaltyLevel = loyaltyEnchantment.getLevel();
+            } else {
+                this.loyaltyLevel = 0;
+            }
         } else {
             this.trident = Item.get(0);
+            this.loyaltyLevel = 0;
         }
         
         if (namedTag.contains("damage")) {
@@ -150,8 +166,6 @@ public class EntityThrownTrident extends EntityProjectile {
         } else {
             this.player = false;
         }
-        
-        closeOnCollide = false;
     }
 
     @Override
