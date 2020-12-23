@@ -15,8 +15,11 @@ import cn.nukkit.level.MovingObjectPosition;
 import cn.nukkit.level.Position;
 import cn.nukkit.level.Sound;
 import cn.nukkit.level.format.FullChunk;
+import cn.nukkit.math.Vector3f;
 import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.CompoundTag;
+import cn.nukkit.nbt.tag.FloatTag;
+import cn.nukkit.nbt.tag.ListTag;
 import cn.nukkit.network.protocol.AddEntityPacket;
 
 import java.util.Random;
@@ -32,6 +35,10 @@ public class EntityThrownTrident extends EntityProjectile {
     public static final int DATA_SOURCE_ID = 17;
 
     protected Item trident;
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private Vector3f collisionPos;
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
@@ -52,17 +59,17 @@ public class EntityThrownTrident extends EntityProjectile {
 
     @Override
     public float getWidth() {
-        return 0.05f;
+        return 0.25f;
     }
 
     @Override
     public float getLength() {
-        return 0.5f;
+        return 0.25f;
     }
 
     @Override
     public float getHeight() {
-        return 0.05f;
+        return 0.35f;
     }
 
     @Override
@@ -106,8 +113,15 @@ public class EntityThrownTrident extends EntityProjectile {
             this.damage = 8;
         }
         
+        if (namedTag.contains("CollisionPos")) {
+            ListTag<FloatTag> collisionPosList = this.namedTag.getList("CollisionPos", FloatTag.class);
+            collisionPos = this.collisionPos.setCompounds(collisionPosList.get(0).data, collisionPosList.get(1).data, collisionPosList.get(2).data);
+        } else {
+            collisionPos = this.collisionPos.setCompounds(0, 0, 0);
+        }
+        
         if (namedTag.contains("favoredSlot")) {
-            this.favoredSlot = namedTag.getByte("favoredSlot");
+            this.favoredSlot = namedTag.getInt("favoredSlot");
         } else {
             this.favoredSlot = 0;
         }
@@ -132,6 +146,11 @@ public class EntityThrownTrident extends EntityProjectile {
         super.saveNBT();
 
         this.namedTag.put("Trident", NBTIO.putItemHelper(this.trident));
+        this.namedTag.putList(new ListTag<FloatTag>("CollisionPos")
+            .add(new FloatTag("0", this.collisionPos.x))
+            .add(new FloatTag("1", this.collisionPos.y))
+            .add(new FloatTag("2", this.collisionPos.z))
+        );
         this.namedTag.putInt("favoredSlot", this.favoredSlot);
         this.namedTag.putBoolean("isCreative", this.isCreative);
         this.namedTag.putBoolean("player", this.player);
