@@ -115,9 +115,9 @@ public class EntityThrownTrident extends EntityProjectile {
         
         if (namedTag.contains("CollisionPos")) {
             ListTag<FloatTag> collisionPosList = this.namedTag.getList("CollisionPos", FloatTag.class);
-            collisionPos = this.collisionPos.setCompounds(collisionPosList.get(0).data, collisionPosList.get(1).data, collisionPosList.get(2).data);
+            collisionPos = this.collisionPos.setComponents(collisionPosList.get(0).data, collisionPosList.get(1).data, collisionPosList.get(2).data);
         } else {
-            collisionPos = this.collisionPos.setCompounds(0, 0, 0);
+            collisionPos = this.collisionPos.setComponents(0, 0, 0);
         }
         
         if (namedTag.contains("favoredSlot")) {
