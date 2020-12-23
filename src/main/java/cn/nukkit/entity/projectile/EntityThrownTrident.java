@@ -242,7 +242,13 @@ public class EntityThrownTrident extends EntityProjectile {
         if (this.onGround || this.hadCollision) {
             this.setCritical(false);
         }
-
+        
+        Entity shooter = this.shootingEntity;
+        if (this.returnable()) {
+            Vector3 vector3 = new Vector3(shooter.x - this.x, shooter.y + shooter.getEyeHeight() - this.y, shooter.z - this.z);
+            this.setMotion(this.getMotion().multiply(0.95).add(vector3.multiply(loyaltyLevel * 0.05)));
+        }
+        
         if (this.age > 1200) {
             this.close();
             hasUpdate = true;
