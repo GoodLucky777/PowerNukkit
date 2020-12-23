@@ -396,7 +396,7 @@ public class EntityThrownTrident extends EntityProjectile {
         
         Entity shooter = this.shootingEntity;
         if (shooter != null) {
-            if (shooter.isAlive() && shooter.isPlayer) {
+            if (shooter.isAlive() && shooter instanceof Player) {
                 return !((Player) shooter.isSpectator());
             }
         }
