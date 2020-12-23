@@ -18,10 +18,9 @@ import cn.nukkit.level.Sound;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.math.BlockVector3;
 import cn.nukkit.math.Vector3;
-import cn.nukkit.math.Vector3f;
 import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.CompoundTag;
-import cn.nukkit.nbt.tag.FloatTag;
+import cn.nukkit.nbt.tag.DoubleTag;
 import cn.nukkit.nbt.tag.IntTag;
 import cn.nukkit.nbt.tag.ListTag;
 import cn.nukkit.network.protocol.AddEntityPacket;
@@ -43,7 +42,7 @@ public class EntityThrownTrident extends EntityProjectile {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    private Vector3f collisionPos;
+    private Vector3 collisionPos;
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
@@ -65,11 +64,6 @@ public class EntityThrownTrident extends EntityProjectile {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     private int loyaltyLevel;
-    
-    /* Others */
-    @PowerNukkitOnly
-    @Since("1.4.0.0-PN")
-    private boolean returnable = false;
     
     @Override
     public int getNetworkId() {
@@ -137,7 +131,7 @@ public class EntityThrownTrident extends EntityProjectile {
         }
         
         if (namedTag.contains("CollisionPos")) {
-            ListTag<FloatTag> collisionPosList = this.namedTag.getList("CollisionPos", FloatTag.class);
+            ListTag<DoubleTag> collisionPosList = this.namedTag.getList("CollisionPos", DoubleTag.class);
             collisionPos = this.collisionPos.setComponents(collisionPosList.get(0).data, collisionPosList.get(1).data, collisionPosList.get(2).data);
         } else {
             collisionPos = this.collisionPos.setComponents(0, 0, 0);
@@ -174,10 +168,10 @@ public class EntityThrownTrident extends EntityProjectile {
         super.saveNBT();
 
         this.namedTag.put("Trident", NBTIO.putItemHelper(this.trident));
-        this.namedTag.putList(new ListTag<FloatTag>("CollisionPos")
-            .add(new FloatTag("0", this.collisionPos.x))
-            .add(new FloatTag("1", this.collisionPos.y))
-            .add(new FloatTag("2", this.collisionPos.z))
+        this.namedTag.putList(new ListTag<DoubleTag>("CollisionPos")
+            .add(new DoubleTag("0", this.collisionPos.x))
+            .add(new DoubleTag("1", this.collisionPos.y))
+            .add(new DoubleTag("2", this.collisionPos.z))
         );
         this.namedTag.putList(new ListTag<IntTag>("StuckToBlockPos")
             .add(new IntTag("0", this.stuckToBlockPos.x))
@@ -300,7 +294,7 @@ public class EntityThrownTrident extends EntityProjectile {
         ((EntityThrownTrident) newTrident).setItem(this.trident);
         if (this.canReturnToShooter()) {
             this.getLevel().addSound(this, Sound.ITEM_TRIDENT_RETURN);
-            ((EntityThrownTrident) newTrident).setReturnable(true);
+            ((EntityThrownTrident) newTrident).setCollisionPos(this);
             ((EntityThrownTrident) newTrident).setTridentRope(true);
         }
         newTrident.spawnToAll();
@@ -321,13 +315,13 @@ public class EntityThrownTrident extends EntityProjectile {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public Vector3f getCollisionPos() {
+    public Vector3 getCollisionPos() {
         return collisionPos;
     }
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public void setCollisionPos(Vector3f collisionPos) {
+    public void setCollisionPos(Vector3 collisionPos) {
         this.collisionPos = collisionPos;
     }
     
@@ -394,18 +388,6 @@ public class EntityThrownTrident extends EntityProjectile {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public boolean isReturnable() {
-        return returnable;
-    }
-    
-    @PowerNukkitOnly
-    @Since("1.4.0.0-PN")
-    public void setReturnable(boolean returnable) {
-        this.returnable = returnable;
-    }
-    
-    @PowerNukkitOnly
-    @Since("1.4.0.0-PN")
     public boolean getTridentRope() {
         return this.getDataFlag(DATA_FLAGS, DATA_FLAG_SHOW_TRIDENT_ROPE);
     }
@@ -419,11 +401,11 @@ public class EntityThrownTrident extends EntityProjectile {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public boolean canReturnToShooter() {
-        if (!this.isReturnable()) {
+        if (this.loyaltyLevel <= 0) {
             return false;
         }
         
-        if (this.loyaltyLevel <= 0) {
+        if (this.getCollisionPos().equals(new Vector3(0, 0, 0)) && this.getStuckToBlockPos().equals(new BlockVector3(0, 0, 0))) {
             return false;
         }
         
