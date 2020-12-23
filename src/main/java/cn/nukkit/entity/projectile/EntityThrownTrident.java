@@ -407,6 +407,10 @@ public class EntityThrownTrident extends EntityProjectile {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public boolean isReturnable() {
+        if (!this.finished) {
+            return false;
+        }
+        
         if (this.loyaltyLevel <= 0) {
             return false;
         }
