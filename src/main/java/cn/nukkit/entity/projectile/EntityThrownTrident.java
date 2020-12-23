@@ -119,9 +119,9 @@ public class EntityThrownTrident extends EntityProjectile {
         }
         
         if (namedTag.contains("player")) {
-            this.player = namedTag.getByte("player");
+            this.player = namedTag.getBoolean("player");
         } else {
-            this.player = 0;
+            this.player = false;
         }
         
         closeOnCollide = false;
@@ -282,13 +282,13 @@ public class EntityThrownTrident extends EntityProjectile {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public byte getPlayer() {
+    public boolean isPlayer() {
         return player;
     }
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public void setPlayer(byte player) {
+    public void setPlayer(boolean player) {
         this.player = player;
     }
 }
