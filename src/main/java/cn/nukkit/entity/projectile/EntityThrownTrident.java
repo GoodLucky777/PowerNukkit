@@ -72,7 +72,7 @@ public class EntityThrownTrident extends EntityProjectile {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    private static final BlockVector3 defaultCollisionPos = new BlockVector3(0, 0, 0);
+    private static final BlockVector3 defaultStuckToBlockPos = new BlockVector3(0, 0, 0);
     
     @Override
     public int getNetworkId() {
