@@ -327,7 +327,7 @@ public class EntityThrownTrident extends EntityProjectile {
     @Override
     protected void onCollideWithBlock(Position position, Vector3 motion) {
         for (Block collisionBlock : level.getCollisionBlocks(getBoundingBox().grow(0.1, 0.1, 0.1))) {
-            this.setStuckToBlockPos(collisionBlock.getFloorX(), collisionBlock.getFloorY(), collisionBlock.getFloorZ());
+            this.setStuckToBlockPos(new BlockVector3(collisionBlock.getFloorX(), collisionBlock.getFloorY(), collisionBlock.getFloorZ()));
             if (this.canReturnToShooter()) {
                 this.getLevel().addSound(this, Sound.ITEM_TRIDENT_RETURN);
                 this.setTridentRope(true);
