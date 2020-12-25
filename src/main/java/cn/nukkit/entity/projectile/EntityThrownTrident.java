@@ -312,6 +312,8 @@ public class EntityThrownTrident extends EntityProjectile {
         this.setMotion(new Vector3(this.getMotion().getX() * -0.01, this.getMotion().getY() * -0.1, this.getMotion().getZ() * -0.01));
         if (this.canReturnToShooter()) {
             this.getLevel().addSound(this, Sound.ITEM_TRIDENT_RETURN);
+            this.setNoClip(true);
+            this.hadCollision = false;
             this.setTridentRope(true);
         }
     }
@@ -337,6 +339,7 @@ public class EntityThrownTrident extends EntityProjectile {
             this.setStuckToBlockPos(new BlockVector3(collisionBlock.getFloorX(), collisionBlock.getFloorY(), collisionBlock.getFloorZ()));
             if (this.canReturnToShooter()) {
                 this.getLevel().addSound(this, Sound.ITEM_TRIDENT_RETURN);
+                this.setNoClip(true);
                 this.setTridentRope(true);
                 return;
             }
@@ -446,6 +449,10 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     public boolean canReturnToShooter() {
         if (this.loyaltyLevel <= 0) {
+            return false;
+        }
+        
+        if (!this.isNoClip()) {
             return false;
         }
         
