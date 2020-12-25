@@ -255,7 +255,7 @@ public class EntityThrownTrident extends EntityProjectile {
             this.setCritical(false);
         }
         
-        if (this.isNoClip()) {
+        if (this.noClip) {
             if (this.canReturnToShooter()) {
                 MainLogger.getLogger().info("Returning");
                 Entity shooter = this.shootingEntity;
