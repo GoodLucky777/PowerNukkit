@@ -76,6 +76,11 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     private static final BlockVector3 defaultStuckToBlockPos = new BlockVector3(0, 0, 0);
     
+    /* Others */
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private boolean noClip = false;
+    
     @Override
     public int getNetworkId() {
         return NETWORK_ID;
@@ -83,17 +88,17 @@ public class EntityThrownTrident extends EntityProjectile {
 
     @Override
     public float getWidth() {
-        return 0.25f;
+        return this.noClip ? 0 : 0.25f;
     }
 
     @Override
     public float getLength() {
-        return 0.25f;
+        return this.noClip ? 0 : 0.25f;
     }
 
     @Override
     public float getHeight() {
-        return 0.35f;
+        return this.noClip ? 0 : 0.35f;
     }
 
     @Override
@@ -422,6 +427,19 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     public void setTridentRope(boolean tridentRope) {
         this.setDataFlag(DATA_FLAGS, DATA_FLAG_SHOW_TRIDENT_ROPE, tridentRope);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean isNoClip() {
+        return noClip;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setNoClip(boolean noClip) {
+        this.noClip = noClip;
+        this.recalculateBoundingBox();
     }
     
     @PowerNukkitOnly
