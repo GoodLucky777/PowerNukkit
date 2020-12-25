@@ -255,13 +255,15 @@ public class EntityThrownTrident extends EntityProjectile {
             this.setCritical(false);
         }
         
-        if (this.canReturnToShooter()) {
-            MainLogger.getLogger().info("Returning");
-            Entity shooter = this.shootingEntity;
-            Vector3 vector3 = new Vector3(shooter.x - this.x, shooter.y + shooter.getEyeHeight() - this.y, shooter.z - this.z);
-            this.setPosition(new Vector3(this.x, this.y + vector3.y * 0.015 * ((double) loyaltyLevel), this.z));
-            this.setMotion(this.getMotion().multiply(0.95).add(vector3.multiply(loyaltyLevel * 0.05)));
-            hasUpdate = true;
+        if (this.isNoClip()) {
+            if (this.canReturnToShooter()) {
+                MainLogger.getLogger().info("Returning");
+                Entity shooter = this.shootingEntity;
+                Vector3 vector3 = new Vector3(shooter.x - this.x, shooter.y + shooter.getEyeHeight() - this.y, shooter.z - this.z);
+                this.setPosition(new Vector3(this.x, this.y + vector3.y * 0.015 * ((double) loyaltyLevel), this.z));
+                this.setMotion(this.getMotion().multiply(0.95).add(vector3.multiply(loyaltyLevel * 0.05)));
+                hasUpdate = true;
+            }
         }
         
         if (this.age > 1200) {
@@ -450,10 +452,6 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     public boolean canReturnToShooter() {
         if (this.loyaltyLevel <= 0) {
-            return false;
-        }
-        
-        if (!this.isNoClip()) {
             return false;
         }
         
