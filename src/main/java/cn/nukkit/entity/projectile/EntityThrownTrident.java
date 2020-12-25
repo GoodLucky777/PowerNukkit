@@ -459,7 +459,7 @@ public class EntityThrownTrident extends EntityProjectile {
         
         if (this.getCollisionPos().equals(this.defaultCollisionPos) && this.getStuckToBlockPos().equals(this.defaultStuckToBlockPos)) {
             return false;
-        } else MainLogger.getLogger().info("not colliding);
+        } else MainLogger.getLogger().info("not colliding");
         
         Entity shooter = this.shootingEntity;
         if (shooter != null) {
