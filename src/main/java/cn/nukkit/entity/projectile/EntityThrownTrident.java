@@ -25,6 +25,7 @@ import cn.nukkit.nbt.tag.DoubleTag;
 import cn.nukkit.nbt.tag.IntTag;
 import cn.nukkit.nbt.tag.ListTag;
 import cn.nukkit.network.protocol.AddEntityPacket;
+import cn.nukkit.utils.MainLogger;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -249,6 +250,7 @@ public class EntityThrownTrident extends EntityProjectile {
         }
         
         if (this.canReturnToShooter()) {
+            MainLogger.getLogger().info("Returning");
             Entity shooter = this.shootingEntity;
             Vector3 vector3 = new Vector3(shooter.x - this.x, shooter.y + shooter.getEyeHeight() - this.y, shooter.z - this.z);
             this.setPosition(new Vector3(this.x, this.y + vector3.y * 0.015 * ((double) loyaltyLevel), this.z));
@@ -437,8 +439,8 @@ public class EntityThrownTrident extends EntityProjectile {
         if (shooter != null) {
             if (shooter.isAlive() && shooter instanceof Player) {
                 return !(((Player) shooter).isSpectator());
-            }
-        }
+            } else MainLogger.getLogger().info("shooter is not alive or not a player");
+        } else MainLogger.getLogger().info("shooter == null");
         return false;
     }
 }
