@@ -68,6 +68,10 @@ public class EntityThrownTrident extends EntityProjectile {
     private int loyaltyLevel;
     
     /* Default Values */
+    protected float gravity = 0.04f;
+    
+    protected float drag = 0.01f;
+    
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     private static final Vector3 defaultCollisionPos = new Vector3(0, 0, 0);
@@ -110,10 +114,7 @@ public class EntityThrownTrident extends EntityProjectile {
     public float getDrag() {
         return 0.01f;
     }
-
-    protected float gravity = 0.04f;
-    protected float drag = 0.01f;
-
+    
     public EntityThrownTrident(FullChunk chunk, CompoundTag nbt) {
         this(chunk, nbt, null);
     }
@@ -458,7 +459,7 @@ public class EntityThrownTrident extends EntityProjectile {
         
         if (this.getCollisionPos().equals(this.defaultCollisionPos) && this.getStuckToBlockPos().equals(this.defaultStuckToBlockPos)) {
             return false;
-        }
+        } else MainLogger.getLogger().info("not colliding);
         
         Entity shooter = this.shootingEntity;
         if (shooter != null) {
