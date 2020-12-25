@@ -452,12 +452,14 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     public boolean canReturnToShooter() {
         if (this.loyaltyLevel <= 0) {
+            MainLogger.getLogger().info("LoyaltyLevel <= 0");
             return false;
         }
         
         if (this.getCollisionPos().equals(this.defaultCollisionPos) && this.getStuckToBlockPos().equals(this.defaultStuckToBlockPos)) {
+            MainLogger.getLogger().info("Not colliding");
             return false;
-        } else MainLogger.getLogger().info("not colliding");
+        }
         
         Entity shooter = this.shootingEntity;
         if (shooter != null) {
