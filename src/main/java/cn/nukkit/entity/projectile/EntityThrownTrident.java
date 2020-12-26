@@ -207,6 +207,7 @@ public class EntityThrownTrident extends EntityProjectile {
 
     public void setItem(Item item) {
         this.trident = item.clone();
+        this.loyaltyLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_LOYALTY);
     }
 
     public void setCritical() {
