@@ -430,7 +430,7 @@ public class EntityThrownTrident extends EntityProjectile {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public booelan hasChanneling() {
+    public boolean hasChanneling() {
         return hasChanneling;
     }
     
