@@ -424,7 +424,7 @@ public class EntityThrownTrident extends EntityProjectile {
         if (loyaltyLevel > 0) {
             this.trident.addEnchantment(Enchantment.getEnchantment(Enchantment.ID_TRIDENT_LOYALTY).setLevel(loyaltyLevel));
         } else {
-            this.trident.removeEnchantment(Enchantment.getEnchantment(Enchantment.ID_TRIDENT_LOYALTY));
+            // TODO: this.trident.removeEnchantment(Enchantment.ID_TRIDENT_LOYALTY);
         }
     }
     
@@ -441,7 +441,7 @@ public class EntityThrownTrident extends EntityProjectile {
         if (hasChanneling) {
             this.trident.addEnchantment(Enchantment.getEnchantment(Enchantment.ID_TRIDENT_CHANNELING));
         } else {
-            this.trident.removeEnchantment(Enchantment.getEnchantment(Enchantment.ID_TRIDENT_CHANNELING));
+            // TODO: this.trident.removeEnchantment(Enchantment.ID_TRIDENT_CHANNELING);
         }
     }
     
