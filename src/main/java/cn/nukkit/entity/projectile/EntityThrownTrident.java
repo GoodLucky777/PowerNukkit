@@ -259,7 +259,6 @@ public class EntityThrownTrident extends EntityProjectile {
         
         if (this.noClip) {
             if (this.canReturnToShooter()) {
-                MainLogger.getLogger().info("Returning");
                 Entity shooter = this.shootingEntity;
                 Vector3 vector3 = new Vector3(shooter.x - this.x, shooter.y + shooter.getEyeHeight() - this.y, shooter.z - this.z);
                 this.setPosition(new Vector3(this.x, this.y + vector3.y * 0.015 * ((double) loyaltyLevel), this.z));
