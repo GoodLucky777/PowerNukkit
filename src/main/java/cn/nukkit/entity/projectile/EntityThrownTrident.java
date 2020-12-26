@@ -67,6 +67,10 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     private int loyaltyLevel;
     
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private int hasChanneling;
+    
     /* Default Values */
     protected float gravity = 0.04f;
     
@@ -136,6 +140,7 @@ public class EntityThrownTrident extends EntityProjectile {
         if (namedTag.contains("Trident")) {
             this.trident = NBTIO.getItemHelper(namedTag.getCompound("Trident"));
             this.loyaltyLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_LOYALTY);
+            this.hasChanneling = this.trident.hasEnchantment(Enchantment.ID_TRIDENT_CHANNELING);
         } else {
             this.trident = Item.get(0);
             this.loyaltyLevel = 0;
@@ -207,6 +212,7 @@ public class EntityThrownTrident extends EntityProjectile {
     public void setItem(Item item) {
         this.trident = item.clone();
         this.loyaltyLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_LOYALTY);
+        this.hasChanneling = this.trident.hasEnchantment(Enchantment.ID_TRIDENT_CHANNELING);
     }
 
     public void setCritical() {
