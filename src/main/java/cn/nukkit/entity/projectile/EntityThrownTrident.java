@@ -421,7 +421,28 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     public void setLoyaltyLevel(int loyaltyLevel) {
         this.loyaltyLevel = loyaltyLevel;
-        this.trident.addEnchantment(Enchantment.getEnchantment(Enchantment.ID_TRIDENT_LOYALTY).setLevel(loyaltyLevel));
+        if (loyaltyLevel > 0) {
+            this.trident.addEnchantment(Enchantment.getEnchantment(Enchantment.ID_TRIDENT_LOYALTY).setLevel(loyaltyLevel));
+        } else {
+            this.trident.removeEnchantment(Enchantment.getEnchantment(Enchantment.ID_TRIDENT_LOYALTY));
+        }
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public booelan hasChanneling() {
+        return hasChanneling;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setChanneling(boolean hasChanneling) {
+        this.hasChanneling = hasChanneling;
+        if (hasChanneling) {
+            this.trident.addEnchantment(Enchantment.getEnchantment(Enchantment.ID_TRIDENT_CHANNELING));
+        } else {
+            this.trident.removeEnchantment(Enchantment.getEnchantment(Enchantment.ID_TRIDENT_CHANNELING));
+        }
     }
     
     @PowerNukkitOnly
