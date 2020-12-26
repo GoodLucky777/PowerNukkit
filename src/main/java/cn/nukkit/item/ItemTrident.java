@@ -80,7 +80,11 @@ public class ItemTrident extends ItemTool {
         }
 
         trident.setItem(this);
-
+        
+        if (player.isCreative()) {
+            trident.setCreative(true);
+        }
+        
         EntityShootBowEvent entityShootBowEvent = new EntityShootBowEvent(player, this, trident, f);
 
         if (f < 0.1 || ticksUsed < 5) {
