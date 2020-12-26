@@ -26,7 +26,6 @@ import cn.nukkit.nbt.tag.DoubleTag;
 import cn.nukkit.nbt.tag.IntTag;
 import cn.nukkit.nbt.tag.ListTag;
 import cn.nukkit.network.protocol.AddEntityPacket;
-import cn.nukkit.utils.MainLogger;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -465,8 +464,8 @@ public class EntityThrownTrident extends EntityProjectile {
         if (shooter != null) {
             if (shooter.isAlive() && shooter instanceof Player) {
                 return !(((Player) shooter).isSpectator());
-            } else MainLogger.getLogger().info("shooter is not alive or not a player");
-        } else MainLogger.getLogger().info("shooter == null");
+            }
+        }
         return false;
     }
 }
