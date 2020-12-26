@@ -97,16 +97,24 @@ public class ItemTrident extends ItemTool {
         } else {
             entityShootBowEvent.getProjectile().setMotion(entityShootBowEvent.getProjectile().getMotion().multiply(entityShootBowEvent.getForce()));
             if (entityShootBowEvent.getProjectile() instanceof EntityProjectile) {
-                ProjectileLaunchEvent ev = new ProjectileLaunchEvent(entityShootBowEvent.getProjectile());
-                Server.getInstance().getPluginManager().callEvent(ev);
-                if (ev.isCancelled()) {
-                    entityShootBowEvent.getProjectile().kill();
+                int riptideLevel = trident.getRiptideLevel();
+                if (riptideLevel > 0) {
+                    double x = -Math.sin(player.yaw / 180 * Math.PI) * Math.cos(player.pitch / 180 * Math.PI));
+                    double y = -Math.sin(player.pitch / 180 * Math.PI));
+                    double z = Math.cos(player.yaw / 180 * Math.PI) * Math.cos(player.pitch / 180 * Math.PI));
+                    
                 } else {
-                    entityShootBowEvent.getProjectile().spawnToAll();
-                    player.getLevel().addSound(player, Sound.ITEM_TRIDENT_THROW);
-                    if (!player.isCreative()) {
-                        this.count--;
-                        player.getInventory().setItemInHand(this);
+                    ProjectileLaunchEvent ev = new ProjectileLaunchEvent(entityShootBowEvent.getProjectile());
+                    Server.getInstance().getPluginManager().callEvent(ev);
+                    if (ev.isCancelled()) {
+                        entityShootBowEvent.getProjectile().kill();
+                    } else {
+                        entityShootBowEvent.getProjectile().spawnToAll();
+                        player.getLevel().addSound(player, Sound.ITEM_TRIDENT_THROW);
+                        if (!player.isCreative()) {
+                            this.count--;
+                            player.getInventory().setItemInHand(this);
+                        }
                     }
                 }
             }
