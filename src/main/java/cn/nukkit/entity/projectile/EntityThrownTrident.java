@@ -69,7 +69,7 @@ public class EntityThrownTrident extends EntityProjectile {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    private int hasChanneling;
+    private boolean hasChanneling;
     
     /* Default Values */
     protected float gravity = 0.04f;
