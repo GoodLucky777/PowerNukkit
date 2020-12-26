@@ -137,7 +137,6 @@ public class EntityThrownTrident extends EntityProjectile {
             this.trident = NBTIO.getItemHelper(namedTag.getCompound("Trident"));
             this.loyaltyLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_LOYALTY);
         } else {
-            MainLogger.getLogger().info("No item data");
             this.trident = Item.get(0);
             this.loyaltyLevel = 0;
         }
