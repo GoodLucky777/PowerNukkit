@@ -74,7 +74,7 @@ public class EntityThrownTrident extends EntityProjectile {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    private boolean hasRiptide;
+    private int riptideLevel;
     
     /* Default Values */
     protected float gravity = 0.04f;
@@ -146,12 +146,12 @@ public class EntityThrownTrident extends EntityProjectile {
             this.trident = NBTIO.getItemHelper(namedTag.getCompound("Trident"));
             this.loyaltyLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_LOYALTY);
             this.hasChanneling = this.trident.hasEnchantment(Enchantment.ID_TRIDENT_CHANNELING);
-            this.hasRiptide = this.trident.hasEnchantment(Enchantment.ID_TRIDENT_RIPTIDE);
+            this.riptideLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_RIPTIDE);
         } else {
             this.trident = Item.get(0);
             this.loyaltyLevel = 0;
             this.hasChanneling = false;
-            this.hasRiptide = false;
+            this.riptideLevel = 0;
         }
         
         if (namedTag.contains("damage")) {
@@ -221,7 +221,7 @@ public class EntityThrownTrident extends EntityProjectile {
         this.trident = item.clone();
         this.loyaltyLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_LOYALTY);
         this.hasChanneling = this.trident.hasEnchantment(Enchantment.ID_TRIDENT_CHANNELING);
-        this.hasRiptide = this.trident.hasEnchantment(Enchantment.ID_TRIDENT_RIPTIDE);
+        this.riptideLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_RIPTIDE);
     }
 
     public void setCritical() {
@@ -464,16 +464,16 @@ public class EntityThrownTrident extends EntityProjectile {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public boolean hasRiptide() {
-        return hasRiptide;
+    public int getRiptideLevel() {
+        return riptideLevel;
     }
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public void setRiptide(boolean hasRiptide) {
-        this.hasRiptide = hasRiptide;
-        if (hasRiptide) {
-            this.trident.addEnchantment(Enchantment.getEnchantment(Enchantment.ID_TRIDENT_RIPTIDE));
+    public void setRiptideLevel(int riptideLevel) {
+        this.riptideLevel = riptideLevel;
+        if (riptideLevel > 0) {
+            this.trident.addEnchantment(Enchantment.getEnchantment(Enchantment.ID_TRIDENT_RIPTIDE).setLevel(riptideLevel));
         } else {
             // TODO: this.trident.removeEnchantment(Enchantment.ID_TRIDENT_RIPTIDE);
         }
