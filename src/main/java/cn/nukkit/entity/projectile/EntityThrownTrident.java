@@ -182,7 +182,7 @@ public class EntityThrownTrident extends EntityProjectile {
         if (namedTag.contains("player")) {
             this.player = namedTag.getBoolean("player");
         } else {
-            this.player = false;
+            this.player = true;
         }
     }
 
