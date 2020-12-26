@@ -7,6 +7,7 @@ import cn.nukkit.api.Since;
 import cn.nukkit.block.Block;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.data.LongEntityData;
+import cn.nukkit.entity.weather.EntityLightning;
 import cn.nukkit.event.entity.EntityDamageByChildEntityEvent;
 import cn.nukkit.event.entity.EntityDamageByEntityEvent;
 import cn.nukkit.event.entity.EntityDamageEvent;
@@ -315,7 +316,7 @@ public class EntityThrownTrident extends EntityProjectile {
         this.setCollisionPos(this);
         if (this.hasChanneling) {
             if (this.level.isThundering() && this.level.canBlockSeeSky(this)) {
-                // TODO: Create Lighting Bolt
+                EntityLightning lighting = new EntityLightning(, );
             }
         }
         this.setMotion(new Vector3(this.getMotion().getX() * -0.01, this.getMotion().getY() * -0.1, this.getMotion().getZ() * -0.01));
