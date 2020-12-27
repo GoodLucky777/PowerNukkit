@@ -5344,7 +5344,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                 this.dataPacket(pk);
 
                 if (!((EntityThrownTrident) entity).isCreative()) {
-                    if (inventory.getItem(((EntityThrownTrident) entity).getFavoredSlot()).getId() == ItemID.AIR) {
+                    if (inventory.getItem(((EntityThrownTrident) entity).getFavoredSlot()).getId() == Item.AIR) {
                         inventory.setItem(((EntityThrownTrident) entity).getFavoredSlot(), item.clone());
                     } else {
                         inventory.addItem(item.clone());
