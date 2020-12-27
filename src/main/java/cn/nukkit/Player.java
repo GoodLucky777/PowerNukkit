@@ -5309,39 +5309,20 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                 }
                 entity.close();
                 return true;
-            } else if (entity instanceof EntityThrownTrident && ((EntityThrownTrident) entity).hadCollision) {
-                if (!((EntityThrownTrident) entity).isPlayer()) {
-                    return false;
-                }
-                
+            } else if (entity instanceof EntityThrownTrident) {
                 // Check Trident is returning to shooter
-                if (entity.isNoClip()) {
-                    if (entity.shooter.equals(this)) {
-                        Item item = ((EntityThrownTrident) entity).getItem();
-                        if (this.isSurvival() && !inventory.canAddItem(item)) {
+                if (!((EntityThrownTrident) entity).hadCollision) {
+                    if (entity.isNoClip()) {
+                        if (!entity.shooter.equals(this)) {
                             return false;
                         }
-                        
-                        InventoryPickupTridentEvent ev = new InventoryPickupTridentEvent(this.inventory, (EntityThrownTrident) entity);
-                        this.server.getPluginManager().callEvent(ev);
-                        if (ev.isCancelled()) {
-                            return false;
-                        }
-                        
-                        TakeItemEntityPacket pk = new TakeItemEntityPacket();
-                        pk.entityId = this.getId();
-                        pk.target = entity.getId();
-                        Server.broadcastPacket(entity.getViewers().values(), pk);
-                        this.dataPacket(pk);
-                        
-                        if (!((EntityThrownTrident) entity).isCreative()) {
-                            inventory.addItem(item.clone());
-                        }
-                        entity.close();
-                        return true;
                     } else {
                         return false;
                     }
+                }
+                
+                if (!((EntityThrownTrident) entity).isPlayer()) {
+                    return false;
                 }
                 
                 Item item = ((EntityThrownTrident) entity).getItem();
