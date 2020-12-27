@@ -2231,10 +2231,18 @@ public abstract class Entity extends Location implements Metadatable {
         if (onGround && movX == 0 && movY == 0 && movZ == 0 && dx == 0 && dy == 0 && dz == 0) {
             return;
         }
-        this.isCollidedVertically = movY != dy;
-        this.isCollidedHorizontally = (movX != dx || movZ != dz);
-        this.isCollided = (this.isCollidedHorizontally || this.isCollidedVertically);
-        this.onGround = (movY != dy && movY < 0);
+        
+        if (this.noClip) {
+            this.isCollidedVertically = false;
+            this.isCollidedHorizontally = false;
+            this.isCollided = false;
+            this.onGround = false;
+        } else {
+            this.isCollidedVertically = movY != dy;
+            this.isCollidedHorizontally = (movX != dx || movZ != dz);
+            this.isCollided = (this.isCollidedHorizontally || this.isCollidedVertically);
+            this.onGround = (movY != dy && movY < 0);
+        }
     }
 
     public List<Block> getBlocksAround() {
