@@ -110,7 +110,7 @@ public class ItemTrident extends ItemTool {
                     player.addMotion(x, y, z);
                     
                     Sound riptideSound;
-                    if (riptideLevel => 3) {
+                    if (riptideLevel >= 3) {
                         riptideSound = Sound.ITEM_TRIDENT_RIPTIDE_3;
                     } else if (riptideLevel == 2) {
                         riptideSound = Sound.ITEM_TRIDENT_RIPTIDE_2;
