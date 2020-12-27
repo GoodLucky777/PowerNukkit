@@ -2722,6 +2722,24 @@ public abstract class Entity extends Location implements Metadatable {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
+    public boolean isSpinAttacking() {
+        return this.getDataFlag(DATA_FLAGS, DATA_FLAG_SPIN_ATTACK);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setSpinAttacking() {
+        this.setSpinAttacking(true);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setSpinAttacking(boolean value) {
+        this.setDataFlag(DATA_FLAGS, DATA_FLAG_SPIN_ATTACK, value);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     public boolean isNoClip() {
         return noClip;
     }
