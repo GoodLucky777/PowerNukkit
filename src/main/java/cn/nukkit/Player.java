@@ -2817,10 +2817,24 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             }
                             break;
                         case PlayerActionPacket.ACTION_START_SPIN_ATTACK:
-                            // TODO
+                            PlayerToggleSpinAttackEvent playerToggleSpinAttackEvent = new PlayerToggleSpinAttackEvent(this, true);
+                            this.server.getPluginManager().callEvent(playerToggleSpinAttackEvent);
+
+                            if (playerToggleSpinAttackEvent.isCancelled()) {
+                                this.sendData(this);
+                            } else {
+                                this.setSpinAttacking(true);
+                            }
                             break;
                         case PlayerActionPacket.ACTION_STOP_SPIN_ATTACK:
-                            // TODO
+                            playerToggleSpinAttackEvent = new PlayerToggleSpinAttackEvent(this, false);
+                            this.server.getPluginManager().callEvent(playerToggleSpinAttackEvent);
+
+                            if (playerToggleSpinAttackEvent.isCancelled()) {
+                                this.sendData(this);
+                            } else {
+                                this.setSpinAttacking(false);
+                            }
                             break;
                     }
 
