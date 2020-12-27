@@ -489,7 +489,7 @@ public abstract class Entity extends Location implements Metadatable {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    private boolean noClip = false;
+    public boolean noClip = false;
     
     public float getHeight() {
         return 0;
