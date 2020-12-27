@@ -142,6 +142,8 @@ public class EntityThrownTrident extends EntityProjectile {
         
         this.closeOnCollide = false;
         
+        this.hasAge = false;
+        
         if (namedTag.contains("Trident")) {
             this.trident = NBTIO.getItemHelper(namedTag.getCompound("Trident"));
             this.loyaltyLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_LOYALTY);
