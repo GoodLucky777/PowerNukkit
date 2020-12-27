@@ -5313,7 +5313,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                 // Check Trident is returning to shooter
                 if (!((EntityThrownTrident) entity).hadCollision) {
                     if (entity.isNoClip()) {
-                        if (!entity.shooter.equals(this)) {
+                        if (!((EntityProjectile) entity).shooter.equals(this)) {
                             return false;
                         }
                     } else {
