@@ -77,6 +77,10 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     private int riptideLevel;
     
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private int impalingLevel;
+    
     /* Default Values */
     protected float gravity = 0.04f;
     
@@ -150,11 +154,13 @@ public class EntityThrownTrident extends EntityProjectile {
             this.loyaltyLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_LOYALTY);
             this.hasChanneling = this.trident.hasEnchantment(Enchantment.ID_TRIDENT_CHANNELING);
             this.riptideLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_RIPTIDE);
+            this.impalingLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_IMPALING);
         } else {
             this.trident = Item.get(0);
             this.loyaltyLevel = 0;
             this.hasChanneling = false;
             this.riptideLevel = 0;
+            this.impalingLevel = 0;
         }
         
         if (namedTag.contains("damage")) {
@@ -225,6 +231,7 @@ public class EntityThrownTrident extends EntityProjectile {
         this.loyaltyLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_LOYALTY);
         this.hasChanneling = this.trident.hasEnchantment(Enchantment.ID_TRIDENT_CHANNELING);
         this.riptideLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_RIPTIDE);
+        this.impalingLevel = this.trident.getEnchantmentLevel(Enchantment.ID_TRIDENT_IMPALING);
     }
 
     public void setCritical() {
@@ -323,7 +330,10 @@ public class EntityThrownTrident extends EntityProjectile {
         
         this.server.getPluginManager().callEvent(new ProjectileHitEvent(this, MovingObjectPosition.fromEntity(entity)));
         float damage = this.getResultDamage();
-
+        if (this.impalingLevel > 0 && (entity.isTouchingWater() || (entity.getLevel().isRaining() && entity.getLevel().canBlockSeeSky(entity)))) {
+            damage = damage + (2.5 * this.impalingLevel);
+        }
+        
         EntityDamageEvent ev;
         if (this.shootingEntity == null) {
             ev = new EntityDamageByEntityEvent(this, entity, DamageCause.PROJECTILE, damage);
@@ -335,6 +345,7 @@ public class EntityThrownTrident extends EntityProjectile {
         this.hadCollision = true;
         this.setCollisionPos(this);
         this.setMotion(new Vector3(this.getMotion().getX() * -0.01, this.getMotion().getY() * -0.1, this.getMotion().getZ() * -0.01));
+        
         if (this.hasChanneling) {
             if (this.level.isThundering() && this.level.canBlockSeeSky(this)) {
                 Position pos = this.getPosition();
@@ -343,6 +354,7 @@ public class EntityThrownTrident extends EntityProjectile {
                 this.getLevel().addSound(this, Sound.ITEM_TRIDENT_THUNDER);
             }
         }
+        
         if (this.canReturnToShooter()) {
             this.getLevel().addSound(this, Sound.ITEM_TRIDENT_RETURN);
             this.setNoClip(true);
@@ -492,6 +504,23 @@ public class EntityThrownTrident extends EntityProjectile {
             this.trident.addEnchantment(Enchantment.getEnchantment(Enchantment.ID_TRIDENT_RIPTIDE).setLevel(riptideLevel));
         } else {
             // TODO: this.trident.removeEnchantment(Enchantment.ID_TRIDENT_RIPTIDE);
+        }
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getImpalingLevel() {
+        return impalingLevel;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setImpalingLevel(int impalingLevel) {
+        this.impalingLevel = impalingLevel;
+        if (impalingLevel > 0) {
+            this.trident.addEnchantment(Enchantment.getEnchantment(Enchantment.ID_TRIDENT_IMPALING).setLevel(impalingLevel));
+        } else {
+            // TODO: this.trident.removeEnchantment(Enchantment.ID_TRIDENT_IMPALING);
         }
     }
     
