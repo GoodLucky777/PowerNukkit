@@ -496,7 +496,11 @@ public class EntityThrownTrident extends EntityProjectile {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public void setTridentRope(boolean tridentRope) {
-        this.setDataProperty(new LongEntityData(DATA_OWNER_EID, this.shootingEntity.getId()));
+        if (tridentRope) {
+            this.setDataProperty(new LongEntityData(DATA_OWNER_EID, this.shootingEntity.getId()));
+        } else {
+            this.setDataProperty(new LongEntityData(DATA_OWNER_EID, -1));
+        }
         this.setDataFlag(DATA_FLAGS, DATA_FLAG_SHOW_TRIDENT_ROPE, tridentRope);
     }
     
