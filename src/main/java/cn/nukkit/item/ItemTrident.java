@@ -98,7 +98,7 @@ public class ItemTrident extends ItemTool {
             entityShootBowEvent.getProjectile().setMotion(entityShootBowEvent.getProjectile().getMotion().multiply(entityShootBowEvent.getForce()));
             if (entityShootBowEvent.getProjectile() instanceof EntityProjectile) {
                 int riptideLevel = trident.getRiptideLevel();
-                if (riptideLevel > 0) {
+                if (riptideLevel > 0 && (player.isTouchingWater() || (player.level.isRaining() && player.level.canBlockSeeSky(player)))) {
                     double x = -Math.sin(player.yaw / 180 * Math.PI) * Math.cos(player.pitch / 180 * Math.PI);
                     double y = -Math.sin(player.pitch / 180 * Math.PI);
                     double z = Math.cos(player.yaw / 180 * Math.PI) * Math.cos(player.pitch / 180 * Math.PI);
