@@ -2816,6 +2816,12 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                 this.setSwimming(false);
                             }
                             break;
+                        case PlayerActionPacket.ACTION_START_SPIN_ATTACK:
+                            // TODO
+                            break;
+                        case PlayerActionPacket.ACTION_STOP_SPIN_ATTACK:
+                            // TODO
+                            break;
                     }
 
                     this.setUsingItem(false);
