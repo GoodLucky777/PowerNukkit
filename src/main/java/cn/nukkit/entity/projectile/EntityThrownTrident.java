@@ -41,7 +41,7 @@ public class EntityThrownTrident extends EntityProjectile {
 
     public static final int DATA_SOURCE_ID = 17;
     
-    /* NBT data */
+    // NBT data
     protected Item trident;
     
     @PowerNukkitOnly
@@ -64,7 +64,7 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     private boolean player;
     
-    /* Enchantment */
+    // Enchantment
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     private int loyaltyLevel;
@@ -81,7 +81,7 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     private int impalingLevel;
     
-    /* Default Values */
+    // Default Values
     protected float gravity = 0.04f;
     
     protected float drag = 0.01f;
