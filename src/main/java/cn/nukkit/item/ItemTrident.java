@@ -108,6 +108,9 @@ public class ItemTrident extends ItemTool {
                     y = y * (fo / d);
                     z = z * (fo / d);
                     player.addMotion(x, y, z);
+                    if (player.onGround) {
+                        player.addMovement(0, 1.2, 0, 0, 0, 0);
+                    }
                     
                     Sound riptideSound;
                     if (riptideLevel >= 3) {
