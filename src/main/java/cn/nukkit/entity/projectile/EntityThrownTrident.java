@@ -130,7 +130,12 @@ public class EntityThrownTrident extends EntityProjectile {
     public EntityThrownTrident(FullChunk chunk, CompoundTag nbt, Entity shootingEntity, boolean critical) {
         super(chunk, nbt, shootingEntity);
     }
-
+    
+    @Override
+    public String getName() {
+        return "Trident";
+    }
+    
     @Override
     protected void initEntity() {
         super.initEntity();
