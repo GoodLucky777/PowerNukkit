@@ -1,5 +1,7 @@
 package cn.nukkit.item.enchantment.trident;
 
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.item.enchantment.Enchantment;
 
 public class EnchantmentTridentImpaling extends EnchantmentTrident {
@@ -20,5 +22,15 @@ public class EnchantmentTridentImpaling extends EnchantmentTrident {
     @Override
     public int getMaxLevel() {
         return 5;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public double getDamageBonus(Entity entity) {
+        if (entity.isTouchingWater() || (entity.getLevel().isRaining() && entity.getLevel().canBlockSeeSky(entity))) {
+            return getLevel() * 2.5;
+        }
+        return 0;
     }
 }
