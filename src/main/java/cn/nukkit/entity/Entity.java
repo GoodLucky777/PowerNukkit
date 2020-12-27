@@ -2293,6 +2293,10 @@ public abstract class Entity extends Location implements Metadatable {
     }
 
     protected void checkBlockCollision() {
+        if (this.noClip) {
+            return;
+        }
+        
         Vector3 vector = new Vector3(0, 0, 0);
         boolean portal = false;
         boolean scaffolding = false;
