@@ -14,7 +14,9 @@ import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.event.entity.EntityDamageEvent.DamageCause;
 import cn.nukkit.event.entity.ProjectileHitEvent;
 import cn.nukkit.item.Item;
+import cn.nukkit.item.ItemID;
 import cn.nukkit.item.enchantment.Enchantment;
+import cn.nukkit.level.GameRule;
 import cn.nukkit.level.MovingObjectPosition;
 import cn.nukkit.level.Position;
 import cn.nukkit.level.Sound;
@@ -280,6 +282,10 @@ public class EntityThrownTrident extends EntityProjectile {
                 this.setPosition(new Vector3(this.x, this.y + vector3.y * 0.015 * ((double) loyaltyLevel), this.z));
                 this.setMotion(this.getMotion().multiply(0.95).add(vector3.multiply(loyaltyLevel * 0.05)));
                 hasUpdate = true;
+            } else {
+                if (level.getGameRules().getBoolean(GameRule.DO_ENTITY_DROPS)) {
+                    this.level.dropItem(this, Item.get(ItemID.TRIDENT));
+                }
             }
         }
         
