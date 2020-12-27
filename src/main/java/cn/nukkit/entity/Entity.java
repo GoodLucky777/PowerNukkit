@@ -2718,6 +2718,6 @@ public abstract class Entity extends Location implements Metadatable {
     @Since("1.4.0.0-PN")
     public void setNoClip(boolean noClip) {
         this.noClip = noClip;
-        
+        this.setDataFlag(DATA_FLAGS, DATA_FLAG_HAS_COLLISION, noClip);
     }
 }
