@@ -2825,7 +2825,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             } else {
                                 this.setSpinAttacking(true);
                             }
-                            break;
+                            break packetswitch;
                         case PlayerActionPacket.ACTION_STOP_SPIN_ATTACK:
                             playerToggleSpinAttackEvent = new PlayerToggleSpinAttackEvent(this, false);
                             this.server.getPluginManager().callEvent(playerToggleSpinAttackEvent);
@@ -2835,7 +2835,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             } else {
                                 this.setSpinAttacking(false);
                             }
-                            break;
+                            break packetswitch;
                     }
 
                     this.setUsingItem(false);
