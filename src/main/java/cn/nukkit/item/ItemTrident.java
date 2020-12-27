@@ -103,10 +103,10 @@ public class ItemTrident extends ItemTool {
                     double y = -Math.sin(player.pitch / 180 * Math.PI);
                     double z = Math.cos(player.yaw / 180 * Math.PI) * Math.cos(player.pitch / 180 * Math.PI);
                     double d = Math.sqrt(x * x + y * y + z * z);
-                    double f = ((riptideLevel + 1) / 4) * 3;
-                    x = x * (f / d);
-                    y = y * (f / d);
-                    z = z * (f / d);
+                    double fo = ((riptideLevel + 1) / 4) * 3;
+                    x = x * (fo / d);
+                    y = y * (fo / d);
+                    z = z * (fo / d);
                     player.addMotion(x, y, z);
                     
                     Sound riptideSound;
