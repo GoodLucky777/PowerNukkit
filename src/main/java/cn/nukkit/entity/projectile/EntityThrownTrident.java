@@ -317,6 +317,10 @@ public class EntityThrownTrident extends EntityProjectile {
     @PowerNukkitDifference(info = "Using new method to play sounds", since = "1.4.0.0-PN")
     @Override
     public void onCollideWithEntity(Entity entity) {
+        if (this.noClip) {
+            return;
+        }
+        
         this.server.getPluginManager().callEvent(new ProjectileHitEvent(this, MovingObjectPosition.fromEntity(entity)));
         float damage = this.getResultDamage();
 
@@ -364,6 +368,10 @@ public class EntityThrownTrident extends EntityProjectile {
     @Since("1.4.0.0-PN")
     @Override
     protected void onCollideWithBlock(Position position, Vector3 motion) {
+        if (this.noClip) {
+            return;
+        }
+        
         for (Block collisionBlock : level.getCollisionBlocks(getBoundingBox().grow(0.1, 0.1, 0.1))) {
             this.setStuckToBlockPos(new BlockVector3(collisionBlock.getFloorX(), collisionBlock.getFloorY(), collisionBlock.getFloorZ()));
             if (this.canReturnToShooter()) {
