@@ -102,7 +102,22 @@ public class ItemTrident extends ItemTool {
                     double x = -Math.sin(player.yaw / 180 * Math.PI) * Math.cos(player.pitch / 180 * Math.PI);
                     double y = -Math.sin(player.pitch / 180 * Math.PI);
                     double z = Math.cos(player.yaw / 180 * Math.PI) * Math.cos(player.pitch / 180 * Math.PI);
+                    double d = Math.sqrt(x * x + y * y + z * z);
+                    double f = ((riptideLevel + 1) / 4) * 3;
+                    x = x * (f / d);
+                    y = y * (f / d);
+                    z = z * (f / d);
+                    player.addMotion(x, y, z);
                     
+                    Sound riptideSound;
+                    if (riptideLevel => 3) {
+                        riptideSound = Sound.ITEM_TRIDENT_RIPTIDE_3;
+                    } else if (riptideLevel == 2) {
+                        riptideSound = Sound.ITEM_TRIDENT_RIPTIDE_2;
+                    } else {
+                        riptideSound = Sound.ITEM_TRIDENT_RIPTIDE_1;
+                    }
+                    player.getLevel().addSound(player, riptideSound);
                 } else {
                     ProjectileLaunchEvent ev = new ProjectileLaunchEvent(entityShootBowEvent.getProjectile());
                     Server.getInstance().getPluginManager().callEvent(ev);
