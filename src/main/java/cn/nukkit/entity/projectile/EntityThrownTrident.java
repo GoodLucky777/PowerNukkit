@@ -34,6 +34,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author PetteriM1
+ * @author GoodLucky777
  */
 public class EntityThrownTrident extends EntityProjectile {
 
