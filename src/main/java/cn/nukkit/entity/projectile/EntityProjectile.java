@@ -210,7 +210,7 @@ public abstract class EntityProjectile extends Entity {
             Vector3 motion = getMotion();
             this.move(this.motionX, this.motionY, this.motionZ);
 
-            if (this.isCollided && !this.hadCollision) { //collide with block
+            if (this.isCollided && !this.hadCollision && !this.noClip) { //collide with block
                 this.hadCollision = true;
 
                 this.motionX = 0;
@@ -221,7 +221,7 @@ public abstract class EntityProjectile extends Entity {
                 onCollideWithBlock(position, motion);
                 addHitEffect();
                 return false;
-            } else if (!this.isCollided && this.hadCollision) {
+            } else if ((!this.isCollided && this.hadCollision) || this.noClip) {
                 this.hadCollision = false;
             }
 
