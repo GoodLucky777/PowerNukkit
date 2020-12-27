@@ -2517,7 +2517,7 @@ public abstract class Entity extends Location implements Metadatable {
 
         if (this.setPositionAndRotation(to, yaw, pitch)) {
             this.resetFallDistance();
-            this.onGround = true;
+            this.onGround = this.noClip ? false : true;
 
             this.updateMovement();
 
