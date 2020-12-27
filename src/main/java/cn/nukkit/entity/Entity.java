@@ -486,7 +486,11 @@ public abstract class Entity extends Location implements Metadatable {
     protected boolean isPlayer = false;
 
     private volatile boolean initialized;
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private boolean noClip = false;
+    
     public float getHeight() {
         return 0;
     }
@@ -2702,5 +2706,18 @@ public abstract class Entity extends Location implements Metadatable {
         int hash = 7;
         hash = (int) (29 * hash + this.getId());
         return hash;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean isNoClip() {
+        return noClip;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setNoClip(boolean noClip) {
+        this.noClip = noClip;
+        
     }
 }
