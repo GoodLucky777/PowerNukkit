@@ -85,6 +85,8 @@ public class ItemTrident extends ItemTool {
             trident.setCreative(true);
         }
         
+        trident.setFavoredSlot(player.getInventory().getHeldItemIndex());
+        
         EntityShootBowEvent entityShootBowEvent = new EntityShootBowEvent(player, this, trident, f);
 
         if (f < 0.1 || ticksUsed < 5) {
