@@ -99,9 +99,9 @@ public class ItemTrident extends ItemTool {
             if (entityShootBowEvent.getProjectile() instanceof EntityProjectile) {
                 int riptideLevel = trident.getRiptideLevel();
                 if (riptideLevel > 0) {
-                    double x = -Math.sin(player.yaw / 180 * Math.PI) * Math.cos(player.pitch / 180 * Math.PI));
-                    double y = -Math.sin(player.pitch / 180 * Math.PI));
-                    double z = Math.cos(player.yaw / 180 * Math.PI) * Math.cos(player.pitch / 180 * Math.PI));
+                    double x = -Math.sin(player.yaw / 180 * Math.PI) * Math.cos(player.pitch / 180 * Math.PI);
+                    double y = -Math.sin(player.pitch / 180 * Math.PI);
+                    double z = Math.cos(player.yaw / 180 * Math.PI) * Math.cos(player.pitch / 180 * Math.PI);
                     
                 } else {
                     ProjectileLaunchEvent ev = new ProjectileLaunchEvent(entityShootBowEvent.getProjectile());
