@@ -5314,6 +5314,36 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     return false;
                 }
                 
+                // Check Trident is returning to shooter
+                if (entity.isNoClip()) {
+                    if (entity.shooter.equals(this)) {
+                        Item item = ((EntityThrownTrident) entity).getItem();
+                        if (this.isSurvival() && !inventory.canAddItem(item)) {
+                            return false;
+                        }
+                        
+                        InventoryPickupTridentEvent ev = new InventoryPickupTridentEvent(this.inventory, (EntityThrownTrident) entity);
+                        this.server.getPluginManager().callEvent(ev);
+                        if (ev.isCancelled()) {
+                            return false;
+                        }
+                        
+                        TakeItemEntityPacket pk = new TakeItemEntityPacket();
+                        pk.entityId = this.getId();
+                        pk.target = entity.getId();
+                        Server.broadcastPacket(entity.getViewers().values(), pk);
+                        this.dataPacket(pk);
+                        
+                        if (!((EntityThrownTrident) entity).isCreative()) {
+                            inventory.addItem(item.clone());
+                        }
+                        entity.close();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                
                 Item item = ((EntityThrownTrident) entity).getItem();
                 if (this.isSurvival() && !inventory.canAddItem(item)) {
                     return false;
