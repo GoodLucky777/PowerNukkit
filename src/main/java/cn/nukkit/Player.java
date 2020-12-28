@@ -2841,15 +2841,15 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             } else {
                                 this.setSpinAttacking(true);
                                 
-                                Sound riptideSound;
+                                LevelSoundEventPacket riptideSound;
                                 if (riptideLevel >= 3) {
-                                    riptideSound = Sound.ITEM_TRIDENT_RIPTIDE_3;
+                                    riptideSound = LevelSoundEventPacket.SOUND_ITEM_TRIDENT_RIPTIDE_3;
                                 } else if (riptideLevel == 2) {
-                                    riptideSound = Sound.ITEM_TRIDENT_RIPTIDE_2;
+                                    riptideSound = LevelSoundEventPacket.SOUND_ITEM_TRIDENT_RIPTIDE_2;
                                 } else {
-                                    riptideSound = Sound.ITEM_TRIDENT_RIPTIDE_1;
+                                    riptideSound = LevelSoundEventPacket.SOUND_ITEM_TRIDENT_RIPTIDE_1;
                                 }
-                                this.level.addSound(this, riptideSound);
+                                this.level.addLevelSoundEvent(this, riptideSound);
                             }
                             break packetswitch;
                         case PlayerActionPacket.ACTION_STOP_SPIN_ATTACK:
