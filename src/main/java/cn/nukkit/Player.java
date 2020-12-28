@@ -2858,7 +2858,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             } else {
                                 this.setSpinAttacking(false);
                             }
-                            break packetswitch;
+                            break;
                     }
 
                     this.setUsingItem(false);
