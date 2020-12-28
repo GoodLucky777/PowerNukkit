@@ -2841,7 +2841,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             } else {
                                 this.setSpinAttacking(true);
                                 
-                                LevelSoundEventPacket riptideSound;
+                                int riptideSound;
                                 if (riptideLevel >= 3) {
                                     riptideSound = LevelSoundEventPacket.SOUND_ITEM_TRIDENT_RIPTIDE_3;
                                 } else if (riptideLevel == 2) {
@@ -2849,7 +2849,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                 } else {
                                     riptideSound = LevelSoundEventPacket.SOUND_ITEM_TRIDENT_RIPTIDE_1;
                                 }
-                                this.level.addLevelSoundEvent(new Vector3(this.x, this.y, this.z), riptideSound);
+                                this.level.addLevelSoundEvent(this, riptideSound);
                             }
                             break packetswitch;
                         case PlayerActionPacket.ACTION_STOP_SPIN_ATTACK:
