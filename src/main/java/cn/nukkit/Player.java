@@ -2818,18 +2818,18 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             break;
                         case PlayerActionPacket.ACTION_START_SPIN_ATTACK:
                             if (this.inventory.getItemInHand().getId() != ItemID.TRIDENT) {
-                                this.sendData(this);
+                                this.sendPosition(this, this.yaw, this.pitch, MovePlayerPacket.MODE_RESET);
                                 break;
                             }
                             
                             int riptideLevel = this.inventory.getItemInHand().getEnchantmentLevel(Enchantment.ID_TRIDENT_RIPTIDE);
                             if (riptideLevel < 1) {
-                                this.sendData(this);
+                                this.sendPosition(this, this.yaw, this.pitch, MovePlayerPacket.MODE_RESET);
                                 break;
                             }
                             
                             if (!this.isTouchingWater() || !(this.getLevel().isRaining() && this.getLevel().canBlockSeeSky(this))) {
-                                this.sendData(this);
+                                this.sendPosition(this, this.yaw, this.pitch, MovePlayerPacket.MODE_RESET);
                                 break;
                             }
                             
@@ -2837,7 +2837,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             this.server.getPluginManager().callEvent(playerToggleSpinAttackEvent);
 
                             if (playerToggleSpinAttackEvent.isCancelled()) {
-                                this.sendData(this);
+                                this.sendPosition(this, this.yaw, this.pitch, MovePlayerPacket.MODE_RESET);
                             } else {
                                 this.setSpinAttacking(true);
                                 
