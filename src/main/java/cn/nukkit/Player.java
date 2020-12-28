@@ -2818,16 +2818,19 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             break;
                         case PlayerActionPacket.ACTION_START_SPIN_ATTACK:
                             if (this.inventory.getItemInHand().getId() != ItemID.TRIDENT) {
-                                break packetswitch;
+                                this.sendData(this);
+                                break;
                             }
                             
                             int riptideLevel = this.inventory.getItemInHand().getEnchantmentLevel(Enchantment.ID_TRIDENT_RIPTIDE);
                             if (riptideLevel < 1) {
-                                break packetswitch;
+                                this.sendData(this);
+                                break;
                             }
                             
                             if (!this.isTouchingWater() || !(this.level.isRaining() && this.level.canBlockSeeSky(this))) {
-                                break packetswitch;
+                                this.sendData(this);
+                                break;
                             }
                             
                             PlayerToggleSpinAttackEvent playerToggleSpinAttackEvent = new PlayerToggleSpinAttackEvent(this, true);
