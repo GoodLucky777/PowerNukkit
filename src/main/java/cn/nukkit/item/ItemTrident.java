@@ -55,6 +55,11 @@ public class ItemTrident extends ItemTool {
     @PowerNukkitDifference(info = "Using new method to play sounds", since = "1.4.0.0-PN")
     @Override
     public boolean onRelease(Player player, int ticksUsed) {
+        // Don't shoot if Riptide level > 0
+        if (this.getEnchantmentLevel(Enchantment.ID_TRIDENT_RIPTIDE) > 0) {
+            return false;
+        }
+        
         this.useOn(player);
 
         CompoundTag nbt = new CompoundTag()
@@ -80,11 +85,6 @@ public class ItemTrident extends ItemTool {
         }
 
         trident.setItem(this);
-        
-        // Don't shoot if Riptide level > 0
-        if (trident.getRiptideLevel() > 0) {
-            return false;
-        }
         
         if (player.isCreative()) {
             trident.setCreative(true);
