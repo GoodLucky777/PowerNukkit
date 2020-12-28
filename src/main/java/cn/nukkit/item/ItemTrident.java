@@ -58,7 +58,7 @@ public class ItemTrident extends ItemTool {
     public boolean onRelease(Player player, int ticksUsed) {
         // Don't shoot if Riptide level > 0
         if (this.getEnchantmentLevel(Enchantment.ID_TRIDENT_RIPTIDE) > 0) {
-            return false;
+            return true;
         }
         
         this.useOn(player);
