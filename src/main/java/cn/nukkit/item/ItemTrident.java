@@ -81,6 +81,11 @@ public class ItemTrident extends ItemTool {
 
         trident.setItem(this);
         
+        // Don't shoot if Riptide level > 0
+        if (trident.getRiptideLevel() > 0) {
+            return false;
+        }
+        
         if (player.isCreative()) {
             trident.setCreative(true);
         }
