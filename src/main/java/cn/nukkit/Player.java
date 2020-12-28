@@ -2849,7 +2849,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                 } else {
                                     riptideSound = LevelSoundEventPacket.SOUND_ITEM_TRIDENT_RIPTIDE_1;
                                 }
-                                this.level.addLevelSoundEvent(this, riptideSound);
+                                this.level.addLevelSoundEvent(new Vector3(this.x, this.y, this.z), riptideSound);
                             }
                             break packetswitch;
                         case PlayerActionPacket.ACTION_STOP_SPIN_ATTACK:
