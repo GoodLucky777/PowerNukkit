@@ -2817,6 +2817,19 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             }
                             break;
                         case PlayerActionPacket.ACTION_START_SPIN_ATTACK:
+                            if (this.inventory.getItemInHand().getId() != ItemID.TRIDENT) {
+                                break packetswitch;
+                            }
+                            
+                            int riptideLevel = this.inventory.getItemInHand().getEnchantmentLevel(Enchantment.ID_TRIDENT_RIPTIDE);
+                            if (riptideLevel < 1) {
+                                break packetswitch;
+                            }
+                            
+                            if (!this.isTouchingWater() || !(this.level.isRaining() && this.level.canBlockSeeSky(this))) {
+                                break packetswitch;
+                            }
+                            
                             PlayerToggleSpinAttackEvent playerToggleSpinAttackEvent = new PlayerToggleSpinAttackEvent(this, true);
                             this.server.getPluginManager().callEvent(playerToggleSpinAttackEvent);
 
@@ -2824,6 +2837,16 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                 this.sendData(this);
                             } else {
                                 this.setSpinAttacking(true);
+                                
+                                Sound riptideSound;
+                                if (riptideLevel >= 3) {
+                                    riptideSound = Sound.ITEM_TRIDENT_RIPTIDE_3;
+                                } else if (riptideLevel == 2) {
+                                    riptideSound = Sound.ITEM_TRIDENT_RIPTIDE_2;
+                                } else {
+                                    riptideSound = Sound.ITEM_TRIDENT_RIPTIDE_1;
+                                }
+                                this.level.addSound(this, riptideSound);
                             }
                             break packetswitch;
                         case PlayerActionPacket.ACTION_STOP_SPIN_ATTACK:
