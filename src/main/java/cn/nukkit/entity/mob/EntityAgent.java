@@ -6,7 +6,7 @@ import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
 
 /**
- * @author good777LUCKY
+ * @author GoodLucky777
  */
 public class EntityAgent extends EntityMob /*implements InventoryHolder*/ {
 
