@@ -12,7 +12,7 @@ import static cn.nukkit.block.BlockID.MONSTER_EGG;
 import static cn.nukkit.block.BlockID.STONE;
 
 /**
- * @author good777LUCKY
+ * @author GoodLucky777
  */
 public class PopulatorInfestedBlock extends Populator {
 
