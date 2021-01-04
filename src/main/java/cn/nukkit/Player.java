@@ -289,9 +289,6 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     private float soulSpeedMultiplier = 1;
     private boolean wasInSoulSandCompatible;
-
-    @Since("1.4.0.0-PN")
-    private int timeSinceRest;
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
