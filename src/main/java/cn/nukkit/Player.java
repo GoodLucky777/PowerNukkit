@@ -2282,7 +2282,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         startGamePacket.multiplayerCorrelationId = "";
         startGamePacket.isInventoryServerAuthoritative = false;
         startGamePacket.isMovementServerAuthoritative = false; // CLIENT
-        this.directDataPacket(startGamePacket);
+        this.dataPacket(startGamePacket);
         
         this.loggedIn = true;
         this.server.getLogger().info(this.getServer().getLanguage().translateString("nukkit.player.logIn",
