@@ -2294,7 +2294,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                 String.valueOf(NukkitMath.round(this.z, 4))));
         
         this.dataPacket(new ItemComponentPacket());
-        this.sendSpawnPosition((int) spawnPosition.getFloorX(), (int) spawnPosition.getFloorY(), (int) spawnPosition.getFloorZ(), level.getDimension());
+        this.sendSpawnPosition((int) spawnPosition.getFloorX(), (int) spawnPosition.getFloorY(), (int) spawnPosition.getFloorZ(), this.getLevel().getDimension());
         this.level.sendTime(this);
         SetDifficultyPacket difficultyPacket = new SetDifficultyPacket();
         difficultyPacket.difficulty = this.server.getDifficulty();
