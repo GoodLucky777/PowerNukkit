@@ -70,6 +70,7 @@ import cn.nukkit.positiontracking.PositionTrackingService;
 import cn.nukkit.potion.Effect;
 import cn.nukkit.resourcepacks.ResourcePack;
 import cn.nukkit.scheduler.AsyncTask;
+import cn.nukkit.scheduler.Task;
 import cn.nukkit.scheduler.TaskHandler;
 import cn.nukkit.utils.*;
 import co.aikar.timings.Timing;
