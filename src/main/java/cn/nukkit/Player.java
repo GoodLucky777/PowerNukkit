@@ -1512,8 +1512,12 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     }
                                 }, 5);
                             } else {
-                                if (!this.hasSeenCredits) {
-                                    this.showCredits();
+                                if (!this.hasSeenCredits || !this.showingCredits) {
+                                    PlayerShowCreditsEvent playerShowCreditsEvent = new PlayerShowCreditsEvent(this);
+                                    this.getServer().getPluginManager().callEvent(playerShowCreditsEvent);
+                                    if (!playerShowCreditsEvent.isCancelled()) {
+                                        this.showCredits();
+                                    }
                                 }
                             }
                         }
