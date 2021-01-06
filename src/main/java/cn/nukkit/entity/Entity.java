@@ -2324,15 +2324,14 @@ public abstract class Entity extends Location implements Metadatable {
                     final Position newPos = EnumLevel.moveToTheEnd(this);
                     if (newPos != null) {
                         if (teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL)) {
-                                server.getScheduler().scheduleDelayedTask(new Task() {
-                                    @Override
-                                    public void onRun(int currentTick) {
-                                        // dirty hack to make sure chunks are loaded and generated before spawning player
-                                        teleport(finalPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
-                                        // TODO: Spawn Platform
-                                    }
-                                }, 5);
-                            }
+                            server.getScheduler().scheduleDelayedTask(new Task() {
+                                @Override
+                                public void onRun(int currentTick) {
+                                    // dirty hack to make sure chunks are loaded and generated before spawning player
+                                    teleport(finalPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
+                                    // TODO: Spawn Platform
+                                }
+                            }, 5);
                         }
                     }
                 }
