@@ -1501,15 +1501,19 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                 if (!ev.isCancelled() && (level == EnumLevel.OVERWORLD.getLevel() || level == EnumLevel.THE_END.getLevel())) {
                     final Position newPos = EnumLevel.moveToTheEnd(this);
                     if (newPos != null) {
-                        if (teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL)) {
-                            server.getScheduler().scheduleDelayedTask(new Task() {
-                                @Override
-                                public void onRun(int currentTick) {
-                                    // dirty hack to make sure chunks are loaded and generated before spawning player
-                                    teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
-                                    // TODO: Spawn Platform
-                                }
-                            }, 5);
+                        if (newPos.getLevel().getDimension() == Level.DIMENSION_THE_END) {
+                            if (teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL)) {
+                                server.getScheduler().scheduleDelayedTask(new Task() {
+                                    @Override
+                                    public void onRun(int currentTick) {
+                                        // dirty hack to make sure chunks are loaded and generated before spawning player
+                                        teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
+                                        // TODO: Spawn Platform
+                                    }
+                                }, 5);
+                            } else {
+                                this.showCredits();
+                            }
                         }
                     }
                 }
@@ -5605,6 +5609,12 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             pk.status = ShowCreditsPacket.STATUS_END_CREDITS;
             this.dataPacket(pk);
         }
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void showCredits() {
+        this.setShowingCredits(true);
     }
     
     @PowerNukkitOnly
