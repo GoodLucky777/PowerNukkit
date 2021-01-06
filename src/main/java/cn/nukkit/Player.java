@@ -5607,7 +5607,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public void setShowingCredits(booelan showingCredits) {
+    public void setShowingCredits(boolean showingCredits) {
         this.showingCredits = showingCredits;
         if (showingCredits) {
             ShowCreditsPacket pk = new ShowCreditsPacket();
@@ -5631,7 +5631,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public void setHasSeenCredits(booelan hasSeenCredits) {
+    public void setHasSeenCredits(boolean hasSeenCredits) {
         this.hasSeenCredits = hasSeenCredits;
     }
 }
