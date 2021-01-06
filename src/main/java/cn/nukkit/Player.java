@@ -288,7 +288,15 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     @Since("1.4.0.0-PN")
     private int timeSinceRest;
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private boolean showingCredits;
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private boolean hasSeenCredits;
+    
     public float getSoulSpeedMultiplier() {
         return this.soulSpeedMultiplier;
     }
@@ -5569,5 +5577,40 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     @Since("1.4.0.0-PN")
     public void setTimeSinceRest(int timeSinceRest) {
         this.timeSinceRest = timeSinceRest;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int isShowingCredits() {
+        return showingCredits;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setShowingCredits(booelan showingCredits) {
+        this.showingCredits = showingCredits;
+        if (showingCredits) {
+            ShowCreditsPacket pk = new ShowCreditsPacket();
+            pk.eid = this.getId;
+            pk.status = ShowCreditsPacket.STATUS_START_CREDITS;
+            this.dataPacket(pk);
+        } else {
+            ShowCreditsPacket pk = new ShowCreditsPacket();
+            pk.eid = this.getId;
+            pk.status = ShowCreditsPacket.STATUS_STOP_CREDITS;
+            this.dataPacket(pk);
+        }
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int hasSeenCredits() {
+        return showingCredits;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setHasSeenCredits(booelan hasSeenCredits) {
+        this.hasSeenCredits = hasSeenCredits;
     }
 }
