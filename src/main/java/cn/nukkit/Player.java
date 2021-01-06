@@ -3770,6 +3770,39 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     if (showCreditsPacket.status == ShowCreditsPacket.STATUS_END_CREDITS)
                         if (this.showingCredits) {
                             this.showingCredits(false);
+                            
+                            this.craftingType = CRAFTING_SMALL;
+                            this.resetCraftingGridType();
+                            
+                            PlayerRespawnEvent playerRespawnEvent = new PlayerRespawnEvent(this, this.getSpawn());
+                            this.server.getPluginManager().callEvent(playerRespawnEvent);
+                            
+                            Position respawnPos = playerRespawnEvent.getRespawnPosition();
+                            
+                            this.sendExperience();
+                            this.sendExperienceLevel();
+                            
+                            this.setSprinting(false);
+                            this.setSneaking(false);
+                            
+                            this.setDataProperty(new ShortEntityData(Player.DATA_AIR, 400), false);
+                            this.noDamageTicks = 60;
+                            
+                            this.removeAllEffects();
+                            this.setHealth(this.getMaxHealth());
+                            this.getFoodData().setLevel(20, 20);
+                            
+                            this.sendData(this);
+                            
+                            this.setMovementSpeed(DEFAULT_SPEED);
+                            
+                            this.getAdventureSettings().update();
+                            this.inventory.sendContents(this);
+                            this.inventory.sendArmorContents(this);
+                            this.offhandInventory.sendContents(this);
+                            
+                            this.teleport(respawnPos, null);
+                            this.scheduleUpdate();
                         }
                     }
                     break;
