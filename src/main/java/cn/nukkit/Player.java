@@ -3765,6 +3765,14 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     notFound.setTrackingId(posTrackReq.getTrackingId());
                     dataPacket(notFound);
                     break;
+                case ProtocolInfo.SHOW_CREDITS_PACKET:
+                    ShowCreditsPacket showCreditsPacket = (ShowCreditsPacket) packet;
+                    if (showCreditsPacket.status == ShowCreditsPacket.STATUS_END_CREDITS)
+                        if (this.showingCredits) {
+                            this.showingCredits(false);
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
@@ -5602,11 +5610,6 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             ShowCreditsPacket pk = new ShowCreditsPacket();
             pk.eid = this.getId;
             pk.status = ShowCreditsPacket.STATUS_START_CREDITS;
-            this.dataPacket(pk);
-        } else {
-            ShowCreditsPacket pk = new ShowCreditsPacket();
-            pk.eid = this.getId;
-            pk.status = ShowCreditsPacket.STATUS_END_CREDITS;
             this.dataPacket(pk);
         }
     }
