@@ -5597,7 +5597,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         } else {
             ShowCreditsPacket pk = new ShowCreditsPacket();
             pk.eid = this.getId;
-            pk.status = ShowCreditsPacket.STATUS_STOP_CREDITS;
+            pk.status = ShowCreditsPacket.STATUS_END_CREDITS;
             this.dataPacket(pk);
         }
     }
