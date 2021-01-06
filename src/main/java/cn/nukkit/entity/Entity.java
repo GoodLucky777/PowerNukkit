@@ -2328,7 +2328,7 @@ public abstract class Entity extends Location implements Metadatable {
                                 @Override
                                 public void onRun(int currentTick) {
                                     // dirty hack to make sure chunks are loaded and generated before spawning player
-                                    teleport(finalPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
+                                    teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
                                     // TODO: Spawn Platform
                                 }
                             }, 5);
