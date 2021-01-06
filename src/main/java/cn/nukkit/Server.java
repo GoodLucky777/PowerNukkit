@@ -42,6 +42,7 @@ import cn.nukkit.level.generator.Flat;
 import cn.nukkit.level.generator.Generator;
 import cn.nukkit.level.generator.Nether;
 import cn.nukkit.level.generator.Normal;
+import cn.nukkit.level.generator.TheEnd;
 import cn.nukkit.math.NukkitMath;
 import cn.nukkit.metadata.EntityMetadataStore;
 import cn.nukkit.metadata.LevelMetadataStore;
@@ -263,7 +264,11 @@ public class Server {
     private boolean forceSkinTrusted = false;
 
     private boolean checkMovement = true;
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private boolean allowTheEnd;
+    
     /**
      * Minimal initializer for testing
      */
@@ -536,12 +541,15 @@ public class Server {
                 put("auto-save", true);
                 put("force-resources", false);
                 put("xbox-auth", true);
+                put("allow-theend", true);
             }
         });
 
         // Allow Nether? (determines if we create a nether world if one doesn't exist on startup)
         this.allowNether = this.properties.getBoolean("allow-nether", true);
-
+        
+        this.allowTheEnd = this.properties.getBoolean("allow-theend", true);
+        
         this.forceLanguage = this.getConfig("settings.force-language", false);
         this.baseLang = new BaseLang(this.getConfig("settings.language", BaseLang.FALLBACK_LANGUAGE));
         log.info(this.getLanguage().translateString("language.selected", new String[]{getLanguage().getName(), getLanguage().getLang()}));
