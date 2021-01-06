@@ -5601,7 +5601,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public int isShowingCredits() {
+    public boolean isShowingCredits() {
         return showingCredits;
     }
     
@@ -5625,7 +5625,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public int hasSeenCredits() {
+    public boolean hasSeenCredits() {
         return showingCredits;
     }
     
