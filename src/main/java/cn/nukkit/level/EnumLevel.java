@@ -1,6 +1,8 @@
 package cn.nukkit.level;
 
 import cn.nukkit.Server;
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.level.generator.Generator;
 import cn.nukkit.math.NukkitMath;
 
@@ -90,5 +92,21 @@ public enum EnumLevel {
 
     private static final int mRound(int value, int factor) {
         return Math.round((float) value / factor) * factor;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static Position moveToTheEnd(Position current)   {
+        if (THE_END.level == null) {
+            return null;
+        } else {
+            if (current.level == OVERWORLD.level) {
+                return new Position(100.5, 49, 0.5, THE_END.level);
+            } else if (current.level == THE_END.level) {
+                return OVERWORLD.level.getSpawnLocation();
+            } else {
+                throw new IllegalArgumentException("Neither overworld nor the end given!");
+            }
+        }
     }
 }
