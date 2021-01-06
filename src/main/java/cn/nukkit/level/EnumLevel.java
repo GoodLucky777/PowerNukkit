@@ -7,7 +7,7 @@ import cn.nukkit.math.NukkitMath;
 public enum EnumLevel {
     OVERWORLD,
     NETHER,
-    //THE_END
+    THE_END
     ;
 
     Level level;
@@ -44,6 +44,23 @@ public enum EnumLevel {
         if (NETHER.level == null) {
             // Nether is not found or disabled
             Server.getInstance().getLogger().alert("No level called \"nether\" found or nether is disabled in server properties! Nether functionality will be disabled.");
+        }
+        
+        // The End
+        if (Server.getInstance().isTheEndAllowed() && !Server.getInstance().loadLevel("the_end")) {
+            Server.getInstance().getLogger().info("No level called \"the_end\" found, creating default the end level.");
+            long seed = System.currentTimeMillis();
+            Class<? extends Generator> generator = Generator.getGenerator("the_end");
+            Server.getInstance().generateLevel("the_end", seed, generator);
+            if (!Server.getInstance().isLevelLoaded("the_end")) {
+                Server.getInstance().loadLevel("the_end");
+            }
+        }
+
+        THE_END.level = Server.getInstance().getLevelByName("the_end");
+
+        if (THE_END.level == null) {
+            Server.getInstance().getLogger().alert("No level called \"the_end\" found or the end is disabled in server properties! Nether functionality will be disabled.");
         }
     }
 
