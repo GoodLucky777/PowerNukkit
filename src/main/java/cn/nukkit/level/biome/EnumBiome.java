@@ -6,6 +6,7 @@ import cn.nukkit.level.biome.impl.beach.ColdBeachBiome;
 import cn.nukkit.level.biome.impl.desert.DesertBiome;
 import cn.nukkit.level.biome.impl.desert.DesertHillsBiome;
 import cn.nukkit.level.biome.impl.desert.DesertMBiome;
+import cn.nukkit.level.biome.impl.end.TheEndBiome;
 import cn.nukkit.level.biome.impl.extremehills.*;
 import cn.nukkit.level.biome.impl.forest.FlowerForestBiome;
 import cn.nukkit.level.biome.impl.forest.ForestBiome;
@@ -50,6 +51,7 @@ public enum EnumBiome {
     SWAMP(6, new SwampBiome()),
     RIVER(7, new RiverBiome()),//
     HELL(8, new HellBiome()),
+    THE_END(9, new TheEndBiome()),
     FROZEN_OCEAN(10, new FrozenOceanBiome()), //DOES NOT GENERATE NATUALLY
     FROZEN_RIVER(11, new FrozenRiverBiome()),
     ICE_PLAINS(12, new IcePlainsBiome()),
