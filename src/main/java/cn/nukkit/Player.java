@@ -3771,7 +3771,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     ShowCreditsPacket showCreditsPacket = (ShowCreditsPacket) packet;
                     if (showCreditsPacket.status == ShowCreditsPacket.STATUS_END_CREDITS) {
                         if (this.showingCredits) {
-                            this.showingCredits(false);
+                            this.setShowingCredits(false);
                             this.teleport(this.getSpawn(), PlayerTeleportEvent.TeleportCause.END_PORTAL);
                         }
                     }
@@ -5611,7 +5611,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         this.showingCredits = showingCredits;
         if (showingCredits) {
             ShowCreditsPacket pk = new ShowCreditsPacket();
-            pk.eid = this.getId;
+            pk.eid = ((Entity) this).getId;
             pk.status = ShowCreditsPacket.STATUS_START_CREDITS;
             this.dataPacket(pk);
         }
