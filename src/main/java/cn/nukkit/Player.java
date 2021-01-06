@@ -2203,7 +2203,12 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             this.namedTag.putInt("TimeSinceRest", 0);
         }
         this.timeSinceRest = this.namedTag.getInt("TimeSinceRest");
-
+        
+        if (!this.namedTag.contains("HasSeenCredits")) {
+            this.namedTag.putBoolean("HasSeenCredits", false);
+        }
+        this.hasSeenCredits = this.namedTag.getBoolean("HasSeenCredits");
+        
         if (!this.server.isCheckMovement()) {
             this.checkMovement = false;
         }
