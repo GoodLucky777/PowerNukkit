@@ -3769,7 +3769,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     break;
                 case ProtocolInfo.SHOW_CREDITS_PACKET:
                     ShowCreditsPacket showCreditsPacket = (ShowCreditsPacket) packet;
-                    if (showCreditsPacket.status == ShowCreditsPacket.STATUS_END_CREDITS)
+                    if (showCreditsPacket.status == ShowCreditsPacket.STATUS_END_CREDITS) {
                         if (this.showingCredits) {
                             this.showingCredits(false);
                             this.teleport(this.getSpawn(), PlayerTeleportEvent.TeleportCause.END_PORTAL);
