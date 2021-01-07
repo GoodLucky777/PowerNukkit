@@ -56,9 +56,14 @@ public class BlockEndGateway extends BlockSolid {
     public BlockColor getColor() {
         return BlockColor.BLACK_BLOCK_COLOR;
     }
-
+    
     @Override
     public Item toItem() {
+        return new ItemBlock(Block.get(BlockID.AIR));
+    }
+    
+    @Override
+    public Item[] getDrops() {
         return Item.EMPTY_ARRAY;
     }
     
