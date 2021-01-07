@@ -39,7 +39,7 @@ public class BlockEndGateway extends BlockSolid {
 
     @Override
     public double getResistance() {
-        return 18000000;
+        return 360000000;
     }
 
     @Override
@@ -59,7 +59,10 @@ public class BlockEndGateway extends BlockSolid {
 
     @Override
     public Item toItem() {
-        return new ItemBlock(Block.get(BlockID.AIR));
+        return Item.EMPTY_ARRAY;
     }
-
+    
+    public boolean canBePushed() {
+        return false;
+    }
 }
