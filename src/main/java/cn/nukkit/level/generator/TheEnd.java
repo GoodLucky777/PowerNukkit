@@ -65,7 +65,7 @@ public class TheEnd extends Generator {
     double[] ar;
     double[] br;
     
-    private final double[][][] density = new double[3][3][33];
+    private double[] density;
     
     private final List<Populator> populators = new ArrayList<>();
     private List<Populator> generationPopulators = new ArrayList<>();
@@ -139,6 +139,10 @@ public class TheEnd extends Generator {
         int densityX = chunkX << 1;
         int densityZ = chunkZ << 1;
         
+        if (density == null) {
+            density = new Double(3 * 33 * 3);
+        }
+        
         this.pnr = this.perlinNoise1.generateNoiseOctaves(this.pnr, densityX * 2, 0, densityZ * 2, 3, 33, 3, (coordinateScale * 2) / detailNoiseScaleX, 4.277575000000001, (coordinateScale * 2) / detailNoiseScaleZ);
         this.ar = this.lperlinNoise1.generateNoiseOctaves(this.ar, densityX * 2, 0, densityZ * 2, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
         this.br = this.lperlinNoise2.generateNoiseOctaves(this.br, densityX * 2, 0, densityZ * 2, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
@@ -147,7 +151,7 @@ public class TheEnd extends Generator {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                double noiseHeight = NukkitMath.clamp(100d - Math.sqrt((densityX + i) * (densityX + i) + (densityZ + j) * (densityZ + j)) * 8d, -100d, 80d);
+                float f = this.getIslandHeightValue(densityX / 2, densityZ / 2, i, j);
                 for (int k = 0; k < 33; k++) {
                     double noiseR = this.ar[index] / 512;
                     double noiseR2 = this.br[index] / 512;
@@ -155,7 +159,6 @@ public class TheEnd extends Generator {
                     // linear interpolation
                     double dens = noiseD < 0 ? noiseR : noiseD > 1 ? noiseR2 : noiseR + (noiseR2 - noiseR) * noiseD;
                     dens = (dens - 8) + noiseHeight;
-                    index++;
                     if (k < 8) {
                         double lowering = (double)((float)(8 - k) / 7);
                         dens = dens * (1d - lowering) + lowering * -30d;
@@ -164,7 +167,8 @@ public class TheEnd extends Generator {
                         lowering = NukkitMath.clamp(lowering, 0, 1);
                         dens = dens * (1d - lowering) + lowering * -3000d;
                     }
-                    density[i][j][k] = dens;
+                    density[index] = dens;
+                    index++;
                 }
             }
         }
@@ -172,14 +176,14 @@ public class TheEnd extends Generator {
         for (int i = 0; i < 3 - 1; i++) {
             for (int j = 0; j < 3 - 1; j++) {
                 for (int k = 0; k < 33 - 1; k++) {
-                    double d1 = density[i][j][k];
-                    double d2 = density[i + 1][j][k];
-                    double d3 = density[i][j + 1][k];
-                    double d4 = density[i + 1][j + 1][k];
-                    double d5 = (density[i][j][k + 1] - d1) / 4;
-                    double d6 = (density[i + 1][j][k + 1] - d2) / 4;
-                    double d7 = (density[i][j + 1][k + 1] - d3) / 4;
-                    double d8 = (density[i + 1][j + 1][k + 1] - d4) / 4;
+                    double d1 = density[(i * 3 + j) * 33 + k];
+                    double d2 = density[(i * 3 + j + 1) * 33 + k];
+                    double d3 = density[((i + 1) * 3 + j) * 33 + k];
+                    double d4 = density[((i + 1) * 3 + j + 1) * 33 + k];
+                    double d5 = (density[(i * 3 + j) * 33 + k + 1] - d1) / 4;
+                    double d6 = (density[(i * 3 + j + 1) * 33 + k + 1] - d2) / 4;
+                    double d7 = (density[((i + 1) * 3 + j) * 33 + k + 1] - d3) / 4;
+                    double d8 = (density[((i + 1) * 3 + j + 1) * 33 + k + 1] - d4) / 4;
                     
                     for (int l = 0; l < 4; l++) {
                         double d9 = d1;
@@ -189,7 +193,7 @@ public class TheEnd extends Generator {
                             for (int n = 0; n < 8; n++) {
                                 // any density > 0 is ground, any density <= 0 is air.
                                 if (dens > 0) {
-                                    chunk.setBlockState(m + (i << 3), l + (k << 2), n + (j << 3), STATE_END_STONE);
+                                    chunk.setBlockState(m + i * 8, l + k * 4, n + j * 8, STATE_END_STONE);
                                 }
                                 // interpolation along z
                                 dens += (d10 - d9) / 8;
