@@ -2622,6 +2622,7 @@ public class Server {
         BlockEntity.registerBlockEntity(BlockEntity.NETHER_REACTOR, BlockEntityNetherReactor.class);
         BlockEntity.registerBlockEntity(BlockEntity.LODESTONE, BlockEntityLodestone.class);
         BlockEntity.registerBlockEntity(BlockEntity.TARGET, BlockEntityTarget.class);
+        BlockEntity.registerBlockEntity(BlockEntity.END_PORTAL, BlockEntityEndPortal.class);
     }
 
     public boolean isNetherAllowed() {
