@@ -242,7 +242,7 @@ public class TheEnd extends Generator {
                 if (Math.pow(x2, 2) + Math.pow(z2, 2) > 4096L && this.islandNoise.getValue((double) x2, (double) z2) < -0.8999999761581421D) {
                     x1 = (float) (chunkX - i * 2);
                     z1 = (float) (chunkZ - j * 2);
-                    float islandHeight2 = Math.clamp(100 - Math.sqrt(Math.pow(x1, 2) + Math.pow(z1, 2)) * ((Math.abs((float) x2) * 3439 + Math.abs((float) z2) * 147) % 13 + 9)), -80, 100);
+                    float islandHeight2 = Math.clamp(100 - Math.sqrt(Math.pow(x1, 2) + Math.pow(z1, 2)) * ((Math.abs((float) x2) * 3439 + Math.abs((float) z2) * 147) % 13 + 9), -80, 100);
                     
                     if (islandHeight2 > islandHeight1) {
                         islandHeight1 = islandHeight2;
