@@ -1511,13 +1511,13 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                         BlockEndPortal.spawnObsidianPlatform(newPos);
                                     }
                                 }, 5);
-                            } else {
-                                if (!this.hasSeenCredits || !this.showingCredits) {
-                                    PlayerShowCreditsEvent playerShowCreditsEvent = new PlayerShowCreditsEvent(this);
-                                    this.getServer().getPluginManager().callEvent(playerShowCreditsEvent);
-                                    if (!playerShowCreditsEvent.isCancelled()) {
-                                        this.showCredits();
-                                    }
+                            }
+                        } else {
+                            if (!this.hasSeenCredits || !this.showingCredits) {
+                                PlayerShowCreditsEvent playerShowCreditsEvent = new PlayerShowCreditsEvent(this);
+                                this.getServer().getPluginManager().callEvent(playerShowCreditsEvent);
+                                if (!playerShowCreditsEvent.isCancelled()) {
+                                    this.showCredits();
                                 }
                             }
                         }
