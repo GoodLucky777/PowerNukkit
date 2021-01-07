@@ -93,6 +93,11 @@ public class BlockEndPortal extends BlockFlowable {
         return false;
     }
     
+    @Override
+    public double getMaxY() {
+        return getY() + (12.0 / 16.0);
+    }
+    
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public static void spawnObsidianPlatform(Position position) {
