@@ -159,11 +159,11 @@ public class TheEnd extends Generator {
                     index++;
                     if (k < 8) {
                         double lowering = (double)((float)(8 - k) / 7);
-                        dens = dens * (1 - lowering) + -30 * lowering;
+                        dens = dens * (1d - lowering) + lowering * -30d;
                     } else if (k > (33 / 2) - 2) {
                         double lowering = (double)((float)(k - ((33 / 2) - 2)) / 64);
                         lowering = NukkitMath.clamp(lowering, 0, 1);
-                        dens = dens * (1 - lowering) + lowering * -3000;
+                        dens = dens * (1d - lowering) + lowering * -3000d;
                     }
                     density[i][j][k] = dens;
                 }
