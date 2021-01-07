@@ -78,7 +78,12 @@ public class BlockEndPortal extends BlockFlowable {
     public boolean canBeFlowedInto() {
         return false;
     }
-
+    
+    @Override
+    public Item toItem() {
+        return new ItemBlock(Block.get(BlockID.AIR));
+    }
+    
     @Override
     public Item[] getDrops() {
         return Item.EMPTY_ARRAY;
