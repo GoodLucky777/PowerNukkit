@@ -104,7 +104,7 @@ public class BlockEndPortal extends BlockFlowable {
         for (int blockX = x - 2; blockX <= x + 2; blockX++) {
             for (int blockZ = z - 2; blockZ <= z + 2; blockZ++) {
                 level.setBlockStateAt(blockX, y - 1, blockZ, STATE_OBSIDIAN);
-                for (int blockY = y; blockY < y + 4; blockY++) {
+                for (int blockY = y; blockY <= y + 3; blockY++) {
                     level.setBlockStateAt(blockX, blockY, blockZ, BlockState.AIR);
                 }
             }
