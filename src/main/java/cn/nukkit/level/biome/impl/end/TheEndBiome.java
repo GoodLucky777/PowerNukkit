@@ -8,8 +8,7 @@ import cn.nukkit.level.biome.Biome;
 public class TheEndBiome extends Biome {
 
     public TheEndBiome() {
-        this.setBaseHeight(0.1f);
-        this.setHeightVariation(0.2f);
+        // Nothing
     }
     
     @Override
