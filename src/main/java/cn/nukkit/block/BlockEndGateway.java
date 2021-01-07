@@ -62,11 +62,6 @@ public class BlockEndGateway extends BlockSolid {
         return new ItemBlock(Block.get(BlockID.AIR));
     }
     
-    @Override
-    public Item[] getDrops() {
-        return Item.EMPTY_ARRAY;
-    }
-    
     public boolean canBePushed() {
         return false;
     }
