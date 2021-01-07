@@ -50,7 +50,6 @@ public class TheEnd extends Generator {
     private NukkitRandom nukkitRandom;
     private Random random;
     
-    private static final BlockState STATE_AIR = BlockState.of(AIR);
     private static final BlockState STATE_END_STONE = BlockState.of(END_STONE);
     
     private static double coordinateScale = 684.412;
