@@ -172,14 +172,14 @@ public class TheEnd extends Generator {
         for (int i = 0; i < 3 - 1; i++) {
             for (int j = 0; j < 3 - 1; j++) {
                 for (int k = 0; k < 33 - 1; k++) {
-                    double d1 = density[i][j][k];
-                    double d2 = density[i + 1][j][k];
-                    double d3 = density[i][j + 1][k];
-                    double d4 = density[i + 1][j + 1][k];
-                    double d5 = (density[i][j][k + 1] - d1) / 4;
-                    double d6 = (density[i + 1][j][k + 1] - d2) / 4;
-                    double d7 = (density[i][j + 1][k + 1] - d3) / 4;
-                    double d8 = (density[i + 1][j + 1][k + 1] - d4) / 4;
+                    double d1 = density[i * 3][j * 33][k];
+                    double d2 = density[(i + 1) * 3][j * 33][k];
+                    double d3 = density[i * 3][(j + 1) * 33][k];
+                    double d4 = density[(i + 1) * 3][(j + 1) * 33][k];
+                    double d5 = (density[i * 3][j * 33][k + 1] - d1) / 4;
+                    double d6 = (density[(i + 1) * 3][j * 33][k + 1] - d2) / 4;
+                    double d7 = (density[i * 3][(j + 1) * 33][k + 1] - d3) / 4;
+                    double d8 = (density[(i + 1) * 3][(j + 1) * 33][k + 1] - d4) / 4;
                     
                     for (int l = 0; l < 4; l++) {
                         double d9 = d1;
