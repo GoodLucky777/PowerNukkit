@@ -80,7 +80,7 @@ public class BlockEndPortal extends BlockFlowable {
     }
 
     @Override
-    public Item toItem() {
+    public Item[] getDrops() {
         return Item.EMPTY_ARRAY;
     }
     
