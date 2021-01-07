@@ -1508,7 +1508,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     public void onRun(int currentTick) {
                                         // dirty hack to make sure chunks are loaded and generated before spawning player
                                         teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
-                                        // TODO: Spawn Platform
+                                        BlockEndPortal.spawnObsidianPlatform(newPos);
                                     }
                                 }, 5);
                             } else {
