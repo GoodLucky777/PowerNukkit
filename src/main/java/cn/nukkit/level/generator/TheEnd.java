@@ -65,7 +65,7 @@ public class TheEnd extends Generator {
     double[] ar;
     double[] br;
     
-    private double[] density;
+    private double[] density = new double[3 * 33 * 3];
     
     private final List<Populator> populators = new ArrayList<>();
     private List<Populator> generationPopulators = new ArrayList<>();
@@ -139,10 +139,6 @@ public class TheEnd extends Generator {
         int densityX = chunkX << 1;
         int densityZ = chunkZ << 1;
         
-        if (density == null) {
-            density = new Double(3 * 33 * 3);
-        }
-        
         this.pnr = this.perlinNoise1.generateNoiseOctaves(this.pnr, densityX * 2, 0, densityZ * 2, 3, 33, 3, (coordinateScale * 2) / detailNoiseScaleX, 4.277575000000001, (coordinateScale * 2) / detailNoiseScaleZ);
         this.ar = this.lperlinNoise1.generateNoiseOctaves(this.ar, densityX * 2, 0, densityZ * 2, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
         this.br = this.lperlinNoise2.generateNoiseOctaves(this.br, densityX * 2, 0, densityZ * 2, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
@@ -151,7 +147,7 @@ public class TheEnd extends Generator {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                float f = this.getIslandHeightValue(densityX / 2, densityZ / 2, i, j);
+                float noiseHeight = this.getIslandHeight(densityX / 2, densityZ / 2, i, j);
                 for (int k = 0; k < 33; k++) {
                     double noiseR = this.ar[index] / 512;
                     double noiseR2 = this.br[index] / 512;
