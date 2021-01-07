@@ -9,12 +9,11 @@ import cn.nukkit.level.format.generic.BaseFullChunk;
 import cn.nukkit.level.generator.noise.vanilla.d.NoiseGeneratorOctavesD;
 import cn.nukkit.level.generator.noise.vanilla.d.NoiseGeneratorSimplexD;
 import cn.nukkit.level.generator.populator.type.Populator;
+import cn.nukkit.math.NukkitMath;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author GoodLucky777
@@ -58,10 +57,10 @@ public class TheEnd extends Generator {
     private static double detailNoiseScaleX = 80;
     private static double detailNoiseScaleZ = 80;
     
-    private final NoiseGeneratorOctavesD lperlinNoise1;
-    private final NoiseGeneratorOctavesD lperlinNoise2;
-    private final NoiseGeneratorOctavesD perlinNoise1;
-    private final NoiseGeneratorSimplexD islandNoise;
+    private NoiseGeneratorOctavesD lperlinNoise1;
+    private NoiseGeneratorOctavesD lperlinNoise2;
+    private NoiseGeneratorOctavesD perlinNoise1;
+    private NoiseGeneratorSimplexD islandNoise;
     
     double[] pnr;
     double[] ar;
@@ -159,11 +158,11 @@ public class TheEnd extends Generator {
                     dens = (dens - 8) + noiseHeight;
                     index++;
                     if (k < 8) {
-                        double lowering = (double)((float)(k1 - k) / ((float)8 - 1));
+                        double lowering = (double)((float)(8 - k) / ((float)8 - 1));
                         dens = dens * (1 - lowering) + -30 * lowering;
                     } else if (k > (33 / 2) - 2) {
                         double lowering = (double)((float)(k - ((33 / 2) - 2)) / 64);
-                        lowering = Math.clamp(lowering, 0, 1);
+                        lowering = NukkitMath.clamp(lowering, 0, 1);
                         dens = dens * (1 - lowering) + -3000 * lowering;
                     }
                     density[i][j][k] = dens;
@@ -235,7 +234,7 @@ public class TheEnd extends Generator {
     private float getIslandHeight(int densityX, int densityZ, int chunkX, int chunkZ) {
         float x1 = (float) (densityX * 2 + chunkX);
         float z1 = (float) (densityZ * 2 + chunkZ);
-        float islandHeight1 = Math.clamp(100 - Math.sqrt(Math.pow(x1, 2) + Math.pow(z1, 2)) * 8, -100, 80);
+        float islandHeight1 = NukkitMath.clamp(100 - Math.sqrt(Math.pow(x1, 2) + Math.pow(z1, 2)) * 8, -100, 80);
         
         for (int i = -12; i <= 12; i++) {
             for (int j = -12; j <= 12; j++) {
@@ -244,7 +243,7 @@ public class TheEnd extends Generator {
                 if (Math.pow(x2, 2) + Math.pow(z2, 2) > 4096L && this.islandNoise.getValue((double) x2, (double) z2) < -0.8999999761581421D) {
                     x1 = (float) (chunkX - i * 2);
                     z1 = (float) (chunkZ - j * 2);
-                    float islandHeight2 = Math.clamp(100 - Math.sqrt(Math.pow(x1, 2) + Math.pow(z1, 2)) * ((Math.abs((float) x2) * 3439 + Math.abs((float) z2) * 147) % 13 + 9), -80, 100);
+                    float islandHeight2 = NukkitMath.clamp(100 - Math.sqrt(Math.pow(x1, 2) + Math.pow(z1, 2)) * ((Math.abs((float) x2) * 3439 + Math.abs((float) z2) * 147) % 13 + 9), -80, 100);
                     
                     if (islandHeight2 > islandHeight1) {
                         islandHeight1 = islandHeight2;
