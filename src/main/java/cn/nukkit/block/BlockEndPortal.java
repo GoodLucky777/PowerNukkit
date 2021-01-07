@@ -2,13 +2,18 @@ package cn.nukkit.block;
 
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
+import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBlock;
+import cn.nukkit.level.Level;
+import cn.nukkit.level.Position;
 import cn.nukkit.math.AxisAlignedBB;
 import cn.nukkit.utils.BlockColor;
 
 public class BlockEndPortal extends BlockFlowable {
 
+    private static final BlockState STATE_OBSIDIAN = BlockState.of(OBSIDIAN);
+    
     public BlockEndPortal() {
         this(0);
     }
@@ -86,5 +91,23 @@ public class BlockEndPortal extends BlockFlowable {
     
     public boolean canBePushed() {
         return false;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static void spawnObsidianPlatform(Position position) {
+        Level level = position.getLevel();
+        int x = position.getFloorX();
+        int y = position.getFloorY();
+        int z = position.getFloorZ(); 
+        
+        for (int blockX = x - 2; blockX <= x + 2; blockX++) {
+            for (int blockZ = z - 2; blockZ <= z + 2; blockZ++) {
+                level.setBlockStateAt(blockX, y - 1, blockZ, STATE_OBSIDIAN);
+                for (int blockY = y; blockY < y + 4; blockY++) {
+                    level.setBlockStateAt(blockX, blockY, blockZ, BlockState.AIR);
+                }
+            }
+        }
     }
 }
