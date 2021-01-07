@@ -12,6 +12,8 @@ import cn.nukkit.level.generator.populator.type.Populator;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
