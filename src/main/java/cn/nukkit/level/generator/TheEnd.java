@@ -150,9 +150,9 @@ public class TheEnd extends Generator {
                 double noiseHeight = 100d - Math.sqrt((densityX + i) * (densityX + i) + (densityZ + j) * (densityZ + j)) * 8d;
                 noiseHeight = NukkitMath.clamp(noiseHeight, -80d, 100d);
                 for (int k = 0; k < 33; k++) {
-                    double noiseR = this.ar[k] / 512;
-                    double noiseR2 = this.br[k] / 512;
-                    double noiseD = (this.pnr[k] / 10 + 1) / 2;
+                    double noiseR = this.ar[index] / 512;
+                    double noiseR2 = this.br[index] / 512;
+                    double noiseD = (this.pnr[index] / 10 + 1) / 2;
                     // linear interpolation
                     double dens = noiseD < 0 ? noiseR : noiseD > 1 ? noiseR2 : noiseR + (noiseR2 - noiseR) * noiseD;
                     dens = (dens - 8) + noiseHeight;
