@@ -147,8 +147,7 @@ public class TheEnd extends Generator {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                double noiseHeight = 100d - Math.sqrt((densityX + i) * (densityX + i) + (densityZ + j) * (densityZ + j)) * 8d;
-                noiseHeight = NukkitMath.clamp(noiseHeight, -100d, 80d);
+                double noiseHeight = NukkitMath.clamp(100d - Math.sqrt((densityX + i) * (densityX + i) + (densityZ + j) * (densityZ + j)) * 8d, -100d, 80d);
                 for (int k = 0; k < 33; k++) {
                     double noiseR = this.ar[index] / 512;
                     double noiseR2 = this.br[index] / 512;
