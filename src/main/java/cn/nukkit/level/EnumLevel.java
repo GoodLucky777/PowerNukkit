@@ -62,7 +62,7 @@ public enum EnumLevel {
         THE_END.level = Server.getInstance().getLevelByName("the_end");
 
         if (THE_END.level == null) {
-            Server.getInstance().getLogger().alert("No level called \"the_end\" found or the end is disabled in server properties! Nether functionality will be disabled.");
+            Server.getInstance().getLogger().alert("No level called \"the_end\" found or the end is disabled in server properties! The End functionality will be disabled.");
         }
     }
 
