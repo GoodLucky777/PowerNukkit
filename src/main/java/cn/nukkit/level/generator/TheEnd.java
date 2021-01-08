@@ -234,16 +234,16 @@ public class TheEnd extends Generator {
     private float getIslandHeight(int chunkX, int chunkZ, int x, int z) {
         float x1 = (float) (chunkX * 2 + x);
         float z1 = (float) (chunkZ * 2 + z);
-        float islandHeight1 = NukkitMath.clamp(100f - (float) Math.sqrt(((float) Math.pow(x1, 2)) + ((float) Math.pow(z1, 2))) * 8f, -100f, 80f);
+        float islandHeight1 = NukkitMath.clamp(100f - (float) Math.sqrt((x1 * x1) + (z1 * z1)) * 8f, -100f, 80f);
         
         for (int i = -12; i <= 12; i++) {
             for (int j = -12; j <= 12; j++) {
                 long x2 = (long) (chunkX + i);
                 long z2 = (long) (chunkZ + j);
-                if (Math.pow(x2, 2) + Math.pow(z2, 2) > 4096L && this.islandNoise.getValue((double) x2, (double) z2) < -0.8999999761581421d) {
+                if ((x2 * x2) + (z2 * z2) > 4096L && this.islandNoise.getValue((double) x2, (double) z2) < -0.8999999761581421d) {
                     x1 = (float) (chunkX - i * 2);
                     z1 = (float) (chunkZ - j * 2);
-                    float islandHeight2 = NukkitMath.clamp(100f - (float) Math.sqrt(((float) Math.pow(x1, 2)) + ((float) Math.pow(z1, 2))) * ((Math.abs((float) x2) * 3439f + Math.abs((float) z2) * 147f) % 13f + 9f), -80f, 100f);
+                    float islandHeight2 = NukkitMath.clamp(100f - (float) Math.sqrt((x1 * x1) + (z1 * z1)) * ((Math.abs((float) x2) * 3439f + Math.abs((float) z2) * 147f) % 13f + 9f), -80f, 100f);
                     
                     if (islandHeight2 > islandHeight1) {
                         islandHeight1 = islandHeight2;
