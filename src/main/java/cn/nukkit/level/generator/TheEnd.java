@@ -228,7 +228,7 @@ public class TheEnd extends Generator {
     }
     
     public Vector3 getSpawn() {
-        return new Vector3(100.5, 49, 0.5);
+        return new Vector3(100, 49, 0);
     }
     
     private float getIslandHeight(int chunkX, int chunkZ, int x, int z) {
