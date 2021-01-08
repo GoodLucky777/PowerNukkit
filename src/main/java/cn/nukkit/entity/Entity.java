@@ -2321,7 +2321,7 @@ public abstract class Entity extends Location implements Metadatable {
                 getServer().getPluginManager().callEvent(ev);
                 
                 if (!ev.isCancelled() && (level == EnumLevel.OVERWORLD.getLevel() || level == EnumLevel.THE_END.getLevel())) {
-                    final Position newPos = EnumLevel.moveToTheEnd(this);
+                    final Position newPos = EnumLevel.moveToTheEnd(this).add(0.5, 1, 0.5);
                     if (newPos != null) {
                         if (teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL)) {
                             server.getScheduler().scheduleDelayedTask(new Task() {
