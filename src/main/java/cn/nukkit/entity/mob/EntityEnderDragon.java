@@ -1,5 +1,7 @@
 package cn.nukkit.entity.mob;
 
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
 
@@ -38,5 +40,12 @@ public class EntityEnderDragon extends EntityMob {
     @Override
     public String getName() {
         return "EnderDragon";
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public boolean isBoss() {
+        return true;
     }
 }
