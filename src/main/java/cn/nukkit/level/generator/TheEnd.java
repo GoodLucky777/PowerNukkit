@@ -61,9 +61,9 @@ public class TheEnd extends Generator {
     private NoiseGeneratorOctavesD perlinNoise1;
     private NoiseGeneratorSimplexD islandNoise;
     
-    double[] pnr;
-    double[] ar;
-    double[] br;
+    double[] detailNoise;
+    double[] roughnessNoise;
+    double[] roughnessNoise2;
     
     private final double[][][] density = new double[3][3][33];
     
@@ -139,9 +139,9 @@ public class TheEnd extends Generator {
         int densityX = chunkX << 1;
         int densityZ = chunkZ << 1;
         
-        this.pnr = this.perlinNoise1.generateNoiseOctaves(this.pnr, densityX, 0, densityZ, 3, 33, 3, (coordinateScale * 2) / detailNoiseScaleX, 4.277575000000001, (coordinateScale * 2) / detailNoiseScaleZ);
-        this.ar = this.lperlinNoise1.generateNoiseOctaves(this.ar, densityX, 0, densityZ, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
-        this.br = this.lperlinNoise2.generateNoiseOctaves(this.br, densityX, 0, densityZ, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
+        this.detailNoise = this.perlinNoise1.generateNoiseOctaves(this.detailNoise, densityX, 0, densityZ, 3, 33, 3, (coordinateScale * 2) / detailNoiseScaleX, 4.277575000000001, (coordinateScale * 2) / detailNoiseScaleZ);
+        this.roughnessNoise = this.lperlinNoise1.generateNoiseOctaves(this.roughnessNoise, densityX, 0, densityZ, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
+        this.roughnessNoise2 = this.lperlinNoise2.generateNoiseOctaves(this.roughnessNoise2, densityX, 0, densityZ, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
         
         int index = 0;
 
@@ -149,9 +149,9 @@ public class TheEnd extends Generator {
             for (int j = 0; j < 3; j++) {
                 float noiseHeight = this.getIslandHeight(chunkX, chunkZ, i, j);
                 for (int k = 0; k < 33; k++) {
-                    double noiseR = this.ar[index] / 512d;
-                    double noiseR2 = this.br[index] / 512d;
-                    double noiseD = (this.pnr[index] / 10d + 1d) / 2d;
+                    double noiseR = this.roughnessNoise[index] / 512d;
+                    double noiseR2 = this.roughnessNoise2[index] / 512d;
+                    double noiseD = (this.detailNoise[index] / 10d + 1d) / 2d;
                     // linear interpolation
                     double dens = noiseD < 0 ? noiseR : noiseD > 1 ? noiseR2 : noiseR + (noiseR2 - noiseR) * noiseD;
                     dens = (dens - 8d) + (double) noiseHeight;
