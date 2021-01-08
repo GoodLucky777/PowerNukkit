@@ -2317,21 +2317,23 @@ public abstract class Entity extends Location implements Metadatable {
         if (endPortal) {
             if (!inEndPortal) {
                 inEndPortal = true;
-                EntityPortalEnterEvent ev = new EntityPortalEnterEvent(this, PortalType.END);
-                getServer().getPluginManager().callEvent(ev);
-                
-                if (!ev.isCancelled() && (level == EnumLevel.OVERWORLD.getLevel() || level == EnumLevel.THE_END.getLevel())) {
-                    final Position newPos = EnumLevel.moveToTheEnd(this).add(0.5, 1, 0.5);
-                    if (newPos != null) {
-                        if (teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL)) {
-                            server.getScheduler().scheduleDelayedTask(new Task() {
-                                @Override
-                                public void onRun(int currentTick) {
-                                    // dirty hack to make sure chunks are loaded and generated before spawning player
-                                    teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
-                                    BlockEndPortal.spawnObsidianPlatform(newPos);
-                                }
-                            }, 5);
+                if (this.getRiding() == null && this.getPassengers() == null && !(this instanceof EntityEnderDragon)) {
+                    EntityPortalEnterEvent ev = new EntityPortalEnterEvent(this, PortalType.END);
+                    getServer().getPluginManager().callEvent(ev);
+                    
+                    if (!ev.isCancelled() && (level == EnumLevel.OVERWORLD.getLevel() || level == EnumLevel.THE_END.getLevel())) {
+                        final Position newPos = EnumLevel.moveToTheEnd(this).add(0.5, 1, 0.5);
+                        if (newPos != null) {
+                            if (teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL)) {
+                                server.getScheduler().scheduleDelayedTask(new Task() {
+                                    @Override
+                                    public void onRun(int currentTick) {
+                                        // dirty hack to make sure chunks are loaded and generated before spawning player
+                                        teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
+                                        BlockEndPortal.spawnObsidianPlatform(newPos);
+                                    }
+                                }, 5);
+                            }
                         }
                     }
                 }
