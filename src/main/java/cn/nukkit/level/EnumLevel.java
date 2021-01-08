@@ -96,12 +96,24 @@ public enum EnumLevel {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
+    public static Level getOtherTheEndPair(Level current)   {
+        if (current == OVERWORLD.level) {
+            return THE_END.level;
+        } else if (current == THE_END.level) {
+            return OVERWORLD.level;
+        } else {
+            throw new IllegalArgumentException("Neither overworld nor the end given!");
+        }
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     public static Position moveToTheEnd(Position current)   {
         if (THE_END.level == null) {
             return null;
         } else {
             if (current.level == OVERWORLD.level) {
-                return new Position(100.5, 49, 0.5, THE_END.level);
+                return new Position(100, 49, 0, THE_END.level);
             } else if (current.level == THE_END.level) {
                 return OVERWORLD.level.getSpawnLocation();
             } else {
