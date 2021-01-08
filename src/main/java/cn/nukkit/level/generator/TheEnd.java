@@ -147,14 +147,14 @@ public class TheEnd extends Generator {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                double noiseHeight = NukkitMath.clamp(100d - Math.sqrt((densityX + i) * (densityX + i) + (densityZ + j) * (densityZ + j)) * 8d, -100d, 80d);
+                float noiseHeight = this.getIslandHeight(chunkX, chunkZ, i, j);
                 for (int k = 0; k < 33; k++) {
                     double noiseR = this.ar[index] / 512d;
                     double noiseR2 = this.br[index] / 512d;
                     double noiseD = (this.pnr[index] / 10d + 1d) / 2d;
                     // linear interpolation
                     double dens = noiseD < 0 ? noiseR : noiseD > 1 ? noiseR2 : noiseR + (noiseR2 - noiseR) * noiseD;
-                    dens = (dens - 8d) + noiseHeight;
+                    dens = (dens - 8d) + (double) noiseHeight;
                     index++;
                     double lowering;
                     if (k < 8) {
