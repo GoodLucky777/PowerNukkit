@@ -535,20 +535,20 @@ public class Server {
                 put("level-seed", "");
                 put("level-type", "DEFAULT");
                 put("allow-nether", true);
+                put("allow-the_end", true);
                 put("enable-query", true);
                 put("enable-rcon", false);
                 put("rcon.password", Base64.getEncoder().encodeToString(UUID.randomUUID().toString().replace("-", "").getBytes()).substring(3, 13));
                 put("auto-save", true);
                 put("force-resources", false);
                 put("xbox-auth", true);
-                put("allow-theend", true);
             }
         });
 
         // Allow Nether? (determines if we create a nether world if one doesn't exist on startup)
         this.allowNether = this.properties.getBoolean("allow-nether", true);
         
-        this.allowTheEnd = this.properties.getBoolean("allow-theend", true);
+        this.allowTheEnd = this.properties.getBoolean("allow-the_end", true);
         
         this.forceLanguage = this.getConfig("settings.force-language", false);
         this.baseLang = new BaseLang(this.getConfig("settings.language", BaseLang.FALLBACK_LANGUAGE));
