@@ -1495,29 +1495,31 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         if (endPortal) {
             if (!inEndPortal) {
                 inEndPortal = true;
-                EntityPortalEnterEvent ev = new EntityPortalEnterEvent(this, PortalType.END);
-                getServer().getPluginManager().callEvent(ev);
-                
-                if (!ev.isCancelled() && (this.getLevel() == EnumLevel.OVERWORLD.getLevel() || this.getLevel() == EnumLevel.THE_END.getLevel())) {
-                    final Position newPos = EnumLevel.moveToTheEnd(this);
-                    if (newPos != null) {
-                        if (newPos.getLevel().getDimension() == Level.DIMENSION_THE_END) {
-                            if (teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL)) {
-                                server.getScheduler().scheduleDelayedTask(new Task() {
-                                    @Override
-                                    public void onRun(int currentTick) {
-                                        // dirty hack to make sure chunks are loaded and generated before spawning player
-                                        teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
-                                        BlockEndPortal.spawnObsidianPlatform(newPos);
+                if (this.getRiding() == null && this.getPassengers() == null) {
+                    EntityPortalEnterEvent ev = new EntityPortalEnterEvent(this, PortalType.END);
+                    getServer().getPluginManager().callEvent(ev);
+                    
+                    if (!ev.isCancelled() && (this.getLevel() == EnumLevel.OVERWORLD.getLevel() || this.getLevel() == EnumLevel.THE_END.getLevel())) {
+                        final Position newPos = EnumLevel.moveToTheEnd(this);
+                        if (newPos != null) {
+                            if (newPos.getLevel().getDimension() == Level.DIMENSION_THE_END) {
+                                if (teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL)) {
+                                    server.getScheduler().scheduleDelayedTask(new Task() {
+                                        @Override
+                                        public void onRun(int currentTick) {
+                                            // dirty hack to make sure chunks are loaded and generated before spawning player
+                                            teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
+                                            BlockEndPortal.spawnObsidianPlatform(newPos);
+                                        }
+                                    }, 5);
+                                }
+                            } else {
+                                if (!this.hasSeenCredits || !this.showingCredits) {
+                                    PlayerShowCreditsEvent playerShowCreditsEvent = new PlayerShowCreditsEvent(this);
+                                    this.getServer().getPluginManager().callEvent(playerShowCreditsEvent);
+                                    if (!playerShowCreditsEvent.isCancelled()) {
+                                        this.showCredits();
                                     }
-                                }, 5);
-                            }
-                        } else {
-                            if (!this.hasSeenCredits || !this.showingCredits) {
-                                PlayerShowCreditsEvent playerShowCreditsEvent = new PlayerShowCreditsEvent(this);
-                                this.getServer().getPluginManager().callEvent(playerShowCreditsEvent);
-                                if (!playerShowCreditsEvent.isCancelled()) {
-                                    this.showCredits();
                                 }
                             }
                         }
