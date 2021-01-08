@@ -19,6 +19,8 @@ public class PopulatorEndIsland extends Populator {
             return;
         }
         
-        // TODO
+        if (random.nextBoundedInt(14) == 0) {
+            // TODO
+        }
     }
 }
