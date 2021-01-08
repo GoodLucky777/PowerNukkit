@@ -1503,16 +1503,15 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         final Position newPos = EnumLevel.moveToTheEnd(this);
                         if (newPos != null) {
                             if (newPos.getLevel().getDimension() == Level.DIMENSION_THE_END) {
-                                if (teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL)) {
-                                    server.getScheduler().scheduleDelayedTask(new Task() {
-                                        @Override
-                                        public void onRun(int currentTick) {
-                                            // dirty hack to make sure chunks are loaded and generated before spawning player
-                                            teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
-                                            BlockEndPortal.spawnObsidianPlatform(newPos);
-                                        }
-                                    }, 5);
-                                }
+                                teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
+                                server.getScheduler().scheduleDelayedTask(new Task() {
+                                    @Override
+                                    public void onRun(int currentTick) {
+                                        // dirty hack to make sure chunks are loaded and generated before spawning player
+                                        teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
+                                        BlockEndPortal.spawnObsidianPlatform(newPos);
+                                    }
+                                }, 5);
                             } else {
                                 if (!this.hasSeenCredits || !this.showingCredits) {
                                     PlayerShowCreditsEvent playerShowCreditsEvent = new PlayerShowCreditsEvent(this);
