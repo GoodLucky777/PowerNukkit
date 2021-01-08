@@ -115,7 +115,7 @@ public class EntityEndCrystal extends Entity implements EntityExplosive {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public Vector3 getBeamTarget() {
-        this.getDataPropertyPos(DATA_BLOCK_TARGET);
+        return this.getDataPropertyPos(DATA_BLOCK_TARGET);
     }
     
     @PowerNukkitOnly
