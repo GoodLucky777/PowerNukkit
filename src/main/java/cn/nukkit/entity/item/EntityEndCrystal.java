@@ -1,7 +1,10 @@
 package cn.nukkit.entity.item;
 
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityExplosive;
+import cn.nukkit.entity.data.IntPositionEntityData;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.level.Explosion;
 import cn.nukkit.level.GameRule;
@@ -106,5 +109,17 @@ public class EntityEndCrystal extends Entity implements EntityExplosive {
     @Override
     public String getName() {
         return "Ender Crystal";
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public Vector3 getBeamTarget() {
+        this.getDataPropertyPos(DATA_BLOCK_TARGET);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setBeamTarget(Vector3 beamTarget) {
+        this.setDataProperty(new IntPositionEntityData(DATA_BLOCK_TARGET, beamTarget));
     }
 }
