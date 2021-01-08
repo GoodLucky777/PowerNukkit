@@ -1495,7 +1495,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         if (endPortal) {
             if (!inEndPortal) {
                 inEndPortal = true;
-                if (this.getRiding() == null && this.getPassengers() == null) {
+                if (this.getRiding() == null && this.getPassengers().isEmpty()) {
                     EntityPortalEnterEvent ev = new EntityPortalEnterEvent(this, PortalType.END);
                     getServer().getPluginManager().callEvent(ev);
                     
