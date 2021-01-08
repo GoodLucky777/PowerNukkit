@@ -2719,4 +2719,10 @@ public abstract class Entity extends Location implements Metadatable {
         hash = (int) (29 * hash + this.getId());
         return hash;
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean isBoss() {
+        return false;
+    }
 }
