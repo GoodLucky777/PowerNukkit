@@ -139,15 +139,15 @@ public class TheEnd extends Generator {
         int densityX = chunkX << 1;
         int densityZ = chunkZ << 1;
         
-        this.pnr = this.perlinNoise1.generateNoiseOctaves(this.pnr, chunkX * 2, 0, chunkZ * 2, 3, 33, 3, (coordinateScale * 2) / detailNoiseScaleX, 4.277575000000001, (coordinateScale * 2) / detailNoiseScaleZ);
-        this.ar = this.lperlinNoise1.generateNoiseOctaves(this.ar, chunkX * 2, 0, chunkZ * 2, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
-        this.br = this.lperlinNoise2.generateNoiseOctaves(this.br, chunkX * 2, 0, chunkZ * 2, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
+        this.pnr = this.perlinNoise1.generateNoiseOctaves(this.pnr, baseX * 2, 0, baseZ * 2, 3, 33, 3, (coordinateScale * 2) / detailNoiseScaleX, 4.277575000000001, (coordinateScale * 2) / detailNoiseScaleZ);
+        this.ar = this.lperlinNoise1.generateNoiseOctaves(this.ar, baseX * 2, 0, baseZ * 2, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
+        this.br = this.lperlinNoise2.generateNoiseOctaves(this.br, baseX * 2, 0, baseZ * 2, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
         
         int index = 0;
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                float noiseHeight = this.getIslandHeight(chunkX / 2, chunkZ / 2, i, j);
+                float noiseHeight = this.getIslandHeight(baseX / 2, baseZ / 2, i, j);
                 for (int k = 0; k < 33; k++) {
                     double noiseR = this.ar[index] / 512;
                     double noiseR2 = this.br[index] / 512;
