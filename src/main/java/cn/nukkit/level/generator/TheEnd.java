@@ -139,9 +139,9 @@ public class TheEnd extends Generator {
         int densityX = chunkX << 1;
         int densityZ = chunkZ << 1;
         
-        this.pnr = this.perlinNoise1.generateNoiseOctaves(this.pnr, densityX * 2, 0, densityZ * 2, 3, 33, 3, (coordinateScale * 2) / detailNoiseScaleX, 4.277575000000001, (coordinateScale * 2) / detailNoiseScaleZ);
-        this.ar = this.lperlinNoise1.generateNoiseOctaves(this.ar, densityX * 2, 0, densityZ * 2, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
-        this.br = this.lperlinNoise2.generateNoiseOctaves(this.br, densityX * 2, 0, densityZ * 2, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
+        this.pnr = this.perlinNoise1.generateNoiseOctaves(this.pnr, densityX, 0, densityZ, 3, 33, 3, (coordinateScale * 2) / detailNoiseScaleX, 4.277575000000001, (coordinateScale * 2) / detailNoiseScaleZ);
+        this.ar = this.lperlinNoise1.generateNoiseOctaves(this.ar, densityX, 0, densityZ, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
+        this.br = this.lperlinNoise2.generateNoiseOctaves(this.br, densityX, 0, densityZ, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
         
         int index = 0;
 
