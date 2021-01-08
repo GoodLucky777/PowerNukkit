@@ -2318,7 +2318,7 @@ public abstract class Entity extends Location implements Metadatable {
         if (endPortal) {
             if (!inEndPortal) {
                 inEndPortal = true;
-                if (this.getRiding() == null && this.getPassengers() == null && !(this instanceof EntityEnderDragon)) {
+                if (this.getRiding() == null && this.getPassengers().isEmpty() && !(this instanceof EntityEnderDragon)) {
                     EntityPortalEnterEvent ev = new EntityPortalEnterEvent(this, PortalType.END);
                     getServer().getPluginManager().callEvent(ev);
                     
