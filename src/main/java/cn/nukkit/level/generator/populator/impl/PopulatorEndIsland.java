@@ -15,6 +15,10 @@ public class PopulatorEndIsland extends Populator {
     
     @Override
     public void populate(ChunkManager level, int chunkX, int chunkZ, NukkitRandom random, FullChunk chunk) {
+        if (chunkX * chunkX + chunkZ * chunkZ <= 4096) {
+            return;
+        }
         
+        // TODO
     }
 }
