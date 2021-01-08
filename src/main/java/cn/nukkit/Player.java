@@ -1498,7 +1498,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                 EntityPortalEnterEvent ev = new EntityPortalEnterEvent(this, PortalType.END);
                 getServer().getPluginManager().callEvent(ev);
                 
-                if (!ev.isCancelled() && (level == EnumLevel.OVERWORLD.getLevel() || level == EnumLevel.THE_END.getLevel())) {
+                if (!ev.isCancelled() && (this.getLevel() == EnumLevel.OVERWORLD.getLevel() || this.getLevel() == EnumLevel.THE_END.getLevel())) {
                     final Position newPos = EnumLevel.moveToTheEnd(this);
                     if (newPos != null) {
                         if (newPos.getLevel().getDimension() == Level.DIMENSION_THE_END) {
