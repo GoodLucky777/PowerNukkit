@@ -40,7 +40,7 @@ public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceabl
 
     @Override
     public double getResistance() {
-        return 18000000;
+        return 3600000;
     }
 
     @Override
