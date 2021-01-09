@@ -20,7 +20,13 @@ public class PopulatorEndIsland extends Populator {
         }
         
         if (random.nextBoundedInt(14) == 0) {
-            // TODO
+            float height = getIslandHeight(chunkX, chunkZ, 1, 1);
+            if (height < -20f) {
+                //
+                if (random.nextBoundedInt(4) == 0) {
+                    //
+                }
+            }
         }
     }
 }
