@@ -2323,17 +2323,29 @@ public abstract class Entity extends Location implements Metadatable {
                     getServer().getPluginManager().callEvent(ev);
                     
                     if (!ev.isCancelled() && (level == EnumLevel.OVERWORLD.getLevel() || level == EnumLevel.THE_END.getLevel())) {
-                        final Position newPos = EnumLevel.moveToTheEnd(this).add(0.5, 1, 0.5);
+                        final Position newPos = EnumLevel.moveToTheEnd(this);
                         if (newPos != null) {
-                            if (teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL)) {
-                                server.getScheduler().scheduleDelayedTask(new Task() {
-                                    @Override
-                                    public void onRun(int currentTick) {
-                                        // dirty hack to make sure chunks are loaded and generated before spawning player
-                                        teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
-                                        BlockEndPortal.spawnObsidianPlatform(newPos);
-                                    }
-                                }, 5);
+                            if (newPos.getLevel().getDimension() == Level.DIMENSION_THE_END) {
+                                if (teleport(newPos.add(0.5, 1, 0.5), PlayerTeleportEvent.TeleportCause.END_PORTAL)) {
+                                    server.getScheduler().scheduleDelayedTask(new Task() {
+                                        @Override
+                                        public void onRun(int currentTick) {
+                                            // dirty hack to make sure chunks are loaded and generated before spawning player
+                                            teleport(newPos.add(0.5, 1, 0.5), PlayerTeleportEvent.TeleportCause.END_PORTAL);
+                                            BlockEndPortal.spawnObsidianPlatform(newPos);
+                                        }
+                                    }, 5);
+                                }
+                            } else {
+                                if (teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL)) {
+                                    server.getScheduler().scheduleDelayedTask(new Task() {
+                                        @Override
+                                        public void onRun(int currentTick) {
+                                            // dirty hack to make sure chunks are loaded and generated before spawning player
+                                            teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
+                                        }
+                                    }, 5);
+                                }
                             }
                         }
                     }
