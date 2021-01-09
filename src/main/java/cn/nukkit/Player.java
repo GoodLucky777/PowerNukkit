@@ -1493,29 +1493,26 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         setDataFlag(DATA_FLAGS_EXTENDED, DATA_FLAG_OVER_SCAFFOLDING, scaffoldingUnder.length > 0);
         
         if (endPortal) {
-            MainLogger.getLogger().info("End portal == true");
             if (!inEndPortal) {
-                MainLogger.getLogger().info("inEndPortal == false");
                 inEndPortal = true;
                 if (this.getRiding() == null && this.getPassengers().isEmpty()) {
-                    MainLogger.getLogger().info("Success ride check");
                     EntityPortalEnterEvent ev = new EntityPortalEnterEvent(this, PortalType.END);
                     getServer().getPluginManager().callEvent(ev);
                     
                     if (!ev.isCancelled() && (this.getLevel() == EnumLevel.OVERWORLD.getLevel() || this.getLevel() == EnumLevel.THE_END.getLevel())) {
-                        MainLogger.getLogger().info("Success " + String.valueOf(!ev.isCancelled()) + " " + String.valueOf(this.getLevel() == EnumLevel.OVERWORLD.getLevel()) + " " + String.valueOf(this.getLevel() == EnumLevel.THE_END.getLevel()));
                         final Position newPos = EnumLevel.moveToTheEnd(this);
                         if (newPos != null) {
                             if (newPos.getLevel().getDimension() == Level.DIMENSION_THE_END) {
-                                teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
-                                server.getScheduler().scheduleDelayedTask(new Task() {
-                                    @Override
-                                    public void onRun(int currentTick) {
-                                        // dirty hack to make sure chunks are loaded and generated before spawning player
-                                        teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
-                                        BlockEndPortal.spawnObsidianPlatform(newPos);
-                                    }
-                                }, 5);
+                                if (teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL)) {
+                                    server.getScheduler().scheduleDelayedTask(new Task() {
+                                        @Override
+                                        public void onRun(int currentTick) {
+                                            // dirty hack to make sure chunks are loaded and generated before spawning player
+                                            teleport(newPos, PlayerTeleportEvent.TeleportCause.END_PORTAL);
+                                            BlockEndPortal.spawnObsidianPlatform(newPos);
+                                        }
+                                    }, 5);
+                                }
                             } else {
                                 if (!this.hasSeenCredits || !this.showingCredits) {
                                     PlayerShowCreditsEvent playerShowCreditsEvent = new PlayerShowCreditsEvent(this);
@@ -1525,8 +1522,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     }
                                 }
                             }
-                        } else MainLogger.getLogger().info("newPos == null");
-                    } else MainLogger.getLogger().info("Failed " + String.valueOf(!ev.isCancelled()) + " " + String.valueOf(this.getLevel() == EnumLevel.OVERWORLD.getLevel()) + " " + String.valueOf(this.getLevel() == EnumLevel.THE_END.getLevel()));
+                        }
+                    }
                 }
             }
         } else {
