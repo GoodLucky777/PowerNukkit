@@ -27,6 +27,8 @@ import static cn.nukkit.blockproperty.CommonBlockProperties.DIRECTION;
  */
 public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceable {
 
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     public static final BlockProperties PROPERTIES = new BlockProperties(DIRECTION);
     
     @Deprecated
