@@ -236,7 +236,7 @@ public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceabl
         if (player == null) {
             setBlockFace(BlockFace.SOUTH);
         } else {
-            setBlockFace(player.getDirection());
+            setBlockFace(player.getDirection().getOpposite());
         }
         this.getLevel().setBlock(block, this, true);
         return true;
