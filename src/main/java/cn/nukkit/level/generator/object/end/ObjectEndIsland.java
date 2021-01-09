@@ -26,7 +26,7 @@ public class ObjectEndIsland extends BasicGenerator {
                     }
                 }
             }
-            n = (float) ((double) n - ((double) random.nextInt(2) + 0.5d));
+            n = (float) ((double) n - ((double) rand.nextBoundedInt(2) + 0.5d));
         }
         return true;
     }
