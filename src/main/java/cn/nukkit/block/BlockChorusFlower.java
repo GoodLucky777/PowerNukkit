@@ -11,9 +11,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public class BlockChorusFlower extends BlockTransparent {
+public class BlockChorusFlower extends BlockTransparentMeta {
 
     public BlockChorusFlower() {
+        this(0);
+    }
+    
+    public BlockChorusFlower(int meta) {
+        this(meta);
     }
 
     @Override
@@ -67,7 +72,6 @@ public class BlockChorusFlower extends BlockTransparent {
 
     @Override
     public int onUpdate(int type) {
-
         if (type == Level.BLOCK_UPDATE_NORMAL) {
             if (!isPositionValid()) {
                 level.scheduleUpdate(this, 1);
@@ -93,7 +97,7 @@ public class BlockChorusFlower extends BlockTransparent {
 
     @Override
     public Item[] getDrops(Item item) {
-        return new Item[]{this.toItem()};
+        return new Item[]{ this.toItem() };
     }
 
     @Override
