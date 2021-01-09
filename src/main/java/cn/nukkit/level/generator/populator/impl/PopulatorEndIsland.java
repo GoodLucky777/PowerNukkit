@@ -7,6 +7,7 @@ import cn.nukkit.level.generator.TheEnd;
 import cn.nukkit.level.generator.object.end.ObjectEndIsland;
 import cn.nukkit.level.generator.populator.type.Populator;
 import cn.nukkit.math.NukkitRandom;
+import cn.nukkit.math.Vector3;
 
 /**
  * @author GoodLucky777
