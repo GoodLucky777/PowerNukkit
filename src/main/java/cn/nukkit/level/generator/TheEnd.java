@@ -252,10 +252,7 @@ public class TheEnd extends Generator {
                     x1 = (float) (chunkX - i * 2);
                     z1 = (float) (chunkZ - j * 2);
                     float islandHeight2 = NukkitMath.clamp(100f - MathHelper.sqrt((x1 * x1) + (z1 * z1)) * ((Math.abs((float) x2) * 3439f + Math.abs((float) z2) * 147f) % 13f + 9f), -100f, 80f);
-                    
-                    if (islandHeight1 < islandHeight2) {
-                        islandHeight1 = islandHeight2;
-                    }
+                    islandHeight1 = Math.max(islandHeight1, islandHeight2);
                 }
             }
         }
