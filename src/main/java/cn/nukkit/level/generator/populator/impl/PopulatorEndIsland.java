@@ -33,7 +33,7 @@ public class PopulatorEndIsland extends Populator {
             if (height < -20f) {
                 ObjectEndIsland.generate(level, random, position.add(8 + random.nextBoundedInt(16), 55 + random.nextBoundedInt(16), 8 + random.nextBoundedInt(16)));
                 if (random.nextBoundedInt(4) == 0) {
-                    ObjectEndIsland.generate(level, random, position.add(8 + random.nextBoundedInt(16), 55 + random.nextBoundedInt(16), 8 + random.nextBoundedInt(16))));
+                    ObjectEndIsland.generate(level, random, position.add(8 + random.nextBoundedInt(16), 55 + random.nextBoundedInt(16), 8 + random.nextBoundedInt(16)));
                 }
             }
         }
