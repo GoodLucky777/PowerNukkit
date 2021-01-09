@@ -22,7 +22,7 @@ public class ObjectEndIsland extends BasicGenerator {
             for (int x = NukkitMath.floorFloat(-n); x <= NukkitMath.ceilFloat(n); x++) {
                 for (int z = NukkitMath.floorFloat(-n); z <= NukkitMath.ceilFloat(n); z++) {
                     if ((float) (x * x + z * z) <= (n + 1f) * (n + 1f)) {
-                        level.setBlockStateAt(NukkitMath.floorDouble(position.getX() + x), NukkitMath.floorDouble(position.getY() + y), NukkitMath.floorDouble(position.getZ() + z), STATE_END_STONE);
+                        level.setBlockStateAt(position.getFloorX() + x, position.getFloorY() + y, position.getFloorZ() + z, STATE_END_STONE);
                     }
                 }
             }
