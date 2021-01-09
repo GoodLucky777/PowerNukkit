@@ -7,6 +7,8 @@ import cn.nukkit.math.NukkitMath;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
 
+import static cn.nukkit.block.BlockID.END_STONE;
+
 /**
  * @author GoodLucky777
  */
