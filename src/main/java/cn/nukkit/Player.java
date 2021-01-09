@@ -1493,10 +1493,12 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         setDataFlag(DATA_FLAGS_EXTENDED, DATA_FLAG_OVER_SCAFFOLDING, scaffoldingUnder.length > 0);
         
         if (endPortal) {
+            MainLogger.getLogger().info("End portal == true");
             if (!inEndPortal) {
+                MainLogger.getLogger().info("inEndPortal == false");
                 inEndPortal = true;
                 if (this.getRiding() == null && this.getPassengers().isEmpty()) {
-                    MainLogger.getLogger().info("Success");
+                    MainLogger.getLogger().info("Success ride check");
                     EntityPortalEnterEvent ev = new EntityPortalEnterEvent(this, PortalType.END);
                     getServer().getPluginManager().callEvent(ev);
                     
