@@ -39,7 +39,7 @@ public class BlockEndGateway extends BlockSolid {
 
     @Override
     public double getResistance() {
-        return 360000000;
+        return 3600000;
     }
 
     @Override
