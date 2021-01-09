@@ -249,8 +249,8 @@ public class TheEnd extends Generator {
                 long x2 = (long) (chunkX + i);
                 long z2 = (long) (chunkZ + j);
                 if ((x2 * x2) + (z2 * z2) > 4096L && this.islandNoise.getValue((double) x2, (double) z2) < (double) -0.9f) {
-                    x1 = (float) (chunkX - i * 2);
-                    z1 = (float) (chunkZ - j * 2);
+                    x1 = (float) (x - i * 2);
+                    z1 = (float) (z - j * 2);
                     float islandHeight2 = 100f - MathHelper.sqrt((x1 * x1) + (z1 * z1)) * ((Math.abs((float) x2) * 3439f + Math.abs((float) z2) * 147f) % 13f + 9f);
                     islandHeight2 = NukkitMath.clamp(islandHeight2, -100f, 80f);
                     islandHeight1 = Math.max(islandHeight1, islandHeight2);
