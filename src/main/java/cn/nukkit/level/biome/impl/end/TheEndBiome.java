@@ -1,6 +1,7 @@
 package cn.nukkit.level.biome.impl.end;
 
 import cn.nukkit.level.biome.Biome;
+import cn.nukkit.level.generator.populator.impl.PopulatorEndIsland;
 
 /**
  * @author GoodLucky777
@@ -8,7 +9,8 @@ import cn.nukkit.level.biome.Biome;
 public class TheEndBiome extends Biome {
 
     public TheEndBiome() {
-        // Nothing
+        PopulatorEndIsland populatorEndIsland = new PopulatorEndIsland();
+        this.addPopulator(populatorEndIsland);
     }
     
     @Override
