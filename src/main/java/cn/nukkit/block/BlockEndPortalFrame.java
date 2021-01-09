@@ -202,7 +202,7 @@ public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceabl
     }
 
     private boolean checkFrame(Block block) {
-        return block.getId() == this.getId() && block.isEndPortalEye();
+        return block.getId() == this.getId() && ((BlockEndPortalFrame) block).isEndPortalEye();
     }
 
     private boolean checkFrame(Block block, int x, int z) {
@@ -249,14 +249,12 @@ public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceabl
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    @Override
     public boolean isEndPortalEye() {
         getPropertyValue(END_PORTAL_EYE_BIT);
     }
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    @Override
     public void setEndPortalEye(boolean endPortalEye) {
         setPropertyValue(END_PORTAL_EYE_BIT, endPortalEye);
     }
