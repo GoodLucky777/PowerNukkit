@@ -16,10 +16,13 @@ public class PopulatorEndIsland extends Populator {
 
     private final TheEnd theEnd;
     
+    private final ObjectEndIsland objectEndIsland;
+    
     private static final BlockState STATE_END_STONE = BlockState.of(END_STONE);
     
     public PopulatorEndIsland(TheEnd theEnd) {
         this.theEnd = theEnd;
+        this.objectEndIsland = new ObjectEndIsland();
     }
     
     @Override
@@ -34,9 +37,9 @@ public class PopulatorEndIsland extends Populator {
             if (height < -20f) {
                 Vector3 position = new Vector3(chunkX << 4, 0, chunkZ << 4);
                 
-                new ObjectEndIsland().generate(level, random, position.add(8 + random.nextBoundedInt(16), 55 + random.nextBoundedInt(16), 8 + random.nextBoundedInt(16)));
+                objectEndIsland.generate(level, random, position.add(8 + random.nextBoundedInt(16), 55 + random.nextBoundedInt(16), 8 + random.nextBoundedInt(16)));
                 if (random.nextBoundedInt(4) == 0) {
-                    new ObjectEndIsland().generate(level, random, position.add(8 + random.nextBoundedInt(16), 55 + random.nextBoundedInt(16), 8 + random.nextBoundedInt(16)));
+                    objectEndIsland.generate(level, random, position.add(8 + random.nextBoundedInt(16), 55 + random.nextBoundedInt(16), 8 + random.nextBoundedInt(16)));
                 }
             }
         }
