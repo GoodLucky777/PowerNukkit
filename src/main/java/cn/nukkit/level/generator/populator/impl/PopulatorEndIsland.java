@@ -16,7 +16,7 @@ public class PopulatorEndIsland extends Populator {
     
     private static final BlockState STATE_END_STONE = BlockState.of(END_STONE);
     
-    public PopulatorTheEnd(TheEnd theEnd) {
+    public PopulatorEndIsland(TheEnd theEnd) {
         this.theEnd = theEnd;
     }
     
