@@ -60,9 +60,9 @@ public class TheEnd extends Generator {
     private static double detailNoiseScaleX = 80;
     private static double detailNoiseScaleZ = 80;
     
-    private NoiseGeneratorOctavesD lperlinNoise1;
-    private NoiseGeneratorOctavesD lperlinNoise2;
-    private NoiseGeneratorOctavesD perlinNoise1;
+    private NoiseGeneratorOctavesD roughnessNoiseOctaves;
+    private NoiseGeneratorOctavesD roughnessNoiseOctaves2;
+    private NoiseGeneratorOctavesD detailNoiseOctaves;
     private NoiseGeneratorSimplexD islandNoise;
     
     double[] detailNoise;
@@ -119,9 +119,9 @@ public class TheEnd extends Generator {
         this.localSeed1 = this.random.nextLong();
         this.localSeed2 = this.random.nextLong();
         
-        this.lperlinNoise1 = new NoiseGeneratorOctavesD(random, 16);
-        this.lperlinNoise2 = new NoiseGeneratorOctavesD(random, 16);
-        this.perlinNoise1 = new NoiseGeneratorOctavesD(random, 8);
+        this.roughnessNoiseOctaves = new NoiseGeneratorOctavesD(random, 16);
+        this.roughnessNoiseOctaves2 = new NoiseGeneratorOctavesD(random, 16);
+        this.detailNoiseOctaves = new NoiseGeneratorOctavesD(random, 8);
         this.islandNoise = new NoiseGeneratorSimplexD(random);
         
         this.generationPopulators = ImmutableList.of(
@@ -147,9 +147,9 @@ public class TheEnd extends Generator {
         int densityX = chunkX << 1;
         int densityZ = chunkZ << 1;
         
-        this.detailNoise = this.perlinNoise1.generateNoiseOctaves(this.detailNoise, densityX, 0, densityZ, 3, 33, 3, (coordinateScale * 2) / detailNoiseScaleX, 4.277575000000001, (coordinateScale * 2) / detailNoiseScaleZ);
-        this.roughnessNoise = this.lperlinNoise1.generateNoiseOctaves(this.roughnessNoise, densityX, 0, densityZ, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
-        this.roughnessNoise2 = this.lperlinNoise2.generateNoiseOctaves(this.roughnessNoise2, densityX, 0, densityZ, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
+        this.detailNoise = this.detailNoiseOctaves.generateNoiseOctaves(this.detailNoise, densityX, 0, densityZ, 3, 33, 3, (coordinateScale * 2) / detailNoiseScaleX, 4.277575000000001, (coordinateScale * 2) / detailNoiseScaleZ);
+        this.roughnessNoise = this.roughnessNoiseOctaves.generateNoiseOctaves(this.roughnessNoise, densityX, 0, densityZ, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
+        this.roughnessNoise2 = this.roughnessNoiseOctaves2.generateNoiseOctaves(this.roughnessNoise2, densityX, 0, densityZ, 3, 33, 3, coordinateScale * 2, coordinateScale, coordinateScale * 2);
         
         int index = 0;
 
