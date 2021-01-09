@@ -4,6 +4,7 @@ import cn.nukkit.Player;
 import cn.nukkit.api.PowerNukkitDifference;
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
+import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBlock;
 import cn.nukkit.level.Sound;
@@ -17,12 +18,17 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static cn.nukkit.blockproperty.CommonBlockProperties.DIRECTION;
+
 /**
  * @author Pub4Game
  * @since 26.12.2015
  */
 public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceable {
 
+    public static final BlockProperties PROPERTIES = new BlockProperties(DIRECTION);
+    
+    @Desperated
     private static final int[] FACES = {2, 3, 0, 1};
 
     public BlockEndPortalFrame() {
@@ -37,7 +43,15 @@ public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceabl
     public int getId() {
         return END_PORTAL_FRAME;
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Nonnull
+    @Override
+    public BlockProperties getProperties() {
+        return PROPERTIES;
+    }
+    
     @Override
     public double getResistance() {
         return 3600000;
@@ -200,12 +214,23 @@ public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceabl
 
     @Override
     public BlockFace getBlockFace() {
-        return BlockFace.fromHorizontalIndex(this.getDamage() & 0x07);
+        return getPropertyValue(DIRECTION);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public void setBlockFace(BlockFace face) {
+        setPropertyValue(DIRECTION, face);
     }
 
     @Override
     public boolean place(@Nonnull Item item, @Nonnull Block block, @Nonnull Block target, @Nonnull BlockFace face, double fx, double fy, double fz, @Nullable Player player) {
-        this.setDamage(FACES[player != null ? player.getDirection().getHorizontalIndex() : 0]);
+        if (player == null) {
+            setBlockFace(BlockFace.SOUTH);
+        } else {
+            setBlockFace(player.getDirection().getHorizontalIndex());
+        }
         this.getLevel().setBlock(block, this, true);
         return true;
     }
