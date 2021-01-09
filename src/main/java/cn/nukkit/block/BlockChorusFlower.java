@@ -13,6 +13,10 @@ import java.util.Map;
 
 public class BlockChorusFlower extends BlockTransparentMeta {
 
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static final IntBlockProperty AGE = new IntBlockProperty("age", false, 4);
+    
     public BlockChorusFlower() {
         this(0);
     }
