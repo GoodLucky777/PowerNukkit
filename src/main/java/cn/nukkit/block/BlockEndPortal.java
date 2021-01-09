@@ -77,7 +77,7 @@ public class BlockEndPortal extends BlockFlowable implements BlockEntityHolder<B
 
     @Override
     public double getResistance() {
-        return 360000000;
+        return 3600000;
     }
 
     @Override
