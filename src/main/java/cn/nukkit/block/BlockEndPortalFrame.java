@@ -92,7 +92,7 @@ public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceabl
 
     @Override
     public double getMaxY() {
-        return this.y + (this.getEndPortalEye() ? 1 : 0.8125);
+        return this.y + (this.isEndPortalEye() ? 1 : 0.8125);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceabl
     }
 
     public int getComparatorInputOverride() {
-        return this.getEndPortalEye() ? 15 : 0;
+        return this.isEndPortalEye() ? 15 : 0;
     }
 
     @Override
@@ -121,7 +121,7 @@ public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceabl
     @PowerNukkitDifference(info = "Using new method to play sounds", since = "1.4.0.0-PN")
     @Override
     public boolean onActivate(@Nonnull Item item, Player player) {
-        if (!this.getEndPortalEye() && player != null && item.getId() == Item.ENDER_EYE) {
+        if (!this.isEndPortalEye() && player != null && item.getId() == Item.ENDER_EYE) {
             this.setEndPortalEye(true);
             this.getLevel().setBlock(this, this, true, true);
             this.getLevel().addSound(this, Sound.BLOCK_END_PORTAL_FRAME_FILL);
@@ -202,7 +202,7 @@ public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceabl
     }
 
     private boolean checkFrame(Block block) {
-        return block.getId() == this.getId() && block.getEndPortalEye();
+        return block.getId() == this.getId() && block.isEndPortalEye();
     }
 
     private boolean checkFrame(Block block, int x, int z) {
