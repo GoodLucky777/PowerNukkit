@@ -1,7 +1,6 @@
 package cn.nukkit.block;
 
 import cn.nukkit.Player;
-import cn.nukkit.api.DeprecationDetails;
 import cn.nukkit.api.PowerNukkitDifference;
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
@@ -39,10 +38,6 @@ public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceabl
         END_PORTAL_EYE_BIT
     );
     
-    @Deprecated
-    @DeprecationDetails(since = "1.4.0.0-PN")
-    private static final int[] FACES = {2, 3, 0, 1};
-
     public BlockEndPortalFrame() {
         this(0);
     }
