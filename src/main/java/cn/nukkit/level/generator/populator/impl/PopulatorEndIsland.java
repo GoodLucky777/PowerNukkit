@@ -1,6 +1,5 @@
 package cn.nukkit.level.generator.populator.impl;
 
-import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.level.generator.TheEnd;
@@ -17,8 +16,6 @@ public class PopulatorEndIsland extends Populator {
     private final TheEnd theEnd;
     
     private final ObjectEndIsland objectEndIsland;
-    
-    private static final BlockState STATE_END_STONE = BlockState.of(END_STONE);
     
     public PopulatorEndIsland(TheEnd theEnd) {
         this.theEnd = theEnd;
