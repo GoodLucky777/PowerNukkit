@@ -1496,10 +1496,12 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             if (!inEndPortal) {
                 inEndPortal = true;
                 if (this.getRiding() == null && this.getPassengers().isEmpty()) {
+                    MainLogger.getLogger().info("Success");
                     EntityPortalEnterEvent ev = new EntityPortalEnterEvent(this, PortalType.END);
                     getServer().getPluginManager().callEvent(ev);
                     
                     if (!ev.isCancelled() && (this.getLevel() == EnumLevel.OVERWORLD.getLevel() || this.getLevel() == EnumLevel.THE_END.getLevel())) {
+                        MainLogger.getLogger().info("Success " + String.valueOf(!ev.isCancelled()) + " " + String.valueOf(this.getLevel() == EnumLevel.OVERWORLD.getLevel()) + " " + String.valueOf(this.getLevel() == EnumLevel.THE_END.getLevel()));
                         final Position newPos = EnumLevel.moveToTheEnd(this);
                         if (newPos != null) {
                             if (newPos.getLevel().getDimension() == Level.DIMENSION_THE_END) {
@@ -1521,8 +1523,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     }
                                 }
                             }
-                        }
-                    }
+                        } else MainLogger.getLogger().info("newPos == null");
+                    } else MainLogger.getLogger().info("Failed " + String.valueOf(!ev.isCancelled()) + " " + String.valueOf(this.getLevel() == EnumLevel.OVERWORLD.getLevel()) + " " + String.valueOf(this.getLevel() == EnumLevel.THE_END.getLevel()));
                 }
             }
         } else {
