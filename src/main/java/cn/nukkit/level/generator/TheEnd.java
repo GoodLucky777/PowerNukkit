@@ -124,7 +124,11 @@ public class TheEnd extends Generator {
         this.detailNoiseOctaves = new NoiseGeneratorOctavesD(random, 8);
         this.islandNoise = new NoiseGeneratorSimplexD(random);
         
-        this.generationPopulators = ImmutableList.of(
+        /*this.generationPopulators = ImmutableList.of(
+            new PopulatorEndIsland(this)
+        );*/
+        
+        this.populators = ImmutableList.of(
             new PopulatorEndIsland(this)
         );
     }
