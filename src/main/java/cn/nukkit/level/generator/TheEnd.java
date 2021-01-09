@@ -71,7 +71,7 @@ public class TheEnd extends Generator {
     
     private final double[][][] density = new double[3][3][33];
     
-    private final List<Populator> populators = new ArrayList<>();
+    private List<Populator> populators = new ArrayList<>();
     private List<Populator> generationPopulators = new ArrayList<>();
     
     private long localSeed1;
