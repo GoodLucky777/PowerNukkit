@@ -117,7 +117,13 @@ public class BlockEndPortal extends BlockFlowable implements BlockEntityHolder<B
         return new ItemBlock(Block.get(BlockID.AIR));
     }
     
+    @Override
     public boolean canBePushed() {
+        return false;
+    }
+    
+    @Override
+    public boolean canBePulled() {
         return false;
     }
     
