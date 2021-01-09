@@ -62,7 +62,13 @@ public class BlockEndGateway extends BlockSolid {
         return new ItemBlock(Block.get(BlockID.AIR));
     }
     
+    @Override
     public boolean canBePushed() {
+        return false;
+    }
+    
+    @Override
+    public boolean canBePulled() {
         return false;
     }
 }
