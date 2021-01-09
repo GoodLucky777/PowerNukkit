@@ -4,7 +4,7 @@ import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.level.generator.TheEnd;
-import cn.nukkit.level.generotor.object.end.ObjectEndIsland;
+import cn.nukkit.level.generator.object.end.ObjectEndIsland;
 import cn.nukkit.level.generator.populator.type.Populator;
 import cn.nukkit.math.NukkitRandom;
 
