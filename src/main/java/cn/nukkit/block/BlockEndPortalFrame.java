@@ -6,6 +6,7 @@ import cn.nukkit.api.PowerNukkitDifference;
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.blockproperty.BlockProperties;
+import cn.nukkit.blockproperty.BooleanBlockProperty;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBlock;
 import cn.nukkit.level.Sound;
@@ -29,7 +30,14 @@ public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceabl
 
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public static final BlockProperties PROPERTIES = new BlockProperties(DIRECTION);
+    protected static final BooleanBlockProperty END_PORTAL_EYE_BIT = new BooleanBlockProperty("end_portal_eye_bit", false);
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static final BlockProperties PROPERTIES = new BlockProperties(
+        DIRECTION,
+        END_PORTAL_EYE_BIT
+    );
     
     @Deprecated
     @DeprecationDetails(since = "1.4.0.0-PN")
@@ -242,5 +250,19 @@ public class BlockEndPortalFrame extends BlockTransparentMeta implements Faceabl
     @Override
     public BlockColor getColor() {
         return BlockColor.GREEN_BLOCK_COLOR;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public boolean isEndPortalEye() {
+        getPropertyValue(END_PORTAL_EYE_BIT);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public void setEndPortalEye(boolean endPortalEye) {
+        setPropertyValue(END_PORTAL_EYE_BIT, endPortalEye);
     }
 }
