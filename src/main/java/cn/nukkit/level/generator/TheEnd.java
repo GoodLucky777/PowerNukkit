@@ -231,7 +231,7 @@ public class TheEnd extends Generator {
         return new Vector3(100, 49, 0);
     }
     
-    private float getIslandHeight(int chunkX, int chunkZ, int x, int z) {
+    public float getIslandHeight(int chunkX, int chunkZ, int x, int z) {
         float x1 = (float) (chunkX * 2 + x);
         float z1 = (float) (chunkZ * 2 + z);
         float islandHeight1 = NukkitMath.clamp(100f - (float) Math.sqrt((x1 * x1) + (z1 * z1)) * 8f, -100f, 80f);
