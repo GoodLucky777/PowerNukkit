@@ -49,7 +49,10 @@ public class ObjectChorusTree extends BasicGenerator {
                 height++;
             }
             
-            
+            for (int i = 0; i < height; i++) {
+                BlockFace face = BlockFace.Plane.HORIZONTAL.random(random);
+                Vector3 check = position.up().getSide(face);
+            }
         }
     }
     
