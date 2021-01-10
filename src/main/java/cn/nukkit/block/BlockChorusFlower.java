@@ -108,8 +108,8 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                         grow = true;
                     } else if (this.down().getId() == CHORUS_PLANT) {
                         boolean ground = false;
+                        int height = 1;
                         for (int y = -2; y >= -6; y--) {
-                            int height = 1;
                             if (this.down(y).getId() == CHORUS_PLANT) {
                                 height++;
                             } else {
@@ -136,12 +136,10 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                             return Level.BLOCK_UPDATE_RANDOM;
                         }
                     } else if (!isFullyAged()) {
-                        int attempt = ThreadLocalRandom.current().nextInt(ground ? 5 : 4);
-                        
-                        for (int i = 0; i < attempt; i++) {
+                        for (int i = 0; i < ThreadLocalRandom.current().nextInt(ground ? 5 : 4); i++) {
                             BlockFace face = BlockFace.Plane.HORIZONTAL.random();
                             Block check = this.getSide(face);
-                            if (check.getId() == AIR && check.down().getId() == AIR && check.isHorizontalEmptyExcept(check.getOpossite())) {
+                            if (check.getId() == AIR && check.down().getId() == AIR && check.isHorizontalEmptyExcept(check.getOpposite())) {
                                 BlockChorusFlower block = (BlockChorusFlower) this.clone();
                                 block.setAge(getAge() + 1);
                                 BlockGrowEvent ev = new BlockGrowEvent(this, block);
