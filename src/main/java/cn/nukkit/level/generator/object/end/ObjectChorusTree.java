@@ -8,6 +8,7 @@ import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
 
 import static cn.nukkit.block.BlockID.CHORUS_FLOWER;
+import static cn.nukkit.block.BlockID.CHORUS_PLANT;
 
 /**
  * @author GoodLucky777
@@ -15,13 +16,14 @@ import static cn.nukkit.block.BlockID.CHORUS_FLOWER;
 public class ObjectChorusTree extends BasicGenerator {
 
     private static final BlockState STATE_CHORUS_FLOWER = BlockState.of(CHORUS_FLOWER);
+    private static final BlockState STATE_CHORUS_PLANT = BlockState.of(CHORUS_PLANT);
     
     public boolean generate(ChunkManager level, NukkitRandom rand, Vector3 position) {
         return this.generate(level, rand, position, 8);
     }
     
     public boolean generate(ChunkManager level, NukkitRandom rand, Vector3 position, int maxDistance) {
-        level.setBlockStateAt(position.getFloorX(), position.getFloorY(), position.getFloorZ(), STATE_CHORUS_FLOWER);
+        level.setBlockStateAt(position.getFloorX(), position.getFloorY(), position.getFloorZ(), STATE_CHORUS_PLANT);
         this.growImmediately(level, rand, position, maxDistance, 0);
         return true;
     }
