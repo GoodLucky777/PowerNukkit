@@ -29,6 +29,28 @@ public class ObjectChorusTree extends BasicGenerator {
     }
     
     public void growImmediately(ChunkManager level, NukkitRandom random, Vector3 position, int maxDistance, int age) {
+        int height = 1 + random.nextBoundedInt(4);
+        if (age == 0) {
+            height++;
+        }
+        
+        for (int y = 1; y <= height; y++) {
+            if (!isHorizontalAir(level, position.addY(y))) {
+                break;
+            }
+            level.setBlockStateAt(position.getFloorX(), position.getFloorY() + y, position.getFloorZ(), STATE_CHORUS_PLANT);
+        }
+        
         // TODO
+    }
+    
+    private boolean isHorizontalAir(ChunkManager level, Vector3 vector3) {
+        for (BlockFace face : BlockFace.Plane.HORIZONTAL) {
+            Vector3 side = vector3.getSide(face);
+            if (level.getBlockIdAt(vector3.getFloorX(), vector3.getFloorY(), vector3.getFloorZ()) != AIR) {
+                return false;
+            }
+        }
+        return true;
     }
 }
