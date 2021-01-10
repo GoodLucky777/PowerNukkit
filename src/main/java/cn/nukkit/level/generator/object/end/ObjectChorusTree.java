@@ -3,10 +3,12 @@ package cn.nukkit.level.generator.object.end;
 import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.level.generator.object.BasicGenerator;
+import cn.nukkit.math.BlockFace;
 import cn.nukkit.math.NukkitMath;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
 
+import static cn.nukkit.block.BlockID.AIR;
 import static cn.nukkit.block.BlockID.CHORUS_FLOWER;
 import static cn.nukkit.block.BlockID.CHORUS_PLANT;
 
@@ -35,7 +37,7 @@ public class ObjectChorusTree extends BasicGenerator {
         }
         
         for (int y = 1; y <= height; y++) {
-            if (!isHorizontalAir(level, position.addY(y))) {
+            if (!this.isHorizontalAir(level, position.add(0, y, 0))) {
                 break;
             }
             level.setBlockStateAt(position.getFloorX(), position.getFloorY() + y, position.getFloorZ(), STATE_CHORUS_PLANT);
@@ -47,7 +49,7 @@ public class ObjectChorusTree extends BasicGenerator {
     private boolean isHorizontalAir(ChunkManager level, Vector3 vector3) {
         for (BlockFace face : BlockFace.Plane.HORIZONTAL) {
             Vector3 side = vector3.getSide(face);
-            if (level.getBlockIdAt(vector3.getFloorX(), vector3.getFloorY(), vector3.getFloorZ()) != AIR) {
+            if (level.getBlockIdAt(side.getFloorX(), side.getFloorY(), side.getFloorZ()) != AIR) {
                 return false;
             }
         }
