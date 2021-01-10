@@ -3769,6 +3769,14 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     notFound.setTrackingId(posTrackReq.getTrackingId());
                     dataPacket(notFound);
                     break;
+                case ProtocolInfo.FILTER_TEXT_PACKET:
+                    FilterTextPacket filterTextPacket = (FilterTextPacket) packet;
+
+                    FilterTextPacket textResponsePacket = new FilterTextPacket();
+                    textResponsePacket.text = filterTextPacket.text;
+                    textResponsePacket.fromServer = true;
+                    this.dataPacket(textResponsePacket);
+                    break;
                 default:
                     break;
             }
