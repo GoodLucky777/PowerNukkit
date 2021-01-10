@@ -125,8 +125,16 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                         }
                     }
                     
-                    if (grow) {
+                    if (grow && this.up(2).getId() == AIR && isHorizontalEmpty()) {
+                        BlockChorusFlower block = (BlockChorusFlower) this.clone();
+                        BlockGrowEvent ev = new BlockGrowEvent(this, block);
+                        Server.getInstance().getPluginManager().callEvent(ev);
                         
+                        if (!ev.isCancelled()) {
+                            this.getLevel().setBlock(this, ev.getNewState(), false, true);
+                        } else {
+                            return Level.BLOCK_UPDATE_RANDOM;
+                        }
                     } else if (!isFullyAged()) {
                         int i = ThreadLocalRandom.current().nextInt(ground ? 5 : 4);
                         
@@ -196,5 +204,17 @@ public class BlockChorusFlower extends BlockTransparentMeta {
     @Since("1.4.0.0-PN")
     public boolean isFullyAged() {
         return getAge() >= getMaxAge();
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private boolean isHorizontalEmpty() {
+        for (BlockFace face : BlockFace.Plane.HORIZONTAL) {
+            Block side = this.getSide(face);
+            if (side.getId() != AIR) {
+                return false;
+            }
+        }
+        return true;
     }
 }
