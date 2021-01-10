@@ -136,10 +136,23 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                             return Level.BLOCK_UPDATE_RANDOM;
                         }
                     } else if (!isFullyAged()) {
-                        int check = ThreadLocalRandom.current().nextInt(ground ? 5 : 4);
+                        int attempt = ThreadLocalRandom.current().nextInt(ground ? 5 : 4);
                         
-                        for (int i = 0; i < check; i++) {
-                            
+                        for (int i = 0; i < attempt; i++) {
+                            BlockFace face = BlockFace.Plane.HORIZONTAL.random();
+                            Block check = this.getSide(face);
+                            if (check.getId() == AIR && check.down().getId() == AIR && check.isHorizontalEmpty()) {
+                                BlockChorusFlower block = (BlockChorusFlower) this.clone();
+                                block.setAge(getAge() + 1);
+                                BlockGrowEvent ev = new BlockGrowEvent(this, block);
+                                Server.getInstance().getPluginManager().callEvent(ev);
+                                
+                                if (!ev.isCancelled()) {
+                                    this.getLevel().setBlock(this, ev.getNewState(), false, true);
+                                } else {
+                                    return Level.BLOCK_UPDATE_RANDOM;
+                                }
+                            }
                         }
                     } else {
                         BlockChorusFlower block = (BlockChorusFlower) this.clone();
