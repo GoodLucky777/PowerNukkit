@@ -133,11 +133,12 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                     
                     if (grow && this.up(2).getId() == AIR && isHorizontalEmpty()) {
                         BlockChorusFlower block = (BlockChorusFlower) this.clone();
+                        block.y = this.y + 1;
                         BlockGrowEvent ev = new BlockGrowEvent(this, block);
                         Server.getInstance().getPluginManager().callEvent(ev);
                         
                         if (!ev.isCancelled()) {
-                            this.getLevel().setBlock(this, ev.getNewState(), false, true);
+                            this.getLevel().setBlock(this, ev.getNewState());
                             this.getLevel().addSound(this, Sound.BLOCK_CHORUSFLOWER_GROW);
                         } else {
                             return Level.BLOCK_UPDATE_RANDOM;
@@ -148,12 +149,15 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                             Block check = this.getSide(face);
                             if (check.getId() == AIR && check.down().getId() == AIR && ((BlockChorusFlower) check).isHorizontalEmptyExcept(face.getOpposite())) {
                                 BlockChorusFlower block = (BlockChorusFlower) this.clone();
+                                block.x = check.x;
+                                block.y = check.y;
+                                block.z = check.z;
                                 block.setAge(getAge() + 1);
                                 BlockGrowEvent ev = new BlockGrowEvent(this, block);
                                 Server.getInstance().getPluginManager().callEvent(ev);
                                 
                                 if (!ev.isCancelled()) {
-                                    this.getLevel().setBlock(this, ev.getNewState(), false, true);
+                                    this.getLevel().setBlock(this, ev.getNewState());
                                     this.getLevel().addSound(this, Sound.BLOCK_CHORUSFLOWER_GROW);
                                 } else {
                                     return Level.BLOCK_UPDATE_RANDOM;
@@ -167,7 +171,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                         Server.getInstance().getPluginManager().callEvent(ev);
                         
                         if (!ev.isCancelled()) {
-                            this.getLevel().setBlock(this, ev.getNewState(), false, true);
+                            this.getLevel().setBlock(this, ev.getNewState());
                             this.getLevel().addSound(this, Sound.BLOCK_CHORUSFLOWER_DEATH);
                         } else {
                             return Level.BLOCK_UPDATE_RANDOM;
