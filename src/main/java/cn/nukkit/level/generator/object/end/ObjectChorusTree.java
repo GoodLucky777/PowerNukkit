@@ -1,5 +1,6 @@
 package cn.nukkit.level.generator.object.end;
 
+import cn.nukkit.block.BlockChorusFlower;
 import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.level.generator.object.BasicGenerator;
@@ -57,7 +58,7 @@ public class ObjectChorusTree extends BasicGenerator {
                 BlockFace face = BlockFace.Plane.HORIZONTAL.random(random);
                 Vector3 check = position.up(y + 1).getSide(face);
                 if (level.getBlockIdAt(check.getFloorX(), check.getFloorY(), check.getFloorZ()) == AIR && level.getBlockIdAt(check.getFloorX(), check.getFloorY() - 1, check.getFloorZ()) == AIR) {
-                    if (Math.abs(check.getFloorX() - position.getFloorX()) < maxDistance && Math.abs(check.getFloorZ() - position.getFloorZ()) < maxDistance && this.isHorizontalEmptyExcept(level, check, face.getOpposite())) {
+                    if (Math.abs(check.getFloorX() - position.getFloorX()) < maxDistance && Math.abs(check.getFloorZ() - position.getFloorZ()) < maxDistance && this.isHorizontalAirExcept(level, check, face.getOpposite())) {
                         level.setBlockStateAt(check.getFloorX(), check.getFloorY(), check.getFloorZ(), STATE_CHORUS_PLANT);
                         this.growImmediately(level, random, check, maxDistance, age + 1);
                     }
