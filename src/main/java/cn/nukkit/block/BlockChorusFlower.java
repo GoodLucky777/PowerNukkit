@@ -206,7 +206,8 @@ public class BlockChorusFlower extends BlockTransparentMeta {
     @Override
     public boolean onProjectileHit(@Nonnull Entity projectile, @Nonnull Position position, @Nonnull Vector3 motion) {
         if (projectile instanceof EntityArrow || projectile instanceof EntitySnowball) { // TODO: Check Fire Charge too
-            return this.getLevel().useBreakOn(this);
+            this.getLevel().useBreakOn(this);
+            return true;
         }
         return super.onProjectileHit(projectile, position, motion);
     }
