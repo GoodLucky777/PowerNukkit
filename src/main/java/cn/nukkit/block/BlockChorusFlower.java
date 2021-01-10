@@ -5,6 +5,7 @@ import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.IntBlockProperty;
+import cn.nukkit.event.block.BlockGrowEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
 import cn.nukkit.level.Level;
@@ -96,6 +97,8 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                 this.getLevel().useBreakOn(this);
                 return Level.BLOCK_UPDATE_NORMAL;
             }
+        } else if (type == Level.BLOCK_UPDATE_RANDOM) {
+            // TODO
         }
         
         return 0;
