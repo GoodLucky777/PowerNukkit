@@ -133,7 +133,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                         }
                     }
                     
-                    if (grow && this.up(2).getId() == AIR && isHorizontalEmpty(this.up())) {
+                    if (grow && this.up(2).getId() == AIR && isHorizontalAir(this.up())) {
                         BlockChorusFlower block = (BlockChorusFlower) this.clone();
                         block.y = this.y + 1;
                         BlockGrowEvent ev = new BlockGrowEvent(this, block);
@@ -150,7 +150,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                         for (int i = 0; i < ThreadLocalRandom.current().nextInt(ground ? 5 : 4); i++) {
                             BlockFace face = BlockFace.Plane.HORIZONTAL.random();
                             Block check = this.getSide(face);
-                            if (check.getId() == AIR && check.down().getId() == AIR && isHorizontalEmptyExcept(check, face.getOpposite())) {
+                            if (check.getId() == AIR && check.down().getId() == AIR && isHorizontalAirExcept(check, face.getOpposite())) {
                                 BlockChorusFlower block = (BlockChorusFlower) this.clone();
                                 block.x = check.x;
                                 block.y = check.y;
@@ -251,7 +251,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    private boolean isHorizontalEmpty(Block block) {
+    private boolean isHorizontalAir(Block block) {
         for (BlockFace face : BlockFace.Plane.HORIZONTAL) {
             Block side = block.getSide(face);
             if (side.getId() != AIR) {
@@ -263,7 +263,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    private boolean isHorizontalEmptyExcept(Block block, BlockFace except) {
+    private boolean isHorizontalAirExcept(Block block, BlockFace except) {
         for (BlockFace face : BlockFace.Plane.HORIZONTAL) {
             Block side = block.getSide(face);
             if (side.getId() != AIR) {
