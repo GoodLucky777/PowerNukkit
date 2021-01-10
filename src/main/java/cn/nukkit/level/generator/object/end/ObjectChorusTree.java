@@ -36,8 +36,9 @@ public class ObjectChorusTree extends BasicGenerator {
             height++;
         }
         
-        for (int y = 1; y <= height; y++) {
-            if (!this.isHorizontalAir(level, position.add(0, y, 0))) {
+        int y:
+        for (y = 1; y <= height; y++) {
+            if (!this.isHorizontalAir(level, position.up(y))) {
                 break;
             }
             level.setBlockStateAt(position.getFloorX(), position.getFloorY() + y, position.getFloorZ(), STATE_CHORUS_PLANT);
@@ -51,7 +52,13 @@ public class ObjectChorusTree extends BasicGenerator {
             
             for (int i = 0; i < height; i++) {
                 BlockFace face = BlockFace.Plane.HORIZONTAL.random(random);
-                Vector3 check = position.up().getSide(face);
+                Vector3 check = position.up(y + 1).getSide(face);
+                if (level.getBlockIdAt(check.getFloorX(), check.getFloorY(), check.getFloorZ()) == AIR && level.getBlockIdAt(check.getFloorX(), check.getFloorY() - 1, check.getFloorZ()) == AIR) {
+                    if (Math.abs(check.getFloorX() - position.getFloorX()) < maxDistance && Math.abs(check.getFloorZ() - position.getFloorZ()) < maxDistance && this.isHorizontalEmptyExcept(check, face.getOpposite())) {
+                        level.setBlockStateAt(check.getFloorX(), check.getFloorY(), check.getFloorZ(), STATE_CHORUS_PLANT);
+                        this.growImmediately(level, random, check, maxDistance, age + 1);
+                    }
+                }
             }
         }
     }
