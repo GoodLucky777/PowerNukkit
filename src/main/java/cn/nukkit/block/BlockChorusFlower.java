@@ -1,6 +1,7 @@
 package cn.nukkit.block;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.blockproperty.BlockProperties;
@@ -13,7 +14,9 @@ import cn.nukkit.math.BlockFace;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class BlockChorusFlower extends BlockTransparentMeta {
 
@@ -98,9 +101,47 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                 return Level.BLOCK_UPDATE_NORMAL;
             }
         } else if (type == Level.BLOCK_UPDATE_RANDOM) {
-            if (this.up().getId() == Block.AIR && this.up().getY() < 256) {
+            if (this.up().getId() == AIR && this.up().getY() < 256) {
                 if (!isFullyAged()) {
-                    // TODO
+                    boolean grow = false;
+                    if (this.down().getId() == AIR || this.down().getId() == END_STONE) {
+                        grow = true;
+                    } else if (this.down().getId() == CHORUS_PLANT) {
+                        boolean ground = false;
+                        for (int y = -2; y >= -6; y--) {
+                            int height = 1;
+                            if (this.down(y).getId() == CHORUS_PLANT) {
+                                height++;
+                            } else {
+                                if (this.down(y).getId() == END_STONE) {
+                                    ground == true;
+                                }
+                                break;
+                            }
+                        }
+                        
+                        if (height < 2 || height <= ThreadLocalRandom.current().nextInt(ground ? 5 : 4)) {
+                            grow = true;
+                        }
+                    }
+                    
+                    if (grow) {
+                        
+                    } else if (!isFullyAged()) {
+                        int i = ThreadLocalRandom.current().nextInt(ground ? 5 : 4);
+                        
+                    } else {
+                        BlockChorusFlower block = (BlockChorusFlower) this.clone();
+                        block.setAge(getMaxAge());
+                        BlockGrowEvent ev = new BlockGrowEvent(this, block);
+                        Server.getInstance().getPluginManager().callEvent(ev);
+                        
+                        if (!ev.isCancelled()) {
+                            this.getLevel().setBlock(this, ev.getNewState(), false, true);
+                        } else {
+                            return Level.BLOCK_UPDATE_RANDOM;
+                        }
+                    }
                 }
             } else {
                 return Level.BLOCK_UPDATE_RANDOM;
