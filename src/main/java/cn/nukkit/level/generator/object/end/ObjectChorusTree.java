@@ -25,13 +25,13 @@ public class ObjectChorusTree extends BasicGenerator {
         return this.generate(level, rand, position, 8);
     }
     
-    public boolean generate(ChunkManager level, NukkitRandom rand, Vector3 position, int maxDistance) {
+    public boolean generate(ChunkManager level, NukkitRandom rand, Vector3 position, int maxSize) {
         level.setBlockStateAt(position.getFloorX(), position.getFloorY(), position.getFloorZ(), STATE_CHORUS_PLANT);
-        this.growImmediately(level, rand, position, maxDistance, 0);
+        this.growImmediately(level, rand, position, maxSize, 0);
         return true;
     }
     
-    public void growImmediately(ChunkManager level, NukkitRandom random, Vector3 position, int maxDistance, int age) {
+    public void growImmediately(ChunkManager level, NukkitRandom random, Vector3 position, int maxSize, int age) {
         // Random height
         int height = 1 + random.nextBoundedInt(4);
         if (age == 0) {
@@ -58,9 +58,9 @@ public class ObjectChorusTree extends BasicGenerator {
                 BlockFace face = BlockFace.Plane.HORIZONTAL.random(random);
                 Vector3 check = position.up(y + 1).getSide(face);
                 if (level.getBlockIdAt(check.getFloorX(), check.getFloorY(), check.getFloorZ()) == AIR && level.getBlockIdAt(check.getFloorX(), check.getFloorY() - 1, check.getFloorZ()) == AIR) {
-                    if (Math.abs(check.getFloorX() - position.getFloorX()) < maxDistance && Math.abs(check.getFloorZ() - position.getFloorZ()) < maxDistance && this.isHorizontalAirExcept(level, check, face.getOpposite())) {
+                    if (Math.abs(check.getFloorX() - position.getFloorX()) < maxSize && Math.abs(check.getFloorZ() - position.getFloorZ()) < maxSize && this.isHorizontalAirExcept(level, check, face.getOpposite())) {
                         level.setBlockStateAt(check.getFloorX(), check.getFloorY(), check.getFloorZ(), STATE_CHORUS_PLANT);
-                        this.growImmediately(level, random, check, maxDistance, age + 1);
+                        this.growImmediately(level, random, check, maxSize, age + 1);
                     }
                 }
             }
