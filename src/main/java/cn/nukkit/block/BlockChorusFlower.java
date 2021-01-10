@@ -147,4 +147,10 @@ public class BlockChorusFlower extends BlockTransparentMeta {
     public void setAge(int age) {
         setIntValue(AGE, age);
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean isFullyAged() {
+        return getAge() >= getMaxAge();
+    }
 }
