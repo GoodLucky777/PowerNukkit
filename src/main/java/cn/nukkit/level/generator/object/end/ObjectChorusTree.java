@@ -56,7 +56,7 @@ public class ObjectChorusTree extends BasicGenerator {
             
             for (int i = 0; i < attempt; i++) {
                 BlockFace face = BlockFace.Plane.HORIZONTAL.random(random);
-                Vector3 check = position.up(y + 1).getSide(face);
+                Vector3 check = position.up(y).getSide(face);
                 if (level.getBlockIdAt(check.getFloorX(), check.getFloorY(), check.getFloorZ()) == AIR && level.getBlockIdAt(check.getFloorX(), check.getFloorY() - 1, check.getFloorZ()) == AIR) {
                     if (Math.abs(check.getFloorX() - position.getFloorX()) < maxSize && Math.abs(check.getFloorZ() - position.getFloorZ()) < maxSize && this.isHorizontalAirExcept(level, check, face.getOpposite())) {
                         level.setBlockStateAt(check.getFloorX(), check.getFloorY(), check.getFloorZ(), STATE_CHORUS_PLANT);
