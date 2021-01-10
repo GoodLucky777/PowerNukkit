@@ -17,6 +17,11 @@ public class ObjectChorusTree extends BasicGenerator {
     private static final BlockState STATE_CHORUS_FLOWER = BlockState.of(CHORUS_FLOWER);
     
     public boolean generate(ChunkManager level, NukkitRandom rand, Vector3 position) {
+        return this.generate(level, rand, position, 8);
+    }
+    
+    public boolean generate(ChunkManager level, NukkitRandom rand, Vector3 position, int maxDistance) {
+        level.setBlockStateAt(position.getFloorX(), position.getFloorY(), position.getFloorZ(), STATE_CHORUS_FLOWER);
         // TODO
         return true;
     }
