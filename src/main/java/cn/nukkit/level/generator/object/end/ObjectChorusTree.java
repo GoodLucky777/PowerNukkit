@@ -17,7 +17,7 @@ import static cn.nukkit.block.BlockID.CHORUS_PLANT;
  */
 public class ObjectChorusTree extends BasicGenerator {
 
-    private static final BlockState STATE_CHORUS_FLOWER = BlockState.of(CHORUS_FLOWER);
+    private static final BlockState STATE_CHORUS_FLOWER_FULLY_AGED = BlockState.of(CHORUS_FLOWER, BlockChorusFlower.AGE.getMaxValue());
     private static final BlockState STATE_CHORUS_PLANT = BlockState.of(CHORUS_PLANT);
     
     public boolean generate(ChunkManager level, NukkitRandom rand, Vector3 position) {
@@ -36,7 +36,7 @@ public class ObjectChorusTree extends BasicGenerator {
             height++;
         }
         
-        int y:
+        int y;
         for (y = 1; y <= height; y++) {
             if (!this.isHorizontalAir(level, position.up(y))) {
                 break;
@@ -61,7 +61,7 @@ public class ObjectChorusTree extends BasicGenerator {
                 }
             }
         } else {
-            level.setBlockStateAt(position.getFloorX(), position.getFloorY() + height, position.getFloorZ(), STATE_CHORUS_PLANT);
+            level.setBlockStateAt(position.getFloorX(), position.getFloorY() + height, position.getFloorZ(), STATE_CHORUS_FLOWER_FULLY_AGED);
         }
     }
     
