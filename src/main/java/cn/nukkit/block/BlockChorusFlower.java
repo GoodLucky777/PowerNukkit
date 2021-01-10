@@ -133,7 +133,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                         }
                     }
                     
-                    if (grow && this.up(2).getId() == AIR && isHorizontalEmpty(this)) {
+                    if (grow && this.up(2).getId() == AIR && isHorizontalEmpty(this.up())) {
                         BlockChorusFlower block = (BlockChorusFlower) this.clone();
                         block.y = this.y + 1;
                         BlockGrowEvent ev = new BlockGrowEvent(this, block);
