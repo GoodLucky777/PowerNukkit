@@ -14,6 +14,7 @@ import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
+import cn.nukkit.level.Sound;
 import cn.nukkit.math.BlockFace;
 import cn.nukkit.math.Vector3;
 
@@ -137,6 +138,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                         
                         if (!ev.isCancelled()) {
                             this.getLevel().setBlock(this, ev.getNewState(), false, true);
+                            this.getLevel().addSound(this, Sound.BLOCK_CHORUSFLOWER_GROW);
                         } else {
                             return Level.BLOCK_UPDATE_RANDOM;
                         }
@@ -152,6 +154,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                                 
                                 if (!ev.isCancelled()) {
                                     this.getLevel().setBlock(this, ev.getNewState(), false, true);
+                                    this.getLevel().addSound(this, Sound.BLOCK_CHORUSFLOWER_GROW);
                                 } else {
                                     return Level.BLOCK_UPDATE_RANDOM;
                                 }
@@ -165,6 +168,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                         
                         if (!ev.isCancelled()) {
                             this.getLevel().setBlock(this, ev.getNewState(), false, true);
+                            this.getLevel().addSound(this, Sound.BLOCK_CHORUSFLOWER_DEATH);
                         } else {
                             return Level.BLOCK_UPDATE_RANDOM;
                         }
