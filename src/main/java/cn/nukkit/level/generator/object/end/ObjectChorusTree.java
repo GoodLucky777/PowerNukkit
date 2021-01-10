@@ -22,7 +22,11 @@ public class ObjectChorusTree extends BasicGenerator {
     
     public boolean generate(ChunkManager level, NukkitRandom rand, Vector3 position, int maxDistance) {
         level.setBlockStateAt(position.getFloorX(), position.getFloorY(), position.getFloorZ(), STATE_CHORUS_FLOWER);
-        // TODO
+        this.growImmediately(level, rand, position, maxDistance, 0);
         return true;
+    }
+    
+    public void growImmediately(ChunkManager level, NukkitRandom random, Vector3 position, int maxDistance, int age) {
+        // TODO
     }
 }
