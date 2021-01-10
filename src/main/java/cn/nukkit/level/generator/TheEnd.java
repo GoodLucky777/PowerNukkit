@@ -8,6 +8,7 @@ import cn.nukkit.level.biome.EnumBiome;
 import cn.nukkit.level.format.generic.BaseFullChunk;
 import cn.nukkit.level.generator.noise.vanilla.d.NoiseGeneratorOctavesD;
 import cn.nukkit.level.generator.noise.vanilla.d.NoiseGeneratorSimplexD;
+import cn.nukkit.level.generator.populator.impl.PopulatorChorusTree;
 import cn.nukkit.level.generator.populator.impl.PopulatorEndIsland;
 import cn.nukkit.level.generator.populator.type.Populator;
 import cn.nukkit.math.MathHelper;
@@ -125,7 +126,8 @@ public class TheEnd extends Generator {
         this.islandNoise = new NoiseGeneratorSimplexD(random);
         
         this.populators = ImmutableList.of(
-            new PopulatorEndIsland(this)
+            new PopulatorEndIsland(this),
+            new PopulatorChorusTree(this)
         );
     }
     
