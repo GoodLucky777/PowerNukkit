@@ -43,7 +43,14 @@ public class ObjectChorusTree extends BasicGenerator {
             level.setBlockStateAt(position.getFloorX(), position.getFloorY() + y, position.getFloorZ(), STATE_CHORUS_PLANT);
         }
         
-        // TODO
+        if (age < 4) {
+            height = random.nextBoundedInt(4);
+            if (age == 0) {
+                height++;
+            }
+            
+            
+        }
     }
     
     private boolean isHorizontalAir(ChunkManager level, Vector3 vector3) {
@@ -51,6 +58,18 @@ public class ObjectChorusTree extends BasicGenerator {
             Vector3 side = vector3.getSide(face);
             if (level.getBlockIdAt(side.getFloorX(), side.getFloorY(), side.getFloorZ()) != AIR) {
                 return false;
+            }
+        }
+        return true;
+    }
+    
+    private boolean isHorizontalAirExcept(ChunkManager level, Vector3 vector3, BlockFace except) {
+        for (BlockFace face : BlockFace.Plane.HORIZONTAL) {
+            if (face != except) {
+                Vector3 side = vector3.getSide(face);
+                if (level.getBlockIdAt(side.getFloorX(), side.getFloorY(), side.getFloorZ()) != AIR) {
+                    return false;
+                }
             }
         }
         return true;
