@@ -60,6 +60,8 @@ public class ObjectChorusTree extends BasicGenerator {
                     }
                 }
             }
+        } else {
+            level.setBlockStateAt(position.getFloorX(), position.getFloorY() + height, position.getFloorZ(), STATE_CHORUS_PLANT);
         }
     }
     
