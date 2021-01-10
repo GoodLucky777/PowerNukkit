@@ -103,9 +103,12 @@ public class BlockChorusFlower extends BlockTransparentMeta {
     public int onUpdate(int type) {
         if (type == Level.BLOCK_UPDATE_NORMAL) {
             if (!isPositionValid()) {
-                this.getLevel().useBreakOn(this);
-                return Level.BLOCK_UPDATE_NORMAL;
+                this.getLevel().scheduleUpdate(this, 1);
+                return type;
             }
+        } else if (type == Level.BLOCK_UPDATE_SCHEDULED) {
+            this.getLevel().useBreakOn(this, null, null, true);
+            return type;
         } else if (type == Level.BLOCK_UPDATE_RANDOM) {
             if (this.up().getId() == AIR && this.up().getY() < 256) {
                 if (!isFullyAged()) {
