@@ -6,11 +6,16 @@ import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.IntBlockProperty;
+import cn.nukkit.entity.Entity;
+import cn.nukkit.entity.projectile.EntityArrow;
+import cn.nukkit.entity.projectile.EntitySnowball;
 import cn.nukkit.event.block.BlockGrowEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
 import cn.nukkit.level.Level;
+import cn.nukkit.level.Position;
 import cn.nukkit.math.BlockFace;
+import cn.nukkit.math.Vector3;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -194,6 +199,16 @@ public class BlockChorusFlower extends BlockTransparentMeta {
     @Override
     public boolean sticksToPiston() {
         return false;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public boolean onProjectileHit(@Nonnull Entity projectile, @Nonnull Position position, @Nonnull Vector3 motion) {
+        if (projectile instanceof EntityArrow || projectile instanceof EntitySnowball) { // TODO: Check Fire Charge too
+            return this.getLevel().useBreakOn(this);
+        }
+        return super.onProjectileHit(projectile, position, motion);
     }
     
     @PowerNukkitOnly
