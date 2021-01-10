@@ -98,7 +98,13 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                 return Level.BLOCK_UPDATE_NORMAL;
             }
         } else if (type == Level.BLOCK_UPDATE_RANDOM) {
-            // TODO
+            if (this.up().getId() == Block.AIR && this.up().getY() < 256) {
+                if (!isFullyAged()) {
+                    // TODO
+                }
+            } else {
+                return Level.BLOCK_UPDATE_RANDOM;
+            }
         }
         
         return 0;
