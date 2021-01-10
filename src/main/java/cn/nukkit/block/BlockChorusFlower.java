@@ -118,7 +118,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                         grow = true;
                     } else if (this.down().getId() == CHORUS_PLANT) {
                         int height = 1;
-                        for (int y = -2; y >= -6; y--) {
+                        for (int y = 2; y < 6; y++) {
                             if (this.down(y).getId() == CHORUS_PLANT) {
                                 height++;
                             } else {
