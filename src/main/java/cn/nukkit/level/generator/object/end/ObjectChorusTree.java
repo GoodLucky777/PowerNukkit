@@ -31,11 +31,13 @@ public class ObjectChorusTree extends BasicGenerator {
     }
     
     public void growImmediately(ChunkManager level, NukkitRandom random, Vector3 position, int maxDistance, int age) {
+        // Random height
         int height = 1 + random.nextBoundedInt(4);
         if (age == 0) {
             height++;
         }
         
+        // Grow upward
         int y;
         for (y = 1; y <= height; y++) {
             if (!this.isHorizontalAir(level, position.up(y))) {
@@ -45,22 +47,24 @@ public class ObjectChorusTree extends BasicGenerator {
         }
         
         if (age < 4) {
-            height = random.nextBoundedInt(4);
+            // Grow horizontally
+            int attempt = random.nextBoundedInt(4);
             if (age == 0) {
-                height++;
+                attempt++;
             }
             
-            for (int i = 0; i < height; i++) {
+            for (int i = 0; i < attempt; i++) {
                 BlockFace face = BlockFace.Plane.HORIZONTAL.random(random);
                 Vector3 check = position.up(y + 1).getSide(face);
                 if (level.getBlockIdAt(check.getFloorX(), check.getFloorY(), check.getFloorZ()) == AIR && level.getBlockIdAt(check.getFloorX(), check.getFloorY() - 1, check.getFloorZ()) == AIR) {
-                    if (Math.abs(check.getFloorX() - position.getFloorX()) < maxDistance && Math.abs(check.getFloorZ() - position.getFloorZ()) < maxDistance && this.isHorizontalEmptyExcept(check, face.getOpposite())) {
+                    if (Math.abs(check.getFloorX() - position.getFloorX()) < maxDistance && Math.abs(check.getFloorZ() - position.getFloorZ()) < maxDistance && this.isHorizontalEmptyExcept(level, check, face.getOpposite())) {
                         level.setBlockStateAt(check.getFloorX(), check.getFloorY(), check.getFloorZ(), STATE_CHORUS_PLANT);
                         this.growImmediately(level, random, check, maxDistance, age + 1);
                     }
                 }
             }
         } else {
+            // Death
             level.setBlockStateAt(position.getFloorX(), position.getFloorY() + height, position.getFloorZ(), STATE_CHORUS_FLOWER_FULLY_AGED);
         }
     }
