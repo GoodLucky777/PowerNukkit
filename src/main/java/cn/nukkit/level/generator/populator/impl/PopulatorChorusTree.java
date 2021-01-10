@@ -3,7 +3,7 @@ package cn.nukkit.level.generator.populator.impl;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.level.generator.TheEnd;
-//import cn.nukkit.level.generator.object.end.ObjectChorus;
+import cn.nukkit.level.generator.object.end.ObjectChorusTree;
 import cn.nukkit.level.generator.populator.type.Populator;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
@@ -15,11 +15,11 @@ public class PopulatorChorusTree extends Populator {
 
     private final TheEnd theEnd;
     
-    //private final ObjectEndIsland objectEndIsland;
+    private final ObjectChorusTree objectChorusTree;
     
     public PopulatorChorusTree(TheEnd theEnd) {
         this.theEnd = theEnd;
-        //this.objectChorus = new ObjectChorus();
+        this.objectChorusTree = new ObjectChorusTree();
     }
     
     @Override
