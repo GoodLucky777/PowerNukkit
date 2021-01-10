@@ -114,7 +114,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                                 height++;
                             } else {
                                 if (this.down(y).getId() == END_STONE) {
-                                    ground == true;
+                                    ground = true;
                                 }
                                 break;
                             }
@@ -136,8 +136,11 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                             return Level.BLOCK_UPDATE_RANDOM;
                         }
                     } else if (!isFullyAged()) {
-                        int i = ThreadLocalRandom.current().nextInt(ground ? 5 : 4);
+                        int check = ThreadLocalRandom.current().nextInt(ground ? 5 : 4);
                         
+                        for (int i = 0; i < check; i++) {
+                            
+                        }
                     } else {
                         BlockChorusFlower block = (BlockChorusFlower) this.clone();
                         block.setAge(getMaxAge());
