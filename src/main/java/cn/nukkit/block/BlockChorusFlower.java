@@ -139,7 +139,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                         for (int i = 0; i < ThreadLocalRandom.current().nextInt(ground ? 5 : 4); i++) {
                             BlockFace face = BlockFace.Plane.HORIZONTAL.random();
                             Block check = this.getSide(face);
-                            if (check.getId() == AIR && check.down().getId() == AIR && check.isHorizontalEmptyExcept(face.getOpposite())) {
+                            if (check.getId() == AIR && check.down().getId() == AIR && ((BlockChorusFlower) check).isHorizontalEmptyExcept(face.getOpposite())) {
                                 BlockChorusFlower block = (BlockChorusFlower) this.clone();
                                 block.setAge(getAge() + 1);
                                 BlockGrowEvent ev = new BlockGrowEvent(this, block);
