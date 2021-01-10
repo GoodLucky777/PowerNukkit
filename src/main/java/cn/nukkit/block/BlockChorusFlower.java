@@ -8,7 +8,6 @@ import cn.nukkit.blockproperty.IntBlockProperty;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
 import cn.nukkit.level.Level;
-import cn.nukkit.level.particle.DestroyBlockParticle;
 import cn.nukkit.math.BlockFace;
 
 import javax.annotation.Nonnull;
@@ -94,16 +93,11 @@ public class BlockChorusFlower extends BlockTransparentMeta {
     public int onUpdate(int type) {
         if (type == Level.BLOCK_UPDATE_NORMAL) {
             if (!isPositionValid()) {
-                level.scheduleUpdate(this, 1);
-                return type;
+                this.getLevel().useBreakOn(this);
+                return Level.BLOCK_UPDATE_NORMAL;
             }
-        } else if (type == Level.BLOCK_UPDATE_SCHEDULED) {
-            Map<Integer, Player> players = level.getChunkPlayers((int) x >> 4, (int) z >> 4);
-            level.addParticle(new DestroyBlockParticle(this, this), players.values());
-            level.setBlock(this, Block.get(AIR));
-            return type;
         }
-
+        
         return 0;
     }
 
