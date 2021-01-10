@@ -1,6 +1,8 @@
 package cn.nukkit.block;
 
 import cn.nukkit.Player;
+import cn.nukkit.blockproperty.BlockProperties;
+import cn.nukkit.blockproperty.IntBlockProperty;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
 import cn.nukkit.level.Level;
@@ -15,7 +17,11 @@ public class BlockChorusFlower extends BlockTransparentMeta {
 
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public static final IntBlockProperty AGE = new IntBlockProperty("age", false, 4);
+    public static final IntBlockProperty AGE = new IntBlockProperty("age", false, 5);
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static final BlockProperties PROPERTIES = new BlockProperties(AGE);
     
     public BlockChorusFlower() {
         this(0);
@@ -24,7 +30,15 @@ public class BlockChorusFlower extends BlockTransparentMeta {
     public BlockChorusFlower(int meta) {
         super(meta);
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Nonnull
+    @Override
+    public BlockProperties getProperties() {
+        return PROPERTIES;
+    }
+    
     @Override
     public int getId() {
         return CHORUS_FLOWER;
@@ -47,7 +61,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
 
     @Override
     public int getToolType() {
-        return ItemTool.TYPE_NONE;
+        return ItemTool.TYPE_AXE;
     }
 
     private boolean isPositionValid() {
@@ -112,5 +126,23 @@ public class BlockChorusFlower extends BlockTransparentMeta {
     @Override
     public boolean sticksToPiston() {
         return false;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getMaxAge() {
+        return AGE.getMaxValue();
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getAge() {
+        return getIntValue(AGE);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setAge(int age) {
+        setIntValue(AGE, age);
     }
 }
