@@ -3772,8 +3772,13 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                 case ProtocolInfo.FILTER_TEXT_PACKET:
                     FilterTextPacket filterTextPacket = (FilterTextPacket) packet;
 
+                    PlayerRenameItemEvent renameItemEvent = new PlayerRenameItemEvent(this, filterTextPacket.text);
+                    this.server.getPluginManager().callEvent(renameItemEvent);
+                    if (renameItemEvent.isCancelled()) {
+                        break;
+                    }
                     FilterTextPacket textResponsePacket = new FilterTextPacket();
-                    textResponsePacket.text = filterTextPacket.text;
+                    textResponsePacket.text = renameItemEvent.getAdjustedText();
                     textResponsePacket.fromServer = true;
                     this.dataPacket(textResponsePacket);
                     break;
