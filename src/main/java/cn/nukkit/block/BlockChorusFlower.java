@@ -109,12 +109,13 @@ public class BlockChorusFlower extends BlockTransparentMeta {
             this.getLevel().useBreakOn(this, null, null, true);
             return type;
         } else if (type == Level.BLOCK_UPDATE_RANDOM) {
+            // Check limit
             if (this.up().getId() == AIR && this.up().getY() < 256) {
                 if (!isFullyAged()) {
-                    boolean grow = false;
-                    boolean ground = false;
+                    boolean growUp = false; // Grow upward?
+                    boolean ground = false; // Is on the ground directly?
                     if (this.down().getId() == AIR || this.down().getId() == END_STONE) {
-                        grow = true;
+                        growUp = true;
                     } else if (this.down().getId() == CHORUS_PLANT) {
                         int height = 1;
                         for (int y = 2; y < 6; y++) {
@@ -129,11 +130,12 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                         }
                         
                         if (height < 2 || height <= ThreadLocalRandom.current().nextInt(ground ? 5 : 4)) {
-                            grow = true;
+                            growUp = true;
                         }
                     }
                     
-                    if (grow && this.up(2).getId() == AIR && isHorizontalAir(this.up())) {
+                    // Grow Upward
+                    if (growUp && this.up(2).getId() == AIR && isHorizontalAir(this.up())) {
                         BlockChorusFlower block = (BlockChorusFlower) this.clone();
                         block.y = this.y + 1;
                         BlockGrowEvent ev = new BlockGrowEvent(this, block);
@@ -146,6 +148,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                         } else {
                             return Level.BLOCK_UPDATE_RANDOM;
                         }
+                    // Grow Horizontally
                     } else if (!isFullyAged()) {
                         for (int i = 0; i < ThreadLocalRandom.current().nextInt(ground ? 5 : 4); i++) {
                             BlockFace face = BlockFace.Plane.HORIZONTAL.random();
@@ -168,6 +171,7 @@ public class BlockChorusFlower extends BlockTransparentMeta {
                                 }
                             }
                         }
+                    // Death
                     } else {
                         BlockChorusFlower block = (BlockChorusFlower) this.clone();
                         block.setAge(getMaxAge());
