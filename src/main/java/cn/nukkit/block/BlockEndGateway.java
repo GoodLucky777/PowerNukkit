@@ -102,4 +102,9 @@ public class BlockEndGateway extends BlockSolid implements BlockEntityHolder<Blo
     public boolean canBePulled() {
         return false;
     }
+    
+    @Override
+    public void onEntityCollide(Entity entity) {
+        
+    }
 }
