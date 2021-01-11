@@ -56,6 +56,20 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         );
     }
     
+    @Override
+    public boolean onUpdate() {
+        if (this.closed) {
+            return false;
+        }
+        
+        this.timing.startTiming();
+        
+        
+        this.timing.stopTiming();
+        
+        return true;
+    }
+    
     public int getAge() {
         return age;
     }
