@@ -102,7 +102,7 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         
         if (exitPortal != null) {
             if (entity instanceof EntityEnderPearl) {
-                if (entity.shootingEntity != null) {
+                if (((EntityProjectile) entity).shootingEntity != null) {
                     
                 } else {
                     
