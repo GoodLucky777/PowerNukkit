@@ -1,6 +1,8 @@
 package cn.nukkit.blockentity;
 
 import cn.nukkit.block.Block;
+import cn.nukkit.entity.Entity;
+import cn.nukkit.entity.projectile.EntityEnderPearl;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.math.BlockVector3;
 import cn.nukkit.nbt.tag.CompoundTag;
@@ -91,6 +93,26 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         this.timing.stopTiming();
         
         return true;
+    }
+    
+    public void teleportEntity(Entity entity) {
+        if (isTeleportCooldown()) {
+            return;
+        }
+        
+        if (exitPortal != null) {
+            if (entity instanceof EntityEnderPearl) {
+                if (entity.shootingEntity != null) {
+                    
+                } else {
+                    
+                }
+            } else {
+                
+            }
+        }
+        
+        setTeleportCooldown();
     }
     
     public int getAge() {
