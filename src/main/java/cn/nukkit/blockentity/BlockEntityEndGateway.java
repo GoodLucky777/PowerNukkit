@@ -123,8 +123,8 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
     }
     
     public BlockVector3 getSafeExitPortal() {
-        for (int x = this.getFloorX() - 5; x <= this.getFloorX() + 5; x++) {
-            for (int z = this.getFloorZ() - 5; z <= this.getFloorZ() + 5; z++) {
+        for (int x = exitPortal.getFloorX() - 5; x <= exitPortal.getFloorX() + 5; x++) {
+            for (int z = exitPortal.getFloorZ() - 5; z <= exitPortal.getFloorZ() + 5; z++) {
                 for (int y = 255; y > Math.max(0, exitPortal.getY() + 2); y--) {
                     if (!this.getLevel().getBlockStateAt(x, y, z).equals(BlockState.AIR)) {
                         if (!this.getLevel().getBlockStateAt(x, y, z).equals(STATE_BEDROCK)) {
