@@ -64,7 +64,7 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         
         this.timing.startTiming();
         
-        this.age += tickDiff;
+        this.age++;
         
         this.timing.stopTiming();
         
