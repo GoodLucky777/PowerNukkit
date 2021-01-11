@@ -1,13 +1,21 @@
 package cn.nukkit.block;
 
+import cn.nukkit.Player;
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
+import cn.nukkit.blockentity.BlockEntity;
+import cn.nukkit.blockentity.BlockEntityEndGateway;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBlock;
+import cn.nukkit.math.BlockFace;
 import cn.nukkit.utils.BlockColor;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author PikyCZ
  */
-public class BlockEndGateway extends BlockSolid {
+public class BlockEndGateway extends BlockSolid implements BlockEntityHolder<BlockEntityEndGateway> {
 
     public BlockEndGateway() {
     }
@@ -21,7 +29,28 @@ public class BlockEndGateway extends BlockSolid {
     public int getId() {
         return END_GATEWAY;
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Nonnull
+    @Override
+    public Class<? extends BlockEntityEndGateway> getBlockEntityClass() {
+        return BlockEntityEndGateway.class;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Nonnull
+    @Override
+    public String getBlockEntityType() {
+        return BlockEntity.END_PORTAL;
+    }
+    
+    @Override
+    public boolean place(@Nonnull Item item, @Nonnull Block block, @Nonnull Block target, @Nonnull BlockFace face, double fx, double fy, double fz, @Nullable Player player) {
+        return BlockEntityHolder.setBlockAndCreateEntity(this) != null;
+    }
+    
     @Override
     public boolean canPassThrough() {
         return true;
