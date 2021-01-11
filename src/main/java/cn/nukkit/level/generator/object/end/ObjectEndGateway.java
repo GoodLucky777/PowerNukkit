@@ -29,12 +29,12 @@ public class ObjectEndGateway extends BasicGenerator {
                     
                     if (flagX && flagY && flagZ) {
                         level.setBlockStateAt(x, y, z, STATE_END_GATEWAY);
+                    } else if (flagY) {
+                        level.setBlockStateAt(x, y, z, BlockState.AIR);
                     } else if (flagX && flagZ && flagFar) {
                         level.setBlockStateAt(x, y, z, STATE_BEDROCK);
                     } else if (!flagFar && (flagX || flagZ)) {
                         level.setBlockStateAt(x, y, z, STATE_BEDROCK);
-                    } else if (flagY) {
-                        level.setBlockStateAt(x, y, z, BlockState.AIR);
                     } else {
                         level.setBlockStateAt(x, y, z, BlockState.AIR);
                     }
