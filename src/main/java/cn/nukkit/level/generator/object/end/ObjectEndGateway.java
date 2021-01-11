@@ -6,6 +6,7 @@ import cn.nukkit.level.generator.object.BasicGenerator;
 import cn.nukkit.math.NukkitMath;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
+import cn.nukkit.utils.MainLogger;
 
 import static cn.nukkit.block.BlockID.BEDROCK;
 import static cn.nukkit.block.BlockID.END_GATEWAY;
