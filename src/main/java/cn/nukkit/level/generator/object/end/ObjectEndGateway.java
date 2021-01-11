@@ -6,7 +6,6 @@ import cn.nukkit.level.generator.object.BasicGenerator;
 import cn.nukkit.math.NukkitMath;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
-import cn.nukkit.utils.MainLogger;
 
 import static cn.nukkit.block.BlockID.BEDROCK;
 import static cn.nukkit.block.BlockID.END_GATEWAY;
@@ -21,15 +20,15 @@ public class ObjectEndGateway extends BasicGenerator {
     
     public boolean generate(ChunkManager level, NukkitRandom rand, Vector3 position) {
         for (int x = position.getFloorX() - 1; x <= position.getFloorX() + 1; x++) {
-            for (int z = position.getFloorZ() - 1; x <= position.getFloorZ() + 1; z++) {
+            for (int z = position.getFloorZ() - 1; z <= position.getFloorZ() + 1; z++) {
                 for (int y = position.getFloorY() - 2; y <= position.getFloorY() + 2; y++) {
                     boolean flagX = position.getFloorX() == x;
                     boolean flagY = position.getFloorY() == y;
                     boolean flagZ = position.getFloorZ() == z;
                     boolean flagFar = Math.abs(y - position.getFloorY()) == 2;
-                    MainLogger.getLogger().info("Generating " + new Vector3(x, y, z).toString());
+                    
                     if (flagX && flagY && flagZ) {
-                        //level.setBlockStateAt(x, y, z, STATE_END_GATEWAY);
+                        level.setBlockStateAt(x, y, z, STATE_END_GATEWAY);
                     } else if (flagX && flagZ && flagFar) {
                         level.setBlockStateAt(x, y, z, STATE_BEDROCK);
                     } else if (!flagFar && (flagX || flagZ)) {
