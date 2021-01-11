@@ -28,7 +28,7 @@ public class ObjectEndGateway extends BasicGenerator {
                     boolean flagFar = Math.abs(y - position.getFloorY()) == 2;
                     
                     if (flagX && flagY && flagZ) {
-                        level.setBlockStateAt(x, y, z, STATE_END_GATEWAY);
+                        //level.setBlockStateAt(x, y, z, STATE_END_GATEWAY);
                     } else if (flagX && flagZ && flagFar) {
                         level.setBlockStateAt(x, y, z, STATE_BEDROCK);
                     } else if (!flagFar && (flagX || flagZ)) {
