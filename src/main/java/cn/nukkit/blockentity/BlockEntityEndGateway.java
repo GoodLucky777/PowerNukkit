@@ -2,7 +2,10 @@ package cn.nukkit.blockentity;
 
 import cn.nukkit.block.Block;
 import cn.nukkit.level.format.FullChunk;
+import cn.nukkit.math.BlockVector3;
 import cn.nukkit.nbt.tag.CompoundTag;
+import cn.nukkit.nbt.tag.IntTag;
+import cn.nukkit.nbt.tag.ListTag;
 
 /**
  * @author GoodLucky777
@@ -51,5 +54,21 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
             .add(new IntTag("1", this.exitPortal.y))
             .add(new IntTag("2", this.exitPortal.z))
         );
+    }
+    
+    public int getAge() {
+        return age;
+    }
+    
+    public void setAge(int age) {
+        this.age = age;
+    }
+    
+    public BlockVector3 getExitPortal() {
+        return exitPortal;
+    }
+    
+    public void setExitPortal(BlockVector3 exitPortal) {
+        this.exitPortal = exitPortal;
     }
 }
