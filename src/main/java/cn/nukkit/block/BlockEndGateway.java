@@ -46,7 +46,7 @@ public class BlockEndGateway extends BlockSolid implements BlockEntityHolder<Blo
     @Nonnull
     @Override
     public String getBlockEntityType() {
-        return BlockEntity.END_PORTAL;
+        return BlockEntity.END_GATEWAY;
     }
     
     @Override
