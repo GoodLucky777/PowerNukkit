@@ -5,6 +5,7 @@ import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.projectile.EntityEnderPearl;
 import cn.nukkit.entity.projectile.EntityProjectile;
+import cn.nukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.math.BlockVector3;
 import cn.nukkit.nbt.tag.CompoundTag;
@@ -109,12 +110,12 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         if (exitPortal != null) {
             if (entity instanceof EntityEnderPearl) {
                 if (((EntityProjectile) entity).shootingEntity != null) {
-                    ((EntityProjectile) entity).shootingEntity.teleport(getSafeExitPortal().asVector3(), TeleportCause.END_GATEWAY);
+                    ((EntityProjectile) entity).shootingEntity.teleport(getSafeExitPortal().asVector3().add(0.5, 0, 0.5), TeleportCause.END_GATEWAY);
                 } else {
-                    entity.teleport(getSafeExitPortal().asVector3(), TeleportCause.END_GATEWAY);
+                    entity.teleport(getSafeExitPortal().asVector3().add(0.5, 0, 0.5), TeleportCause.END_GATEWAY);
                 }
             } else {
-                entity.teleport(getSafeExitPortal().asVector3(), TeleportCause.END_GATEWAY);
+                entity.teleport(getSafeExitPortal().asVector3().add(0.5, 0, 0.5), TeleportCause.END_GATEWAY);
             }
         }
         
@@ -133,6 +134,7 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
                 }
             }
         }
+        
         return this.exitPortal.up(2);
     }
     
