@@ -109,7 +109,7 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
     }
     
     public void setTeleportCooldown() {
-        this.setTeleportCoolown(40);
+        this.setTeleportCooldown(40);
     }
     
     public void setTeleportCooldown(int teleportCooldown) {
