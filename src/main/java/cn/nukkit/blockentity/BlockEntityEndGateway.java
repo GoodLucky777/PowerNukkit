@@ -10,6 +10,8 @@ import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.IntTag;
 import cn.nukkit.nbt.tag.ListTag;
 
+import static cn.nukkit.block.BlockID.BEDROCK;
+
 /**
  * @author GoodLucky777
  */
@@ -24,6 +26,8 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
     
     // Others
     public int teleportCooldown;
+    
+    private static final BlockState STATE_BEDROCK = BlockState.of(BEDROCK);
     
     public BlockEntityEndGateway(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
@@ -119,11 +123,16 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
     public BlockVector3 getSafePosition() {
         for (int x = this.getFloorX() - 5; x <= this.getFloorX() + 5; x++) {
             for (int z = this.getFloorZ() - 5; z <= this.getFloorZ() + 5; z++) {
-                for (int y = 255; y > Math.max(0, exitPortal.getY()); y--) {
-                    
+                for (int y = 255; y > Math.max(0, exitPortal.getY() + 2); y--) {
+                    if (!this.getLevel().getBlockStateAt(x, y, z).equals(BlockState.AIR)) {
+                        if (!this.getLevel().getBlockStateAt(x, y, z).equals(STATE_BEDROCK)) {
+                            return new BlockVector3(x, y + 1, z);
+                        }
+                    }
                 }
             }
         }
+        return this.exitPortal.up(2);
     }
     
     public int getAge() {
