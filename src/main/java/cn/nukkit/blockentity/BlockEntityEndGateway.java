@@ -75,7 +75,7 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
             teleportCooldown--;
         } else {
             if (this.age % 2400 == 0) {
-                this.setTeleportCooldown()
+                this.setTeleportCooldown();
             }
         }
         
