@@ -116,6 +116,10 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         setTeleportCooldown();
     }
     
+    private BlockVector3 getSafePosition() {
+        
+    }
+    
     public int getAge() {
         return age;
     }
