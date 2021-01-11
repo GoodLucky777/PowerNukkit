@@ -10,6 +10,7 @@ import cn.nukkit.level.generator.object.end.ObjectEndGateway;
 import cn.nukkit.level.generator.populator.type.Populator;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
+import cn.nukkit.utils.MainLogger;
 
 import static cn.nukkit.block.BlockID.AIR;
 
@@ -38,9 +39,11 @@ public class PopulatorEndGateway extends Populator {
                 int x = (chunkX << 4) + random.nextBoundedInt(16) + 8;
                 int z = (chunkZ << 4) + random.nextBoundedInt(16) + 8;
                 int y = this.getHighestWorkableBlock(level, x, z, chunk) + random.nextBoundedInt(7) + 3;
-                
+                MainLogger.getLogger().info("Try " + new Vector3(x, y, z).toString());
                 if (y > 1 && y < 254) {
-                    objectEndGateway.generate(level, random, new Vector3(x, y, z));
+                    if (objectEndGateway.generate(level, random, new Vector3(x, y, z))) {
+                        MainLogger.getLogger().info("Success!");
+                    }
                     /*BlockEntity blockEntity = chunk.getTile(x & 0x0f, y & 0xff, z & 0x0f);
                     if (blockEntity != null) {
                         ((BlockEntityEndGateway) blockEntity).setExitPortal(theEnd.getSpawn().asBlockVector3());
