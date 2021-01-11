@@ -109,19 +109,19 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         if (exitPortal != null) {
             if (entity instanceof EntityEnderPearl) {
                 if (((EntityProjectile) entity).shootingEntity != null) {
-                    
+                    ((EntityProjectile) entity).shootingEntity.teleport(getSafeExitPortal().asVector3(), TeleportCause.END_GATEWAY);
                 } else {
-                    
+                    entity.teleport(getSafeExitPortal().asVector3(), TeleportCause.END_GATEWAY);
                 }
             } else {
-                
+                entity.teleport(getSafeExitPortal().asVector3(), TeleportCause.END_GATEWAY);
             }
         }
         
         setTeleportCooldown();
     }
     
-    public BlockVector3 getSafePosition() {
+    public BlockVector3 getSafeExitPortal() {
         for (int x = this.getFloorX() - 5; x <= this.getFloorX() + 5; x++) {
             for (int z = this.getFloorZ() - 5; z <= this.getFloorZ() + 5; z++) {
                 for (int y = 255; y > Math.max(0, exitPortal.getY() + 2); y--) {
