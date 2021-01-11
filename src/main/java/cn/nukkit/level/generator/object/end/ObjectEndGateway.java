@@ -26,7 +26,7 @@ public class ObjectEndGateway extends BasicGenerator {
                     boolean flagY = position.getFloorY() == y;
                     boolean flagZ = position.getFloorZ() == z;
                     boolean flagFar = Math.abs(y - position.getFloorY()) == 2;
-                    
+                    MainLogger.getLogger().info("Generating " + new Vector3(x, y, z).toString());
                     if (flagX && flagY && flagZ) {
                         //level.setBlockStateAt(x, y, z, STATE_END_GATEWAY);
                     } else if (flagX && flagZ && flagFar) {
