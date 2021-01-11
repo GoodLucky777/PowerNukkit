@@ -111,6 +111,7 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
             if (entity instanceof EntityEnderPearl) {
                 if (((EntityProjectile) entity).shootingEntity != null) {
                     ((EntityProjectile) entity).shootingEntity.teleport(getSafeExitPortal().asVector3().add(0.5, 0, 0.5), TeleportCause.END_GATEWAY);
+                    entity.close();
                 } else {
                     entity.teleport(getSafeExitPortal().asVector3().add(0.5, 0, 0.5), TeleportCause.END_GATEWAY);
                 }
