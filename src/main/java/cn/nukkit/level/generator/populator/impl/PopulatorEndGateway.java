@@ -4,7 +4,7 @@ import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.level.generator.TheEnd;
-//import cn.nukkit.level.generator.object.end.ObjectChorusTree;
+import cn.nukkit.level.generator.object.end.ObjectEndGateway;
 import cn.nukkit.level.generator.populator.type.Populator;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
@@ -18,11 +18,11 @@ public class PopulatorEndGateway extends Populator {
 
     private final TheEnd theEnd;
     
-    //private final ObjectChorusTree objectChorusTree;
+    private final ObjectEndGateway objectEndGateway;
     
     public PopulatorEndGateway(TheEnd theEnd) {
         this.theEnd = theEnd;
-        //this.objectChorusTree = new ObjectChorusTree();
+        this.objectEndGateway = new ObjectEndGateway();
     }
     
     @Override
