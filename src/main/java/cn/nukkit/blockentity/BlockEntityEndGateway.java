@@ -123,6 +123,18 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
     }
     
     public BlockVector3 getSafeExitPortal() {
+        // TODO: Find better way
+        for (int x = -1; x <= 1; x++) {
+            for (int z = -1; z <= 1; z++) {
+                int chunkX = (exitPortal.getX() >> 4) + x;
+                int chunkZ = (exitPortal.getZ() >> 4) + z;
+                FullChunk chunk = this.getLevel().getChunk(chunkX, chunkZ, false);
+                if (chunk == null || !(chunk.isGenerated() || chunk.isPopulated())) {
+                    this.getLevel().generateChunk(chunkX, chunkZ, true);
+                }
+            }
+        }
+        
         for (int x = exitPortal.getX() - 5; x <= exitPortal.getX() + 5; x++) {
             for (int z = exitPortal.getZ() - 5; z <= exitPortal.getZ() + 5; z++) {
                 for (int y = 255; y > Math.max(0, exitPortal.getY() + 2); y--) {
