@@ -110,6 +110,11 @@ public class BlockEndGateway extends BlockSolid implements BlockEntityHolder<Blo
             return;
         }
         
+        BlockEntityEndGateway endGateway = getOrCreateBlockEntity();
+        if (endGateway == null) {
+            return;
+        }
         
+        endGateway.teleportEntity(entity);
     }
 }
