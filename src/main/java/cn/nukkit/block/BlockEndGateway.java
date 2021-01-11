@@ -106,6 +106,10 @@ public class BlockEndGateway extends BlockSolid implements BlockEntityHolder<Blo
     
     @Override
     public void onEntityCollide(Entity entity) {
+        if (entity == null) {
+            return;
+        }
+        
         
     }
 }
