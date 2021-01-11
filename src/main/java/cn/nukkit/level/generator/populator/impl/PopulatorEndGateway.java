@@ -39,7 +39,7 @@ public class PopulatorEndGateway extends Populator {
                 
                 if (y > 0 && y < 254) {
                     y += 3 + random.nextBoundedInt(7);
-                    objectEndGateway.generate(level, random, new Vector3(x, y, z));
+                    objectEndGateway.generate(level, random, new Vector3(x, y, z), theEnd.getSpawn());
                 }
             }
         }
