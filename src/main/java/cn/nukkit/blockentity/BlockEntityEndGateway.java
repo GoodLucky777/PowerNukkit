@@ -116,10 +116,12 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         setTeleportCooldown();
     }
     
-    private BlockVector3 getSafePosition() {
+    public BlockVector3 getSafePosition() {
         for (int x = this.getFloorX() - 5; x <= this.getFloorX() + 5; x++) {
             for (int z = this.getFloorZ() - 5; z <= this.getFloorZ() + 5; z++) {
-                
+                for (int y = 255; y > exitPortal.getFloorY(); y--) {
+                    
+                }
             }
         }
     }
