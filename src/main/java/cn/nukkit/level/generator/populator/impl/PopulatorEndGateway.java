@@ -39,7 +39,7 @@ public class PopulatorEndGateway extends Populator {
                 int z = (chunkZ << 4) + random.nextBoundedInt(16) + 8;
                 int y = this.getHighestWorkableBlock(level, x, z, chunk) + random.nextBoundedInt(7) + 3;
                 
-                if (y > 2 && y < 254) {
+                if (y > 1 && y < 254) {
                     objectEndGateway.generate(level, random, new Vector3(x, y, z));
                     BlockEntity blockEntity = chunk.getTile(x & 0x0f, y & 0xff, z & 0x0f);
                     if (blockEntity != null) {
