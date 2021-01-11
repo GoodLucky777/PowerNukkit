@@ -81,7 +81,7 @@ public class BlockEndGateway extends BlockSolid implements BlockEntityHolder<Blo
 
     @Override
     public boolean hasEntityCollision() {
-        return true;
+        return this.getLevel().getDimension() == Level.DIMENSION_THE_END;
     }
 
     @Override
