@@ -19,6 +19,9 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
     // Default value
     private static final BlockVector3 defaultExitPortal = new BlockVector3(0, 0, 0);
     
+    // Others
+    public int teleportCooldown;
+    
     public BlockEntityEndGateway(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
     }
@@ -37,6 +40,8 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         } else {
             this.exitPortal = this.defaultExitPortal.clone();
         }
+        
+        this.teleportCooldown = 0;
     }
     
     @Override
@@ -66,6 +71,10 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         
         this.age++;
         
+        if (teleportCooldown > 0) {
+            teleportCooldown--;
+        }
+        
         this.timing.stopTiming();
         
         return true;
@@ -85,5 +94,17 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
     
     public void setExitPortal(BlockVector3 exitPortal) {
         this.exitPortal = exitPortal;
+    }
+    
+    public boolean isGenerated() {
+        return age < 200;
+    }
+    
+    public boolean isTeleportCooldown() {
+        return teleportCooldown > 0;
+    }
+    
+    public void setTeleportCoolown() {
+        teleportCooldown = 40;
     }
 }
