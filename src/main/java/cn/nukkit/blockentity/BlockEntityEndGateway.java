@@ -69,14 +69,23 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         
         this.timing.startTiming();
         
+        boolean isGenerated = isGenerating();
+        
         this.age++;
         
         if (teleportCooldown > 0) {
             teleportCooldown--;
+            if (teleportCooldown == 0) {
+                setDirty();
+            }
         } else {
             if (this.age % 2400 == 0) {
                 this.setTeleportCooldown();
             }
+        }
+        
+        if (isGenerated != isGenerating()) {
+            setDirty();
         }
         
         this.timing.stopTiming();
@@ -100,7 +109,7 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         this.exitPortal = exitPortal;
     }
     
-    public boolean isGenerated() {
+    public boolean isGenerating() {
         return age < 200;
     }
     
