@@ -10,6 +10,7 @@ import cn.nukkit.level.generator.object.end.ObjectEndGateway;
 import cn.nukkit.level.generator.populator.type.Populator;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
+import cn.nukkit.utils.MainLogger;
 
 /**
  * @author GoodLucky777
@@ -42,7 +43,8 @@ public class PopulatorEndGateway extends Populator {
                         BlockEntity blockEntity = level.getChunk(chunkX, chunkZ).getTile(x & 0x0f, y & 0xff, z & 0x0f);
                         if (blockEntity != null && blockEntity instanceof BlockEntityEndGateway) {
                             ((BlockEntityEndGateway) blockEntity).setExitPortal(theEnd.getSpawn().asBlockVector3());
-                        }
+                            MainLogger.getLogger().info("Success!");
+                        } else MainLogger.getLogger().info("blockEntity == null");
                     }
                 }
             }
