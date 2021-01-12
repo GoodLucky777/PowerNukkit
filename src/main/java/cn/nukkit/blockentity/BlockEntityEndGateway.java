@@ -111,10 +111,6 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
     }
     
     public void teleportEntity(Entity entity) {
-        if (isTeleportCooldown()) {
-            return;
-        }
-        
         if (exitPortal != null) {
             if (entity instanceof EntityEnderPearl) {
                 if (((EntityProjectile) entity).shootingEntity != null) {
