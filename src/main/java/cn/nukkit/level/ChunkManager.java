@@ -3,10 +3,8 @@ package cn.nukkit.level;
 import cn.nukkit.api.DeprecationDetails;
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
-import cn.nukkit.blockentity.BlockEntity;
 import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.format.generic.BaseFullChunk;
-import cn.nukkit.math.BlockVector3;
 import cn.nukkit.math.ChunkVector2;
 
 import javax.annotation.Nonnull;
@@ -102,8 +100,4 @@ public interface ChunkManager {
     void setChunk(int chunkX, int chunkZ, BaseFullChunk chunk);
 
     long getSeed();
-    
-    @PowerNukkitOnly
-    @Since("1.4.0.0-PN")
-    BlockEntity getBlockEntity(BlockVector3 pos);
 }
