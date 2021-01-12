@@ -1,5 +1,6 @@
 package cn.nukkit.blockentity;
 
+import cn.nukkit.Player;
 import cn.nukkit.block.Block;
 import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.entity.Entity;
