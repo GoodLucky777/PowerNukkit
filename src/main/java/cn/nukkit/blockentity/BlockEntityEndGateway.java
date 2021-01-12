@@ -90,6 +90,7 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
             teleportCooldown--;
             if (teleportCooldown == 0) {
                 setDirty();
+                this.spawnToAll();
             }
         } else {
             if (this.age % 2400 == 0) {
@@ -99,6 +100,7 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         
         if (isGenerated != isGenerating()) {
             setDirty();
+            this.spawnToAll();
         }
         
         this.timing.stopTiming();
@@ -186,5 +188,6 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
     public void setTeleportCooldown(int teleportCooldown) {
         this.teleportCooldown = teleportCooldown;
         setDirty();
+        this.spawnToAll();
     }
 }
