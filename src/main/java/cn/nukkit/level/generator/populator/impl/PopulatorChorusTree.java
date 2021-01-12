@@ -37,10 +37,10 @@ public class PopulatorChorusTree extends Populator {
             for (int i = 0; i < random.nextBoundedInt(5); i++) {
                 int x = (chunkX << 4) + random.nextBoundedInt(16);
                 int z = (chunkZ << 4) + random.nextBoundedInt(16);
-                int y = this.getHighestWorkableBlock(level, x, z, chunk) + 1;
+                int y = this.getHighestWorkableBlock(level, x, z, chunk);
                 if (y > 0) {
-                    if (level.getBlockStateAt(x, y, z).equals(BlockState.AIR) && level.getBlockStateAt(x, y - 1, z).equals(STATE_END_STONE)) {
-                        objectChorusTree.generate(level, random, new Vector3(x, y, z), 8);
+                    if (level.getBlockStateAt(x, y + 1, z).equals(BlockState.AIR) && level.getBlockStateAt(x, y, z).equals(STATE_END_STONE)) {
+                        objectChorusTree.generate(level, random, new Vector3(x, y + 1, z), 8);
                     }
                 }
             }
