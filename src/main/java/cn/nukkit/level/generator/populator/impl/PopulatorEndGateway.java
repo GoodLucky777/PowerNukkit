@@ -11,8 +11,6 @@ import cn.nukkit.level.generator.populator.type.Populator;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
 
-import static cn.nukkit.block.BlockID.AIR;
-
 /**
  * @author GoodLucky777
  */
