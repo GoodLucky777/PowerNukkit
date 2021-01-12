@@ -57,6 +57,10 @@ public class BlockEndGateway extends BlockSolid implements BlockEntityHolder<Blo
     
     @Override
     public boolean canPassThrough() {
+        if (this.getLevel() == null) {
+            return false;
+        }
+        
         if (this.getLevel().getDimension() != Level.DIMENSION_THE_END) {
             return false;
         } else {
@@ -86,7 +90,7 @@ public class BlockEndGateway extends BlockSolid implements BlockEntityHolder<Blo
 
     @Override
     public boolean hasEntityCollision() {
-        return this.getLevel().getDimension() == Level.DIMENSION_THE_END;
+        return true;
     }
 
     @Override
@@ -111,6 +115,14 @@ public class BlockEndGateway extends BlockSolid implements BlockEntityHolder<Blo
     
     @Override
     public void onEntityCollide(Entity entity) {
+        if (this.getLevel() == null) {
+            return;
+        }
+        
+        if (this.getLevel().getDimension() != Level.DIMENSION_THE_END) {
+            return;
+        }
+        
         if (entity == null) {
             return;
         }
