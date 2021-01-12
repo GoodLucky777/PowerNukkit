@@ -54,9 +54,9 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         
         this.teleportCooldown = 0;
         
-        scheduleUpdate();
-        
         super.initBlockEntity();
+        
+        scheduleUpdate();
     }
     
     @Override
