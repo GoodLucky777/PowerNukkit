@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 public class BlockEndGateway extends BlockSolid implements BlockEntityHolder<BlockEntityEndGateway> {
 
     public BlockEndGateway() {
+        // Nothing
     }
 
     @Override
@@ -56,7 +57,11 @@ public class BlockEndGateway extends BlockSolid implements BlockEntityHolder<Blo
     
     @Override
     public boolean canPassThrough() {
-        return this.getLevel().getDimension() == Level.DIMENSION_THE_END;
+        if (this.getLevel().getDimension() != Level.DIMENSION_THE_END) {
+            return false;
+        } else {
+            return !getOrCreateBlockEntity().isTeleportCooldown();
+        }
     }
 
     @Override
@@ -115,6 +120,8 @@ public class BlockEndGateway extends BlockSolid implements BlockEntityHolder<Blo
             return;
         }
         
-        endGateway.teleportEntity(entity);
+        if (!endGateway.isTeleportCooldown()) {
+            endGateway.teleportEntity(entity);
+        }
     }
 }
