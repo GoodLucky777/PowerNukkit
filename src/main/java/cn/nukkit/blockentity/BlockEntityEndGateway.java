@@ -190,4 +190,16 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         setDirty();
         this.spawnToAll();
     }
+    
+    private void sendBlockEventPacket() {
+        if (this.closed) {
+            return;
+        }
+        
+        for (Player player : this.getLevel().getChunkPlayers(this.chunk.getX(), this.chunk.getZ()).values()) {
+            if (player.spawned) {
+                // TODO
+            }
+        }
+    }
 }
