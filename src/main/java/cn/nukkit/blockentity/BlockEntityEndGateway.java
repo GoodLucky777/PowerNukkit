@@ -12,6 +12,7 @@ import cn.nukkit.math.BlockVector3;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.IntTag;
 import cn.nukkit.nbt.tag.ListTag;
+import cn.nukkit.network.protocol.BlockEventPacket;
 
 import static cn.nukkit.block.BlockID.BEDROCK;
 
@@ -192,15 +193,19 @@ public class BlockEntityEndGateway extends BlockEntitySpawnable {
         this.spawnToAll();
     }
     
-    private void sendBlockEventPacket() {
+    private void sendBlockEventPacket(int eventData) {
         if (this.closed) {
             return;
         }
         
-        for (Player player : this.getLevel().getChunkPlayers(this.chunk.getX(), this.chunk.getZ()).values()) {
-            if (player.spawned) {
-                // TODO
-            }
+        if (this.getLevel() == null) {
+            return;
         }
+        
+        BlockEventPacket pk = new BlockEventPacket();
+        pk.setBlockPosition(block.getPosition());
+        pk.setEventType(1);
+        pk.setEventData(eventData);
+        this.getLevel().addChunkPacket(this.getPosition(), pk);
     }
 }
