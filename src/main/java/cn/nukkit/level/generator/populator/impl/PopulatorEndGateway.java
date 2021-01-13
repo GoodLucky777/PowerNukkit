@@ -40,7 +40,7 @@ public class PopulatorEndGateway extends Populator {
                 int y = this.getHighestWorkableBlock(level, x, z, chunk) + random.nextBoundedInt(7) + 3;
                 
                 if (y > 1 && y < 254) {
-                    objectEndGateway.generate(level, random, new Vector3(x, y, z), exitPortalPos);
+                    objectEndGateway.generate(level, random, new Vector3(x, y, z), exitPortalPosition);
                 }
             }
         }
