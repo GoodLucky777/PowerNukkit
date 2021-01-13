@@ -19,7 +19,7 @@ public class PopulatorEndGateway extends Populator {
     
     private final ObjectEndGateway objectEndGateway;
     
-    private final BlockVector3 exitPortalPosition;
+    private BlockVector3 exitPortalPosition;
     
     public PopulatorEndGateway(TheEnd theEnd) {
         this.theEnd = theEnd;
