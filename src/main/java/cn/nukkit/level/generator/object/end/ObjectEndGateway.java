@@ -23,7 +23,7 @@ public class ObjectEndGateway extends BasicGenerator {
     private static final BlockState STATE_END_GATEWAY = BlockState.of(END_GATEWAY);
     
     public boolean generate(ChunkManager level, NukkitRandom rand, Vector3 position) {
-        this.generate(level, rand, position, null);
+        return this.generate(level, rand, position, null);
     }
     
     public boolean generate(ChunkManager level, NukkitRandom rand, Vector3 position, BlockVector3 exitPortal) {
