@@ -22,6 +22,10 @@ public class ObjectEndGateway extends BasicGenerator {
     private static final BlockState STATE_BEDROCK = BlockState.of(BEDROCK);
     private static final BlockState STATE_END_GATEWAY = BlockState.of(END_GATEWAY);
     
+    public boolean generate(ChunkManager level, NukkitRandom rand, Vector3 position) {
+        this.generate(level, rand, position, null);
+    }
+    
     public boolean generate(ChunkManager level, NukkitRandom rand, Vector3 position, BlockVector3 exitPortal) {
         for (int x = position.getFloorX() - 1; x <= position.getFloorX() + 1; x++) {
             for (int z = position.getFloorZ() - 1; z <= position.getFloorZ() + 1; z++) {
@@ -33,9 +37,11 @@ public class ObjectEndGateway extends BasicGenerator {
                     
                     if (flagX && flagY && flagZ) {
                         level.setBlockStateAt(x, y, z, STATE_END_GATEWAY);
-                        BlockEntity endGateway = new BlockEntity.createBlockEntity("EndGateway", level.getChunk(x >> 4, z >> 4), BlockEntity.getDefaultCompound(new Position(x, y, z), "EndGateway"));
-                        ((BlockEntityEndGateway) endGateway).setExitPortal(exitPortal);
-                        level.getChunk(x >> 4, z >> 4).addBlockEntity(endGateway);
+                        if (exitPortal != null) {
+                            BlockEntity endGateway = BlockEntity.createBlockEntity("EndGateway", level.getChunk(x >> 4, z >> 4), BlockEntity.getDefaultCompound(new Position(x, y, z), "EndGateway"));
+                            ((BlockEntityEndGateway) endGateway).setExitPortal(exitPortal);
+                            level.getChunk(x >> 4, z >> 4).addBlockEntity(endGateway);
+                        }
                     } else if (flagY) {
                         level.setBlockStateAt(x, y, z, BlockState.AIR);
                     } else if (flagX && flagZ && flagFar) {
