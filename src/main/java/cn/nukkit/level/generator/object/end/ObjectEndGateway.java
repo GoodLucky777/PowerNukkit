@@ -32,7 +32,7 @@ public class ObjectEndGateway extends BasicGenerator {
                     
                     if (flagX && flagY && flagZ) {
                         level.setBlockStateAt(x, y, z, STATE_END_GATEWAY);
-                        BlockEntityEndGateway endGateway = new BlockEntity.createBlockEntity("EndGateway", level.getChunk(x >> 4, z >> 4), BlockEntity.getDefaultCompound());
+                        BlockEntityEndGateway endGateway = new BlockEntity.createBlockEntity("EndGateway", level.getChunk(x >> 4, z >> 4), BlockEntity.getDefaultCompound(new Position(x, y, z), "EndGateway");
                     } else if (flagY) {
                         level.setBlockStateAt(x, y, z, BlockState.AIR);
                     } else if (flagX && flagZ && flagFar) {
