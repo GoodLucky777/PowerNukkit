@@ -1,7 +1,7 @@
 package cn.nukkit.level.generator.object.end;
 
 import cn.nukkit.blockentity.BlockEntity;
-import cn.nukkit.blockentity.BlockEntiyEndGateway;
+import cn.nukkit.blockentity.BlockEntityEndGateway;
 import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.level.Position;
@@ -34,6 +34,7 @@ public class ObjectEndGateway extends BasicGenerator {
                     if (flagX && flagY && flagZ) {
                         level.setBlockStateAt(x, y, z, STATE_END_GATEWAY);
                         BlockEntity endGateway = new BlockEntity.createBlockEntity("EndGateway", level.getChunk(x >> 4, z >> 4), BlockEntity.getDefaultCompound(new Position(x, y, z), "EndGateway"));
+                        ((BlockEntityEndGateway) endGateway).setExitPortal(exitPortal);
                         level.getChunk(x >> 4, z >> 4).addBlockEntity(endGateway);
                     } else if (flagY) {
                         level.setBlockStateAt(x, y, z, BlockState.AIR);
