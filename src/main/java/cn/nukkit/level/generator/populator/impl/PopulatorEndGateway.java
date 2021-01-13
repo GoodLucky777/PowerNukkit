@@ -34,7 +34,7 @@ public class PopulatorEndGateway extends Populator {
         }
         
         if (theEnd.getIslandHeight(chunkX, chunkZ, 1, 1) > 40f) {
-            if (random.nextBoundedInt(/*700*/10) == 0) {
+            if (random.nextBoundedInt(700) == 0) {
                 int x = (chunkX << 4) + random.nextBoundedInt(16);
                 int z = (chunkZ << 4) + random.nextBoundedInt(16);
                 int y = this.getHighestWorkableBlock(level, x, z, chunk) + random.nextBoundedInt(7) + 3;
