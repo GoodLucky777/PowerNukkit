@@ -40,7 +40,7 @@ public class PopulatorEndGateway extends Populator {
                 
                 if (y > 1 && y < 254) {
                     if (objectEndGateway.generate(level, random, new Vector3(x, y, z))) {
-                        BlockEntity blockEntity = level.getChunk(chunkX, chunkZ, false).getTile(x & 0x0f, y & 0xff, z & 0x0f);
+                        BlockEntity blockEntity = level.getChunk(chunkX, chunkZ).getTile(x & 0x0f, y & 0xff, z & 0x0f);
                         if (blockEntity != null && blockEntity instanceof BlockEntityEndGateway) {
                             ((BlockEntityEndGateway) blockEntity).setExitPortal(theEnd.getSpawn().asBlockVector3());
                             MainLogger.getLogger().info("Success!");
