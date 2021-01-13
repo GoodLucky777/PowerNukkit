@@ -21,9 +21,12 @@ public class PopulatorEndGateway extends Populator {
     
     private final ObjectEndGateway objectEndGateway;
     
+    private final BlockVector3 exitPortalPosition;
+    
     public PopulatorEndGateway(TheEnd theEnd) {
         this.theEnd = theEnd;
         this.objectEndGateway = new ObjectEndGateway();
+        this.exitPortalPosition = theEnd.getSpawn().asBlockVector3();
     }
     
     @Override
@@ -39,16 +42,17 @@ public class PopulatorEndGateway extends Populator {
                 int y = this.getHighestWorkableBlock(level, x, z, chunk) + random.nextBoundedInt(7) + 3;
                 
                 if (y > 1 && y < 254) {
-                    /*if (objectEndGateway.generate(level, random, new Vector3(x, y, z))) {
-                        BlockEntity blockEntity = level.getChunk(chunkX, chunkZ).getTile(x & 0x0f, y & 0xff, z & 0x0f);
-                        if (blockEntity != null && blockEntity instanceof BlockEntityEndGateway) {
-                            ((BlockEntityEndGateway) blockEntity).setExitPortal(theEnd.getSpawn().asBlockVector3());
-                            MainLogger.getLogger().info("Success!");
-                        } else MainLogger.getLogger().info("blockEntity == null");
-                    }*/
-                    objectEndGateway.generate(level, random, new Vector3(x, y, z), theEnd.getSpawn().asBlockVector3());
+                    objectEndGateway.generate(level, random, new Vector3(x, y, z), exitPortalPos);
                 }
             }
         }
+    }
+    
+    public BlockVector3 getExitPortalPosition() {
+        return exitPortalPosition;
+    }
+    
+    public void setExitPortalPosition(BlockVector3 exitPortalPosition) {
+        this.exitPortalPosition = exitPortalPosition;
     }
 }
