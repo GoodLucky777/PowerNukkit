@@ -8,7 +8,7 @@ import cn.nukkit.nbt.tag.ListTag;
 /**
  * @author GoodLucky777
  */
-public class Structure {
+public class StructureTemplate {
 
     private BlockVector3 size = new BlockVector3(0, 0, 0);
     
