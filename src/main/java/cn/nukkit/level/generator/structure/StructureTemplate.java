@@ -17,6 +17,11 @@ public class StructureTemplate {
         ListTag<IntTag> sizeList = compoundTag.getList("size", IntTag.class);
         this.size = new BlockVector3(sizeList.get(0).data, sizeList.get(1).data, sizeList.get(2).data);
         
+        // Load palette
+        
+        // Load blocks
+        
+        // Load entities
         
     }
 }
