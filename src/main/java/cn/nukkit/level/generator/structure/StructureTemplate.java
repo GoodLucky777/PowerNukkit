@@ -16,6 +16,7 @@ import java.util.List;
 public class StructureTemplate {
 
     private BlockVector3 size = new BlockVector3(0, 0, 0);
+    private List<StructureTemplate.BlockEntry> blocks = new ArrayList<StructureTemplate.BlockEntry>();
     private List<StructureTemplate.EntityEntry> entities = new ArrayList<StructureTemplate.EntityEntry>();
     
     public void loadStructure(CompoundTag compoundTag) {
@@ -39,6 +40,19 @@ public class StructureTemplate {
                 CompoundTag nbt = entityTag.getCompound("nbt");
                 this.entities.add(new StructureTemplate.EntityEntry(pos, blockPos, nbt));
             }
+        }
+    }
+    
+    private static class BlockEntry {
+    
+        private final BlockVector3 pos;
+        private final int state;
+        private final CompoundTag nbt;
+        
+        public EntityEntry(BlockVector3 pos, int state, CompoundTag nbt) {
+            this.pos = pos;
+            this.state = state;
+            this.nbt = nbt;
         }
     }
     
