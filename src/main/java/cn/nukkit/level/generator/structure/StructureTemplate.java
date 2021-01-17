@@ -49,7 +49,7 @@ public class StructureTemplate {
         private final int state;
         private final CompoundTag nbt;
         
-        public EntityEntry(BlockVector3 pos, int state, CompoundTag nbt) {
+        public BlockEntry(BlockVector3 pos, int state, CompoundTag nbt) {
             this.pos = pos;
             this.state = state;
             this.nbt = nbt;
