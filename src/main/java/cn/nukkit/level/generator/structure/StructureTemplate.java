@@ -7,6 +7,7 @@ import cn.nukkit.nbt.tag.DoubleTag;
 import cn.nukkit.nbt.tag.IntTag;
 import cn.nukkit.nbt.tag.ListTag;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
 public class StructureTemplate {
 
     private BlockVector3 size = new BlockVector3(0, 0, 0);
-    private List<StructureTemplate.EntityEntry> entities = new List<StructureTemplate.EntityEntry>();
+    private List<StructureTemplate.EntityEntry> entities = new ArrayList<StructureTemplate.EntityEntry>();
     
     public void loadStructure(CompoundTag compoundTag) {
         // Load size
