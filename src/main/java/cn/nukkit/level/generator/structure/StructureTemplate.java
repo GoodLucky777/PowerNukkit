@@ -20,6 +20,10 @@ public class StructureTemplate {
     private List<StructureTemplate.EntityEntry> entities = new ArrayList<StructureTemplate.EntityEntry>();
     
     public void loadStructure(CompoundTag compoundTag) {
+        // Clear previous data
+        this.blocks.clear();
+        this.entities.clear();
+        
         // Load size
         ListTag<IntTag> sizeList = compoundTag.getList("size", IntTag.class);
         this.size = new BlockVector3(sizeList.get(0).data, sizeList.get(1).data, sizeList.get(2).data);
