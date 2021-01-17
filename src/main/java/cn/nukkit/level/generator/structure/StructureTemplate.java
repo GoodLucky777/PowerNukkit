@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class StructureTemplate {
 
-    private BlockVector3 size = new BlockVector3(0, 0, 0);
+    private BlockVector3 size = new BlockVector3(0, 0, 0); // This is not a position, this is for a structure size
     private List<StructureTemplate.BlockEntry> blocks = new ArrayList<StructureTemplate.BlockEntry>();
     private List<StructureTemplate.EntityEntry> entities = new ArrayList<StructureTemplate.EntityEntry>();
     
@@ -30,7 +30,9 @@ public class StructureTemplate {
         
         // Load palette
         
+        
         // Load blocks
+        
         
         // Load entities
         ListTag<CompoundTag> entitiesList = compoundTag.getList("entities", CompoundTag.class);
