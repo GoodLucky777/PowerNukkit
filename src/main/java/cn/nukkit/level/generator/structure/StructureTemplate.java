@@ -29,9 +29,9 @@ public class StructureTemplate {
         this.size = new BlockVector3(sizeList.get(0).data, sizeList.get(1).data, sizeList.get(2).data);
         
         // Load palette
-        ListTag<CompoundTag> palettesList = compoundTag.getList("palettes", CompoundTag.class);
+        ListTag<CompoundTag> paletteList = compoundTag.getList("palette", CompoundTag.class);
         for (int i = 0; i < palettesList.size(); i++) {
-            ListTag<CompoundTag> paletteList = palettesList.getList(i, CompoundTag.class);
+            CompoundTag paletteTag = palettesList.get(i);
             
         }
         
