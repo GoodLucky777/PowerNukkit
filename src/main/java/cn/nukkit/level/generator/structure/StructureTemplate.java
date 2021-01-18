@@ -30,8 +30,8 @@ public class StructureTemplate {
         
         // Load palette
         ListTag<CompoundTag> paletteList = compoundTag.getList("palette", CompoundTag.class);
-        for (int i = 0; i < palettesList.size(); i++) {
-            CompoundTag paletteTag = palettesList.get(i);
+        for (int i = 0; i < paletteList.size(); i++) {
+            CompoundTag paletteTag = paletteList.get(i);
             
         }
         
