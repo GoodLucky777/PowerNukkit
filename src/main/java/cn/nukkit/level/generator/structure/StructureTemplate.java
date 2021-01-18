@@ -32,7 +32,17 @@ public class StructureTemplate {
         
         
         // Load blocks
-        
+        ListTag<CompoundTag> blocksList = compoundTag.getList("blocks", CompoundTag.class);
+        for (int i = 0; i < blocksList.size(); i++) {
+            CompoundTag blockTag = blocksList.get(i);
+            if (blockTag.contains("pos") && blockTag.contains("state")) {
+                ListTag<IntTag> posTag = blockTag.getList("pos", IntTag.class);
+                BlockVector3 pos = new BlockVector3(posTag.get(0).data, posTag.get(1).data, posTag.get(2).data);
+                int state = blockTag.getInt("state");
+                CompoundTag nbt = blockTag.contains("nbt") ? blockTag.getCompound("nbt") : null;
+                this.blocks.add(new StructureTemplate.BlockEntry(pos, state, nbt));
+            }
+        }
         
         // Load entities
         ListTag<CompoundTag> entitiesList = compoundTag.getList("entities", CompoundTag.class);
