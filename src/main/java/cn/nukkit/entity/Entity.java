@@ -593,9 +593,13 @@ public abstract class Entity extends Location implements Metadatable {
         this.server = chunk.getProvider().getLevel().getServer();
         
         if (!this.namedTag.contains("identifier")) {
-            //this.namedTag.putString("identifier", ""); // TODO
+            if (AddEntityPacket.LEGACY_IDS.get(NETWORK_ID) != null) {
+                this.namedTag.putString("identifier", AddEntityPacket.LEGACY_IDS.get(NETWORK_ID));
+                this.identifier = this.namedTag.getString("identifier");
+            } else {
+                this.identifier = null;
+            }
         }
-        this.identifier = this.namedTag.getString("identifier");
         
         this.boundingBox = new SimpleAxisAlignedBB(0, 0, 0, 0, 0, 0);
 
