@@ -486,7 +486,11 @@ public abstract class Entity extends Location implements Metadatable {
     protected boolean isPlayer = false;
 
     private volatile boolean initialized;
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private String identifier;
+    
     public float getHeight() {
         return 0;
     }
@@ -1073,6 +1077,8 @@ public abstract class Entity extends Location implements Metadatable {
         } else {
             this.namedTag.remove("ActiveEffects");
         }
+        
+        this.namedTag.putString("identifier", this.identifier);
     }
 
     @Nonnull
@@ -2684,7 +2690,19 @@ public abstract class Entity extends Location implements Metadatable {
     public boolean isPreventingSleep(Player player) {
         return false;
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public String getIdentifier() {
+        return identifier;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
