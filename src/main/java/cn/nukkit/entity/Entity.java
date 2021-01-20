@@ -2710,8 +2710,9 @@ public abstract class Entity extends Location implements Metadatable {
     }
     
     /**
-     * You can use to add a custom entity.
+     * You can use to add a custom entity without registry things.
      * This is a dangerous method, please use this if you know what you are doing.
+     * @param An entity identifier. For example, minecraft:chicken.
      */
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
