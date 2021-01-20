@@ -591,7 +591,12 @@ public abstract class Entity extends Location implements Metadatable {
         this.chunk = chunk;
         this.setLevel(chunk.getProvider().getLevel());
         this.server = chunk.getProvider().getLevel().getServer();
-
+        
+        if (!this.namedTag.contains("identifier")) {
+            //this.namedTag.putString("identifier", ""); // TODO
+        }
+        this.identifier = this.namedTag.getString("identifier");
+        
         this.boundingBox = new SimpleAxisAlignedBB(0, 0, 0, 0, 0, 0);
 
         ListTag<DoubleTag> posList = this.namedTag.getList("Pos", DoubleTag.class);
@@ -1036,7 +1041,9 @@ public abstract class Entity extends Location implements Metadatable {
                 this.namedTag.remove("CustomNameAlwaysVisible");
             }
         }
-
+        
+        this.namedTag.putString("identifier", this.identifier);
+        
         this.namedTag.putList(new ListTag<DoubleTag>("Pos")
                 .add(new DoubleTag("0", this.x))
                 .add(new DoubleTag("1", this.y))
@@ -1077,8 +1084,6 @@ public abstract class Entity extends Location implements Metadatable {
         } else {
             this.namedTag.remove("ActiveEffects");
         }
-        
-        this.namedTag.putString("identifier", this.identifier);
     }
 
     @Nonnull
@@ -1119,6 +1124,9 @@ public abstract class Entity extends Location implements Metadatable {
         addEntity.type = this.getNetworkId();
         addEntity.entityUniqueId = this.getId();
         addEntity.entityRuntimeId = this.getId();
+        if (this.identifier != null) {
+            addEntity.id = this.identifier;
+        }
         addEntity.yaw = (float) this.yaw;
         addEntity.headYaw = (float) this.yaw;
         addEntity.pitch = (float) this.pitch;
