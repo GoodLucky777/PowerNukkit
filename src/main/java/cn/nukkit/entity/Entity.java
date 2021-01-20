@@ -2709,6 +2709,10 @@ public abstract class Entity extends Location implements Metadatable {
         return identifier;
     }
     
+    /**
+     * You can use to add a custom entity.
+     * This is a dangerous method, please use this if you know what you are doing.
+     */
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public void setIdentifier(String identifier) {
