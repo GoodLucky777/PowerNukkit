@@ -3,6 +3,7 @@ package cn.nukkit.level.biome.impl.extremehills;
 import cn.nukkit.block.BlockSapling;
 import cn.nukkit.level.biome.type.GrassyBiome;
 import cn.nukkit.level.generator.populator.impl.PopulatorInfestedBlock;
+import cn.nukkit.level.generator.populator.impl.PopulatorOreEmerald;
 import cn.nukkit.level.generator.populator.impl.PopulatorTree;
 
 /**
@@ -20,6 +21,9 @@ public class ExtremeHillsBiome extends GrassyBiome {
 
     public ExtremeHillsBiome(boolean tree) {
         super();
+        
+        PopulatorOreEmerald oreEmerald = new PopulatorOreEmerald();
+        this.addPopulator(oreEmerald);
         
         PopulatorInfestedBlock infestedBlock = new PopulatorInfestedBlock();
         this.addPopulator(infestedBlock);
