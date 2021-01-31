@@ -4683,58 +4683,72 @@
   // GoodLucky
   {
     "name": "goodlucky:ruby",
-    "id": 5000
+    "id": 5000,
+    "oldId": 5000
   },
   {
     "name": "goodlucky:bacon",
-    "id": 5400
+    "id": 5400,
+    "oldId": 5400
   },
   {
     "name": "goodlucky:baguette",
-    "id": 5401
+    "id": 5401,
+    "oldId": 5401
   },
   {
     "name": "goodlucky:beer",
-    "id": 5402
+    "id": 5402,
+    "oldId": 5402
   },
   {
     "name": "goodlucky:brownie",
-    "id": 5403
+    "id": 5403,
+    "oldId": 5403
   },
   {
     "name": "goodlucky:cheese",
-    "id": 5404
+    "id": 5404,
+    "oldId": 5404
   },
   {
     "name": "goodlucky:chocolate",
-    "id": 5405
+    "id": 5405,
+    "oldId": 5405
   },
   {
     "name": "goodlucky:fried_chicken",
-    "id": 5406
+    "id": 5406,
+    "oldId": 5406
   },
   {
     "name": "goodlucky:fried_chicken_leg",
-    "id": 5407
+    "id": 5407,
+    "oldId": 5407
   },
   {
     "name": "goodlucky:fried_egg",
-    "id": 5408
+    "id": 5408,
+    "oldId": 5408
   },
   {
     "name": "goodlucky:apple_pie",
-    "id": 5409
+    "id": 5409,
+    "oldId": 5409
   },
   {
     "name": "goodlucky:pretzel",
-    "id": 5410
+    "id": 5410,
+    "oldId": 5410
   },
   {
     "name": "goodlucky:whiskey",
-    "id": 5411
+    "id": 5411,
+    "oldId": 5411
   },
   {
     "name": "goodlucky:wine",
-    "id": 5412
+    "id": 5412,
+    "oldId": 5412
   }
 ]
