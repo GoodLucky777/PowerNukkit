@@ -4679,5 +4679,62 @@
   {
     "name": "minecraft:debug_stick",
     "id": 616
+  },
+  // GoodLucky
+  {
+    "name": "goodlucky:ruby",
+    "id": 5000
+  },
+  {
+    "name": "goodlucky:bacon",
+    "id": 5400
+  },
+  {
+    "name": "goodlucky:baguette",
+    "id": 5401
+  },
+  {
+    "name": "goodlucky:beer",
+    "id": 5402
+  },
+  {
+    "name": "goodlucky:brownie",
+    "id": 5403
+  },
+  {
+    "name": "goodlucky:cheese",
+    "id": 5404
+  },
+  {
+    "name": "goodlucky:chocolate",
+    "id": 5405
+  },
+  {
+    "name": "goodlucky:fried_chicken",
+    "id": 5406
+  },
+  {
+    "name": "goodlucky:fried_chicken_leg",
+    "id": 5407
+  },
+  {
+    "name": "goodlucky:fried_egg",
+    "id": 5408
+  },
+  {
+    "name": "goodlucky:apple_pie",
+    "id": 5409
+  },
+  {
+    "name": "goodlucky:pretzel",
+    "id": 5410
+  },
+  {
+    "name": "goodlucky:whiskey",
+    "id": 5411
+  },
+  {
+    "name": "goodlucky:wine",
+    "id": 5412
   }
 ]
