@@ -45171,6 +45171,32 @@
       "priority": 0
     },
     {
+      "id" : "minecraft:ruby_sword",
+      "type" : 1,
+      "input" : {
+        "A" : {
+          "id" : 5000,
+          "damage" : 32767
+        },
+        "B" : {
+          "id" : 320,
+          "damage" : 32767
+        }
+      },
+      "output" : [
+        {
+          "id" : 6000
+        }
+      ],
+      "shape" : [
+        "A",
+        "A",
+        "B"
+      ],
+      "block" : "crafting_table",
+      "priority" : 0
+    },
+    {
       "type" : 3,
       "input" : {
         "id" : -288,
