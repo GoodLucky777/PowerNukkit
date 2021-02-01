@@ -307,4 +307,6 @@ public interface ItemID {
     int PRETZEL = 5410;
     int WHISKEY = 5411;
     int WINE = 5412;
+    
+    int RUBY_SWORD = 6000;
 }
