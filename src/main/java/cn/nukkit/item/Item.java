@@ -429,6 +429,8 @@ public class Item implements Cloneable, BlockID, ItemID {
             list[WHISKEY] = ItemWhiskey.class; // 5411
             list[WINE] = ItemWine.class; // 5412
             
+            list[RUBY_SWORD] = ItemSwordRuby.class; // 6000
+            
             for (int i = 0; i < 256; ++i) {
                 if (Block.list[i] != null) {
                     list[i] = Block.list[i];
