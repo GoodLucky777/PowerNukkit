@@ -47122,10 +47122,8 @@
     // GoodLucky
     {
       "type" : 3,
-      "input" : {
-        "id" : 361,
-        "damage" : -1
-      },
+      "inputId" : 325,
+      "inputDamage" : 1,
       "output" : {
         "id" : 5404
       },
@@ -47133,10 +47131,8 @@
     },
     {
       "type" : 3,
-      "input" : {
-        "id" : 361,
-        "damage" : -1
-      },
+      "inputId" : 325,
+      "inputDamage" : 1,
       "output" : {
         "id" : 5404
       },
