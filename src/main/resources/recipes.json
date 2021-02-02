@@ -45027,6 +45027,196 @@
       "block" : "crafting_table",
       "priority" : 50
     },
+    // Custom
+    {
+      "id" : "minecraft:netherite_sword_custom",
+      "type" : 0,
+      "input" : [
+        {
+          "id" : 316,
+          "damage" : 32767
+        },
+        {
+          "id" : 591,
+          "damage" : 32767
+        }
+      ],
+      "output" : [
+        {
+          "id" : 592
+        }
+      ],
+      "block" : "crafting_table",
+      "priority" : 0
+    },
+    {
+      "id" : "minecraft:netherite_shovel_custom",
+      "type" : 0,
+      "input" : [
+        {
+          "id" : 317,
+          "damage" : 32767
+        },
+        {
+          "id" : 591,
+          "damage" : 32767
+        }
+      ],
+      "output" : [
+        {
+          "id" : 593
+        }
+      ],
+      "block" : "crafting_table",
+      "priority" : 0
+    },
+    {
+      "id" : "minecraft:netherite_pickaxe_custom",
+      "type" : 0,
+      "input" : [
+        {
+          "id" : 318,
+          "damage" : 32767
+        },
+        {
+          "id" : 591,
+          "damage" : 32767
+        }
+      ],
+      "output" : [
+        {
+          "id" : 594
+        }
+      ],
+      "block" : "crafting_table",
+      "priority" : 0
+    },
+    {
+      "id" : "minecraft:netherite_axe_custom",
+      "type" : 0,
+      "input" : [
+        {
+          "id" : 319,
+          "damage" : 32767
+        },
+        {
+          "id" : 591,
+          "damage" : 32767
+        }
+      ],
+      "output" : [
+        {
+          "id" : 595
+        }
+      ],
+      "block" : "crafting_table",
+      "priority" : 0
+    },
+    {
+      "id" : "minecraft:netherite_hoe_custom",
+      "type" : 0,
+      "input" : [
+        {
+          "id" : 332,
+          "damage" : 32767
+        },
+        {
+          "id" : 591,
+          "damage" : 32767
+        }
+      ],
+      "output" : [
+        {
+          "id" : 596
+        }
+      ],
+      "block" : "crafting_table",
+      "priority" : 0
+    },
+    {
+      "id" : "minecraft:netherite_helmet_custom",
+      "type" : 0,
+      "input" : [
+        {
+          "id" : 347,
+          "damage" : 32767
+        },
+        {
+          "id" : 591,
+          "damage" : 32767
+        }
+      ],
+      "output" : [
+        {
+          "id" : 597
+        }
+      ],
+      "block" : "crafting_table",
+      "priority" : 0
+    },
+    {
+      "id" : "minecraft:netherite_chestplate_custom",
+      "type" : 0,
+      "input" : [
+        {
+          "id" : 348,
+          "damage" : 32767
+        },
+        {
+          "id" : 591,
+          "damage" : 32767
+        }
+      ],
+      "output" : [
+        {
+          "id" : 598
+        }
+      ],
+      "block" : "crafting_table",
+      "priority" : 0
+    },
+    {
+      "id" : "minecraft:netherite_leggings_custom",
+      "type" : 0,
+      "input" : [
+        {
+          "id" : 349,
+          "damage" : 32767
+        },
+        {
+          "id" : 591,
+          "damage" : 32767
+        }
+      ],
+      "output" : [
+        {
+          "id" : 599
+        }
+      ],
+      "block" : "crafting_table",
+      "priority" : 0
+    },
+    {
+      "id" : "minecraft:netherite_boots_custom",
+      "type" : 0,
+      "input" : [
+        {
+          "id" : 350,
+          "damage" : 32767
+        },
+        {
+          "id" : 591,
+          "damage" : 32767
+        }
+      ],
+      "output" : [
+        {
+          "id" : 600
+        }
+      ],
+      "block" : "crafting_table",
+      "priority" : 0
+    },
     // Goodlucky
     {
         "id" : "goodlucky_bacon",
@@ -46928,6 +47118,51 @@
         "id" : 549
       },
       "block" : "furnace"
+    },
+    // GoodLucky
+    {
+      "type" : 3,
+      "input" : {
+        "id" : 361,
+        "damage" : -1
+      },
+      "output" : {
+        "id" : 5404
+      },
+      "block" : "furnace"
+    },
+    {
+      "type" : 3,
+      "input" : {
+        "id" : 361,
+        "damage" : -1
+      },
+      "output" : {
+        "id" : 5404
+      },
+      "block" : "smoker"
+    },
+    {
+      "type" : 3,
+      "input" : {
+        "id" : 388,
+        "damage" : -1
+      },
+      "output" : {
+        "id" : 5408
+      },
+      "block" : "furnace"
+    },
+    {
+      "type" : 3,
+      "input" : {
+        "id" : 388,
+        "damage" : -1
+      },
+      "output" : {
+        "id" : 5408
+      },
+      "block" : "smoker"
     }
   ],
   "potionMixes" : [
