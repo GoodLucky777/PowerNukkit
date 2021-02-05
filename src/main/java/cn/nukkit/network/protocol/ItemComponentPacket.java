@@ -68,7 +68,7 @@ public class ItemComponentPacket extends DataPacket {
     public static final Entry[] entries = {
         new Entry("goodlucky:ruby_sword", new CompoundTag("")
             .putString("name", "goodlucky:ruby_sword")
-            .putShort("id", (short) 6000)
+            .putInt("id", 6000)
             .putCompound("minecraft:display_name", new CompoundTag("minecraft:display_name")
                 .putString("value", "item.goodlucky:ruby_sword.name"))
             .putCompound("components", new CompoundTag("components")
