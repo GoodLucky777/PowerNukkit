@@ -86,7 +86,11 @@ public class ItemComponentPacket extends DataPacket {
                     .putString("texture", "goodlucky:bacon"))
                 .putCompound("item_properties", new CompoundTag("item_properties")
                     .putInt("creative_category", 3))
-                .putString("minecraft:use_animation", "eat"))
+                .putCompound("minecraft:food", new CompoundTag("minecraft:food")
+                    .putInt("nutrition", 1)
+                    .putString("saturation_modifier", "low"))
+                .putCompound("minecraft:use_duration", new CompoundTag("minecraft:use_duration")
+                    .putInt("value", 1)))
         ),
         new Entry("goodlucky:ruby_sword", new CompoundTag("")
             .putString("name", "goodlucky:ruby_sword")
