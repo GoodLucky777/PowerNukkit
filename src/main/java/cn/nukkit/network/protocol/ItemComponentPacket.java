@@ -36,7 +36,7 @@ public class ItemComponentPacket extends DataPacket {
         try {
             for (Entry entry : this.entries) {
                 this.putString(entry.getName());
-                this.put(NBTIO.write(entry.getData(), ByteOrder.LITTLE_ENDIAN, false));
+                this.put(NBTIO.write(entry.getData(), ByteOrder.LITTLE_ENDIAN, true));
                 MainLogger.getLogger().info(entry.getName() + " : " + entry.getData().toString());
             }
         } catch (IOException e) {
@@ -67,16 +67,15 @@ public class ItemComponentPacket extends DataPacket {
     
     public static final Entry[] entries = {
         new Entry("goodlucky:ruby_sword", new CompoundTag("")
-            .putCompound("", new CompoundTag("")
-                .putString("name", "goodlucky:ruby_sword")
-                .putShort("id", (short) 6000)
-                .putCompound("components", new CompoundTag("components")
-                    .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
-                        .putString("texture", "goodlucky:ruby_sword"))
-                    .putCompound("item_properties", new CompoundTag("item_properties")
-                        .putInt("damage", 9)
-                        .putBoolean("hand_equipped", true)
-                        .putInt("max_stack_size", 1)))
-        ))
+            .putString("name", "goodlucky:ruby_sword")
+            .putShort("id", (short) 6000)
+            .putCompound("components", new CompoundTag("components")
+                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
+                    .putString("texture", "goodlucky:ruby_sword"))
+                .putCompound("item_properties", new CompoundTag("item_properties")
+                    .putInt("damage", 9)
+                    .putBoolean("hand_equipped", true)
+                    .putInt("max_stack_size", 1)))
+        )
     };
 }
