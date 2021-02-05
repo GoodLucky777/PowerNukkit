@@ -17,7 +17,7 @@ public class ItemComponentPacket extends DataPacket {
 
     public static final byte NETWORK_ID = ProtocolInfo.ITEM_COMPONENT_PACKET;
     
-    public Entry[] entries = Entry.EMPTY_ARRAY;
+   //public Entry[] entries = Entry.EMPTY_ARRAY;
     
     @Override
     public byte pid() {
@@ -63,4 +63,12 @@ public class ItemComponentPacket extends DataPacket {
             return data;
         }
     }
+    
+    public static final Entry[] entries = {
+        new Entry("goodlucky:ruby_sword", new CompoundTag("", new CompoundTag("")
+            .putCompound("components", new CompoundTag("components"))
+                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon"))
+                    .putString("texture", "goodlucky:ruby_sword"))
+            );
+    };
 }
