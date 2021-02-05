@@ -74,7 +74,7 @@ public class ItemComponentPacket extends DataPacket {
             .putCompound("item_properties", new CompoundTag("item_properties"))
                 .putInt("damage", 9)
                 .putBoolean("hand_equipped", true)
-                .putInt("max_stack_size", 1)
+                .putInt("max_stack_size", 1))
             ));
     };
 }
