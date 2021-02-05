@@ -71,6 +71,6 @@ public class ItemComponentPacket extends DataPacket {
             .putCompound("components", new CompoundTag("components"))
                 .putCompound("minecraft:icon", new CompoundTag("minecraft:icon"))
                     .putString("texture", "goodlucky:ruby_sword"))
-            );
+            ));
     };
 }
