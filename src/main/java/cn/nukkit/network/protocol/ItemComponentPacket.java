@@ -31,9 +31,13 @@ public class ItemComponentPacket extends DataPacket {
     public void encode() {
         this.reset();
         this.putUnsignedVarInt(this.entries.length);
-        for (Entry entry : this.entries) {
-            this.putString(entry.getName());
-            this.put(NBTIO.write(entry.getData(), ByteOrder.LITTLE_ENDIAN, true));
+        try {
+            for (Entry entry : this.entries) {
+                this.putString(entry.getName());
+                this.put(NBTIO.write(entry.getData(), ByteOrder.LITTLE_ENDIAN, true));
+            }
+        } catch (IOException e) {
+            MainLogger.getLogger().error("Error whilst encoding ItemComponentPacket", e);
         }
     }
     
