@@ -335,7 +335,11 @@ public class ItemComponentPacket extends DataPacket {
                     .putBoolean("can_always_eat", true))
                 .putInt("use_animation", 1)
                 .putCompound("minecraft:use_duration", new CompoundTag("minecraft:use_duration")
-                    .putInt("value", 1)))
+                    .putInt("value", 1))
+                .putCompound("minecraft:on_use", new CompoundTag("minecraft:on_use")
+                    .putBoolean("on_use", true))
+                .putCompound("minecraft:on_use_on", new CompoundTag("minecraft:on_use_on")
+                    .putBoolean("on_use_on", true)))
         ),
         new Entry("goodlucky:ruby_sword", new CompoundTag("")
             .putString("name", "goodlucky:ruby_sword")
