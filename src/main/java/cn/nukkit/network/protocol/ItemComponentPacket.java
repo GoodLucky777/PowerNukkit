@@ -17,7 +17,7 @@ public class ItemComponentPacket extends DataPacket {
 
     public static final byte NETWORK_ID = ProtocolInfo.ITEM_COMPONENT_PACKET;
     
-   //public Entry[] entries = Entry.EMPTY_ARRAY;
+    //public Entry[] entries = Entry.EMPTY_ARRAY;
     
     @Override
     public byte pid() {
