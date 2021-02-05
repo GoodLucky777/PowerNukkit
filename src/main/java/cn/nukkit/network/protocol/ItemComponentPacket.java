@@ -2,6 +2,8 @@ package cn.nukkit.network.protocol;
 
 import cn.nukkit.nbt.tag.CompoundTag;
 
+import java.nio.ByteOrder;
+
 import lombok.ToString;
 
 /**
@@ -30,7 +32,7 @@ public class ItemComponentPacket extends DataPacket {
         this.putUnsignedVarInt(this.entries.length);
         for (Entry entry : this.entries) {
             this.putString(entry.getName());
-            
+            this.put(NBTIO.write(entry.getData(), ByteOrder.LITTLE_ENDIAN, true));
         }
     }
     
