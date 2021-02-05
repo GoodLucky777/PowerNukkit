@@ -45,7 +45,8 @@ public class ItemComponentPacket extends DataPacket {
         private final CompoundTag data;
         
         public Entry(String name, CompoundTag data) {
-            this(name, data);
+            this.name = name;
+            this.data = data;
         }
         
         public String getName() {
