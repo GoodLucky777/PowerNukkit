@@ -65,6 +65,29 @@ public class ItemComponentPacket extends DataPacket {
     }
     
     public static final Entry[] entries = {
+        new Entry("goodlucky:ruby", new CompoundTag("")
+            .putString("name", "goodlucky:ruby")
+            .putInt("id", 5000)
+            .putCompound("components", new CompoundTag("components")
+                .putCompound("minecraft:display_name", new CompoundTag("minecraft:display_name")
+                    .putString("value", "item.goodlucky:ruby.name"))
+                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
+                    .putString("texture", "goodlucky:ruby"))
+                .putCompound("item_properties", new CompoundTag("item_properties")
+                    .putInt("creative_category", 4)))
+        ),
+        new Entry("goodlucky:bacon", new CompoundTag("")
+            .putString("name", "goodlucky:bacon")
+            .putInt("id", 5400)
+            .putCompound("components", new CompoundTag("components")
+                .putCompound("minecraft:display_name", new CompoundTag("minecraft:display_name")
+                    .putString("value", "item.goodlucky:bacon.name"))
+                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
+                    .putString("texture", "goodlucky:bacon"))
+                .putCompound("item_properties", new CompoundTag("item_properties")
+                    .putInt("creative_category", 3))
+                .putString("minecraft:use_animation", "eat")))
+        ),
         new Entry("goodlucky:ruby_sword", new CompoundTag("")
             .putString("name", "goodlucky:ruby_sword")
             .putInt("id", 6000)
