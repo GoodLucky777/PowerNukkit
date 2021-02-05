@@ -89,7 +89,7 @@ public class ItemComponentPacket extends DataPacket {
                     .putInt("creative_category", 3)
                     .putInt("max_stack_size", 64))
                 .putCompound("minecraft:food", new CompoundTag("minecraft:food")
-                    .putFloat("nutrition", 2.0)
+                    .putFloat("nutrition", 2.0f)
                     .putString("saturation_modifier", "low")
                     .putBoolean("can_always_eat", false))
                 .putInt("use_animation", 1)
