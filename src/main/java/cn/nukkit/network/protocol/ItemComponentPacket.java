@@ -10,9 +10,13 @@ import lombok.ToString;
 @ToString
 public class ItemComponentPacket extends DataPacket {
 
+    public static final byte NETWORK_ID = ProtocolInfo.ITEM_COMPONENT_PACKET;
+    
+    public Entry[] entries = Entry.EMPTY_ARRAY;
+    
     @Override
     public byte pid() {
-        return ProtocolInfo.ITEM_COMPONENT_PACKET;
+        return NETWORK_ID;
     }
     
     @Override
@@ -23,15 +27,19 @@ public class ItemComponentPacket extends DataPacket {
     @Override
     public void encode() {
         this.reset();
-        this.putVarInt(0); // TODO
+        this.putUnsignedVarInt(this.entries.length);
+        for (Entry entry : this.entries) {
+            this.putString(entry.getName());
+            
+        }
     }
     
     @ToString
     public static class Entry {
         public static final Entry[] EMPTY_ARRAY = new Entry[0];
         
-        public final String name;
-        public final CompoundTag data;
+        private final String name;
+        private final CompoundTag data;
         
         public Entry(String name, CompoundTag data) {
             this(name, data);
