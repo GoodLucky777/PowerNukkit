@@ -37,7 +37,6 @@ public class ItemComponentPacket extends DataPacket {
             for (Entry entry : this.entries) {
                 this.putString(entry.getName());
                 this.put(NBTIO.write(entry.getData(), ByteOrder.LITTLE_ENDIAN, true));
-                MainLogger.getLogger().info(entry.getName() + " : " + entry.getData().toString());
             }
         } catch (IOException e) {
             MainLogger.getLogger().error("Error while encoding NBT data of ItemComponentPacket", e);
@@ -80,6 +79,7 @@ public class ItemComponentPacket extends DataPacket {
                     .putBoolean("hand_equipped", true)
                     .putInt("max_stack_size", 1))
                 .putCompound("minecraft:durability", new CompoundTag("minecraft:durability")
+                    .putInt("damage_change", 1)
                     .putInt("max_durable", 1562)))
         )
     };
