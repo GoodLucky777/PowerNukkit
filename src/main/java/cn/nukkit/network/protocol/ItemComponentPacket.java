@@ -39,7 +39,7 @@ public class ItemComponentPacket extends DataPacket {
                 this.put(NBTIO.write(entry.getData(), ByteOrder.LITTLE_ENDIAN, true));
             }
         } catch (IOException e) {
-            MainLogger.getLogger().error("Error whilst encoding ItemComponentPacket", e);
+            MainLogger.getLogger().error("Error while encoding NBT data of ItemComponentPacket", e);
         }
     }
     
