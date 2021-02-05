@@ -4,6 +4,7 @@ import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.utils.MainLogger;
 
+import java.io.IOException
 import java.nio.ByteOrder;
 
 import lombok.ToString;
