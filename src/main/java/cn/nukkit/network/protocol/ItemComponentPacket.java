@@ -71,11 +71,11 @@ public class ItemComponentPacket extends DataPacket {
                 .putShort("id", (short) 6000)
                 .putCompound("components", new CompoundTag("components")
                     .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
-                        .putString("texture", "goodlucky:ruby_sword")))
-                .putCompound("item_properties", new CompoundTag("item_properties")
-                    .putInt("damage", 9)
-                    .putBoolean("hand_equipped", true)
-                    .putInt("max_stack_size", 1))
+                        .putString("texture", "goodlucky:ruby_sword"))
+                    .putCompound("item_properties", new CompoundTag("item_properties")
+                        .putInt("damage", 9)
+                        .putBoolean("hand_equipped", true)
+                        .putInt("max_stack_size", 1)))
         ))
     };
 }
