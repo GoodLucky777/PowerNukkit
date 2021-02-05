@@ -78,7 +78,9 @@ public class ItemComponentPacket extends DataPacket {
                     .putInt("creative_category", 3)
                     .putInt("damage", 9)
                     .putBoolean("hand_equipped", true)
-                    .putInt("max_stack_size", 1)))
+                    .putInt("max_stack_size", 1))
+                .putCompound("minecraft:durability", new CompoundTag("minecraft:durability")
+                    .putInt("max_durable", 1562)))
         )
     };
 }
