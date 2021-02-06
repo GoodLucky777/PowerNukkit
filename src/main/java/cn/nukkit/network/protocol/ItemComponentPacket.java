@@ -326,6 +326,7 @@ public class ItemComponentPacket extends DataPacket {
                 .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
                     .putString("texture", "goodlucky:wine"))
                 .putCompound("item_properties", new CompoundTag("item_properties")
+                    .putBoolean("animates_in_toolbar", true)
                     .putInt("creative_category", 3)
                     .putInt("max_stack_size", 64)
                     .putInt("use_duration", 32))
@@ -350,7 +351,8 @@ public class ItemComponentPacket extends DataPacket {
                     .putInt("max_stack_size", 1))
                 .putCompound("minecraft:durability", new CompoundTag("minecraft:durability")
                     .putInt("damage_change", 1)
-                    .putInt("max_durable", 1562)))
+                    .putInt("max_durable", 1562))
+                .putCompound("minecraft:weapon", new CompoundTag("minecraft:weapon")))
         )
     };
 }
