@@ -137,11 +137,11 @@ public class BlockItemFrame extends BlockTransparentMeta implements BlockEntityH
     @PowerNukkitDifference(info = "Allow to place on walls", since = "1.3.0.0-PN")
     @Override
     public boolean place(@Nonnull Item item, @Nonnull Block block, @Nonnull Block target, @Nonnull BlockFace face, double fx, double fy, double fz, @Nullable Player player) {
-        if (target.getId() != COBBLE_WALL && (!target.isSolid() || (block.isSolid() && !block.canBeReplaced()))) {
+        if (!isSupportValid(target, face) || (block.isSolid() && !block.canBeReplaced())) {
             return false;
         }
         
-        this.setBlockFace(face);
+        this.setBlockFace(face.getOpposite());
         CompoundTag nbt = new CompoundTag()
                 .putByte("ItemRotation", 0)
                 .putFloat("ItemDropChance", 1.0f);
