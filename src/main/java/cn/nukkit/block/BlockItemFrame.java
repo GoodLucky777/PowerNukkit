@@ -256,7 +256,7 @@ public class BlockItemFrame extends BlockTransparentMeta implements BlockEntityH
             return true;
         }
         
-        if (support instanceof BlockWallBase || support instanceof BlockFence) {
+        if (support.getId() == BlockID.CACTUS || support instanceof BlockWallBase || support instanceof BlockFence || support instanceof BlockPressurePlateBase || support instanceof BlockSlab || support instanceof BlockChest || support instanceof BlockDoor) {
             return true;
         }
         
