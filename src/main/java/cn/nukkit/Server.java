@@ -264,7 +264,11 @@ public class Server {
     private boolean forceSkinTrusted = false;
 
     private boolean checkMovement = true;
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private int maxBlockBreakPerTick = -1;
+    
     /**
      * Minimal initializer for testing
      */
@@ -574,7 +578,8 @@ public class Server {
         this.safeSpawn = this.getConfig().getBoolean("settings.safe-spawn", true);
         this.forceSkinTrusted = this.getConfig().getBoolean("player.force-skin-trusted", false);
         this.checkMovement = this.getConfig().getBoolean("player.check-movement", true);
-
+        this.maxBlockBreakPerTick = this.getConfig().getInt("player.max-block-break-per-tick", -1);
+        
         this.scheduler = new ServerScheduler();
 
         if (this.getPropertyBoolean("enable-rcon", false)) {
@@ -2645,16 +2650,22 @@ public class Server {
 
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public boolean isForceSkinTrusted(){
+    public boolean isForceSkinTrusted() {
         return forceSkinTrusted;
     }
 
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public boolean isCheckMovement(){
+    public boolean isCheckMovement() {
         return checkMovement;
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getMaxBlockBreakPerTick() {
+        return maxBlockBreakPerTick;
+    }
+    
     private class ConsoleThread extends Thread implements InterruptibleThread {
 
         @Override
