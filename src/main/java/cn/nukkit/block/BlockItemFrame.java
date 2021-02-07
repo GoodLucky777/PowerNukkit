@@ -132,7 +132,7 @@ public class BlockItemFrame extends BlockTransparentMeta implements BlockEntityH
                 itemOnFrame.setCount(itemOnFrame.getCount() - 1);
                 player.getInventory().setItemInHand(itemOnFrame);
             }
-            if (itemOnFrame.getId() == ItemID.MAP) {
+            if (itemOnFrame.getId() == Item.MAP) {
                 this.setItemFrameMap(true);
                 this.level.setBlock(this, this, true, true);
             }
