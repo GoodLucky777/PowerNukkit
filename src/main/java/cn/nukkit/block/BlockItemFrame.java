@@ -127,11 +127,15 @@ public class BlockItemFrame extends BlockTransparentMeta implements BlockEntityH
     public boolean onActivate(@Nonnull Item item, Player player) {
         BlockEntityItemFrame itemFrame = getOrCreateBlockEntity();
         if (itemFrame.getItem().isNull()) {
-        	Item itemOnFrame = item.clone();
-        	if (player != null && player.isSurvival()) {
-        		itemOnFrame.setCount(itemOnFrame.getCount() - 1);
+            Item itemOnFrame = item.clone();
+            if (player != null && player.isSurvival()) {
+                itemOnFrame.setCount(itemOnFrame.getCount() - 1);
                 player.getInventory().setItemInHand(itemOnFrame);
-        	}
+            }
+            if (itemOnFrame.getId() == ItemID.MAP) {
+                this.setItemFrameMap(true);
+                this.level.setBlock(this, this, true, true);
+            }
             itemOnFrame.setCount(1);
             itemFrame.setItem(itemOnFrame);
             this.getLevel().addLevelEvent(this, LevelEventPacket.EVENT_SOUND_ITEM_FRAME_ITEM_ADDED);
@@ -149,7 +153,7 @@ public class BlockItemFrame extends BlockTransparentMeta implements BlockEntityH
             return false;
         }
         
-        this.setBlockFace(face.getOpposite());
+        this.setBlockFace(face);
         CompoundTag nbt = new CompoundTag()
                 .putByte("ItemRotation", 0)
                 .putFloat("ItemDropChance", 1.0f);
@@ -163,6 +167,7 @@ public class BlockItemFrame extends BlockTransparentMeta implements BlockEntityH
             return false;
         }
         
+        this.level.setBlock(block, this, true, true);
         this.getLevel().addSound(this, Sound.BLOCK_ITEMFRAME_PLACE);
         return true;
     }
