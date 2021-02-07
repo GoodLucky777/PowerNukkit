@@ -2223,7 +2223,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         startGamePacket.dimension = (byte) getLevel().getDimension();
         //startGamePacket.isInventoryServerAuthoritative = true;
         this.dataPacket(startGamePacket);
-
+        
+        ItemComponentPacket itemComponentPacket = new ItemComponentPacket();
+        this.dataPacket(itemComponentPacket);
+        
         this.dataPacket(new BiomeDefinitionListPacket());
         this.dataPacket(new AvailableEntityIdentifiersPacket());
         this.inventory.sendCreativeContents();
