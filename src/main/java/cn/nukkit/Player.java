@@ -287,7 +287,11 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     private float soulSpeedMultiplier = 1;
     private boolean wasInSoulSandCompatible;
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private int blockBreakPerTick = 0;
+    
     public float getSoulSpeedMultiplier() {
         return this.soulSpeedMultiplier;
     }
@@ -1913,6 +1917,9 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         }
 
         updateBlockingFlag();
+        
+        this.blockBreakPerTick = 0;
+        
         return true;
     }
 
@@ -3455,7 +3462,9 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     if (!this.spawned || !this.isAlive()) {
                                         break packetswitch;
                                     }
-
+                                    
+                                    this.blockBreakPerTick++;
+                                    
                                     this.resetCraftingGridType();
 
                                     Item i = this.getInventory().getItemInHand();
@@ -5667,5 +5676,20 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         pk.source = source;
         pk.message = message;
         this.dataPacket(pk);
+    }
+    
+    /**
+     * Returns how many blocks the player tried to break per server tick. If the server lags badly, it can be inaccurate.
+     */
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getBlockBreakPerTick() {
+        return blockBreakPerTick;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int setBlockBreakPerTick(int blockBreakPerTick) {
+        this.blockBreakPerTick = blockBreakPerTick;
     }
 }
