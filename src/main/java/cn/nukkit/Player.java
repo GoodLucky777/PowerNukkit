@@ -5689,7 +5689,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public int setBlockBreakPerTick(int blockBreakPerTick) {
+    public void setBlockBreakPerTick(int blockBreakPerTick) {
         this.blockBreakPerTick = blockBreakPerTick;
     }
 }
