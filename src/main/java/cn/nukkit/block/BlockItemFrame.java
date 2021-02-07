@@ -92,10 +92,12 @@ public class BlockItemFrame extends BlockTransparentMeta implements BlockEntityH
     @Override
     public int onUpdate(int type) {
         if (type == Level.BLOCK_UPDATE_NORMAL) {
-            Block support = this.getSideAtLayer(0, getFacing());
-            if (!support.isSolid() && support.getId() != COBBLE_WALL) {
+            BlockFace thisFace = getFacing();
+            BlockFace touchingFace = thisFace.getOpposite();
+            Block side = this.getSide(touchingFace);
+            if (!isSupportValid(side, thisFace)) {
                 this.level.useBreakOn(this);
-                return type;
+                return Level.BLOCK_UPDATE_NORMAL;
             }
         }
 
@@ -245,6 +247,20 @@ public class BlockItemFrame extends BlockTransparentMeta implements BlockEntityH
                 aabb[0][0] + x, aabb[1][0] + y, aabb[2][0] + z, 
                 aabb[0][1] + x, aabb[1][1] + y, aabb[2][1] + z
         );
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static boolean isSupportValid(Block support, BlockFace face) {
+        if (support.isSolid()) {
+            return true;
+        }
+        
+        if (support.getId() == BlockID.CACTUS || support instanceof BlockWallBase || support instanceof BlockFence || support instanceof BlockPressurePlateBase || support instanceof BlockSlab || support instanceof BlockChest || support instanceof BlockDoor) {
+            return true;
+        }
+        
+        return false;
     }
     
     @PowerNukkitOnly
