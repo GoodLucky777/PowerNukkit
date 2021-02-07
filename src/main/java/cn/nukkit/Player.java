@@ -3464,6 +3464,9 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     }
                                     
                                     this.blockBreakPerTick++;
+                                    if (this.blockBreakPerTick > getServer().getMaxBlockBreakPerTick()) {
+                                        this.kick(PlayerKickEvent.Reason.MAX_BLOCK_BRRAK_PER_TICK_EXCEEDED, "Max block break per tick exceeded"))
+                                    }
                                     
                                     this.resetCraftingGridType();
 
