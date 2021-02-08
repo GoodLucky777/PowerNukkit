@@ -151,7 +151,7 @@ public class StartGamePacket extends DataPacket {
         this.putString(this.worldName);
         this.putString(this.premiumWorldTemplateId);
         this.putBoolean(this.isTrial);
-        if (isMovementServerAuthoritative == null) {
+        if (authoritativeMovementMode != null) {
             this.putVarInt(authoritativeMovementMode.ordinal());
         } else {
             this.putVarInt(this.isMovementServerAuthoritative ? 1 : 0); // 2 - rewind
