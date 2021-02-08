@@ -66,6 +66,7 @@ player:
  skin-change-cooldown: 30
  force-skin-trusted: false
  check-movement: true
+ server-authoritative-movement: false
 
 aliases:
 
