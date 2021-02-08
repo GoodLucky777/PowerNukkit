@@ -292,6 +292,14 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     @Since("1.4.0.0-PN")
     private int blockBreakPerClientTick = -1;
     
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private float movementViolationScore = 0f;
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private long lastMovePlayerPacketTick = -1L;
+    
     public float getSoulSpeedMultiplier() {
         return this.soulSpeedMultiplier;
     }
@@ -2526,6 +2534,13 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     }
                     break;
                 case ProtocolInfo.MOVE_PLAYER_PACKET:
+                    if (this.server.isServerAuthoritativeMovement()) {
+                        if (this.lastMovePlayerPacketTick - this.server.getTick() > 2) {
+                            this.addMovementViolationScore(4f);
+                        }
+                        this.lastMovePlayerPacketTick = this.server.getTick();
+                    }
+                    
                     if (this.teleportPosition != null) {
                         break;
                     }
@@ -3792,7 +3807,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     break;
                 case ProtocolInfo.PLAYER_AUTH_INPUT_PACKET:
                     // Ignore
-                    if (!this.getServer().isServerAuthoritativeMovement()) {
+                    if (!this.server.isServerAuthoritativeMovement()) {
                         break;
                     }
                     
@@ -5743,5 +5758,35 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     @Since("1.4.0.0-PN")
     public void setBlockBreakPerClientTick(int blockBreakPerClientTick) {
         this.blockBreakPerClientTick = blockBreakPerClientTick;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public float getMovementViolationScore() {
+        return movementViolationScore;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setMovementViolationScore(float movementViolationScore) {
+        this.movementViolationScore = movementViolationScore;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void addMovementViolationScore(float movementViolationScore) {
+        this.movementViolationScore = this.movementViolationScore + movementViolationScore;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public long getLastMovePlayerPacketTick() {
+        return lastMovePlayerPacketTick;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setLastMovePlayerPacketTick(long lastMovePlayerPacketTick) {
+        this.lastMovePlayerPacketTick = lastMovePlayerPacketTick;
     }
 }
