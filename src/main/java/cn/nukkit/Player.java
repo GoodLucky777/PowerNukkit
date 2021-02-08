@@ -287,7 +287,11 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     private float soulSpeedMultiplier = 1;
     private boolean wasInSoulSandCompatible;
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private int blockBreakPerClientTick = -1;
+    
     public float getSoulSpeedMultiplier() {
         return this.soulSpeedMultiplier;
     }
@@ -3456,7 +3460,11 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     if (!this.spawned || !this.isAlive()) {
                                         break packetswitch;
                                     }
-
+                                    
+                                    if (blockBreakPerClientTick != -1) {
+                                        blockBreakPerClientTick++;
+                                    }
+                                    
                                     this.resetCraftingGridType();
 
                                     Item i = this.getInventory().getItemInHand();
@@ -3776,6 +3784,12 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     dataPacket(notFound);
                     break;
                 case ProtocolInfo.PLAYER_AUTH_INPUT_PACKET:
+                    if (!this.getServer().isServerAuthoritativeMovement()) {
+                        break;
+                    }
+                    
+                    blockBreakPerClientTick = 0;
+                    
                     // Ignore (Not spawned or not alive)
                     if (!this.spawned || !this.isAlive()) {
                         this.sendPosition(this, this.yaw, this.pitch, MovePlayerPacket.MODE_RESET);
@@ -5705,5 +5719,20 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         pk.source = source;
         pk.message = message;
         this.dataPacket(pk);
+    }
+    
+    /**
+     * Get how many blocks are broken per client-based tick. If server authoritative movement is disabled or not initialized, returns -1
+     */
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getBlockBreakPerClientTick() {
+        return blockBreakPerClientTick;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setBlockBreakPerClientTick(int blockBreakPerClientTick) {
+        this.blockBreakPerClientTick = blockBreakPerClientTick;
     }
 }
