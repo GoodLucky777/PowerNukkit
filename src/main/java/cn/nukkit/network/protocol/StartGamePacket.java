@@ -77,7 +77,11 @@ public class StartGamePacket extends DataPacket {
     public String worldName;
     public String premiumWorldTemplateId = "";
     public boolean isTrial = false;
+    @Deprecated
     public boolean isMovementServerAuthoritative;
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public AuthoritativeMovementMode authoritativeMovementMode;
     @Since("1.3.0.0-PN") public boolean isInventoryServerAuthoritative;
     public long currentTick;
 
@@ -146,12 +150,24 @@ public class StartGamePacket extends DataPacket {
         this.putString(this.worldName);
         this.putString(this.premiumWorldTemplateId);
         this.putBoolean(this.isTrial);
-        this.putVarInt(this.isMovementServerAuthoritative ? 1 : 0); // 2 - rewind
+        if (isMovementServerAuthoritative == null) {
+            this.putVarInt(authoritativeMovementMode.ordinal());
+        } else {
+            this.putVarInt(this.isMovementServerAuthoritative ? 1 : 0); // 2 - rewind
+        }
         this.putLLong(this.currentTick);
         this.putVarInt(this.enchantmentSeed);
         this.putUnsignedVarInt(0); // Custom blocks
         this.put(RuntimeItems.getRuntimeMapping().getItemDataPalette());
         this.putString(this.multiplayerCorrelationId);
         this.putBoolean(this.isInventoryServerAuthoritative);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public enum AuthoritativeMovementMode {
+        CLIENT,
+        SERVER,
+        SERVER_WITH_REWIND
     }
 }
