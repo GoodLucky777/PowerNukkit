@@ -3577,8 +3577,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     break;
                                 case InventoryTransactionPacket.USE_ITEM_ON_ENTITY_ACTION_ATTACK:
                                     if (target.getId() == this.getId()) {
-                                        this.kick(PlayerKickEvent.Reason.INVALID_PVP, "Attempting to interact with yourself");
-                                        log.warn(this.getName() + " tried to interact with oneself");
+                                        this.kick(PlayerKickEvent.Reason.INVALID_PVP, "Attempting to attack yourself");
+                                        log.warn(this.getName() + " tried to attack oneself");
                                         break;
                                     }
                                     
