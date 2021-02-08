@@ -577,6 +577,11 @@ public class Server {
         this.forceSkinTrusted = this.getConfig().getBoolean("player.force-skin-trusted", false);
         this.checkMovement = this.getConfig().getBoolean("player.check-movement", true);
         this.serverAuthoritativeMovement = this.getConfig().getBoolean("player.server-authoritative-movement", false);
+        if (this.serverAuthoritativeMovement) {
+            log.info("Server authoritative movement is enabled. It may be unstable.");
+        } else {
+            log.info("Server authoritative movement is disabled.");
+        }
         
         this.scheduler = new ServerScheduler();
 
