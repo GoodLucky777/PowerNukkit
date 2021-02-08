@@ -264,7 +264,9 @@ public class Server {
     private boolean forceSkinTrusted = false;
 
     private boolean checkMovement = true;
-
+    
+    private boolean serverAuthoritativeMovement = false;
+    
     /**
      * Minimal initializer for testing
      */
@@ -574,7 +576,8 @@ public class Server {
         this.safeSpawn = this.getConfig().getBoolean("settings.safe-spawn", true);
         this.forceSkinTrusted = this.getConfig().getBoolean("player.force-skin-trusted", false);
         this.checkMovement = this.getConfig().getBoolean("player.check-movement", true);
-
+        this.serverAuthoritativeMovement = this.getConfig().getBoolean("player.server-authoritative-movement", false);
+        
         this.scheduler = new ServerScheduler();
 
         if (this.getPropertyBoolean("enable-rcon", false)) {
@@ -2654,7 +2657,13 @@ public class Server {
     public boolean isCheckMovement(){
         return checkMovement;
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean isServerAuthoritativeMovement(){
+        return serverAuthoritativeMovement;
+    }
+    
     private class ConsoleThread extends Thread implements InterruptibleThread {
 
         @Override
