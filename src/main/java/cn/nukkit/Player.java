@@ -3772,7 +3772,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                 case ProtocolInfo.PLAYER_AUTH_INPUT_PACKET:
                     // Ignore (Not spawned or not alive)
                     if (!this.spawned || !this.isAlive()) {
-                        this.sendPosition(this, movePlayerPacket.yaw, movePlayerPacket.pitch, MovePlayerPacket.MODE_RESET);
+                        this.sendPosition(this, this.yaw, this.pitch, MovePlayerPacket.MODE_RESET);
                         break;
                     }
                     
