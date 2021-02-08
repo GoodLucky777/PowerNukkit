@@ -21,6 +21,7 @@ public class PlayerKickEvent extends PlayerEvent implements Cancellable {
         SERVER_FULL,
         FLYING_DISABLED,
         @PowerNukkitOnly @Since("1.4.0.0-PN") INVALID_PVP,
+        @PowerNukkitOnly @Since("1.4.0.0-PN") BLOCK_BREAK_EXCEEDED,
         UNKNOWN;
 
         @Override
