@@ -67,7 +67,7 @@ player:
  force-skin-trusted: false
  check-movement: true
  server-authoritative-movement: false
- max-destroy-block-per-client-tick: -1
+ max-block-break-per-client-tick: -1
 
 aliases:
 
