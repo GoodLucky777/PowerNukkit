@@ -3791,6 +3791,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     dataPacket(notFound);
                     break;
                 case ProtocolInfo.PLAYER_AUTH_INPUT_PACKET:
+                    // Ignore
                     if (!this.getServer().isServerAuthoritativeMovement()) {
                         break;
                     }
@@ -3821,6 +3822,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         break;
                     }
                     
+                    // Process movement
                     this.setRotation(playerAuthInputPacket.yaw, playerAuthInputPacket.pitch);
                     this.newPosition = newChangedPosition;
                     this.positionChanged = true;
