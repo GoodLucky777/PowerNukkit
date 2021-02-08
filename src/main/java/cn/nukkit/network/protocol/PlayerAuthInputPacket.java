@@ -48,8 +48,8 @@ public class PlayerAuthInputPacket extends DataPacket {
         this.motionZ = this.getLFloat();
         this.headYaw = this.getLFloat();
         this.inputData = this.getUnsignedVarLong();
-        this.inputMode = InputMode.values()[this.getUnsignedVarInt()];
-        this.playMode = PlayMode.values()[this.getUnsignedVarInt()];
+        this.inputMode = InputMode.values()[(int) this.getUnsignedVarInt()];
+        this.playMode = PlayMode.values()[(int) this.getUnsignedVarInt()];
         if (this.playMode == PlayMode.REALITY) {
             v = this.getVector3f();
             this.vrGazeDirectionX = v.x;
@@ -69,12 +69,13 @@ public class PlayerAuthInputPacket extends DataPacket {
         this.putLFloat(this.pitch);
         this.putLFloat(this.yaw);
         this.putVector3f(this.positionX, this.positionY, this.positionZ);
-        this.putVector2f(this.motionX, this.motionZ);
+        this.putLFloat(this.motionX);
+        this.putLFloat(this.motionZ);
         this.putLFloat(this.headYaw);
         this.putUnsignedVarLong(this.inputData);
         this.putUnsignedVarInt(this.inputMode.ordinal());
-        this.putUnsignedVarInt(this.playerMode.ordinal());
-        if (this.playerMode == PlayMode.REALITY) {
+        this.putUnsignedVarInt(this.playMode.ordinal());
+        if (this.playMode == PlayMode.REALITY) {
             this.putVector3f(this.vrGazeDirectionX, this.vrGazeDirectionY, this.vrGazeDirectionZ);
         }
         this.putUnsignedVarLong(this.tick);
