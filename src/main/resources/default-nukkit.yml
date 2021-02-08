@@ -68,7 +68,7 @@ player:
  check-movement: true
  server-authoritative-movement: false
  max-violation-movement-score: 20
- max-server-client-movement-distance: 2
+ max-server-client-movement-distance: 2.0
  max-block-break-per-client-tick: 7
 
 aliases:
