@@ -267,6 +267,8 @@ public class Server {
     
     private boolean serverAuthoritativeMovement = false;
     
+    private int maxBlockBreakPerClientTick = -1;
+    
     /**
      * Minimal initializer for testing
      */
@@ -581,6 +583,14 @@ public class Server {
             log.info("Server authoritative movement is enabled. It may be unstable.");
         } else {
             log.info("Server authoritative movement is disabled.");
+        }
+        this.maxDestroyBlockPerClientTick = this.getConfig().getInt("player.max-destroy-block-per-client-tick", -1);
+        if (this.maxDestroyBlockPerClientTick < -1) {
+            this.maxDestroyBlockPerClientTick = -1;
+        }
+        if (!this.serverAuthoritativeMovement && this.maxDestroyBlockPerClientTick > -1) {
+            this.maxDestroyBlockPerClientTick = -1;
+            log.warn("max-destroy-block-per-client-tick is disabled unless the server authentication movement is enabled.");
         }
         
         this.scheduler = new ServerScheduler();
@@ -2667,6 +2677,12 @@ public class Server {
     @Since("1.4.0.0-PN")
     public boolean isServerAuthoritativeMovement(){
         return serverAuthoritativeMovement;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getMaxBlockBreakPerClientTick() {
+        return maxBlockBreakPerClientTick;
     }
     
     private class ConsoleThread extends Thread implements InterruptibleThread {
