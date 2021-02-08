@@ -3781,21 +3781,21 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     }
                     
                     PlayerAuthInputPacket playerAuthInputPacket = (PlayerAuthInputPacket) packet;
-                    Vector3 newPos = new Vector3(playerAuthInputPacket.positionX, playerAuthInputPacket.positionY - this.getEyeHeight(), playerAuthInputPacket.positionZ);
+                    Vector3 newChangedPosition = new Vector3(playerAuthInputPacket.positionX, playerAuthInputPacket.positionY - this.getEyeHeight(), playerAuthInputPacket.positionZ);
                     
                     // Ignore
-                    if (newPos.distanceSquared(this) < 0.01 && playerAuthInputPacket.yaw % 360 == this.yaw && playerAuthInputPacket.pitch % 360 == this.pitch) {
+                    if (newChangedPosition.distanceSquared(this) < 0.01 && playerAuthInputPacket.yaw % 360 == this.yaw && playerAuthInputPacket.pitch % 360 == this.pitch) {
                         break;
                     }
                     
                     // Movement hack detected
-                    if (newPos.distanceSquared(this) > 100) {
+                    if (newChangedPosition.distanceSquared(this) > 100) {
                         this.sendPosition(this, playerAuthInputPacket.yaw, playerAuthInputPacket.pitch, MovePlayerPacket.MODE_RESET);
                         break;
                     }
                     
                     this.setRotation(playerAuthInputPacket.yaw, playerAuthInputPacket.pitch);
-                    this.newPosition = newPos;
+                    this.newPosition = newChangedPosition;
                     this.positionChanged = true;
                     this.forceMovement = null;
                     
