@@ -3770,50 +3770,34 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     dataPacket(notFound);
                     break;
                 case ProtocolInfo.PLAYER_AUTH_INPUT_PACKET:
-                    if (this.teleportPosition != null) {
-                        break;
-                    }
-
-                    PlayerAuthInputPacket playerAuthInputPacket = (PlayerAuthInputPacket) packet;
-                    Vector3 newPos = new Vector3(movePlayerPacket.x, movePlayerPacket.y - this.getEyeHeight(), movePlayerPacket.z);
-
-                    if (newPos.distanceSquared(this) < 0.01 && movePlayerPacket.yaw % 360 == this.yaw && movePlayerPacket.pitch % 360 == this.pitch) {
-                        break;
-                    }
-
-                    if (newPos.distanceSquared(this) > 100) {
+                    // Ignore (Not spawned or not alive)
+                    if (!this.spawned || !this.isAlive()) {
                         this.sendPosition(this, movePlayerPacket.yaw, movePlayerPacket.pitch, MovePlayerPacket.MODE_RESET);
                         break;
                     }
-
-                    boolean revert = false;
-                    if (!this.isAlive() || !this.spawned) {
-                        revert = true;
-                        this.forceMovement = new Vector3(this.x, this.y, this.z);
+                    
+                    if (this.teleportPosition != null) {
+                        break;
                     }
-
-                    if (this.forceMovement != null && (newPos.distanceSquared(this.forceMovement) > 0.1 || revert)) {
-                        this.sendPosition(this.forceMovement, movePlayerPacket.yaw, movePlayerPacket.pitch, MovePlayerPacket.MODE_RESET);
-                    } else {
-
-                        movePlayerPacket.yaw %= 360;
-                        movePlayerPacket.pitch %= 360;
-
-                        if (movePlayerPacket.yaw < 0) {
-                            movePlayerPacket.yaw += 360;
-                        }
-
-                        this.setRotation(movePlayerPacket.yaw, movePlayerPacket.pitch);
-                        this.newPosition = newPos;
-                        this.positionChanged = true;
-                        this.forceMovement = null;
+                    
+                    PlayerAuthInputPacket playerAuthInputPacket = (PlayerAuthInputPacket) packet;
+                    Vector3 newPos = new Vector3(playerAuthInputPacket.positionX, playerAuthInputPacket.positionY - this.getEyeHeight(), playerAuthInputPacket.positionZ);
+                    
+                    // Ignore
+                    if (newPos.distanceSquared(this) < 0.01 && playerAuthInputPacket.yaw % 360 == this.yaw && playerAuthInputPacket.pitch % 360 == this.pitch) {
+                        break;
                     }
-
-                    if (riding != null) {
-                        if (riding instanceof EntityBoat) {
-                            riding.setPositionAndRotation(this.temporalVector.setComponents(movePlayerPacket.x, movePlayerPacket.y - 1, movePlayerPacket.z), (movePlayerPacket.headYaw + 90) % 360, 0);
-                        }
+                    
+                    // Movement hack detected
+                    if (newPos.distanceSquared(this) > 100) {
+                        this.sendPosition(this, playerAuthInputPacket.yaw, playerAuthInputPacket.pitch, MovePlayerPacket.MODE_RESET);
+                        break;
                     }
+                    
+                    this.setRotation(playerAuthInputPacket.yaw, playerAuthInputPacket.pitch);
+                    this.newPosition = newPos;
+                    this.positionChanged = true;
+                    this.forceMovement = null;
                     
                     break;
                 default:
