@@ -67,7 +67,9 @@ player:
  force-skin-trusted: false
  check-movement: true
  server-authoritative-movement: false
- max-block-break-per-client-tick: -1
+ max-violation-movement-score: 20
+ max-server-client-movement-distance: 2
+ max-block-break-per-client-tick: 7
 
 aliases:
 
