@@ -584,13 +584,13 @@ public class Server {
         } else {
             log.info("Server authoritative movement is disabled.");
         }
-        this.maxDestroyBlockPerClientTick = this.getConfig().getInt("player.max-destroy-block-per-client-tick", -1);
-        if (this.maxDestroyBlockPerClientTick < -1) {
-            this.maxDestroyBlockPerClientTick = -1;
+        this.maxBlockBreakPerClientTick = this.getConfig().getInt("player.max-block-break-per-client-tick", -1);
+        if (this.maxBlockBreakPerClientTick < -1) {
+            this.maxBlockBreakPerClientTick = -1;
         }
-        if (!this.serverAuthoritativeMovement && this.maxDestroyBlockPerClientTick > -1) {
-            this.maxDestroyBlockPerClientTick = -1;
-            log.warn("max-destroy-block-per-client-tick is disabled unless the server authentication movement is enabled.");
+        if (!this.serverAuthoritativeMovement && this.maxBlockBreakPerClientTick > -1) {
+            this.maxBlockBreakPerClientTick = -1;
+            log.warn("max-block-break-per-client-tick is disabled unless the server authentication movement is enabled.");
         }
         
         this.scheduler = new ServerScheduler();
