@@ -3811,6 +3811,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         break;
                     }
                     
+                    movementViolationScore = movementViolationScore * 0.9;
                     blockBreakPerClientTick = 0;
                     
                     // Ignore (Not spawned or not alive)
