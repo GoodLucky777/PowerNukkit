@@ -3843,6 +3843,12 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     this.positionChanged = true;
                     this.forceMovement = null;
                     
+                    if (riding != null) {
+                        if (riding instanceof EntityBoat) {
+                            riding.setPositionAndRotation(this.temporalVector.setComponents(playerAuthInputPacket.positionX, playerAuthInputPacket.positionY - 1, playerAuthInputPacket.positionZ), (playerAuthInputPacket.headYaw + 90) % 360, 0);
+                        }
+                    }
+                    
                     break;
                 default:
                     break;
