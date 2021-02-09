@@ -3813,6 +3813,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     
                     movementViolationScore = movementViolationScore * 0.9f;
                     blockBreakPerClientTick = 0;
+                    sendTip("movementViolationScore: " + String.format("%.3f", movementViolationScore));
                     
                     // Ignore (Not spawned or not alive)
                     if (!this.spawned || !this.isAlive()) {
