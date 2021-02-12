@@ -293,6 +293,7 @@ public interface ItemID {
     
     // GoodLucky
     int RUBY = 5000;
+    int SAPPHIRE = 6001;
     
     int BACON = 5400;
     int BAGUETTE = 5401;
