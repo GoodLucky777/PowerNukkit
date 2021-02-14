@@ -7,6 +7,7 @@ import cn.nukkit.api.Since;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.projectile.EntityArrow;
 import cn.nukkit.item.Item;
+import cn.nukkit.item.enchantment.Enchantment;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
 import cn.nukkit.math.NukkitRandom;
@@ -117,16 +118,16 @@ public class BlockTNT extends BlockSolid implements RedstoneComponent {
 
     @Override
     public boolean onActivate(@Nonnull Item item, @Nullable Player player) {
-        if (item.getId() == Item.FLINT_STEEL) {
+        if (item.getId() == Item.FLINT_STEEL || item.getEnchantment(Enchantment.ID_FIRE_ASPECT) != null) {
             item.useOn(this);
             this.prime(80, player);
             return true;
-        }
-        if (item.getId() == Item.FIRE_CHARGE) {
+        } else if (item.getId() == Item.FIRE_CHARGE) {
             if (!player.isCreative()) player.getInventory().removeItem(Item.get(Item.FIRE_CHARGE, 0, 1));
             this.prime(80, player);
             return true;
         }
+        
         return false;
     }
 
