@@ -216,7 +216,16 @@ public class ItemBucket extends Item {
             }
 
             if (!canBeUsedOnDimension(player.getLevel().getDimension())) {
-                ev.setCancelled(true);
+                if (player.isSurvival()) {
+                    Item clone = this.clone();
+                    clone.setCount(this.getCount() - 1);
+                    player.getInventory().setItemInHand(clone);
+                    if (player.getInventory().canAddItem(ev.getItem())) {
+                        player.getInventory().addItem(ev.getItem());
+                    } else {
+                        player.dropItem(ev.getItem());
+                    }
+                }
             }
 
             player.getServer().getPluginManager().callEvent(ev);
