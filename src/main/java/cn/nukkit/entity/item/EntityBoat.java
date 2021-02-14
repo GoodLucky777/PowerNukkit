@@ -437,7 +437,11 @@ public class EntityBoat extends EntityVehicle {
         super.kill();
 
         if (level.getGameRules().getBoolean(GameRule.DO_ENTITY_DROPS)) {
-            this.level.dropItem(this, Item.get(ItemID.BOAT, this.woodID));
+            Item boat = Item.get(ItemID.BOAT, this.variant);
+            if (this.hasCustomName()) {
+                boat.setCustomName(this.getNameTag());
+            }
+            this.level.dropItem(this, boat);
         }
     }
 
