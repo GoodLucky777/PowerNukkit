@@ -2223,7 +2223,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         startGamePacket.dimension = (byte) getLevel().getDimension();
         //startGamePacket.isInventoryServerAuthoritative = true;
         this.dataPacket(startGamePacket);
-
+        
+        ItemComponentPacket itemComponentPacket = new ItemComponentPacket();
+        this.dataPacket(itemComponentPacket);
+        
         this.dataPacket(new BiomeDefinitionListPacket());
         this.dataPacket(new AvailableEntityIdentifiersPacket());
         this.inventory.sendCreativeContents();
@@ -3197,6 +3200,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                 this.level.dropItem(vector3, itemDrop);
                                 itemFrame.setItem(new ItemBlock(Block.get(BlockID.AIR)));
                                 itemFrame.setItemRotation(0);
+                                if (itemDrop.getId() == Item.MAP) {
+                                    ((BlockItemFrame) block).setItemFrameMap(false);
+                                    this.level.setBlock(block, block, true, true);
+                                }
                                 this.getLevel().addLevelEvent(this, LevelEventPacket.EVENT_SOUND_ITEM_FRAME_ITEM_REMOVED);
                             }
                         } else {
