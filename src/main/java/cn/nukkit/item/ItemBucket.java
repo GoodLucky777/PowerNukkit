@@ -226,6 +226,8 @@ public class ItemBucket extends Item {
                         player.dropItem(ev.getItem());
                     }
                 }
+                
+                return true;
             }
 
             player.getServer().getPluginManager().callEvent(ev);
