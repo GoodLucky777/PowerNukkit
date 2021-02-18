@@ -118,7 +118,7 @@ public class BlockTNT extends BlockSolid implements RedstoneComponent {
 
     @Override
     public boolean onActivate(@Nonnull Item item, @Nullable Player player) {
-        if (item.getId() == Item.FLINT_STEEL || item.getEnchantment(Enchantment.ID_FIRE_ASPECT) != null) {
+        if (item.getId() == Item.FLINT_STEEL || item.hasEnchantment(Enchantment.ID_FIRE_ASPECT)) {
             item.useOn(this);
             this.prime(80, player);
             return true;
