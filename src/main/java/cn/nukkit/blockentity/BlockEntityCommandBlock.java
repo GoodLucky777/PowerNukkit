@@ -94,7 +94,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         return trackOutput;
     }
     
-    public boolean getVersion() {
+    public int getVersion() {
         return version;
     }
     
@@ -134,7 +134,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         if (this.namedTag.contains("ExecuteOnFirstTick")) {
             this.executeOnFirstTick = this.namedTag.getBoolean("ExecuteOnFirstTick");
         } else {
-            this.executeOnFistTick = false;
+            this.executeOnFirstTick = false;
         }
         
         if (this.namedTag.contains("LPCommandMode")) {
@@ -203,7 +203,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     @Override
     public boolean isBlockEntityValid() {
         int blockId = this.getBlock().getId();
-        return blockId == BlockId.COMMAND_BLOCK || blockId == BlockId.REPEATING_COMMAND_BLOCK || blockId == BlockId.CHAIN_COMMAND_BLOCK;
+        return blockId == BlockID.COMMAND_BLOCK || blockId == BlockID.REPEATING_COMMAND_BLOCK || blockId == BlockID.CHAIN_COMMAND_BLOCK;
     }
     
     @Override
