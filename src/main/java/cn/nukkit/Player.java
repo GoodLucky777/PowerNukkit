@@ -3822,7 +3822,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             break;
                         }
                         
-                        BlockCommand blockCommand = (BlockCommand) this.getLevel().getBlock(commandBlockUpdate.x, commandBlockUpdate.y, commandBlockUpdate.z);
+                        BlockCommand blockCommand = ((BlockCommand) this.getLevel().getBlock(commandBlockUpdate.x, commandBlockUpdate.y, commandBlockUpdate.z));
                         BlockEntityCommandBlock blockEntityCommandBlock = blockCommand.getOrCreateBlockEntity();
                         
                         switch (commandBlockUpdate.commandBlockMode) {
@@ -3831,14 +3831,14 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                     blockCommand = Block.get(BlockID.COMMAND_BLOCK, blockCommand.getDamage());
                                 }
                                 break;
-                            case CommandBlockUpdatePacket.MODE_NORMAL:
-                                if (blockCommand.getId() != BlockID.COMMAND_BLOCK) {
-                                    blockCommand = Block.get(BlockID.COMMAND_BLOCK, blockCommand.getDamage());
+                            case CommandBlockUpdatePacket.MODE_REPEATING:
+                                if (blockCommand.getId() != BlockID.REPEATING_COMMAND_BLOCK) {
+                                    blockCommand = Block.get(BlockID.REPEATING_COMMAND_BLOCK, blockCommand.getDamage());
                                 }
                                 break;
-                            case CommandBlockUpdatePacket.MODE_NORMAL:
-                                if (blockCommand.getId() != BlockID.COMMAND_BLOCK) {
-                                    blockCommand = Block.get(BlockID.COMMAND_BLOCK, blockCommand.getDamage());
+                            case CommandBlockUpdatePacket.MODE_CHAIN:
+                                if (blockCommand.getId() != BlockID.CHAIN_COMMAND_BLOCK) {
+                                    blockCommand = Block.get(BlockID.CHAIN_COMMAND_BLOCK, blockCommand.getDamage());
                                 }
                                 break;
                             default:
