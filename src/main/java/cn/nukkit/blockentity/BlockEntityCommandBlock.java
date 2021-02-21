@@ -127,7 +127,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             this.conditionMet = false;
         }
         
-        if (!this.namedTag.contains("CustomName") {
+        if (!this.namedTag.contains("CustomName")) {
             this.namedTag.putString("CustomName", "");
         }
         
@@ -213,7 +213,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         this.namedTag.putBoolean("auto", this.auto);
         this.namedTag.putString("Command", this.command);
         this.namedTag.putBoolean("conditionMet", this.conditionMet);
-        if (!this.namedTag.contains("CustomName") {
+        if (!this.namedTag.contains("CustomName")) {
             this.namedTag.putString("CustomName", "");
         }
         this.namedTag.putBoolean("ExecuteOnFirstTick", this.executeOnFirstTick);
