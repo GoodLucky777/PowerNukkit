@@ -5812,6 +5812,6 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public boolean canUseCommandBlock() {
-        return player.isOp() && player.isCreative();
+        return this.isOp() && this.isCreative();
     }
 }
