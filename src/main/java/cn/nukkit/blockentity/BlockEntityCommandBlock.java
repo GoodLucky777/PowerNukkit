@@ -84,7 +84,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     
     @Override
     public CompoundTag getSpawnCompound() {
-        CompoundTag nbt = getDefaultCompound(this, BlockEntity.COMMAND_BLOCK)
+        return getDefaultCompound(this, BlockEntity.COMMAND_BLOCK)
             .putBoolean("auto", this.auto)
             .putString("Command", this.command)
             .putBoolean("conditionMet", this.conditionMet)
