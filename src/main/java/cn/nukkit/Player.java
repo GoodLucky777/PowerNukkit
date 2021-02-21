@@ -7,6 +7,7 @@ import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.block.*;
 import cn.nukkit.blockentity.BlockEntity;
+import cn.nukkit.blockentity.BlockEntityCommandBlock;
 import cn.nukkit.blockentity.BlockEntityItemFrame;
 import cn.nukkit.blockentity.BlockEntityLectern;
 import cn.nukkit.blockentity.BlockEntitySpawnable;
@@ -3845,8 +3846,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                 break;
                         }
                         
-                        if (commandBlockUpdate.isRedstoneMode ^ blockEntityCommand.getAuto()) {
-                            blockEntityCommand.setAuto(commandBlockUpdate.isRedstoneMode);
+                        if (commandBlockUpdate.isRedstoneMode ^ blockEntityCommandBlock.getAuto()) {
+                            blockEntityCommandBlock.setAuto(commandBlockUpdate.isRedstoneMode);
                         }
                         
                         if (commandBlockUpdate.isConditional ^ blockCommand.isConditional()) {
@@ -3854,7 +3855,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         }
                         
                         this.getLevel().setBlock(blockCommand, blockCommand, true);
-                        
+                        blockEntityCommandBlock.spawnToAll();
                     } else {
                         // Minecart with Command Block
                         // TODO
