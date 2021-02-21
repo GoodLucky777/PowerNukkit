@@ -3809,6 +3809,20 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     notFound.setTrackingId(posTrackReq.getTrackingId());
                     dataPacket(notFound);
                     break;
+                case ProtocolInfo.COMMAND_BLOCK_UPDATE_PACKET:
+                    if (!this.canUseCommandBlock()) {
+                        break;
+                    }
+                    
+                    CommandBlockUpdatePacket commandBlockUpdate = (CommandBlockUpdatePacket) packet;
+                    if (commandBlockUpdate.isBlock) {
+                        // Command Block
+                        
+                    } else {
+                        // Minecart with Command Block
+                        // TODO
+                    }
+                    break;
                 default:
                     break;
             }
@@ -5793,5 +5807,11 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         pk.source = source;
         pk.message = message;
         this.dataPacket(pk);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean canUseCommandBlock() {
+        return player.isOp() && player.isCreative();
     }
 }
