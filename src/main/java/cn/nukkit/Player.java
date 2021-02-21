@@ -3828,17 +3828,17 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         switch (commandBlockUpdate.commandBlockMode) {
                             case CommandBlockUpdatePacket.MODE_NORMAL:
                                 if (blockCommand.getId() != BlockID.COMMAND_BLOCK) {
-                                    blockCommand = Block.get(BlockID.COMMAND_BLOCK, blockCommand.getDamage());
+                                    blockCommand = (BlockCommand) Block.get(BlockID.COMMAND_BLOCK, blockCommand.getDamage());
                                 }
                                 break;
                             case CommandBlockUpdatePacket.MODE_REPEATING:
                                 if (blockCommand.getId() != BlockID.REPEATING_COMMAND_BLOCK) {
-                                    blockCommand = Block.get(BlockID.REPEATING_COMMAND_BLOCK, blockCommand.getDamage());
+                                    blockCommand = (BlockCommand) Block.get(BlockID.REPEATING_COMMAND_BLOCK, blockCommand.getDamage());
                                 }
                                 break;
                             case CommandBlockUpdatePacket.MODE_CHAIN:
                                 if (blockCommand.getId() != BlockID.CHAIN_COMMAND_BLOCK) {
-                                    blockCommand = Block.get(BlockID.CHAIN_COMMAND_BLOCK, blockCommand.getDamage());
+                                    blockCommand = (BlockCommand) Block.get(BlockID.CHAIN_COMMAND_BLOCK, blockCommand.getDamage());
                                 }
                                 break;
                             default:
