@@ -4,8 +4,9 @@ import cn.nukkit.Player;
 import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.BooleanBlockProperty;
 import cn.nukkit.item.Item;
-import cn.nukkit.utils.BlockColor;
 import cn.nukkit.math.BlockFace;
+import cn.nukkit.utils.BlockColor;
+import cn.nukkit.utils.Faceable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
