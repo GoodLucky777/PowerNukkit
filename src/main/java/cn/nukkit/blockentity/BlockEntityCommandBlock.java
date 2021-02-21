@@ -88,7 +88,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             .putBoolean("auto", this.auto)
             .putString("Command", this.command)
             .putBoolean("conditionMet", this.conditionMet)
-            .putString("CustomName", this.customName)
+            .putString("CustomName", this.hasName() ? this.getName() : "")
             .putBoolean("ExecuteOnFirstTick", this.executeOnFirstTick)
             .putInt("LPCommandMode", this.lpCommandMode)
             .putBoolean("LPCondionalMode", this.lpCondionalMode)
