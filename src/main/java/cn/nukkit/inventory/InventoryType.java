@@ -21,7 +21,7 @@ public enum InventoryType {
     DROPPER(9, "Dropper", 7), //9 CONTAINER
     HOPPER(5, "Hopper", 8), //5 CONTAINER
     //CAULDRON typeId:9
-    //MINECART_COMMAND_BLOCK typeId:16
+    @PowerNukkitOnly @Since("1.4.0.0-PN") COMMAND_BLOCK(16, "Command Block", -1),
     //HORSE typeId:12
     //JUKEBOX typeId:17
     UI(1, "UI", -1),
