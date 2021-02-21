@@ -1,8 +1,11 @@
 package cn.nukkit.block;
 
 import cn.nukkit.Player;
+import cn.nukkit.blockentity.BlockEntity;
+import cn.nukkit.blockentity.BlockEntityCommandBlock;
 import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.BooleanBlockProperty;
+import cn.nukkit.inventory.CommandBlockInventory;
 import cn.nukkit.item.Item;
 import cn.nukkit.math.BlockFace;
 import cn.nukkit.utils.BlockColor;
@@ -16,7 +19,7 @@ import static cn.nukkit.blockproperty.CommonBlockProperties.FACING_DIRECTION;
 /**
  * @author GoodLucky777
  */
-public class BlockCommand extends BlockSolidMeta implements Faceable {
+public class BlockCommand extends BlockSolidMeta implements BlockEntityHolder<BlockEntityCommandBlock>, Faceable {
 
     protected static final BooleanBlockProperty CONDITIONAL_BIT = new BooleanBlockProperty("conditional_bit", false);
     
@@ -39,11 +42,6 @@ public class BlockCommand extends BlockSolidMeta implements Faceable {
     }
     
     @Override
-    public boolean canHarvestWithHand() {
-        return false;
-    }
-    
-    @Override
     public boolean canBePulled() {
         return false;
     }
@@ -51,6 +49,23 @@ public class BlockCommand extends BlockSolidMeta implements Faceable {
     @Override
     public boolean canBePushed() {
         return false;
+    }
+    
+    @Override
+    public boolean canHarvestWithHand() {
+        return false;
+    }
+    
+    @Override
+    @Nonnull
+    public Class<? extends BlockEntityCommandBlock> getBlockEntityClass() {
+        return BlockEntityCommandBlock.class;
+    }
+    
+    @Override
+    @Nonnull
+    public String getBlockEntityType() {
+        return BlockEntity.COMMAND_BLOCK;
     }
     
     @Override
@@ -99,9 +114,10 @@ public class BlockCommand extends BlockSolidMeta implements Faceable {
     }
     
     @Override
-    public boolean onActivate(Item item, Player player) {
+    public boolean onActivate(@Nonnull Item item, @Nullable Player player) {
         if (player != null) {
-            // TODO
+            getOrCreateBlockEntity();
+            player.addWindow(new CommandBlockInventory(player.getUIInventory(), this), Player.COMMAND_BLOCK_WINDOW_ID);
         }
         
         return true;
@@ -124,7 +140,7 @@ public class BlockCommand extends BlockSolidMeta implements Faceable {
             }
         }
         
-        return true;
+        return BlockEntityHolder.setBlockAndCreateEntity(this) != null;
     }
     
     @Override
