@@ -202,8 +202,8 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     
     @Override
     public boolean isBlockEntityValid() {
-        int blockId = this.getBlock().getId();
-        return blockId == BlockID.COMMAND_BLOCK || blockId == BlockID.REPEATING_COMMAND_BLOCK || blockId == BlockID.CHAIN_COMMAND_BLOCK;
+        int blockID = this.getBlock().getId();
+        return blockID == BlockID.COMMAND_BLOCK || blockID == BlockID.REPEATING_COMMAND_BLOCK || blockID == BlockID.CHAIN_COMMAND_BLOCK;
     }
     
     @Override
@@ -271,7 +271,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     
     @Override
     public void setName(String name) {
-        if (name == null || name.equals("")) {
+        if (name == null) {
             this.namedTag.putString("CustomName", "");
         } else {
             this.namedTag.putString("CustomName", name);
