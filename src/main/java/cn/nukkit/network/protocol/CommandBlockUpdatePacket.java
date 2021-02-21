@@ -6,6 +6,10 @@ import lombok.ToString;
 @ToString
 public class CommandBlockUpdatePacket extends DataPacket {
 
+    public static final int MODE_NORMAL = 0;
+    public static final int MODE_REPEATING = 1;
+    public static final int MODE_CHAIN = 2;
+    
     public boolean isBlock;
     public int x;
     public int y;
