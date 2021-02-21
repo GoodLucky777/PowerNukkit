@@ -99,7 +99,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             .putInt("SuccessCount", this.successCount)
             .putInt("TickDelay", this.tickDelay)
             .putBoolean("TrackOutput", this.trackOutput)
-            .putBoolean("Version", this.version);
+            .putInt("Version", this.version);
     }
     
     public int getSuccessCount() {
