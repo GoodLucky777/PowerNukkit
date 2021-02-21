@@ -12,7 +12,7 @@ import cn.nukkit.nbt.tag.StringTag;
  */
 public class BlockEntityCommandBlock extends BlockEntitySpawnable implements BlockEntityNameable {
 
-    public int CURRENT_VERSION = 13;
+    public static final int CURRENT_VERSION = 13;
     
     private boolean auto;
     private String command;
