@@ -82,6 +82,26 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         return "Command Block";
     }
     
+    @Override
+    public CompoundTag getSpawnCompound() {
+        CompoundTag nbt = getDefaultCompound(this, BlockEntity.COMMAND_BLOCK)
+            .putBoolean("auto", this.auto)
+            .putString("Command", this.command)
+            .putBoolean("conditionMet", this.conditionMet)
+            .putString("CustomName", this.customName)
+            .putBoolean("ExecuteOnFirstTick", this.executeOnFirstTick)
+            .putInt("LPCommandMode", this.lpCommandMode)
+            .putBoolean("LPCondionalMode", this.lpCondionalMode)
+            .putBoolean("LPRedstoneMode", this.lpRedstoneMode)
+            .putLong("LastExecution", this.lastExecution)
+            .putString("LastOutput", this.lastOutput)
+            .putList(this.lastOutputParams)
+            .putInt("SuccessCount", this.successCount)
+            .putInt("TickDelay", this.tickDelay)
+            .putBoolean("TrackOutput", this.trackOutput)
+            .putBoolean("Version", this.version);
+    }
+    
     public int getSuccessCount() {
         return successCount;
     }
