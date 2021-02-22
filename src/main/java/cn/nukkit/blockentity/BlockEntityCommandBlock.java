@@ -250,6 +250,25 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     }
     
     @Override
+    public boolean onUpdate() {
+        if (this.closed) {
+            return false;
+        }
+        
+        if (this.getCommandBlockMode() != MODE_REPEATING) {
+            return true;
+        }
+        
+        if ((this,getLevel().getCurrentTick() % this.getTickDelay()) != 0) {
+            return true;
+        }
+        
+        this.trigger();
+        
+        return true;
+    }
+    
+    @Override
     public void saveNBT() {
         super.saveNBT();
         
@@ -306,7 +325,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         this.getLevel().setBlock(blockCommand, blockCommand, true, true);
     }
     
-    public void setConditionalMet(boolean conditionMet) {
+    public void setConditionMet(boolean conditionMet) {
         this.conditionMet = conditionMet;
         
         BlockCommand blockCommand = (BlockCommand) this.getLevelBlock();
@@ -365,5 +384,20 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     
     public void setVersion(int version) {
         this.version = version;
+    }
+    
+    public boolean trigger() {
+        if (this,getLevel().getCurrentTick() == this.lastExecution) {
+            return false;
+        }
+        
+        if (this.command.equals("")) {
+            return false;
+        }
+        
+        if (this.command.equals("Searge")) {
+            this.lastOutput = "#itzlipofutzli";
+            return true;
+        }
     }
 }
