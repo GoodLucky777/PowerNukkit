@@ -3842,7 +3842,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                 }
                                 break;
                             default:
-                                
+                                log.warn("Unexpected commandBlockMode {} of CommandBlockUpdatePacket from {}", String.valueOf(commandBlockUpdate.commandBlockMode), this.getName());
                                 break;
                         }
                         
@@ -3854,8 +3854,14 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             blockCommand.setConditional(commandBlockUpdate.isConditional);
                         }
                         
-                        this.getLevel().setBlock(blockCommand, blockCommand, true);
-                        blockEntityCommandBlock.spawnToAll();
+                        blockEntityCommandBlock.setCommand(commandBlockUpdate.command);
+                        blockEntityCommandBlock.setLastOutput(commandBlockUpdate.lastOutput);
+                        blockEntityCommandBlock.setName(commandBlockUpdate.name);
+                        blockEntityCommandBlock.setTrackOutput(commandBlockUpdate.shouldTrackOutput);
+                        blockEntityCommandBlock.setTickDelay((int) commandBlockUpdate.tickDelay);
+                        blockEntityCommandBlock.setExecuteOnFirstTick(commandBlockUpdate.executingOnFirstTick);
+                        
+                        this.getLevel(blockCommand, blockCommand, true);
                     } else {
                         // Minecart with Command Block
                         // TODO
