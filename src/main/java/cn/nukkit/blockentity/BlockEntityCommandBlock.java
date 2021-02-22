@@ -7,6 +7,10 @@ import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.ListTag;
 import cn.nukkit.nbt.tag.StringTag;
 
+import static cn.nukkit.network.protocol.CommandBlockUpdatePacket.MODE_CHAIN;
+import static cn.nukkit.network.protocol.CommandBlockUpdatePacket.MODE_NORMAL;
+import static cn.nukkit.network.protocol.CommandBlockUpdatePacket.MODE_REPEATING;
+
 /**
  * @author GoodLucky777
  */
@@ -29,6 +33,8 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     private boolean trackOutput;
     private int version;
     
+    private int commandBlockMode;
+    
     public BlockEntityCommandBlock(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
     }
@@ -39,6 +45,20 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     
     public String getCommand() {
         return command;
+    }
+    
+    public int getCommandBlockMode() {
+        int blockID = this.getLevelBlock().getId();
+        if (blockID == BlockID.REPEATING_COMMAND_BLOCK) {
+            commandBlockMode = MODE_REPEATING;
+            return MODE_REPEATING;
+        } else if (blockID == BlockID.CHAIN_COMMAND_BLOCK) {
+            commandBlockMode = MODE_CHAIN;
+            return MODE_CHAIN;
+        } else {
+            commandBlockMode = MODE_NORMAL;
+            return MODE_NORMAL;
+        }
     }
     
     public boolean getConditionMet() {
@@ -217,6 +237,8 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             this.version = CURRENT_VERSION;
         }
         
+        this.commandBlockMode = this.getCommandBlockMode();
+        
         super.initBlockEntity();
     }
     
@@ -255,10 +277,40 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     
     public void setCommand(String command) {
         this.command = command;
+        
+        this.successCount = 0;
+    }
+    
+    public void setCommandBlockMode(int commandBlockMode) {
+        this.commandBlockMode = commandBlockMode;
+        
+        BlockCommand blockCommand = (BlockCommand) this.getLevelBlock();
+        switch (commandBlockMode) {
+            case MODE_NORMAL:
+                if (blockCommand.getId() != BlockID.COMMAND_BLOCK) {
+                    blockCommand = (BlockCommand) Block.get(BlockID.COMMAND_BLOCK, blockCommand.getDamage());
+                }
+                break;
+            case MODE_REPEATING:
+                if (blockCommand.getId() != BlockID.REPEATING_COMMAND_BLOCK) {
+                    blockCommand = (BlockCommand) Block.get(BlockID.REPEATING_COMMAND_BLOCK, blockCommand.getDamage());
+                }
+                break;
+            case MODE_CHAIN:
+                if (blockCommand.getId() != BlockID.CHAIN_COMMAND_BLOCK) {
+                    blockCommand = (BlockCommand) Block.get(BlockID.CHAIN_COMMAND_BLOCK, blockCommand.getDamage());
+                }
+                break;
+        }
+        this.getLevel().setBlock(blockCommand, blockCommand, true, true);
     }
     
     public void setConditionalMet(boolean conditionMet) {
         this.conditionMet = conditionMet;
+        
+        BlockCommand blockCommand = (BlockCommand) this.getLevelBlock();
+        blockCommand.setConditional(conditionMet);
+        this.getLevel().setBlock(blockCommand, blockCommand, true, true);
     }
     
     public void setExecuteOnFirstTick(boolean executeOnFirstTick) {
