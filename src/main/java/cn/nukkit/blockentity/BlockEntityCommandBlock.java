@@ -259,7 +259,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             return true;
         }
         
-        if ((this,getLevel().getCurrentTick() % this.getTickDelay()) != 0) {
+        if ((this.getLevel().getCurrentTick() % this.getTickDelay()) != 0) {
             return true;
         }
         
