@@ -86,8 +86,8 @@ public class CommandBlockCommandSender implements CommandSender {
     public void sendMessage(String message) {
         message = this.getServer().getLanguage().translateString(message);
         
-        if (Server.getDefaultLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCK_OUTPUT)) {
-            for (Player player : Server.getDefaultLevel().getPlayers().values()) {
+        if (Server.getInstance().getDefaultLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCK_OUTPUT)) {
+            for (Player player : Server.getInstance().getDefaultLevel().getPlayers().values()) {
                 if (player.isOp()) {
                     player.sendMessage(message);
                 }
