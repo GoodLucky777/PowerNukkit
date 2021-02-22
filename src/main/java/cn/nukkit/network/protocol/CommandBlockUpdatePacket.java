@@ -22,8 +22,8 @@ public class CommandBlockUpdatePacket extends DataPacket {
     public String lastOutput;
     public String name;
     public boolean shouldTrackOutput;
-    private long tickDelay;
-    private boolean executingOnFirstTick;
+    public long tickDelay;
+    public boolean executingOnFirstTick;
 
     @Override
     public byte pid() {
