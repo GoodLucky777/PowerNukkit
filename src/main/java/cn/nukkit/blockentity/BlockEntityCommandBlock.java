@@ -397,6 +397,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         
         if (this.command.equals("Searge")) {
             this.lastOutput = "#itzlipofutzli";
+            this.successCount = 1;
             return true;
         }
     }
