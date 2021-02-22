@@ -3831,8 +3831,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             blockEntityCommandBlock.setAuto(commandBlockUpdate.isRedstoneMode);
                         }
                         
-                        if (commandBlockUpdate.isConditional ^ blockEntityCommandBlock.isConditionMet()) {
-                            blockEntityCommandBlock.setConditionMet(commandBlockUpdate.isConditional);
+                        if (commandBlockUpdate.isConditional ^ blockEntityCommandBlock.isConditionalMet()) {
+                            blockEntityCommandBlock.setConditionalMet(commandBlockUpdate.isConditional);
                         }
                         
                         blockEntityCommandBlock.setCommand(commandBlockUpdate.command);
