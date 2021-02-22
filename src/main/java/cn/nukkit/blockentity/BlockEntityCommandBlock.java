@@ -400,5 +400,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             this.successCount = 1;
             return true;
         }
+        
+        return true;
     }
 }
