@@ -117,7 +117,9 @@ public class BlockCommand extends BlockSolidMeta implements BlockEntityHolder<Bl
     public boolean onActivate(@Nonnull Item item, @Nullable Player player) {
         if (player != null) {
             getOrCreateBlockEntity();
-            player.addWindow(new CommandBlockInventory(player.getUIInventory(), this));
+            if (player.canUseCommandBlock()) {
+                player.addWindow(new CommandBlockInventory(player.getUIInventory(), this));
+            }
         }
         
         return true;
