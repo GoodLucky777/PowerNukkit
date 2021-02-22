@@ -387,7 +387,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     }
     
     public boolean trigger() {
-        if (this,getLevel().getCurrentTick() == this.lastExecution) {
+        if (this.getLevel().getCurrentTick() == this.lastExecution) {
             return false;
         }
         
