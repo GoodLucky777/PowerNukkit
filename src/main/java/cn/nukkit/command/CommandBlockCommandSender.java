@@ -1,5 +1,6 @@
 package cn.nukkit.command;
 
+import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.lang.TextContainer;
 import cn.nukkit.level.GameRule;
@@ -85,8 +86,8 @@ public class CommandBlockCommandSender implements CommandSender {
     public void sendMessage(String message) {
         message = this.getServer().getLanguage().translateString(message);
         
-        if (this.getLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCK_OUTPUT)) {
-            for (Player player : this.getLevel().getPlayers().values()) {
+        if (Server.getDefaultLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCK_OUTPUT)) {
+            for (Player player : Server.getDefaultLevel().getPlayers().values()) {
                 if (player.isOp()) {
                     player.sendMessage(message);
                 }
