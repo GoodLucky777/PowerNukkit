@@ -3861,7 +3861,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         blockEntityCommandBlock.setTickDelay((int) commandBlockUpdate.tickDelay);
                         blockEntityCommandBlock.setExecuteOnFirstTick(commandBlockUpdate.executingOnFirstTick);
                         
-                        this.getLevel(blockCommand, blockCommand, true);
+                        this.getLevel().setBlock(blockCommand, blockCommand, true);
                     } else {
                         // Minecart with Command Block
                         // TODO
