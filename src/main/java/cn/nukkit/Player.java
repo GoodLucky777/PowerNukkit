@@ -3825,33 +3825,14 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         BlockCommand blockCommand = ((BlockCommand) this.getLevel().getBlock(commandBlockUpdate.x, commandBlockUpdate.y, commandBlockUpdate.z));
                         BlockEntityCommandBlock blockEntityCommandBlock = blockCommand.getOrCreateBlockEntity();
                         
-                        switch (commandBlockUpdate.commandBlockMode) {
-                            case CommandBlockUpdatePacket.MODE_NORMAL:
-                                if (blockCommand.getId() != BlockID.COMMAND_BLOCK) {
-                                    blockCommand = (BlockCommand) Block.get(BlockID.COMMAND_BLOCK, blockCommand.getDamage());
-                                }
-                                break;
-                            case CommandBlockUpdatePacket.MODE_REPEATING:
-                                if (blockCommand.getId() != BlockID.REPEATING_COMMAND_BLOCK) {
-                                    blockCommand = (BlockCommand) Block.get(BlockID.REPEATING_COMMAND_BLOCK, blockCommand.getDamage());
-                                }
-                                break;
-                            case CommandBlockUpdatePacket.MODE_CHAIN:
-                                if (blockCommand.getId() != BlockID.CHAIN_COMMAND_BLOCK) {
-                                    blockCommand = (BlockCommand) Block.get(BlockID.CHAIN_COMMAND_BLOCK, blockCommand.getDamage());
-                                }
-                                break;
-                            default:
-                                log.warn("Unexpected commandBlockMode {} of CommandBlockUpdatePacket from {}", String.valueOf(commandBlockUpdate.commandBlockMode), this.getName());
-                                break;
-                        }
+                        blockEntityCommandBlock.setCommandBlockMode(commandBlockUpdate.commandBlockMode);
                         
                         if (commandBlockUpdate.isRedstoneMode ^ blockEntityCommandBlock.getAuto()) {
                             blockEntityCommandBlock.setAuto(commandBlockUpdate.isRedstoneMode);
                         }
                         
-                        if (commandBlockUpdate.isConditional ^ blockCommand.isConditional()) {
-                            blockCommand.setConditional(commandBlockUpdate.isConditional);
+                        if (commandBlockUpdate.isConditional ^ blockEntityCommandBlock.isConditionMet()) {
+                            blockEntityCommandBlock.setConditionMet(commandBlockUpdate.isConditional);
                         }
                         
                         blockEntityCommandBlock.setCommand(commandBlockUpdate.command);
@@ -3861,7 +3842,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         blockEntityCommandBlock.setTickDelay((int) commandBlockUpdate.tickDelay);
                         blockEntityCommandBlock.setExecuteOnFirstTick(commandBlockUpdate.executingOnFirstTick);
                         
-                        this.getLevel().setBlock(blockCommand, blockCommand, true);
+                        blockEntityCommandBlock.spawnToAll();
                     } else {
                         // Minecart with Command Block
                         // TODO
