@@ -540,6 +540,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         }
         
         this.lastOutput = "";
+        this.lastOutputParams = new String[];
         
         if (this.getServer().dispatchCommand(this, tempCommand)) {
             this.successCount++;
