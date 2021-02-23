@@ -128,6 +128,15 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         return lastOutputParams;
     }
     
+    public ListTag<StringTag> getLastOutputParamsListTag() {
+        ListTag<StringTag>("LastOutputParams") tempLastOutputParmas = new ListTag<StringTag>("LastOutputParams");
+        for (int i = 0; i < this.lastOutputParams.length; i++) {
+            tempLastOutputParmas.add(this.lastOutputParams[i]);
+        }
+        
+        return tempLastOutputParmas;
+    }
+    
     @Override
     public String getName() {
         if (this.hasName()) {
@@ -155,7 +164,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             .putBoolean("LPRedstoneMode", this.lpRedstoneMode)
             .putLong("LastExecution", this.lastExecution)
             .putString("LastOutput", this.lastOutput)
-            .putList(this.lastOutputParams)
+            .putList(this.getLastOutputParamsListTag())
             .putInt("SuccessCount", this.successCount)
             .putInt("TickDelay", this.tickDelay)
             .putBoolean("TrackOutput", this.trackOutput)
@@ -380,11 +389,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         this.namedTag.putBoolean("LPRedstoneMode", this.lpRedstoneMode);
         this.namedTag.putLong("LastExecution", this.lastExecution);
         this.namedTag.putString("LastOutput", this.lastOutput);
-        ListTag<StringTag>("LastOutputParams") tempLastOutputParmas = new ListTag<StringTag>("LastOutputParams");
-        for (int i = 0; i < this.lastOutputParams.length; i++) {
-            tempLastOutputParmas.add(this.lastOutputParams[i]);
-        }
-        this.namedTag.putList(tempLastOutputParmas);
+        this.namedTag.putList(this.getLastOutputParamsListTag());
         this.namedTag.putInt("SuccessCount", this.successCount);
         this.namedTag.putInt("TickDelay", this.tickDelay);
         this.namedTag.putBoolean("TrackOutput", this.trackOutput);
