@@ -19,8 +19,6 @@ import static cn.nukkit.network.protocol.CommandBlockUpdatePacket.MODE_REPEATING
  */
 public class BlockEntityCommandBlock extends BlockEntitySpawnable implements BlockEntityNameable, ICommandBlock {
 
-    public static final int CURRENT_VERSION = 13;
-    
     private boolean auto;
     private String command;
     private boolean conditionMet;
