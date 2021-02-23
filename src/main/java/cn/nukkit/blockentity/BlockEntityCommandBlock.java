@@ -133,7 +133,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     public ListTag<StringTag> getLastOutputParamsListTag() {
         ListTag<StringTag> tempLastOutputParmas = new ListTag<StringTag>("LastOutputParams");
         for (int i = 0; i < this.lastOutputParams.length; i++) {
-            tempLastOutputParmas.add(this.lastOutputParams[i]);
+            tempLastOutputParmas.add(new StringTag("", this.lastOutputParams[i]));
         }
         
         return tempLastOutputParmas;
@@ -273,7 +273,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         if (this.namedTag.contains("LastOutputParams")) {
             ListTag<StringTag> tempLastOutputParams = (ListTag<StringTag>) this.namedTag.getList("LastOutputParams");
             for (int i = 0; i < tempLastOutputParams.size(); i++) {
-                this.lastOutputParams[i] = tempLastOutputParams.get(i);
+                this.lastOutputParams[i] = tempLastOutputParams.get(i).parseValue();
             }
         } else {
             this.lastOutputParams = EMPTY_ARRAY;
