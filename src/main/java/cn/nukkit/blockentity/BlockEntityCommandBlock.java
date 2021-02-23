@@ -518,10 +518,12 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             return true;
         }
         
-        tempCommand = this.command;
-        if (tempCommand.startsWith("/")) {
-            tempCommand = tempCommand.substring(1);
+        this.tempCommand = this.command;
+        if (this.tempCommand.startsWith("/")) {
+            this.tempCommand = tempCommand.substring(1);
         }
+        
+        this.lastOutput = "";
         
         if (this.getServer().dispatchCommand(this, tempCommand)) {
             this.successCount++;
