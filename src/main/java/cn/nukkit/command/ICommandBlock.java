@@ -15,7 +15,7 @@ public interface ICommandBlock extends CommandSender {
 
     public int CURRENT_VERSION = 13;
     
-    private PermissibleBase perm = new PermissibleBase(this);
+    PermissibleBase perm = new PermissibleBase(this);
     
     static int getCurrentVersion() {
         return CURRENT_VERSION;
