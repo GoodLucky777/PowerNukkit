@@ -354,6 +354,11 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         this.perm.removeAttachment(attachment);
     }
     
+    public void reset() {
+        this.currentTick = 0;
+        this.successCount = 0;
+    }
+    
     @Override
     public void saveNBT() {
         super.saveNBT();
@@ -379,8 +384,6 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     
     @Override
     public void sendMessage(String message) {
-        message = this.getServer().getLanguage().translateString(message);
-        
         if (this.trackOutput) {
             this.lastOutput = message;
         }
@@ -405,8 +408,6 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     
     public void setCommand(String command) {
         this.command = command;
-        
-        this.successCount = 0;
     }
     
     public void setCommandBlockMode(int commandBlockMode) {
