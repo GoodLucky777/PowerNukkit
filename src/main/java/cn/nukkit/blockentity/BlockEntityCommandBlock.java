@@ -305,7 +305,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         if (this.namedTag.contains("TrackOutput")) {
             this.trackOutput = this.namedTag.getBoolean("TrackOutput");
         } else {
-            this.trackOutput = true;
+            this.trackOutput = this.getLevel().getGameRules().getBoolean(GameRule.SEND_COMMAND_FEEDBACK);
         }
         
         if (this.namedTag.contains("Version")) {
