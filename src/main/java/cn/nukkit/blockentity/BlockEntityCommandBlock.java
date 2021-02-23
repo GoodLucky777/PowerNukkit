@@ -330,7 +330,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         this.timing.startTiming();
         
         if (this.getCommandBlockMode() == MODE_REPEATING) {
-            if ((this.currentTick % this.getTickDelay()) == 0) {
+            if ((this.currentTick % this.getTickDelay()) == 0 || (this.executeOnFirstTick && this.currentTick == 0)) {
                 this.trigger();
             }
         } else {
