@@ -29,7 +29,7 @@ import static cn.nukkit.network.protocol.CommandBlockUpdatePacket.MODE_REPEATING
  */
 public class BlockEntityCommandBlock extends BlockEntitySpawnable implements BlockEntityNameable, ICommandBlock {
 
-    private static final String EMPTY_ARRAY = new String[0];
+    private static final String[] EMPTY_ARRAY = new String[0];
     
     private PermissibleBase perm;
     
