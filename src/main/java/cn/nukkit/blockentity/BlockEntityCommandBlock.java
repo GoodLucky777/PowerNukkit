@@ -129,7 +129,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     }
     
     public ListTag<StringTag> getLastOutputParamsListTag() {
-        ListTag<StringTag>("LastOutputParams") tempLastOutputParmas = new ListTag<StringTag>("LastOutputParams");
+        ListTag<StringTag> tempLastOutputParmas = new ListTag<StringTag>("LastOutputParams");
         for (int i = 0; i < this.lastOutputParams.length; i++) {
             tempLastOutputParmas.add(this.lastOutputParams[i]);
         }
@@ -543,12 +543,11 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         this.lastOutputParams = new String[];
         
         if (this.getServer().dispatchCommand(this, tempCommand)) {
-            this.successCount++;
-            
             this.lastExecution = this.getLevel().getCurrentTick();
             this.lpCommandMode = this.commandBlockMode;
             this.lpCondionalMode = this.conditionMet;
             this.lpRedstoneMode = this.auto;
+            this.successCount = 1; // TODO: Make successCount depend on command results
         } else {
             this.successCount = 0;
         }
