@@ -43,6 +43,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     private long lastExecution;
     private String lastOutput;
     private String[] lastOutputParams;
+    private boolean powered;
     private int successCount;
     private int tickDelay;
     private boolean trackOutput;
@@ -146,6 +147,10 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         }
         
         return "!";
+    }
+    
+    public boolean getPowered() {
+        return powered;
     }
     
     @Override
@@ -279,6 +284,12 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             this.lastOutputParams = EMPTY_ARRAY;
         }
         
+        if (this.namedTag.contains("powered")) {
+            this.powered = this.namedTag.getBoolean("powered");
+        } else {
+            this.powered = false;
+        }
+        
         if (this.namedTag.contains("SuccessCount")) {
             this.successCount = this.namedTag.getInt("SuccessCount");
         } else {
@@ -392,6 +403,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         this.namedTag.putLong("LastExecution", this.lastExecution);
         this.namedTag.putString("LastOutput", this.lastOutput);
         this.namedTag.putList(this.getLastOutputParamsListTag());
+        this.namedTag.putBoolean("powered", this.powered);
         this.namedTag.putInt("SuccessCount", this.successCount);
         this.namedTag.putInt("TickDelay", this.tickDelay);
         this.namedTag.putBoolean("TrackOutput", this.trackOutput);
@@ -503,6 +515,10 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     @Override
     public void setOp(boolean value) {
         // Does Nothing
+    }
+    
+    public void setPowered(boolean powered) {
+        this.powered = powered;
     }
     
     public void setSuccessCount(int successCount) {
