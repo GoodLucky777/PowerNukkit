@@ -3,7 +3,6 @@ package cn.nukkit.blockentity;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockCommand;
 import cn.nukkit.block.BlockID;
-import cn.nukkit.command.CommandSender;
 import cn.nukkit.command.ICommandBlock;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
@@ -17,7 +16,7 @@ import static cn.nukkit.network.protocol.CommandBlockUpdatePacket.MODE_REPEATING
 /**
  * @author GoodLucky777
  */
-public class BlockEntityCommandBlock extends BlockEntitySpawnable implements BlockEntityNameable, CommandSender, ICommandBlock {
+public class BlockEntityCommandBlock extends BlockEntitySpawnable implements BlockEntityNameable, ICommandBlock {
 
     private boolean auto;
     private String command;
