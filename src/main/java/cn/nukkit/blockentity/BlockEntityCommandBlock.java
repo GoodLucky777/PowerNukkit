@@ -18,6 +18,8 @@ import static cn.nukkit.network.protocol.CommandBlockUpdatePacket.MODE_REPEATING
  */
 public class BlockEntityCommandBlock extends BlockEntitySpawnable implements BlockEntityNameable, ICommandBlock {
 
+    private PermissibleBase perm;
+    
     private boolean auto;
     private String command;
     private boolean conditionMet;
@@ -34,9 +36,25 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     private int version;
     
     private int commandBlockMode;
+    private int currentTick;
     
     public BlockEntityCommandBlock(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
+    }
+    
+    @Override
+    public PermissionAttachment addAttachment(Plugin plugin) {
+        return this.perm.addAttachment(plugin);
+    }
+    
+    @Override
+    public PermissionAttachment addAttachment(Plugin plugin, String name) {
+        return this.perm.addAttachment(plugin, name);
+    }
+    
+    @Override
+    public PermissionAttachment addAttachment(Plugin plugin, String name, Boolean value) {
+        return this.perm.addAttachment(plugin, name, value);
     }
     
     public boolean getAuto() {
@@ -63,6 +81,11 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     
     public boolean getConditionMet() {
         return conditionMet;
+    }
+    
+    @Override
+    public Map<String, PermissionAttachmentInfo> getEffectivePermissions() {
+        return this.perm.getEffectivePermissions();
     }
     
     public boolean getExecuteOnFirstTick() {
@@ -99,7 +122,12 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             return this.namedTag.getString("CustomName");
         }
         
-        return "Command Block";
+        return "!";
+    }
+    
+    @Override
+    public Server getServer() {
+        return Server.getInstance();
     }
     
     @Override
@@ -139,6 +167,16 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     }
     
     @Override
+    public boolean hasPermission(Permission permission) {
+        return this.perm.hasPermission(permission);
+    }
+    
+    @Override
+    public boolean hasPermission(String name) {
+        return this.perm.hasPermission(name);
+    }
+    
+    @Override
     public boolean hasName() {
         if (this.namedTag.contains("CustomName")) {
             return !(this.namedTag.getString("CustomName").equals(""));
@@ -149,6 +187,8 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     
     @Override
     protected void initBlockEntity() {
+        this.perm = new PermissibleBase(this);
+        
         if (this.namedTag.contains("auto")) {
             this.auto = this.namedTag.getBoolean("auto");
         } else {
@@ -239,6 +279,8 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         
         this.commandBlockMode = this.getCommandBlockMode();
         
+        this.currentTick = 0;
+        
         super.initBlockEntity();
     }
     
@@ -249,26 +291,57 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     }
     
     @Override
+    public boolean isOp() {
+        return true;
+    }
+    
+    @Override
+    public boolean isPermissionSet(Permission permission) {
+        return this.perm.isPermissionSet(permission);
+    }
+    
+    @Override
+    public boolean isPermissionSet(String name) {
+        return this.perm.isPermissionSet(name);
+    }
+    
+    public boolean isPlayer() {
+        return false;
+    }
+    
+    @Override
     public boolean onUpdate() {
         if (this.closed) {
             return false;
         }
         
-        if (this.getCommandBlockMode() != MODE_REPEATING) {
-            return true;
-        }
-        
-        if ((this.getLevel().getCurrentTick() % this.getTickDelay()) != 0) {
-            return true;
-        }
-        
         this.timing.startTiming();
         
-        this.trigger();
+        if (this.getCommandBlockMode() == MODE_REPEATING) {
+            if ((this.currentTick % this.getTickDelay()) == 0) {
+                this.trigger();
+            }
+        } else {
+            if (this.currentTick == this.getTickDelay()) {
+                this.trigger();
+            }
+        }
+        
+        this.currentTick++;
         
         this.timing.stopTiming();
         
         return true;
+    }
+    
+    @Override
+    public void recalculatePermissions() {
+        this.perm.recalculatePermissions();
+    }
+    
+    @Override
+    public void removeAttachment(PermissionAttachment attachment) {
+        this.perm.removeAttachment(attachment);
     }
     
     @Override
@@ -292,6 +365,24 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         this.namedTag.putInt("TickDelay", this.tickDelay);
         this.namedTag.putBoolean("TrackOutput", this.trackOutput);
         this.namedTag.putInt("Version", this.version);
+    }
+    
+    @Override
+    public void sendMessage(String message) {
+        message = this.getServer().getLanguage().translateString(message);
+        
+        if (Server.getInstance().getDefaultLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCK_OUTPUT)) {
+            for (Player player : Server.getInstance().getDefaultLevel().getPlayers().values()) {
+                if (player.isOp()) {
+                    player.sendMessage(message);
+                }
+            }
+        }
+    }
+    
+    @Override
+    public void sendMessage(TextContainer message) {
+        this.sendMessage(this.getServer().getLanguage().translate(message));
     }
     
     public void setAuto(boolean auto) {
@@ -325,6 +416,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
                 }
                 break;
         }
+        
         this.getLevel().setBlock(blockCommand, blockCommand, true, true);
     }
     
@@ -373,6 +465,11 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         }
     }
     
+    @Override
+    public void setOp(boolean value) {
+        // Does Nothing
+    }
+    
     public void setSuccessCount(int successCount) {
         this.successCount = successCount;
     }
@@ -403,6 +500,8 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             this.successCount = 1;
             return true;
         }
+        
+        Server.getInstance().dispatchCommand(this, this.command);
         
         return true;
     }
