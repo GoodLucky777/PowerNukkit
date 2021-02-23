@@ -265,7 +265,11 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             return true;
         }
         
+        this.timing.startTiming();
+        
         this.trigger();
+        
+        this.timing.stopTiming();
         
         return true;
     }
