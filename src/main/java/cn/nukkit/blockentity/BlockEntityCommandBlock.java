@@ -523,7 +523,16 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             tempCommand = tempCommand.substring(1);
         }
         
-        Server.getInstance().dispatchCommand(this, tempCommand);
+        if (this.getServer().dispatchCommand(this, tempCommand)) {
+            this.successCount++;
+            
+            this.lastExecution = this.getLevel().getCurrentTick();
+            this.lpCommandMode = this.commandBlockMode;
+            this.lpCondionalMode = this.conditionMet;
+            this.lpRedstoneMode = this.auto;
+        } else {
+            this.successCount = 0;
+        }
         
         return true;
     }
