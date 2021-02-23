@@ -400,7 +400,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     
     @Override
     public void sendMessage(TextContainer message) {
-        this.sendMessage(this.getServer().getLanguage().translate(message));
+        this.sendMessage(message.toString());
     }
     
     public void setAuto(boolean auto) {
