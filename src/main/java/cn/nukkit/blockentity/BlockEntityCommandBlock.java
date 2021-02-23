@@ -48,6 +48,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     
     private int commandBlockMode;
     private int currentTick;
+    private String tempCommand;
     
     public BlockEntityCommandBlock(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
@@ -517,7 +518,12 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             return true;
         }
         
-        Server.getInstance().dispatchCommand(this, this.command);
+        tempCommand = this.command;
+        if (tempCommand.startsWith("/")) {
+            tempCommand = tempCommand.substring(1);
+        }
+        
+        Server.getInstance().dispatchCommand(this, tempCommand);
         
         return true;
     }
