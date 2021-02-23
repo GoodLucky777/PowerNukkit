@@ -272,8 +272,8 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         
         if (this.namedTag.contains("LastOutputParams")) {
             ListTag<StringTag> tempLastOutputParams = (ListTag<StringTag>) this.namedTag.getList("LastOutputParams");
-            for (int i = 0; i < tempLastOutputParmas.size(); i++) {
-                this.lastOutputParams[i] = tempLastOutputParmas.get(i);
+            for (int i = 0; i < tempLastOutputParams.size(); i++) {
+                this.lastOutputParams[i] = tempLastOutputParams.get(i);
             }
         } else {
             this.lastOutputParams = EMPTY_ARRAY;
