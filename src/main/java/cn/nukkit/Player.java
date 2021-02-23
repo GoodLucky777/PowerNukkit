@@ -3836,11 +3836,13 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         }
                         
                         blockEntityCommandBlock.setCommand(commandBlockUpdate.command);
-                        blockEntityCommandBlock.setLastOutput(commandBlockUpdate.lastOutput);
+                        //blockEntityCommandBlock.setLastOutput(commandBlockUpdate.lastOutput);
                         blockEntityCommandBlock.setName(commandBlockUpdate.name);
                         blockEntityCommandBlock.setTrackOutput(commandBlockUpdate.shouldTrackOutput);
                         blockEntityCommandBlock.setTickDelay((int) commandBlockUpdate.tickDelay);
                         blockEntityCommandBlock.setExecuteOnFirstTick(commandBlockUpdate.executingOnFirstTick);
+                        
+                        blockEntityCommandBlock.reset();
                         
                         blockEntityCommandBlock.spawnToAll();
                     } else {
