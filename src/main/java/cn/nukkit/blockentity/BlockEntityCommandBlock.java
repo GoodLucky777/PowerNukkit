@@ -1,13 +1,23 @@
 package cn.nukkit.blockentity;
 
+import cn.nukkit.Player;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockCommand;
 import cn.nukkit.block.BlockID;
 import cn.nukkit.command.ICommandBlock;
+import cn.nukkit.lang.TextContainer;
+import cn.nukkit.level.GameRule;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.ListTag;
 import cn.nukkit.nbt.tag.StringTag;
+import cn.nukkit.permission.PermissibleBase;
+import cn.nukkit.permission.Permission;
+import cn.nukkit.permission.PermissionAttachment;
+import cn.nukkit.permission.PermissionAttachmentInfo;
+import cn.nukkit.plugin.Plugin;
+
+import java.util.Map;
 
 import static cn.nukkit.network.protocol.CommandBlockUpdatePacket.MODE_CHAIN;
 import static cn.nukkit.network.protocol.CommandBlockUpdatePacket.MODE_NORMAL;
@@ -127,7 +137,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     
     @Override
     public Server getServer() {
-        return Server.getInstance();
+        return this.getServer();
     }
     
     @Override
