@@ -1,6 +1,6 @@
 package cn.nukkit.command;
 
-public interface ICommandBlock extends CommandBlockCommandSender {
+public interface ICommandBlock {
 
     public int CURRENT_VERSION = 13;
     
