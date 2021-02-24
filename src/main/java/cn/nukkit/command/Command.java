@@ -341,17 +341,13 @@ public abstract class Command {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public static void broadcastCommandOutput(CommandOriginData origin, CommandOutputType type, int successCount, CommandOutputMessage message, String data) {
+    public static void broadcastCommandOutput(CommandOriginData origin, CommandOutputType type, int successCount, CommandOutputMessage messages, String data) {
         Set<Permissible> users = Server.getInstance().getPluginManager().getPermissionSubscriptions(Server.BROADCAST_CHANNEL_ADMINISTRATIVE);
         
-        /*for (Permissible user : users) {
+        for (Permissible user : users) {
             if (user instanceof CommandSender) {
-                if (user instanceof ConsoleCommandSender) {
-                    ((ConsoleCommandSender) user).sendMessage(result);
-                } else if (!user.equals(source)) {
-                    ((CommandSender) user).sendMessage(colored);
-                }
+                ((CommandSender) user).sendCommandOutput(origin, type, successCount, messages, data);
             }
-        }*/
+        }
     }
 }
