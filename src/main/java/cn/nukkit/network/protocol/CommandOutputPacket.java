@@ -1,5 +1,6 @@
 package cn.nukkit.network.protocol;
 
+import cn.nukkit.network.protocol.types.CommandOriginData;
 import cn.nukkit.network.protocol.types.CommandOutputMessage;
 
 import lombok.ToString;
