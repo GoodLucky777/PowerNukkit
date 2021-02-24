@@ -40,11 +40,11 @@ public class CommandRequestPacket extends DataPacket {
         CommandOriginData.Origin type = CommandOriginData.Origin.values()[this.getVarInt()];
         UUID uuid = this.getUUID();
         String requestId = this.getString();
-        Long varLong = null;
+        long event = -1L;
         if (type == CommandOriginData.Origin.DEV_CONSOLE || type == CommandOriginData.Origin.TEST) {
-            varLong = this.getVarLong();
+            event = this.getVarLong();
         }
-        this.data = new CommandOriginData(type, uuid, requestId, varLong);
+        this.data = new CommandOriginData(type, uuid, requestId, event);
     }
 
     @Override
