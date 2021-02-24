@@ -1,5 +1,7 @@
 package cn.nukkit.network.protocol.types;
 
+import io.netty.util.internal.EmptyArrays;
+
 import javax.annotation.Nonnull;
 
 import lombok.ToString;
@@ -14,7 +16,7 @@ public class CommandOutputMessage {
     
     public final boolean internal;
     public final String messageId;
-    public final String[] parameters;
+    public final String[] parameters = EmptyArrays.EMPTY_STRINGS;
     
     public CommandOriginData(boolean internal, @Nonnull String messageId, @Nonnull String[] parameters) {
         this.internal = internal;
