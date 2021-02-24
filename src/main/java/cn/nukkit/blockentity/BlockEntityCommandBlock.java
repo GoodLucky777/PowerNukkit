@@ -18,6 +18,8 @@ import cn.nukkit.permission.PermissionAttachment;
 import cn.nukkit.permission.PermissionAttachmentInfo;
 import cn.nukkit.plugin.Plugin;
 
+import io.netty.util.internal.EmptyArrays;
+
 import java.util.Map;
 
 import static cn.nukkit.network.protocol.CommandBlockUpdatePacket.MODE_CHAIN;
@@ -29,8 +31,6 @@ import static cn.nukkit.network.protocol.CommandBlockUpdatePacket.MODE_REPEATING
  */
 public class BlockEntityCommandBlock extends BlockEntitySpawnable implements BlockEntityNameable, ICommandBlock {
 
-    private static final String[] EMPTY_ARRAY = new String[0];
-    
     private PermissibleBase perm;
     
     private boolean auto;
@@ -281,7 +281,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
                 this.lastOutputParams[i] = tempLastOutputParams.get(i).parseValue();
             }
         } else {
-            this.lastOutputParams = EMPTY_ARRAY;
+            this.lastOutputParams = EmptyArrays.EMPTY_STRINGS;
         }
         
         if (this.namedTag.contains("powered")) {
