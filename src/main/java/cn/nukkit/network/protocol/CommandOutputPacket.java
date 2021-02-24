@@ -74,12 +74,4 @@ public class CommandOutputPacket extends DataPacket {
             this.putString(this.data);
         }
     }
-    
-    public enum CommandOutputType {
-        NONE,
-        LAST_OUTPUT,
-        SILENT,
-        ALL_OUTPUT,
-        DATA_SET
-    }
 }
