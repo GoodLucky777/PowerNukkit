@@ -38,7 +38,7 @@ public class CommandOutputPacket extends DataPacket {
         }
         this.commandOriginData = new CommandOriginData(type, uuid, requestId, event);
         this.type = CommandOutputType.values()[this.getUnsignedByte()];
-        this.successCount = this.getUnsignedVarInt();
+        this.successCount = (int) this.getUnsignedVarInt();
         for (int i = 0; i < this.getUnsignedVarInt(); i++) {
             boolean internal = this.getBoolean();
             String messageId = this.getString();
@@ -57,9 +57,9 @@ public class CommandOutputPacket extends DataPacket {
         this.putUUID(commandOriginData.uuid);
         this.putString(commandOriginData.requestId);
         if (commandOriginData.type == CommandOriginData.Origin.DEV_CONSOLE || commandOriginData.type == CommandOriginData.Origin.TEST) {
-            this.putVarLong((long) commandOriginData.getVarLong());
+            this.putVarLong(commandOriginData.getVarLong().getAsLong());
         }
-        this.putByte(this.type.ordinal());
+        this.putByte((byte) this.type.ordinal());
         this.putUnsignedVarInt(this.successCount);
         this.putUnsignedVarInt(this.messages.length);
         for (CommandOutputMessage commandOutputMessage : this.messages) {
