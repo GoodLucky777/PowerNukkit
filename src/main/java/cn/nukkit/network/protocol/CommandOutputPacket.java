@@ -57,7 +57,7 @@ public class CommandOutputPacket extends DataPacket {
         this.putUUID(commandOriginData.uuid);
         this.putString(commandOriginData.requestId);
         if (commandOriginData.type == CommandOriginData.Origin.DEV_CONSOLE || commandOriginData.type == CommandOriginData.Origin.TEST) {
-            this.putVarLong(commandOriginData.getVarLong().getAsLong());
+            this.putVarLong(commandOriginData.event);
         }
         this.putByte((byte) this.type.ordinal());
         this.putUnsignedVarInt(this.successCount);
