@@ -2211,6 +2211,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         infoPacket.resourcePackEntries = this.server.getResourcePackManager().getResourceStack();
         infoPacket.mustAccept = this.server.getForceResources();
         this.dataPacket(infoPacket);
+        
+        this.commandOriginData = new CommandOriginData(CommandOriginData.Origin.PLAYER, uuid, "", -1L);
     }
 
     protected void completeLoginSequence() {
