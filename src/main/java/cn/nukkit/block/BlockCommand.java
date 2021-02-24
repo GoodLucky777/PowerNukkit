@@ -5,8 +5,10 @@ import cn.nukkit.blockentity.BlockEntity;
 import cn.nukkit.blockentity.BlockEntityCommandBlock;
 import cn.nukkit.blockproperty.BlockProperties;
 import cn.nukkit.blockproperty.BooleanBlockProperty;
+import cn.nukkit.event.redstone.RedstoneUpdateEvent;
 import cn.nukkit.inventory.CommandBlockInventory;
 import cn.nukkit.item.Item;
+import cn.nukkit.level.Level;
 import cn.nukkit.math.BlockFace;
 import cn.nukkit.utils.BlockColor;
 import cn.nukkit.utils.Faceable;
@@ -133,6 +135,32 @@ public class BlockCommand extends BlockSolidMeta implements BlockEntityHolder<Bl
         }
         
         return true;
+    }
+    
+    @Override
+    public int onUpdate(int type) {
+        if (type == Level.BLOCK_UPDATE_REDSTONE) {
+            if (!this.getLevel().getServer().isRedstoneEnabled()) {
+                return 0;
+            }
+            
+            BlockEntityCommandBlock blockEntityCommandBlock = this.getBlockEntity();
+            if (this.isGettingPower()) {
+                RedstoneUpdateEvent ev = new RedstoneUpdateEvent(this);
+                this.getLevel().getServer().getPluginManager().callEvent(ev);
+                if (ev.isCancelled()) {
+                    return 0;
+                }
+                
+                if (!blockEntityCommandBlock.getPowered()) {
+                    blockEntityCommandBlock.setPowered(true);
+                }
+            } else {
+                blockEntityCommandBlock.setPowered(false);
+            }
+        }
+        
+        return super.onUpdate(type);
     }
     
     @Override
