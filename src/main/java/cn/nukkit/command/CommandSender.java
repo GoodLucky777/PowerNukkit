@@ -1,7 +1,10 @@
 package cn.nukkit.command;
 
 import cn.nukkit.Server;
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.lang.TextContainer;
+import cn.nukkit.network.protocol.types.CommandOriginData;
 import cn.nukkit.permission.Permissible;
 
 import javax.annotation.Nonnull;
@@ -70,5 +73,10 @@ public interface CommandSender extends Permissible {
     String getName();
 
     boolean isPlayer();
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    default CommandOriginData getCommandOriginData() {
+        return CommandOriginData.DEFAULT;
+    }
 }
