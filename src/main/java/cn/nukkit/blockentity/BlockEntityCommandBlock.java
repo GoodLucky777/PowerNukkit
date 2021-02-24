@@ -543,6 +543,14 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     }
     
     public boolean trigger() {
+        return trigger(0);
+    }
+    
+    public boolean trigger(int successCount) {
+        return trigger(successCount, 0);
+    }
+    
+    public boolean trigger(int successCount, int chain) {
         if (this.getLevel().getCurrentTick() == this.lastExecution) {
             return false;
         }
@@ -552,6 +560,20 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         }
         
         if (!this.getLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCKS_ENABLED)) {
+            return false;
+        }
+        
+        if (this.getLevel().getGameRules().getInt(GameRule.MAX_COMMAND_CHAIN_LENGTH) < chain) {
+            return false;
+        }
+        
+        if (chain > 0 && this.commandBlockMode == MODE_CHAIN) {
+            if (!(this.auto || this.powered)) {
+                return false;
+            }
+        }
+        
+        if (this.conditionMet && (this.successCount <= 0)) {
             return false;
         }
         
@@ -575,6 +597,11 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             this.lpCondionalMode = this.conditionMet;
             this.lpRedstoneMode = this.auto;
             this.successCount = 1; // TODO: Make successCount depend on command results
+            
+            Block block = this.getBlock().getSide(this.getBlock().getBlockFace());
+            if (block instanceof BlockCommand) {
+                (((BlockCommand) block).getBlockEntity()).trigger(this,successCount, chain++);
+            }
         } else {
             this.successCount = 0;
         }
