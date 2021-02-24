@@ -40,7 +40,7 @@ public class CommandOutputPacket extends DataPacket {
         for (int i = 0; i < this.getUnsignedVarInt(); i++) {
             boolean internal = this.getBoolean();
             String messageId = this.getString();
-            String[] parameters = ;
+            String[] parameters = this.getArray(String.class, BinaryStream::getString);
             this.messages[i] = new CommandOutputMessage(internal, messageId, parameters);
         }
         if (type == CommandOutputType.DATA_SET) {
