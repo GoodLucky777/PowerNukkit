@@ -62,6 +62,7 @@ import cn.nukkit.nbt.tag.*;
 import cn.nukkit.network.Network;
 import cn.nukkit.network.SourceInterface;
 import cn.nukkit.network.protocol.*;
+import cn.nukkit.network.protocol.types.CommandOriginData;
 import cn.nukkit.network.protocol.types.ContainerIds;
 import cn.nukkit.network.protocol.types.NetworkInventoryAction;
 import cn.nukkit.permission.PermissibleBase;
@@ -292,6 +293,10 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     private float soulSpeedMultiplier = 1;
     private boolean wasInSoulSandCompatible;
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private CommandOriginData commandOriginData = null;
 
     public float getSoulSpeedMultiplier() {
         return this.soulSpeedMultiplier;
@@ -5840,5 +5845,18 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     @Since("1.4.0.0-PN")
     public boolean canUseCommandBlock() {
         return this.isOp() && this.isCreative();
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public CommandOriginData getCommandOriginData() {
+        return commandOriginData;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setCommandOriginData(CommandOriginData commandOriginData) {
+        this.commandOriginData = commandOriginData;
     }
 }
