@@ -10,6 +10,8 @@ import lombok.ToString;
 @ToString
 public class CommandOutputMessage {
 
+    public static final CommandOutputMessage[] EMPTY_ARRAY = new CommandOutputMessage[0];
+    
     public final boolean internal;
     public final String messageId;
     public final String[] parameters;
