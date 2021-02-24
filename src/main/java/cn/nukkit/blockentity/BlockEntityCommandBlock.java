@@ -414,7 +414,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     public void sendMessage(String message) {
         if (this.trackOutput) {
             this.lastOutput = message;
-            this.lastOutputParams = EMPTY_ARRAY; // TODO: Implement lastOutputParams
+            this.lastOutputParams = EmptyArrays.EMPTY_STRINGS; // TODO: Implement lastOutputParams
         }
         
         if (this.getLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCK_OUTPUT)) {
@@ -559,7 +559,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         }
         
         this.lastOutput = "";
-        this.lastOutputParams = EMPTY_ARRAY;
+        this.lastOutputParams = EmptyArrays.EMPTY_STRINGS;
         
         if (this.getServer().dispatchCommand(this, tempCommand)) {
             this.lastExecution = this.getLevel().getCurrentTick();
