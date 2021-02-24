@@ -44,7 +44,7 @@ public class CommandOutputPacket extends DataPacket {
             String[] parameters = this.getArray(String.class, BinaryStream::getString);
             this.messages[i] = new CommandOutputMessage(internal, messageId, parameters);
         }
-        if (type == CommandOutputType.DATA_SET) {
+        if (this.type == CommandOutputType.DATA_SET) {
             this.data = this.getString();
         }
     }
@@ -52,7 +52,26 @@ public class CommandOutputPacket extends DataPacket {
     @Override
     public void encode() {
         this.reset();
-        
+        this.putVarInt(commandOriginData.type.ordinal());
+        this.putUUID(commandOriginData.uuid);
+        this.putString(commandOriginData.requestId);
+        if (commandOriginData.type == CommandOriginData.Origin.DEV_CONSOLE || commandOriginData.type == CommandOriginData.Origin.TEST) {
+            this.putVarLong(commandOriginData.varlong);
+        }
+        this.putByte(this.type.ordinal());
+        this.putUnsignedVarInt(this.successCount);
+        this.putUnsignedVarInt(this.messages.length);
+        for (CommandOutputMessage commandOutputMessage : this.messages) {
+            this.putBoolean(commandOutputMessage.internal);
+            this.putString(commandOutputMessage.messageId);
+            this.putUnsignedVarInt(commandOutputMessage.parameters.length);
+            for (String parameter : commandOutputMessage.parameters) {
+                this.putString(parameter);
+            }
+        }
+        if (this.type == CommandOutputType.DATA_SET) {
+            this.putString(this.data);
+        }
     }
     
     public enum CommandOutputType {
