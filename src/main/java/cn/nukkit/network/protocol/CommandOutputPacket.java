@@ -2,6 +2,7 @@ package cn.nukkit.network.protocol;
 
 import cn.nukkit.network.protocol.types.CommandOriginData;
 import cn.nukkit.network.protocol.types.CommandOutputMessage;
+import cn.nukkit.utils.BinaryStream;
 
 import lombok.ToString;
 
@@ -56,7 +57,7 @@ public class CommandOutputPacket extends DataPacket {
         this.putUUID(commandOriginData.uuid);
         this.putString(commandOriginData.requestId);
         if (commandOriginData.type == CommandOriginData.Origin.DEV_CONSOLE || commandOriginData.type == CommandOriginData.Origin.TEST) {
-            this.putVarLong(commandOriginData.varlong);
+            this.putVarLong((long) commandOriginData.getVarLong());
         }
         this.putByte(this.type.ordinal());
         this.putUnsignedVarInt(this.successCount);
