@@ -2,6 +2,7 @@ package cn.nukkit.network.protocol;
 
 import cn.nukkit.network.protocol.types.CommandOriginData;
 import cn.nukkit.network.protocol.types.CommandOutputMessage;
+import cn.nukkit.network.protocol.types.CommandOutputType;
 import cn.nukkit.utils.BinaryStream;
 
 import lombok.ToString;
