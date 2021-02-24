@@ -10,7 +10,7 @@ import lombok.ToString;
  * @author GoodLucky777
  */
 @ToString
-public class CommandOutputMessage {
+public static class CommandOutputMessage {
 
     public static final CommandOutputMessage[] EMPTY_ARRAY = new CommandOutputMessage[0];
     
