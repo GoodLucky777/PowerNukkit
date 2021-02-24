@@ -352,6 +352,10 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             return false;
         }
         
+        if (!(this.powered || this.auto)) {
+            return false;
+        }
+        
         this.timing.startTiming();
         
         if (this.getCommandBlockMode() == MODE_REPEATING) {
