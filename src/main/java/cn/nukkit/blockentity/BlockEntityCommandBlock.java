@@ -600,7 +600,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             
             Block block = this.getBlock().getSide(this.getBlock().getBlockFace());
             if (block instanceof BlockCommand) {
-                (((BlockCommand) block).getBlockEntity()).trigger(this,successCount, chain++);
+                (((BlockCommand) block).getBlockEntity()).trigger(this.successCount, chain++);
             }
         } else {
             this.successCount = 0;
