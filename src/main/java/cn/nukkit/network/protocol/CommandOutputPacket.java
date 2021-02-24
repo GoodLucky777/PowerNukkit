@@ -32,7 +32,7 @@ public class CommandOutputPacket extends DataPacket {
         CommandOriginData.Origin type = CommandOriginData.Origin.values()[this.getVarInt()];
         UUID uuid = this.getUUID();
         String requestId = this.getString();
-        Long event = null;
+        long event = -1L;
         if (type == CommandOriginData.Origin.DEV_CONSOLE || type == CommandOriginData.Origin.TEST) {
             event = this.getVarLong();
         }
