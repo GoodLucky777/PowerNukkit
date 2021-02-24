@@ -63,6 +63,8 @@ import cn.nukkit.network.Network;
 import cn.nukkit.network.SourceInterface;
 import cn.nukkit.network.protocol.*;
 import cn.nukkit.network.protocol.types.CommandOriginData;
+import cn.nukkit.network.protocol.types.CommandOutputMessage;
+import cn.nukkit.network.protocol.types.CommandOutputType;
 import cn.nukkit.network.protocol.types.ContainerIds;
 import cn.nukkit.network.protocol.types.NetworkInventoryAction;
 import cn.nukkit.permission.PermissibleBase;
