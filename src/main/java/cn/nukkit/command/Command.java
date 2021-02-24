@@ -341,6 +341,12 @@ public abstract class Command {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
+    public static void broadcastCommandOutput(CommandSender source, CommandOutputType type, int successCount, CommandOutputMessage[] messages, String data) {
+        broadcastCommandOutput(source.getCommandOriginData(), type, successCount, messages, data);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     public static void broadcastCommandOutput(CommandOriginData origin, CommandOutputType type, int successCount, CommandOutputMessage[] messages, String data) {
         Set<Permissible> users = Server.getInstance().getPluginManager().getPermissionSubscriptions(Server.BROADCAST_CHANNEL_ADMINISTRATIVE);
         
