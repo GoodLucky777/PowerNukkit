@@ -16,11 +16,10 @@ public class CommandOutputMessage {
     
     public final boolean internal;
     public final String messageId;
-    public final String[] parameters = EmptyArrays.EMPTY_STRINGS;
+    public final String[] parameters;
     
     public CommandOutputMessage(boolean internal, @Nonnull String messageId) {
-        this.internal = internal;
-        this.messageId = messageId;
+        this(internal, messageId, EmptyArrays.EMPTY_STRINGS);
     }
     
     public CommandOutputMessage(boolean internal, @Nonnull String messageId, @Nonnull String[] parameters) {
