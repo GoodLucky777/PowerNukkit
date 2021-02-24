@@ -16,7 +16,7 @@ public final class CommandOriginData {
     public final Origin type;
     public final UUID uuid;
     public final String requestId;
-    private final long event;
+    public final long event;
     
     public CommandOriginData(Origin type, UUID uuid, String requestId) {
         this(type, uuid, requestId, -1L);
