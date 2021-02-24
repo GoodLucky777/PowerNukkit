@@ -563,7 +563,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             return false;
         }
         
-        if (this.getLevel().getGameRules().getValueAsInteger(GameRule.MAX_COMMAND_CHAIN_LENGTH) < chain) {
+        if (this.getLevel().getGameRules().getInteger(GameRule.MAX_COMMAND_CHAIN_LENGTH) < chain) {
             return false;
         }
         
