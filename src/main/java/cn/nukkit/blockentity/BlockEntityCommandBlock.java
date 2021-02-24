@@ -551,6 +551,10 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             return false;
         }
         
+        if (!this.getLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCKS_ENABLED)) {
+            return false;
+        }
+        
         if (this.command.equals("Searge")) {
             this.lastOutput = "#itzlipofutzli";
             this.successCount = 1;
