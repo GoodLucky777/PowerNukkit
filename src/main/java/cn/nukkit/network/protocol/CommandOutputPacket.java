@@ -37,7 +37,7 @@ public class CommandOutputPacket extends DataPacket {
             event = this.getVarLong();
         }
         this.commandOriginData = new CommandOriginData(type, uuid, requestId, event);
-        this.type = CommandOutputType.values()[this.getUnsignedByte()];
+        this.type = CommandOutputType.values()[this.getByte()];
         this.successCount = (int) this.getUnsignedVarInt();
         for (int i = 0; i < this.getUnsignedVarInt(); i++) {
             boolean internal = this.getBoolean();
