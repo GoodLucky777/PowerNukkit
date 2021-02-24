@@ -5,10 +5,14 @@ import cn.nukkit.Server;
 import cn.nukkit.command.data.*;
 import cn.nukkit.lang.TextContainer;
 import cn.nukkit.lang.TranslationContainer;
+import cn.nukkit.network.protocol.types.CommandOriginData;
+import cn.nukkit.network.protocol.types.CommandOutputMessage;
+import cn.nukkit.network.protocol.types.CommandOutputType;
 import cn.nukkit.permission.Permissible;
-import cn.nukkit.utils.TextFormat;
 import co.aikar.timings.Timing;
 import co.aikar.timings.Timings;
+import cn.nukkit.utils.TextFormat;
+
 import io.netty.util.internal.EmptyArrays;
 
 import java.util.*;
@@ -332,5 +336,20 @@ public abstract class Command {
     public String toString() {
         return this.name;
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static void broadcastCommandOutput(CommandOriginData origin, CommandOutputType type, int successCount, CommandOutputMessage message, String data) {
+        Set<Permissible> users = Server.getInstance().getPluginManager().getPermissionSubscriptions(Server.BROADCAST_CHANNEL_ADMINISTRATIVE);
+        
+        /*for (Permissible user : users) {
+            if (user instanceof CommandSender) {
+                if (user instanceof ConsoleCommandSender) {
+                    ((ConsoleCommandSender) user).sendMessage(result);
+                } else if (!user.equals(source)) {
+                    ((CommandSender) user).sendMessage(colored);
+                }
+            }
+        }*/
+    }
 }
