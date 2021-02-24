@@ -13,23 +13,21 @@ import java.util.UUID;
  */
 @ToString
 public final class CommandOriginData {
+
     public final Origin type;
     public final UUID uuid;
     public final String requestId;
-    private final Long varlong; // event
-
-    public CommandOriginData(Origin type, UUID uuid, String requestId, Long varlong) {
+    private final long event;
+    
+    public CommandOriginData(Origin type, UUID uuid, String requestId) {
+        this(type, uuid, requestId, -1L);
+    }
+    
+    public CommandOriginData(Origin type, UUID uuid, String requestId, long event) {
         this.type = type;
         this.uuid = uuid;
         this.requestId = requestId;
-        this.varlong = varlong;
-    }
-
-    public OptionalLong getVarLong() {
-        if (varlong == null) {
-            return OptionalLong.empty();
-        }
-        return OptionalLong.of(varlong);
+        this.event = event;
     }
 
     public enum Origin {
