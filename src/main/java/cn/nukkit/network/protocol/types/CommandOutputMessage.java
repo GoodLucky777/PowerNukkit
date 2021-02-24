@@ -10,7 +10,7 @@ import lombok.ToString;
  * @author GoodLucky777
  */
 @ToString
-public static class CommandOutputMessage {
+public class CommandOutputMessage {
 
     public static final CommandOutputMessage[] EMPTY_ARRAY = new CommandOutputMessage[0];
     
@@ -18,7 +18,7 @@ public static class CommandOutputMessage {
     public final String messageId;
     public final String[] parameters = EmptyArrays.EMPTY_STRINGS;
     
-    public CommandOriginData(boolean internal, @Nonnull String messageId, @Nonnull String[] parameters) {
+    public CommandOutputMessage(boolean internal, @Nonnull String messageId, @Nonnull String[] parameters) {
         this.internal = internal;
         this.messageId = messageId;
         this.parameters = parameters;
