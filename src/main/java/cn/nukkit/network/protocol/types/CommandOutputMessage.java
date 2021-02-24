@@ -18,6 +18,11 @@ public class CommandOutputMessage {
     public final String messageId;
     public final String[] parameters = EmptyArrays.EMPTY_STRINGS;
     
+    public CommandOutputMessage(boolean internal, @Nonnull String messageId) {
+        this.internal = internal;
+        this.messageId = messageId;
+    }
+    
     public CommandOutputMessage(boolean internal, @Nonnull String messageId, @Nonnull String[] parameters) {
         this.internal = internal;
         this.messageId = messageId;
