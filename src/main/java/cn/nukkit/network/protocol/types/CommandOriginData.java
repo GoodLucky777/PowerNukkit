@@ -13,6 +13,8 @@ import java.util.UUID;
 @ToString
 public final class CommandOriginData {
 
+    public static final CommandOriginData DEFAULT = new CommandOriginData(Origin.PLAYER, UUID.fromString("00000000-0000-0000-0000-000000000000"), "", -1L);
+    
     public final Origin type;
     public final UUID uuid;
     public final String requestId;
