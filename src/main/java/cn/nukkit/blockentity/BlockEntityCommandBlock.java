@@ -563,7 +563,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             return false;
         }
         
-        if (this.getLevel().getGameRules().getInt(GameRule.MAX_COMMAND_CHAIN_LENGTH) < chain) {
+        if (this.getLevel().getGameRules().getValueAsInteger(GameRule.MAX_COMMAND_CHAIN_LENGTH) < chain) {
             return false;
         }
         
@@ -597,13 +597,13 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             this.lpCondionalMode = this.conditionMet;
             this.lpRedstoneMode = this.auto;
             this.successCount = 1; // TODO: Make successCount depend on command results
-            
-            Block block = this.getBlock().getSide(this.getBlock().getBlockFace());
-            if (block instanceof BlockCommand) {
-                (((BlockCommand) block).getBlockEntity()).trigger(this.successCount, chain++);
-            }
         } else {
             this.successCount = 0;
+        }
+        
+        Block block = this.getBlock().getSide(((BlockCommand) this.getBlock()).getBlockFace());
+        if (block instanceof BlockCommand) {
+            (((BlockCommand) block).getBlockEntity()).trigger(this.successCount, chain++);
         }
         
         return true;
