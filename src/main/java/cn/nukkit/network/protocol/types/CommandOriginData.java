@@ -1,5 +1,8 @@
 package cn.nukkit.network.protocol.types;
 
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
+
 import lombok.ToString;
 
 import java.util.OptionalLong;
@@ -42,8 +45,8 @@ public final class CommandOriginData {
         VIRTUAL,
         GAME_ARGUMENT,
         ENTITY_SERVER,
-        PRECOMPILED,
-        GAME_MASTER_ENTITY_SERVER,
-        SCRIPT
+        @PowerNukkitOnly @Since("1.4.0.0-PN") PRECOMPILED,
+        @PowerNukkitOnly @Since("1.4.0.0-PN") GAME_MASTER_ENTITY_SERVER,
+        @PowerNukkitOnly @Since("1.4.0.0-PN") SCRIPT
     }
 }
