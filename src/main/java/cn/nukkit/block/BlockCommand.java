@@ -79,6 +79,11 @@ public class BlockCommand extends BlockSolidMeta implements BlockEntityHolder<Bl
     }
     
     @Override
+    public int getComparatorInputOverride() {
+        return Math.min(this.getBlockEntity().getSuccessCount(), 0xf);
+    }
+    
+    @Override
     public double getHardness() {
         return -1;
     }
@@ -102,6 +107,11 @@ public class BlockCommand extends BlockSolidMeta implements BlockEntityHolder<Bl
     @Override
     public double getResistance() {
         return 3600000;
+    }
+    
+    @Override
+    public boolean hasComparatorInputOverride() {
+        return true;
     }
     
     @Override
