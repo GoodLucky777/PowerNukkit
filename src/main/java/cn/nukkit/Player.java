@@ -5861,4 +5861,17 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     public void setCommandOriginData(CommandOriginData commandOriginData) {
         this.commandOriginData = commandOriginData;
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public static void sendCommandOutput(CommandOriginData origin, CommandOutputType type, int successCount, CommandOutputMessage messages, String data) {
+        CommandOutputPacket pk = new CommandOutputPacket();
+        pk.commandOriginData = origin;
+        pk.type = type;
+        pk.successCount = successCount;
+        pk.messages = messages;
+        pk.data = data;
+        this.dataPacket(pk);
+    }
 }
