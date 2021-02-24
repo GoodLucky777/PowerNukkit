@@ -5,6 +5,8 @@ import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.lang.TextContainer;
 import cn.nukkit.network.protocol.types.CommandOriginData;
+import cn.nukkit.network.protocol.types.CommandOutputMessage;
+import cn.nukkit.network.protocol.types.CommandOutputType;
 import cn.nukkit.permission.Permissible;
 
 import javax.annotation.Nonnull;
