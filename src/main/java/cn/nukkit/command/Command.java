@@ -341,6 +341,12 @@ public abstract class Command {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
+    public static void broadcastCommandOutput(CommandSender source, CommandOutputType type, int successCount, CommandOutputMessage message, String data) {
+        broadcastCommandOutput(source, type, successCount, new CommandOutputMessage[]{ message }, data);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     public static void broadcastCommandOutput(CommandSender source, CommandOutputType type, int successCount, CommandOutputMessage[] messages, String data) {
         broadcastCommandOutput(source.getCommandOriginData(), type, successCount, messages, data);
     }
