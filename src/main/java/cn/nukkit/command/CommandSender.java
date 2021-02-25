@@ -90,7 +90,7 @@ public interface CommandSender extends Permissible {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    default void sendAnnouncement(String sourceName, String message) {
+    default void sendAnnouncement(String source, String message) {
         
     }
 }
