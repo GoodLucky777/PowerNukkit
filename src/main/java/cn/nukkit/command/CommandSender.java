@@ -78,12 +78,6 @@ public interface CommandSender extends Permissible {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    default CommandOriginData getCommandOriginData() {
-        return CommandOriginData.DEFAULT;
-    }
-    
-    @PowerNukkitOnly
-    @Since("1.4.0.0-PN")
     default void sendCommandOutput(CommandOriginData origin, CommandOutputType type, int successCount, CommandOutputMessage[] messages, String data) {
         
     }
