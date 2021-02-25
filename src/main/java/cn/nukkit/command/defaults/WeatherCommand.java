@@ -8,6 +8,7 @@ import cn.nukkit.command.data.CommandParamType;
 import cn.nukkit.command.data.CommandParameter;
 import cn.nukkit.lang.TranslationContainer;
 import cn.nukkit.level.Level;
+import cn.nukkit.network.protocol.types.CommandOriginData;
 import cn.nukkit.network.protocol.types.CommandOutputMessage;
 import cn.nukkit.network.protocol.types.CommandOutputType;
 
@@ -27,10 +28,11 @@ public class WeatherCommand extends VanillaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
+    public boolean execute(CommandSender sender, String commandLabel, String[] args, CommandOriginData commandOriginData) {
         if (!this.testPermission(sender)) {
             return true;
         }
+        
         if (args.length == 0 || args.length > 2) {
             sender.sendMessage(new TranslationContainer("commands.weather.usage", this.usageMessage));
             return false;
@@ -62,18 +64,18 @@ public class WeatherCommand extends VanillaCommand {
                 level.setThundering(false);
                 level.setRainTime(seconds * 20);
                 level.setThunderTime(seconds * 20);
-                Command.broadcastCommandOutput(sender, CommandOutputType.ALL_OUTPUT, 1, new CommandOutputMessage(true, "commands.weather.clear"), null);
+                Command.broadcastCommandOutput(commandOriginData, CommandOutputType.ALL_OUTPUT, 1, new CommandOutputMessage(true, "commands.weather.clear"), null);
                 return true;
             case "rain":
                 level.setRaining(true);
                 level.setRainTime(seconds * 20);
-                Command.broadcastCommandOutput(sender, CommandOutputType.ALL_OUTPUT, 1, new CommandOutputMessage(true, "commands.weather.rain"), null);
+                Command.broadcastCommandOutput(commandOriginData, CommandOutputType.ALL_OUTPUT, 1, new CommandOutputMessage(true, "commands.weather.rain"), null);
                 return true;
             case "thunder":
                 level.setThundering(true);
                 level.setRainTime(seconds * 20);
                 level.setThunderTime(seconds * 20);
-                Command.broadcastCommandOutput(sender, CommandOutputType.ALL_OUTPUT, 1, new CommandOutputMessage(true, "commands.weather.thunder"), null);
+                Command.broadcastCommandOutput(commandOriginData, CommandOutputType.ALL_OUTPUT, 1, new CommandOutputMessage(true, "commands.weather.thunder"), null);
                 return true;
             default:
                 sender.sendMessage(new TranslationContainer("commands.weather.usage", this.usageMessage));
