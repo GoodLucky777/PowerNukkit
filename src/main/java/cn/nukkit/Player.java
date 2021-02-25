@@ -5837,6 +5837,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
+    @Override
     public void sendAnnouncement(String source, String message) {
         TextPacket pk = new TextPacket();
         pk.type = TextPacket.TYPE_ANNOUNCEMENT;
