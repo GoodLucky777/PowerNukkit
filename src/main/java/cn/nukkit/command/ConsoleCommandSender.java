@@ -109,4 +109,14 @@ public class ConsoleCommandSender implements CommandSender {
     public void setOp(boolean value) {
 
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public void sendAnnouncement(String source, String message) {
+        message = this.getServer().getLanguage().translateString(message);
+        for (String line : message.trim().split("\n")) {
+            log.info(line);
+        }
+    }
 }
