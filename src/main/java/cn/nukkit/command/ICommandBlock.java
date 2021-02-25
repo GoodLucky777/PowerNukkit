@@ -11,4 +11,6 @@ public interface ICommandBlock extends CommandSender {
     int getVersion();
     
     void setVersion(int version);
+    
+    boolean trigger(int successCount);
 }
