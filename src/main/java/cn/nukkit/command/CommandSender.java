@@ -93,4 +93,10 @@ public interface CommandSender extends Permissible {
     default void sendAnnouncement(String source, String message) {
         
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    default void sendAnnouncement(String source, TextContainer message) {
+        this.sendAnnouncement(source, this.getServer().getLanguage().translate(message));
+    }
 }
