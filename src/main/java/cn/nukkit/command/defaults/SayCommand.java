@@ -50,11 +50,9 @@ public class SayCommand extends VanillaCommand {
         if (msg.length() > 0) {
             msg = new StringBuilder(msg.substring(0, msg.length() - 1));
         }
-
-
-        sender.getServer().broadcastMessage(new TranslationContainer(
-                TextFormat.LIGHT_PURPLE + "%chat.type.announcement",
-                senderString, TextFormat.LIGHT_PURPLE + msg.toString()));
+        
+        sender.getServer().broadcastAnnouncement(senderString + TextFormat.RESET, new TranslationContainer("%chat.type.announcement", senderString + TextFormat.RESET, msg.toString()));
+        
         return true;
     }
 }
