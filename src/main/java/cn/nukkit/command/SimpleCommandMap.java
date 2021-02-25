@@ -239,9 +239,11 @@ public class SimpleCommandMap implements CommandMap {
         }
         return args;
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     @Override
-    public boolean dispatch(CommandSender sender, String cmdLine) {
+    public boolean dispatch(CommandSender sender, String cmdLine, CommandOriginData commandOriginData) {
         ArrayList<String> parsed = parseArguments(cmdLine);
         if (parsed.size() == 0) {
             return false;
@@ -257,7 +259,7 @@ public class SimpleCommandMap implements CommandMap {
 
         target.timing.startTiming();
         try {
-            target.execute(sender, sentCommandLabel, args);
+            target.execute(sender, sentCommandLabel, args, commandOriginData);
         } catch (Exception e) {
             sender.sendMessage(new TranslationContainer(TextFormat.RED + "%commands.generic.exception"));
             log.fatal(this.server.getLanguage().translateString("nukkit.command.exception", cmdLine, target.toString(), Utils.getExceptionMessage(e)), e);
