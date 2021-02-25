@@ -76,7 +76,7 @@ public class GameruleCommand extends VanillaCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
+    public boolean execute(CommandSender sender, String commandLabel, String[] args, CommandOriginData commandOriginData) {
         if (!this.testPermission(sender)) {
             return true;
         }
@@ -85,6 +85,7 @@ public class GameruleCommand extends VanillaCommand {
             sender.sendMessage(new TranslationContainer("%commands.generic.ingame"));
             return true;
         }
+        
         GameRules rules = ((Player) sender).getLevel().getGameRules();
 
         switch (args.length) {
@@ -115,7 +116,7 @@ public class GameruleCommand extends VanillaCommand {
 
                 try {
                     rules.setGameRules(optionalRule.get(), args[1]);
-                    Command.broadcastCommandOutput(sender, CommandOutputType.ALL_OUTPUT, 1, new CommandOutputMessage(true, "commands.gamerule.success", new String[]{ optionalRule.get().getName().toLowerCase(), args[1] }), null);
+                    Command.broadcastCommandOutput(commandOriginData, CommandOutputType.ALL_OUTPUT, 1, new CommandOutputMessage(true, "commands.gamerule.success", new String[]{ optionalRule.get().getName().toLowerCase(), args[1] }), null);
                 } catch (IllegalArgumentException e) {
                     sender.sendMessage(new TranslationContainer("commands.generic.syntax", "/gamerule "  + args[0] + " ", args[1], " " + String.join(" ", Arrays.copyOfRange(args, 2, args.length))));
                 }
