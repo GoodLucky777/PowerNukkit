@@ -2680,6 +2680,12 @@ public class Server {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
+    public int broadcastAnnouncement(String source, TextContainer message) {
+        return this.broadcastAnnouncement(source, message, BROADCAST_CHANNEL_USERS);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     public int broadcastAnnouncement(String source, String message, String permissions) {
         Set<CommandSender> recipients = new HashSet<>();
         
@@ -2695,6 +2701,26 @@ public class Server {
             recipient.sendAnnouncement(message);
         }
         
+        return recipients.size();
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int broadcastAnnouncement(String source, TextContainer message, String permissions) {
+        Set<CommandSender> recipients = new HashSet<>();
+
+        for (String permission : permissions.split(";")) {
+            for (Permissible permissible : this.pluginManager.getPermissionSubscriptions(permission)) {
+                if (permissible instanceof CommandSender && permissible.hasPermission(permission)) {
+                    recipients.add((CommandSender) permissible);
+                }
+            }
+        }
+
+        for (CommandSender recipient : recipients) {
+            recipient.sendAnnouncement(source, message);
+        }
+
         return recipients.size();
     }
     
