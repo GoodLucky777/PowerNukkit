@@ -87,4 +87,10 @@ public interface CommandSender extends Permissible {
     default void sendCommandOutput(CommandOriginData origin, CommandOutputType type, int successCount, CommandOutputMessage[] messages, String data) {
         
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    default void sendAnnouncement(String sourceName, String message) {
+        
+    }
 }
