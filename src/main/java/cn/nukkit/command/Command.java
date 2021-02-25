@@ -151,8 +151,12 @@ public abstract class Command {
         }
     }
     
-    public abstract boolean execute(CommandSender sender, String commandLabel, String[] args);
-
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public abstract boolean execute(CommandSender sender, String commandLabel, String[] args) {
+        this.execute(sender, commandLabel, args, CommandOriginData.DEFAULT);
+    }
+    
     public String getName() {
         return name;
     }
@@ -337,6 +341,12 @@ public abstract class Command {
     @Override
     public String toString() {
         return this.name;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public abstract boolean execute(CommandSender sender, String commandLabel, String[] args, CommandOriginData commandOriginData) {
+        
     }
     
     @PowerNukkitOnly
