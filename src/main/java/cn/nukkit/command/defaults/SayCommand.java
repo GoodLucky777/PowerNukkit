@@ -40,7 +40,7 @@ public class SayCommand extends VanillaCommand {
         } else if (sender instanceof ConsoleCommandSender) {
             senderString = "Server";
         } else {
-            senderString = sender.getName();
+            senderString = sender.getName() + TextFormat.RESET;
         }
 
         StringBuilder msg = new StringBuilder();
@@ -51,7 +51,7 @@ public class SayCommand extends VanillaCommand {
             msg = new StringBuilder(msg.substring(0, msg.length() - 1));
         }
         
-        sender.getServer().broadcastAnnouncement(senderString + TextFormat.RESET, new TranslationContainer("%chat.type.announcement", senderString + TextFormat.RESET, msg.toString()));
+        sender.getServer().broadcastAnnouncement(senderString, new TranslationContainer("%chat.type.announcement", senderString, msg.toString()));
         
         return true;
     }
