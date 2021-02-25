@@ -295,10 +295,6 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
     private float soulSpeedMultiplier = 1;
     private boolean wasInSoulSandCompatible;
-    
-    @PowerNukkitOnly
-    @Since("1.4.0.0-PN")
-    private CommandOriginData commandOriginData = null;
 
     public float getSoulSpeedMultiplier() {
         return this.soulSpeedMultiplier;
@@ -2213,8 +2209,6 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         infoPacket.resourcePackEntries = this.server.getResourcePackManager().getResourceStack();
         infoPacket.mustAccept = this.server.getForceResources();
         this.dataPacket(infoPacket);
-        
-        this.commandOriginData = new CommandOriginData(CommandOriginData.Origin.PLAYER, uuid, "", -1L);
     }
 
     protected void completeLoginSequence() {
@@ -5856,7 +5850,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     @Since("1.4.0.0-PN")
     @Override
     public CommandOriginData getCommandOriginData() {
-        return commandOriginData;
+        return new CommandOriginData(CommandOriginData.Origin.PLAYER, UUID.randomUUID(), "", -1L);
     }
     
     @PowerNukkitOnly
