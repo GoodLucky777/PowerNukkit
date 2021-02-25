@@ -1,6 +1,8 @@
 package cn.nukkit.command;
 
 import cn.nukkit.Server;
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.lang.TextContainer;
 import cn.nukkit.permission.PermissibleBase;
 import cn.nukkit.permission.Permission;
