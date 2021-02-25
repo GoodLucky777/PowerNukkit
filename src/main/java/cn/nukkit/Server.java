@@ -2671,7 +2671,33 @@ public class Server {
     public long getLaunchTime() {
         return launchTime;
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int broadcastAnnouncement(String source, String message) {
+        return this.broadcastAnnouncement(source, message, BROADCAST_CHANNEL_USERS);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int broadcastAnnouncement(String source, String message, String permissions) {
+        Set<CommandSender> recipients = new HashSet<>();
+        
+        for (String permission : permissions.split(";")) {
+            for (Permissible permissible : this.pluginManager.getPermissionSubscriptions(permission)) {
+                if (permissible instanceof CommandSender && permissible.hasPermission(permission)) {
+                    recipients.add((CommandSender) permissible);
+                }
+            }
+        }
+        
+        for (CommandSender recipient : recipients) {
+            recipient.sendAnnouncement(message);
+        }
+        
+        return recipients.size();
+    }
+    
     private class ConsoleThread extends Thread implements InterruptibleThread {
 
         @Override
