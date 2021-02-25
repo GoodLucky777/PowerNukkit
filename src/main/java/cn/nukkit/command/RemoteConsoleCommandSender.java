@@ -1,5 +1,7 @@
 package cn.nukkit.command;
 
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.lang.TextContainer;
 
 /**
@@ -8,6 +10,7 @@ import cn.nukkit.lang.TextContainer;
  * @author Tee7even
  */
 public class RemoteConsoleCommandSender extends ConsoleCommandSender {
+
     private final StringBuilder messages = new StringBuilder();
 
     @Override
@@ -28,5 +31,13 @@ public class RemoteConsoleCommandSender extends ConsoleCommandSender {
     @Override
     public String getName() {
         return "Rcon";
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public void sendAnnouncement(String source, String message) {
+        message = this.getServer().getLanguage().translateString(message);
+        this.messages.append(message.trim()).append("\n");
     }
 }
