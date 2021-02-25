@@ -2698,7 +2698,7 @@ public class Server {
         }
         
         for (CommandSender recipient : recipients) {
-            recipient.sendAnnouncement(message);
+            recipient.sendAnnouncement(source, message);
         }
         
         return recipients.size();
@@ -2708,7 +2708,7 @@ public class Server {
     @Since("1.4.0.0-PN")
     public int broadcastAnnouncement(String source, TextContainer message, String permissions) {
         Set<CommandSender> recipients = new HashSet<>();
-
+        
         for (String permission : permissions.split(";")) {
             for (Permissible permissible : this.pluginManager.getPermissionSubscriptions(permission)) {
                 if (permissible instanceof CommandSender && permissible.hasPermission(permission)) {
@@ -2716,11 +2716,11 @@ public class Server {
                 }
             }
         }
-
+        
         for (CommandSender recipient : recipients) {
             recipient.sendAnnouncement(source, message);
         }
-
+        
         return recipients.size();
     }
     
