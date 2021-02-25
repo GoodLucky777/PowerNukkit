@@ -940,8 +940,14 @@ public class Server {
     public void disablePlugins() {
         this.pluginManager.disablePlugins();
     }
-
+    
     public boolean dispatchCommand(CommandSender sender, String commandLine) throws ServerException {
+        return this.dispatchCommand(sender, commandLine, CommandOriginData.DEFAULT);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean dispatchCommand(CommandSender sender, String commandLine, CommandOriginData commandOriginData) throws ServerException {
         // First we need to check if this command is on the main thread or not, if not, warn the user
         if (!this.isPrimaryThread()) {
             log.warn("Command Dispatched Async: {}\nPlease notify author of plugin causing this execution to fix this bug!", commandLine, 
@@ -954,8 +960,12 @@ public class Server {
         if (sender == null) {
             throw new ServerException("CommandSender is not valid");
         }
-
-        if (this.commandMap.dispatch(sender, commandLine)) {
+        
+        if (commandOriginData == null) {
+            throw new ServerException("CommandOriginData is not valid");
+        }
+        
+        if (this.commandMap.dispatch(sender, commandLine, commandOriginData)) {
             return true;
         }
 
