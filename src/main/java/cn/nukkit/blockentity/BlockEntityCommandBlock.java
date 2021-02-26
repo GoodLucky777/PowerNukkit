@@ -431,11 +431,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         }
         
         if (this.getLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCK_OUTPUT)) {
-            for (Player player : this.getLevel().getPlayers().values()) {
-                if (player.isOp()) {
-                    player.sendMessage(message);
-                }
-            }
+            Command.broadcastCommandMessage(this, message);
         }
     }
     
