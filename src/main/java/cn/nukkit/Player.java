@@ -5855,6 +5855,18 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
+    public int getMessageCounter() {
+        return messageCounter;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setMessageCounter(int messageCounter) {
+        this.messageCounter = messageCounter;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     public boolean canUseCommandBlock() {
         return this.isOp() && this.isCreative();
     }
