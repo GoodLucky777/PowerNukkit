@@ -336,7 +336,7 @@ public class Item implements Cloneable, BlockID, ItemID {
 
             list[LINGERING_POTION] = ItemPotionLingering.class; //441
             
-            list[MINECART_COMMAND_BLOCK] = ItemMinecartCommandBlock.class; //443
+            list[COMMAND_BLOCK_MINECART] = ItemMinecartCommandBlock.class; //443
             list[ELYTRA] = ItemElytra.class; //444
 
             list[SHULKER_SHELL] = ItemShulkerShell.class; //445
