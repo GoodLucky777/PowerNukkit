@@ -3850,7 +3850,18 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         blockEntityCommandBlock.spawnToAll();
                     } else {
                         // Minecart with Command Block
-                        // TODO
+                        if (!(this.getLevel().getEntity(commandBlockUpdatePacket.minecartEid) instanceof EntityMinecartCommandBlock)) {
+                            break;
+                        }
+                        
+                        EntityMinecartCommandBlock entiyMinecartCommandBlock = (EntityMinecartCommandBlock) this.getLevel().getEntity(commandBlockUpdatePacket.minecartEid);
+                        
+                        entiyMinecartCommandBlock.setCommand(commandBlockUpdate.command);
+                        //entiyMinecartCommandBlock.setLastOutput(commandBlockUpdate.lastOutput);
+                        entiyMinecartCommandBlock.setName(commandBlockUpdate.name);
+                        entiyMinecartCommandBlock.setTrackOutput(commandBlockUpdate.shouldTrackOutput);
+                        entiyMinecartCommandBlock.setTickDelay((int) commandBlockUpdate.tickDelay);
+                        entiyMinecartCommandBlock.setExecuteOnFirstTick(commandBlockUpdate.executingOnFirstTick);
                     }
                     break;
                 default:
