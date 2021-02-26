@@ -406,10 +406,28 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     }
     
     @Override
+    public void sendCommandOutput(CommandOriginData origin, CommandOutputType type, int successCount, CommandOutputMessage[] messages, String data) {
+        for (CommandOutputMessage message : messages) {
+            if (this.trackOutput) {
+                this.lastOutput = message.messageId;
+                this.lastOutputParams = message.parameters;
+            }
+            
+            if (this.getLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCK_OUTPUT)) {
+                for (Player player : this.getLevel().getPlayers().values()) {
+                    if (player.isOp()) {
+                        player.sendCommandOutput(origin, type, successCount, message, data);
+                    }
+                }
+            }
+        }
+    }
+    
+    @Override
     public void sendMessage(String message) {
         if (this.trackOutput) {
             this.lastOutput = message;
-            this.lastOutputParams = EmptyArrays.EMPTY_STRINGS; // TODO: Implement lastOutputParams
+            this.lastOutputParams = EmptyArrays.EMPTY_STRINGS;
         }
         
         if (this.getLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCK_OUTPUT)) {
