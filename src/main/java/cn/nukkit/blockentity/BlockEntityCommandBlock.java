@@ -195,6 +195,15 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     }
     
     @Override
+    public boolean hasName() {
+        if (this.namedTag.contains("CustomName")) {
+            return !(this.namedTag.getString("CustomName").equals(""));
+        }
+        
+        return false;
+    }
+    
+    @Override
     public boolean hasPermission(Permission permission) {
         return this.perm.hasPermission(permission);
     }
@@ -202,15 +211,6 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     @Override
     public boolean hasPermission(String name) {
         return this.perm.hasPermission(name);
-    }
-    
-    @Override
-    public boolean hasName() {
-        if (this.namedTag.contains("CustomName")) {
-            return !(this.namedTag.getString("CustomName").equals(""));
-        }
-        
-        return false;
     }
     
     @Override
