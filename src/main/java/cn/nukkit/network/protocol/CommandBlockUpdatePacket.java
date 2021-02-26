@@ -22,8 +22,8 @@ public class CommandBlockUpdatePacket extends DataPacket {
     public String lastOutput;
     public String name;
     public boolean shouldTrackOutput;
-    public long tickDelay;
-    public boolean executingOnFirstTick;
+    @PowerNukkitOnly @Since("1.4.0.0-PN") public long tickDelay;
+    @PowerNukkitOnly @Since("1.4.0.0-PN") public boolean executingOnFirstTick;
 
     @Override
     public byte pid() {
