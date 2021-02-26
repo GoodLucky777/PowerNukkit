@@ -51,6 +51,11 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
     }
     
     @Override
+    public void activate(int x, int y, int z, boolean flag) {
+        // TODO
+    }
+    
+    @Override
     public PermissionAttachment addAttachment(Plugin plugin) {
         return this.perm.addAttachment(plugin);
     }
