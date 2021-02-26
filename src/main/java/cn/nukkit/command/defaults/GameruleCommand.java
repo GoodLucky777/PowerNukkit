@@ -75,7 +75,14 @@ public class GameruleCommand extends VanillaCommand {
             });
         }
     }
-
+    
+    @Override
+    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
+        this.execute(sender, commandLine, args, CommandOriginData.DEFAULT);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args, CommandOriginData commandOriginData) {
         if (!this.testPermission(sender)) {
