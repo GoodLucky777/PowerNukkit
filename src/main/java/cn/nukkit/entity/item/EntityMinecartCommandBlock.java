@@ -53,6 +53,7 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
     
     public EntityMinecartCommandBlock(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
+        
         setDisplayBlock(Block.get(Block.REPEATING_COMMAND_BLOCK), false);
     }
     
@@ -198,7 +199,7 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
         } else {
             this.executeOnFirstTick = false;
         }
-        setDataProperty(new ByteEntityData(DATA_COMMAND_BLOCK_EXECUTE_ON_FIRST_TICK, (byte) this.executeOnFirstTick));
+        setDataProperty(new ByteEntityData(DATA_COMMAND_BLOCK_EXECUTE_ON_FIRST_TICK, this.executeOnFirstTick ? 1 : 0));
         
         if (this.namedTag.contains("LastExecution")) {
             this.lastExecution = this.namedTag.getLong("LastExecution");
@@ -240,7 +241,7 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
         } else {
             this.trackOutput = this.getLevel().getGameRules().getBoolean(GameRule.SEND_COMMAND_FEEDBACK);
         }
-        setDataProperty(new ByteEntityData(DATA_COMMAND_BLOCK_TRACK_OUTPUT, (byte) this.trackOutput));
+        setDataProperty(new ByteEntityData(DATA_COMMAND_BLOCK_TRACK_OUTPUT, this.trackOutput ? 1 : 0));
         
         if (this.namedTag.contains("Version")) {
             this.version = this.namedTag.getInt("Version");
@@ -373,7 +374,7 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
     public void setExecuteOnFirstTick(boolean executeOnFirstTick) {
         this.executeOnFirstTick = executeOnFirstTick;
         
-        setDataProperty(new ByteEntityData(DATA_COMMAND_BLOCK_EXECUTE_ON_FIRST_TICK, (byte) this.executeOnFirstTick));
+        setDataProperty(new ByteEntityData(DATA_COMMAND_BLOCK_EXECUTE_ON_FIRST_TICK, this.executeOnFirstTick ? 1 : 0));
     }
     
     public void setLastExecution(long lastExecution) {
@@ -420,7 +421,7 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
     public void setTrackOutput(boolean trackOutput) {
         this.trackOutput = trackOutput;
         
-        setDataProperty(new ByteEntityData(DATA_COMMAND_BLOCK_TRACK_OUTPUT, (byte) this.trackOutput));
+        setDataProperty(new ByteEntityData(DATA_COMMAND_BLOCK_TRACK_OUTPUT, this.trackOutput ? 1 : 0));
     }
     
     public void setVersion(int version) {
