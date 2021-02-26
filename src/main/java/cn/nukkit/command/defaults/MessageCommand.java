@@ -42,13 +42,21 @@ public class MessageCommand extends VanillaCommand {
         
         Player player = sender.getServer().getPlayer(args[0]);
         if (player != null) {
-            /*PlayerWhisperEvent ev = new PlayerWhisperEvent(sender, player, args[1]);
-            sender.getServer().getPluginManager().callEvent(ev);
-            if (ev.isCancelled()) {
-                return true;
+            if (((Player) sender).getRemoveFormat()) {
+                message = TextFormat.clean(message, true);
             }
             
-            player.sendWhisper(ev.getSender().getName(), ev.getMessage());*/
+            for (String msg : message.split("\n")) {
+                if (!msg.trim().isEmpty() && msg.length() <= 255 && ((Player) sender).messageCounter-- > 0) {
+                    PlayerWhisperEvent ev = new PlayerWhisperEvent((Player) sender, args[1], (CommandSender) player);
+                    sender.getServer().getPluginManager().callEvent(ev);
+                    if (ev.isCancelled()) {
+                        break;
+                    }
+                    
+                    player.sendWhisper(ev.getPlayer().getName(), ev.getMessage());
+                }
+            }
         } else {
             sender.sendMessage(new TranslationContainer(TextFormat.RED + "%commands.generic.noTargetMatch"));
             return false;
