@@ -106,15 +106,6 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
         return lastOutputParams;
     }
     
-    public ListTag<StringTag> getLastOutputParamsAsListTag() {
-        ListTag<StringTag> tempLastOutputParmas = new ListTag<StringTag>("LastOutputParams");
-        for (int i = 0; i < this.lastOutputParams.length; i++) {
-            tempLastOutputParmas.add(new StringTag("", this.lastOutputParams[i]));
-        }
-        
-        return tempLastOutputParmas;
-    }
-    
     @Override
     public String getName() {
         if (this.hasName()) {
@@ -426,10 +417,6 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
     
     public void setVersion(int version) {
         this.version = version;
-    }
-    
-    public boolean trigger() {
-        return trigger(0);
     }
     
     public boolean trigger(int successCount) {
