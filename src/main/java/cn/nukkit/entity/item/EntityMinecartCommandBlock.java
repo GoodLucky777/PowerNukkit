@@ -85,7 +85,7 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
         return command;
     }
     
-    public boolean getCurrentTickCount() {
+    public int getCurrentTickCount() {
         return currentTickCount;
     }
     
@@ -298,7 +298,7 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
     }
     
     public void reset() {
-        this.currentTick = 0;
+        this.currentTickCount = 0;
         this.successCount = 0;
     }
     
