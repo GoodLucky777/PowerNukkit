@@ -328,7 +328,7 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
         this.namedTag.putBoolean("ExecuteOnFirstTick", this.executeOnFirstTick);
         this.namedTag.putLong("LastExecution", this.lastExecution);
         this.namedTag.putString("LastOutput", this.lastOutput);
-        this.namedTag.putList(this.getLastOutputParamsAsListTag());
+        this.namedTag.putList(this.getLastOutputParamsAsListTag(this.lastOutputParams));
         this.namedTag.putInt("SuccessCount", this.successCount);
         this.namedTag.putInt("TickDelay", this.tickDelay);
         this.namedTag.putBoolean("TrackOutput", this.trackOutput);
