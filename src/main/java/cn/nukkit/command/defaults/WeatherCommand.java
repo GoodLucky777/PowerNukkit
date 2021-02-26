@@ -31,7 +31,7 @@ public class WeatherCommand extends VanillaCommand {
     
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        this.execute(sender, commandLabel, args, CommandOriginData.DEFAULT);
+        return this.execute(sender, commandLabel, args, CommandOriginData.DEFAULT);
     }
     
     @PowerNukkitOnly
