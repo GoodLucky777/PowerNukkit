@@ -55,9 +55,12 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
         if (flag) {
             this.timing.startTiming();
             
-            this.trigger();
-            
-            this.currentTickCount++;
+            if (this.currentTickCount == this.tickDelay) {
+                this.trigger();
+                this.currentTickCount = 0;
+            } else {
+                this.currentTickCount++;
+            }
             
             this.timing.stopTiming();
         }
