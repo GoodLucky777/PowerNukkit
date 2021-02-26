@@ -131,7 +131,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         return lastOutputParams;
     }
     
-    public ListTag<StringTag> getLastOutputParamsListTag() {
+    public ListTag<StringTag> getLastOutputParamsAsListTag() {
         ListTag<StringTag> tempLastOutputParmas = new ListTag<StringTag>("LastOutputParams");
         for (int i = 0; i < this.lastOutputParams.length; i++) {
             tempLastOutputParmas.add(new StringTag("", this.lastOutputParams[i]));
@@ -406,7 +406,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         this.namedTag.putBoolean("LPRedstoneMode", this.lpRedstoneMode);
         this.namedTag.putLong("LastExecution", this.lastExecution);
         this.namedTag.putString("LastOutput", this.lastOutput);
-        this.namedTag.putList(this.getLastOutputParamsListTag());
+        this.namedTag.putList(this.getLastOutputParamsAsListTag());
         this.namedTag.putBoolean("powered", this.powered);
         this.namedTag.putInt("SuccessCount", this.successCount);
         this.namedTag.putInt("TickDelay", this.tickDelay);
