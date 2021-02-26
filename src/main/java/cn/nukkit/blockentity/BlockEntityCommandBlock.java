@@ -5,6 +5,7 @@ import cn.nukkit.Server;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockCommand;
 import cn.nukkit.block.BlockID;
+import cn.nukkit.command.Command;
 import cn.nukkit.command.ICommandBlock;
 import cn.nukkit.lang.TextContainer;
 import cn.nukkit.level.GameRule;
@@ -415,14 +416,10 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
                 this.lastOutput = message.messageId;
                 this.lastOutputParams = message.parameters;
             }
-            
-            if (this.getLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCK_OUTPUT)) {
-                for (Player player : this.getLevel().getPlayers().values()) {
-                    if (player.isOp()) {
-                        player.sendCommandOutput(origin, type, successCount, message, data);
-                    }
-                }
-            }
+        }
+        
+        if (this.getLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCK_OUTPUT)) {
+            Command.broadcastCommandOutput(origin, type, successCount, messages, data);
         }
     }
     
