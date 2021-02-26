@@ -412,9 +412,6 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
         
         if (this.getServer().dispatchCommand(this, tempCommand)) {
             this.lastExecution = this.getLevel().getCurrentTick();
-            this.lpCommandMode = this.commandBlockMode;
-            this.lpCondionalMode = this.conditionMet;
-            this.lpRedstoneMode = this.auto;
             this.successCount = 1; // TODO: Make successCount depend on command results
         } else {
             this.successCount = 0;
