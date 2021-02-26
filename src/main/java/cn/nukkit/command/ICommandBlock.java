@@ -21,10 +21,10 @@ public interface ICommandBlock extends CommandSender {
     
     String[] getLastOutputParams();
     
-    default ListTag<StringTag> getLastOutputParamsAsListTag() {
+    default ListTag<StringTag> getLastOutputParamsAsListTag(String[] lastOutputParams) {
         ListTag<StringTag> tempLastOutputParmas = new ListTag<StringTag>("LastOutputParams");
-        for (int i = 0; i < this.lastOutputParams.length; i++) {
-            tempLastOutputParmas.add(new StringTag("", this.lastOutputParams[i]));
+        for (int i = 0; i < lastOutputParams.length; i++) {
+            tempLastOutputParmas.add(new StringTag("", lastOutputParams[i]));
         }
         
         return tempLastOutputParmas;
