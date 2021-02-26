@@ -21,6 +21,8 @@ public class PlayerWhisperEvent extends PlayerMessageEvent implements Cancellabl
         return handlers;
     }
     
+    protected Set<CommandSender> recipients = new HashSet<>();
+    
     public PlayerWhisperEvent(@Nonnull Player player, @Nonnull String message, @Nonnull CommandSender recipient) {
         this(player, message, new Set<CommandSender>(recipient));
     }
