@@ -19,10 +19,7 @@ public interface CommandMap {
 
     void registerSimpleCommands(Object object);
     
-    @Since("1.4.0.0-PN")
-    default boolean dispatch(CommandSender sender, String cmdLine) {
-        return this.dispatch(sender, cmdLine, CommandOriginData.DEFAULT);
-    }
+    boolean dispatch(CommandSender sender, String cmdLine);
 
     void clearCommands();
 
@@ -31,6 +28,6 @@ public interface CommandMap {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     default boolean dispatch(CommandSender sender, String cmdLine, CommandOriginData commandOriginData) {
-        
+        return false;
     }
 }
