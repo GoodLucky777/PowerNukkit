@@ -342,7 +342,7 @@ public abstract class Command {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public boolean execute(CommandSender sender, String commandLabel, String[] args, CommandOriginData commandOriginData) {
-        
+        return this.execute(sender, commandLabel, args);
     }
     
     @PowerNukkitOnly
