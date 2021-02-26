@@ -552,46 +552,69 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     }
     
     public boolean trigger(int successCount, int chain) {
+        // Don't run at same tick
         if (this.getLevel().getCurrentTick() == this.lastExecution) {
             return false;
         }
         
+        // Ignore (Empty command)
         if (this.command.equals("")) {
             return false;
         }
         
+        // Check gamerules
         if (!this.getLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCKS_ENABLED)) {
             return false;
         }
         
-        if (this.getLevel().getGameRules().getInteger(GameRule.MAX_COMMAND_CHAIN_LENGTH) < chain) {
-            return false;
-        }
-        
+        // Chain check
         if (chain > 0 && this.commandBlockMode == MODE_CHAIN) {
+            // Check max chain length gamerule
+            if (this.getLevel().getGameRules().getInteger(GameRule.MAX_COMMAND_CHAIN_LENGTH) < chain) {
+                return false;
+            }
+            
+            // Check power
             if (!(this.auto || this.powered)) {
+                return false;
+            }
+            
+            // Chain and conditional check
+            if (this.conditionMet && (successCount <= 0)) {
+                return false;
+            }
+        // Conditional check (Except chain mode)
+        } else if (this,conditionMet) {
+            // Check block face opposite block is command block
+            Block block = this.getBlock().getSide(((BlockCommand) this.getBlock()).getBlockFace().getOpposite());
+            if (block instanceof BlockCommand) {
+                // Check successCount > 0
+                if ((((BlockCommand) block).getBlockEntity()).getSuccessCount() <= 0) {
+                    return false;
+                }
+            } else {
                 return false;
             }
         }
         
-        if (this.conditionMet && (this.successCount <= 0)) {
-            return false;
-        }
-        
+        // Easter Egg
         if (this.command.equals("Searge")) {
             this.lastOutput = "#itzlipofutzli";
             this.successCount = 1;
             return true;
         }
         
+        // Remove "/" if it exists
         this.tempCommand = this.command;
         if (this.tempCommand.startsWith("/")) {
             this.tempCommand = tempCommand.substring(1);
         }
         
+        // Reset last outputs
         this.lastOutput = "";
         this.lastOutputParams = EmptyArrays.EMPTY_STRINGS;
         
+        // Run command
         if (this.getServer().dispatchCommand(this, tempCommand)) {
             this.lastExecution = this.getLevel().getCurrentTick();
             this.lpCommandMode = this.commandBlockMode;
@@ -602,9 +625,10 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             this.successCount = 0;
         }
         
+        // Trigger chain command block
         Block block = this.getBlock().getSide(((BlockCommand) this.getBlock()).getBlockFace());
-        if (block instanceof BlockCommand) {
-            (((BlockCommand) block).getBlockEntity()).trigger(this.successCount, chain++);
+        if (block instanceof BlockCommandChain) {
+            (((BlockCommand) block).getBlockEntity()).trigger(successCount, chain++);
         }
         
         return true;
