@@ -19,14 +19,7 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract {
     
     public EntityMinecartCommandBlock(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
-        setDisplayBlock(Block.get(Block.COMMAND_BLOCK), false);
-    }
-    
-    @Override
-    public void dropItem() {
-        super.dropItem();
-        
-        this.level.dropItem(this, Item.get(Item.COMMAND_BLOCK));
+        setDisplayBlock(Block.get(Block.REPEATING_COMMAND_BLOCK), false);
     }
     
     @Override
