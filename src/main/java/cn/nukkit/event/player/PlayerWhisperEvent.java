@@ -6,6 +6,7 @@ import cn.nukkit.event.Cancellable;
 import cn.nukkit.event.HandlerList;
 import cn.nukkit.permission.Permissible;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,7 +26,7 @@ public class PlayerWhisperEvent extends PlayerMessageEvent implements Cancellabl
     protected Set<CommandSender> recipients = new HashSet<>();
     
     public PlayerWhisperEvent(@Nonnull Player player, @Nonnull String message, @Nonnull CommandSender recipient) {
-        this(player, message, new HashSet<CommandSender>(recipient));
+        this(player, message, new HashSet<CommandSender>(Arrays.asList(recipient)));
     }
     
     public PlayerWhisperEvent(@Nonnull Player player, @Nonnull String message, @Nonnull Set<CommandSender> recipients) {
