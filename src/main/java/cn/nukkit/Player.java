@@ -3850,7 +3850,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         blockEntityCommandBlock.spawnToAll();
                     } else {
                         // Minecart with Command Block
-                        if (!(this.getLevel().getEntity(commandBlockUpdatePacket.minecartEid) instanceof EntityMinecartCommandBlock)) {
+                        if (!(this.getLevel().getEntity(commandBlockUpdate.minecartEid) instanceof EntityMinecartCommandBlock)) {
                             break;
                         }
                         
@@ -3862,6 +3862,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                         entityMinecartCommandBlock.setTrackOutput(commandBlockUpdate.shouldTrackOutput);
                         entityMinecartCommandBlock.setTickDelay((int) commandBlockUpdate.tickDelay);
                         entityMinecartCommandBlock.setExecuteOnFirstTick(commandBlockUpdate.executingOnFirstTick);
+                        
+                        entityMinecartCommandBlock.reset();
                     }
                     break;
                 default:
