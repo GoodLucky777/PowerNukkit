@@ -52,7 +52,15 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
     
     @Override
     public void activate(int x, int y, int z, boolean flag) {
-        // TODO
+        if (flag) {
+            this.timing.startTiming();
+            
+            this.trigger();
+            
+            this.currentTickCount++;
+            
+            this.timing.stopTiming();
+        }
     }
     
     @Override
