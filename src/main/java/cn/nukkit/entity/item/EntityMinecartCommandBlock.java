@@ -269,9 +269,154 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
     }
     
     @Override
+    public void recalculatePermissions() {
+        this.perm.recalculatePermissions();
+    }
+    
+    @Override
+    public void removeAttachment(PermissionAttachment attachment) {
+        this.perm.removeAttachment(attachment);
+    }
+    
+    public void reset() {
+        this.currentTick = 0;
+        this.successCount = 0;
+    }
+    
+    @Override
     public void saveNBT() {
         super.saveNBT();
 
-        // TODO
+        this.namedTag.putString("Command", this.command);
+        this.namedTag.putInt("CurrentTickCount", this.currentTickCount);
+        if (!this.namedTag.contains("CustomName")) {
+            this.namedTag.putString("CustomName", "");
+        }
+        this.namedTag.putBoolean("ExecuteOnFirstTick", this.executeOnFirstTick);
+        this.namedTag.putLong("LastExecution", this.lastExecution);
+        this.namedTag.putString("LastOutput", this.lastOutput);
+        this.namedTag.putList(this.getLastOutputParamsAsListTag());
+        this.namedTag.putInt("SuccessCount", this.successCount);
+        this.namedTag.putInt("TickDelay", this.tickDelay);
+        this.namedTag.putBoolean("TrackOutput", this.trackOutput);
+        this.namedTag.putInt("Version", this.version);
+    }
+    
+    @Override
+    public void sendMessage(String message) {
+        if (this.trackOutput) {
+            this.lastOutput = message;
+            this.lastOutputParams = EmptyArrays.EMPTY_STRINGS; // TODO: Implement lastOutputParams
+        }
+        
+        if (this.getLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCK_OUTPUT)) {
+            for (Player player : this.getLevel().getPlayers().values()) {
+                if (player.isOp()) {
+                    player.sendMessage(message);
+                }
+            }
+        }
+    }
+    
+    @Override
+    public void sendMessage(TextContainer message) {
+        this.sendMessage(message.toString());
+    }
+    
+    public void setCommand(String command) {
+        this.command = command;
+    }
+    
+    public void setExecuteOnFirstTick(boolean executeOnFirstTick) {
+        this.executeOnFirstTick = executeOnFirstTick;
+    }
+    
+    public void setLastExecution(long lastExecution) {
+        this.lastExecution = lastExecution;
+    }
+    
+    public void setLastOutput(String lastOutput) {
+        this.lastOutput = lastOutput;
+    }
+    
+    public void setLastOutputParams(String lastOutputParams, int index) {
+        this.lastOutputParams[index] = lastOutputParams;
+    }
+    
+    public void setLastOutputParams(String[] lastOutputParams) {
+        this.lastOutputParams = lastOutputParams;
+    }
+    
+    public void setName(String name) {
+        if (name == null) {
+            this.namedTag.putString("CustomName", "");
+        } else {
+            this.namedTag.putString("CustomName", name);
+        }
+    }
+    
+    @Override
+    public void setOp(boolean value) {
+        // Does Nothing
+    }
+    
+    public void setSuccessCount(int successCount) {
+        this.successCount = successCount;
+    }
+    
+    public void setTickDelay(int tickDelay) {
+        this.tickDelay = tickDelay;
+    }
+    
+    public void setTrackOutput(boolean trackOutput) {
+        this.trackOutput = trackOutput;
+    }
+    
+    public void setVersion(int version) {
+        this.version = version;
+    }
+    
+    public boolean trigger() {
+        return trigger(0);
+    }
+    
+    public boolean trigger(int successCount) {
+        if (this.getLevel().getCurrentTick() == this.lastExecution) {
+            return false;
+        }
+        
+        if (this.command.equals("")) {
+            return false;
+        }
+        
+        if (!this.getLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCKS_ENABLED)) {
+            return false;
+        }
+        
+        if (this.command.equals("Searge")) {
+            this.lastOutput = "#itzlipofutzli";
+            this.successCount = 1;
+            return true;
+        }
+        
+        this.tempCommand = this.command;
+        if (this.tempCommand.startsWith("/")) {
+            this.tempCommand = tempCommand.substring(1);
+        }
+        
+        this.lastOutput = "";
+        this.lastOutputParams = EmptyArrays.EMPTY_STRINGS;
+        
+        if (this.getServer().dispatchCommand(this, tempCommand)) {
+            this.lastExecution = this.getLevel().getCurrentTick();
+            this.lpCommandMode = this.commandBlockMode;
+            this.lpCondionalMode = this.conditionMet;
+            this.lpRedstoneMode = this.auto;
+            this.successCount = 1; // TODO: Make successCount depend on command results
+        } else {
+            this.successCount = 0;
+        }
+        
+        return true;
     }
 }
