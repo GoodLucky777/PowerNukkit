@@ -171,7 +171,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             .putBoolean("LPRedstoneMode", this.lpRedstoneMode)
             .putLong("LastExecution", this.lastExecution)
             .putString("LastOutput", this.lastOutput)
-            .putList(this.getLastOutputParamsListTag())
+            .putList(this.getLastOutputParamsAsListTag())
             .putInt("SuccessCount", this.successCount)
             .putInt("TickDelay", this.tickDelay)
             .putBoolean("TrackOutput", this.trackOutput)
