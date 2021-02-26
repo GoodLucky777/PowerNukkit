@@ -121,4 +121,13 @@ public class ConsoleCommandSender implements CommandSender {
             log.info(line);
         }
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public void sendCommandOutput(CommandOriginData origin, CommandOutputType type, int successCount, CommandOutputMessage[] messages, String data) {
+        for (CommandOutputMessage message : messages) {
+            log.info(this.getServer().getLanguage().translate(new TranslationContainer(message.messageId, message.parameters)));
+        }
+    }
 }
