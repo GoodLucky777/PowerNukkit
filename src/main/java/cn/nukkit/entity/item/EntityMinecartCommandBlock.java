@@ -45,6 +45,9 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
     private boolean trackOutput;
     private int version;
     
+    private boolean activated;
+    private String tempCommand;
+    
     public EntityMinecartCommandBlock(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
         setDisplayBlock(Block.get(Block.REPEATING_COMMAND_BLOCK), false);
@@ -52,18 +55,7 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
     
     @Override
     public void activate(int x, int y, int z, boolean flag) {
-        if (flag) {
-            this.timing.startTiming();
-            
-            if (this.currentTickCount == this.tickDelay) {
-                this.trigger();
-                this.currentTickCount = 0;
-            } else {
-                this.currentTickCount++;
-            }
-            
-            this.timing.stopTiming();
-        }
+        this.activated = flag;
     }
     
     @Override
@@ -285,6 +277,28 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
         }
         
         return false;
+    }
+    
+    @Override
+    public boolean onUpdate(int currentTick) {
+        this.timing.startTiming();
+        
+        if (this.activated) {
+            int tickDiff = currentTick - lastUpdate;
+            
+            lastUpdate = currentTick;
+            
+            if (this.currentTickCount == this.tickDelay) {
+                this.trigger();
+                this.currentTickCount = 0;
+            } else {
+                this.currentTickCount += tickDiff;
+            }
+        }
+        
+        this.timing.stopTiming();
+        
+        return super.onUpdate(currentTick);
     }
     
     @Override
