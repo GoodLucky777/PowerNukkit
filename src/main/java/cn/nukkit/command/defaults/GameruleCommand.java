@@ -80,7 +80,7 @@ public class GameruleCommand extends VanillaCommand {
     
     @Override
     public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        this.execute(sender, commandLine, args, CommandOriginData.DEFAULT);
+        this.execute(sender, commandLabel, args, CommandOriginData.DEFAULT);
     }
     
     @PowerNukkitOnly
