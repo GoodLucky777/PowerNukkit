@@ -584,7 +584,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
                 return false;
             }
         // Conditional check (Except chain mode)
-        } else if (this,conditionMet) {
+        } else if (this.conditionMet) {
             // Check block face opposite block is command block
             Block block = this.getBlock().getSide(((BlockCommand) this.getBlock()).getBlockFace().getOpposite());
             if (block instanceof BlockCommand) {
