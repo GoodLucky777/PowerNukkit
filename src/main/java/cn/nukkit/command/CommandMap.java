@@ -21,7 +21,7 @@ public interface CommandMap {
     
     @Since("1.4.0.0-PN")
     default boolean dispatch(CommandSender sender, String cmdLine) {
-        this.dispatch(sender, cmdLine, CommandOriginData.DEFAULT);
+        return this.dispatch(sender, cmdLine, CommandOriginData.DEFAULT);
     }
 
     void clearCommands();
