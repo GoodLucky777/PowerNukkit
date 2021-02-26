@@ -2588,6 +2588,7 @@ public class Server {
         Entity.registerEntity("MinecartHopper", EntityMinecartHopper.class);
         Entity.registerEntity("MinecartRideable", EntityMinecartEmpty.class);
         Entity.registerEntity("MinecartTnt", EntityMinecartTNT.class);
+        Entity.registerEntity("MinecartCommandBlock", EntityMinecartCommandBlock.class);
 
         Entity.registerEntity("EndCrystal", EntityEndCrystal.class);
         Entity.registerEntity("FishingHook", EntityFishingHook.class);
