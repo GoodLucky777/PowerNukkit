@@ -48,7 +48,7 @@ public class MessageCommand extends VanillaCommand {
             }
             
             for (String msg : message.split("\n")) {
-                if (!msg.trim().isEmpty() && msg.length() <= 255 && ((Player) sender).messageCounter-- > 0) {
+                if (!msg.trim().isEmpty() && msg.length() <= 255 && (((Player) sender).getMessageCounter() - 1) > 0) {
                     PlayerWhisperEvent ev = new PlayerWhisperEvent((Player) sender, args[1], (CommandSender) player);
                     sender.getServer().getPluginManager().callEvent(ev);
                     if (ev.isCancelled()) {
