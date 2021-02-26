@@ -628,7 +628,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         // Trigger chain command block
         Block block = this.getBlock().getSide(((BlockCommand) this.getBlock()).getBlockFace());
         if (block instanceof BlockCommandChain) {
-            (((BlockCommand) block).getBlockEntity()).trigger(successCount, chain++);
+            (((BlockCommand) block).getBlockEntity()).trigger(this.successCount, chain++);
         }
         
         return true;
