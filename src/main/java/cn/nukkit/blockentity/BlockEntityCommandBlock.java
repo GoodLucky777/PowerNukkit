@@ -162,7 +162,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             .putBoolean("LPRedstoneMode", this.lpRedstoneMode)
             .putLong("LastExecution", this.lastExecution)
             .putString("LastOutput", this.lastOutput)
-            .putList(this.getLastOutputParamsAsListTag())
+            .putList(this.getLastOutputParamsAsListTag(this.lastOutputParams))
             .putInt("SuccessCount", this.successCount)
             .putInt("TickDelay", this.tickDelay)
             .putBoolean("TrackOutput", this.trackOutput)
@@ -397,7 +397,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         this.namedTag.putBoolean("LPRedstoneMode", this.lpRedstoneMode);
         this.namedTag.putLong("LastExecution", this.lastExecution);
         this.namedTag.putString("LastOutput", this.lastOutput);
-        this.namedTag.putList(this.getLastOutputParamsAsListTag());
+        this.namedTag.putList(this.getLastOutputParamsAsListTag(this.lastOutputParams));
         this.namedTag.putBoolean("powered", this.powered);
         this.namedTag.putInt("SuccessCount", this.successCount);
         this.namedTag.putInt("TickDelay", this.tickDelay);
