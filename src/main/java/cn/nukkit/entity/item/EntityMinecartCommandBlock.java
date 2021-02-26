@@ -178,6 +178,7 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
         } else {
             this.command = "";
         }
+        setDataProperty(new StringEntityData(DATA_COMMAND_BLOCK_COMMAND, this.command));
         
         if (this.namedTag.contains("CurrentTickCount")) {
             this.currentTickCount = this.namedTag.getInt("CurrentTickCount");
@@ -194,6 +195,7 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
         } else {
             this.executeOnFirstTick = false;
         }
+        setDataProperty(new ByteEntityData(DATA_COMMAND_BLOCK_EXECUTE_ON_FIRST_TICK, (byte) this.executeOnFirstTick));
         
         if (this.namedTag.contains("LastExecution")) {
             this.lastExecution = this.namedTag.getLong("LastExecution");
@@ -206,6 +208,7 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
         } else {
             this.lastOutput = "";
         }
+        setDataProperty(new StringEntityData(DATA_COMMAND_BLOCK_LAST_OUTPUT, this.lastOutput));
         
         if (this.namedTag.contains("LastOutputParams")) {
             ListTag<StringTag> tempLastOutputParams = (ListTag<StringTag>) this.namedTag.getList("LastOutputParams");
@@ -227,12 +230,14 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
         } else {
             this.tickDelay = 3;
         }
+        setDataProperty(new IntEntityData(DATA_COMMAND_BLOCK_TICK_DELAY, this.tickDelay));
         
         if (this.namedTag.contains("TrackOutput")) {
             this.trackOutput = this.namedTag.getBoolean("TrackOutput");
         } else {
             this.trackOutput = this.getLevel().getGameRules().getBoolean(GameRule.SEND_COMMAND_FEEDBACK);
         }
+        setDataProperty(new ByteEntityData(DATA_COMMAND_BLOCK_TRACK_OUTPUT, (byte) this.trackOutput));
         
         if (this.namedTag.contains("Version")) {
             this.version = this.namedTag.getInt("Version");
