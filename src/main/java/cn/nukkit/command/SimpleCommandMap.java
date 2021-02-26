@@ -243,9 +243,12 @@ public class SimpleCommandMap implements CommandMap {
         return args;
     }
     
+    public boolean dispatch(CommandSender sender, String cmdLine) {
+        return this.dispatch(sender, cmdLine, CommandOriginData.DEFAULT);
+    }
+    
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    @Override
     public boolean dispatch(CommandSender sender, String cmdLine, CommandOriginData commandOriginData) {
         ArrayList<String> parsed = parseArguments(cmdLine);
         if (parsed.size() == 0) {
