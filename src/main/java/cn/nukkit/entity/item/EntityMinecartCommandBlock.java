@@ -5,6 +5,9 @@ import cn.nukkit.Server;
 import cn.nukkit.block.Block;
 import cn.nukkit.command.ICommandBlock;
 import cn.nukkit.entity.Entity;
+import cn.nukkit.entity.data.ByteEntityData;
+import cn.nukkit.entity.data.IntEntityData;
+import cn.nukkit.entity.data.StringEntityData;
 import cn.nukkit.inventory.CommandBlockInventory;
 import cn.nukkit.item.Item;
 import cn.nukkit.lang.TextContainer;
@@ -363,10 +366,14 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
     
     public void setCommand(String command) {
         this.command = command;
+        
+        setDataProperty(new StringEntityData(DATA_COMMAND_BLOCK_COMMAND, this.command));
     }
     
     public void setExecuteOnFirstTick(boolean executeOnFirstTick) {
         this.executeOnFirstTick = executeOnFirstTick;
+        
+        setDataProperty(new ByteEntityData(DATA_COMMAND_BLOCK_EXECUTE_ON_FIRST_TICK, (byte) this.executeOnFirstTick));
     }
     
     public void setLastExecution(long lastExecution) {
@@ -375,6 +382,8 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
     
     public void setLastOutput(String lastOutput) {
         this.lastOutput = lastOutput;
+        
+        setDataProperty(new StringEntityData(DATA_COMMAND_BLOCK_LAST_OUTPUT, this.lastOutput));
     }
     
     public void setLastOutputParams(String lastOutputParams, int index) {
@@ -404,10 +413,14 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
     
     public void setTickDelay(int tickDelay) {
         this.tickDelay = tickDelay;
+        
+        setDataProperty(new IntEntityData(DATA_COMMAND_BLOCK_TICK_DELAY, this.tickDelay));
     }
     
     public void setTrackOutput(boolean trackOutput) {
         this.trackOutput = trackOutput;
+        
+        setDataProperty(new ByteEntityData(DATA_COMMAND_BLOCK_TRACK_OUTPUT, (byte) this.trackOutput));
     }
     
     public void setVersion(int version) {
