@@ -3,7 +3,7 @@ package cn.nukkit.entity.item;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.block.Block;
-import cn.nukkit.command,ICommandBlock;
+import cn.nukkit.command.ICommandBlock;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.inventory.CommandBlockInventory;
 import cn.nukkit.item.Item;
