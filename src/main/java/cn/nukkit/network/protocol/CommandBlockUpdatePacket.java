@@ -50,7 +50,7 @@ public class CommandBlockUpdatePacket extends DataPacket {
         this.lastOutput = this.getString();
         this.name = this.getString();
         this.shouldTrackOutput = this.getBoolean();
-        this.tickDelay = (long) this.getUnsignedVarInt();
+        this.tickDelay = (long) this.getLInt();
         this.executingOnFirstTick = this.getBoolean();
     }
 
@@ -70,7 +70,7 @@ public class CommandBlockUpdatePacket extends DataPacket {
         this.putString(this.lastOutput);
         this.putString(this.name);
         this.putBoolean(this.shouldTrackOutput);
-        this.putVarInt((int) this.tickDelay);
+        this.putLInt((int) this.tickDelay);
         this.putBoolean(this.executingOnFirstTick);
     }
 }
