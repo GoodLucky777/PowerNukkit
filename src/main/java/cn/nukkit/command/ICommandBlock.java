@@ -3,6 +3,8 @@ package cn.nukkit.command;
 import cn.nukkit.nbt.tag.ListTag;
 import cn.nukkit.nbt.tag.StringTag;
 
+import javax.annotation.Nonnull;
+
 public interface ICommandBlock extends CommandSender {
 
     public int CURRENT_VERSION = 13;
@@ -21,7 +23,7 @@ public interface ICommandBlock extends CommandSender {
     
     String[] getLastOutputParams();
     
-    default ListTag<StringTag> getLastOutputParamsAsListTag(String[] lastOutputParams) {
+    default ListTag<StringTag> getLastOutputParamsAsListTag(@Nonnull String[] lastOutputParams) {
         ListTag<StringTag> tempLastOutputParmas = new ListTag<StringTag>("LastOutputParams");
         for (int i = 0; i < lastOutputParams.length; i++) {
             tempLastOutputParmas.add(new StringTag("", lastOutputParams[i]));
