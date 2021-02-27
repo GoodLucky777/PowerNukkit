@@ -157,21 +157,21 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     @Override
     public CompoundTag getSpawnCompound() {
         return getDefaultCompound(this, BlockEntity.COMMAND_BLOCK)
-            .putBoolean("auto", this.auto)
-            .putString("Command", this.command)
-            .putBoolean("conditionMet", this.conditionMet)
+            .putBoolean("auto", this.namedTag.getBoolean("auto"))
+            .putString("Command", this.namedTag.getString("Command"))
+            .putBoolean("conditionMet", this.namedTag.getBoolean("conditionMet"))
             .putString("CustomName", this.hasName() ? this.getName() : "")
-            .putBoolean("ExecuteOnFirstTick", this.executeOnFirstTick)
-            .putInt("LPCommandMode", this.lpCommandMode)
-            .putBoolean("LPCondionalMode", this.lpCondionalMode)
-            .putBoolean("LPRedstoneMode", this.lpRedstoneMode)
-            .putLong("LastExecution", this.lastExecution)
-            .putString("LastOutput", this.lastOutput)
-            .putList(this.getLastOutputParamsAsListTag(this.lastOutputParams))
-            .putInt("SuccessCount", this.successCount)
-            .putInt("TickDelay", this.tickDelay)
-            .putBoolean("TrackOutput", this.trackOutput)
-            .putInt("Version", this.version);
+            .putBoolean("ExecuteOnFirstTick", this.namedTag.getBoolean("ExecuteOnFirstTick"))
+            .putInt("LPCommandMode", this.namedTag.getInt("LPCommandMode"))
+            .putBoolean("LPCondionalMode", this.namedTag.getBoolean("LPCondionalMode"))
+            .putBoolean("LPRedstoneMode", this.namedTag.getBoolean("LPRedstoneMode"))
+            .putLong("LastExecution", this.namedTag.getLong("LastExecution"))
+            .putString("LastOutput", this.namedTag.getString("LastOutput"))
+            .putList(this.namedTag.getList("LastOutputParams")))
+            .putInt("SuccessCount", this.namedTag.getInt("SuccessCount"))
+            .putInt("TickDelay", this.namedTag.getInt("TickDelay"))
+            .putBoolean("TrackOutput", this.namedTag.getBoolean("TrackOutput"))
+            .putInt("Version", this.namedTag.getInt("Version"));
     }
     
     public int getSuccessCount() {
