@@ -529,6 +529,10 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     }
     
     public boolean trigger() {
+        this.trigger(0);
+    }
+    
+    public boolean trigger(int chainLength) {
         // Don't trigger at same tick
         if (this.getLevel().getCurrentTick() == this.lastExecution) {
             return false;
@@ -589,7 +593,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         // Trigger chain command block
         Block block = this.getBlock().getSide(((BlockCommand) this.getBlock()).getBlockFace());
         if (block instanceof BlockCommandChain) {
-            ((BlockCommandChain) block).triggerChain(this.successCount, chain++);
+            ((BlockCommandChain) block).triggerChain(this.successCount, chainLength++);
         }
         
         return true;
