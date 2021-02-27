@@ -529,7 +529,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     }
     
     public boolean trigger() {
-        // Don't run at same tick
+        // Don't trigger at same tick
         if (this.getLevel().getCurrentTick() == this.lastExecution) {
             return false;
         }
