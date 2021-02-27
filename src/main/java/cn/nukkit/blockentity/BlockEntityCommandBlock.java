@@ -580,7 +580,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         this.lastOutputParams = EmptyArrays.EMPTY_STRINGS;
         
         // Run command
-        if (this.getServer().dispatchCommand(this, tempCommand)) {
+        if (this.getServer().dispatchCommand(this, tempCommand, CommandOriginData.createCommandBlockOriginData())) {
             this.lastExecution = this.getLevel().getCurrentTick();
             this.lpCommandMode = this.commandBlockMode;
             this.lpCondionalMode = this.conditionMet;
