@@ -38,7 +38,7 @@ public class BlockCommandChain extends BlockCommand {
         }
         
         // Chain and conditional check
-        if (this.conditionMet && (successCount <= 0)) {
+        if (blockEntityCommandBlock.getConditionMet() && (successCount <= 0)) {
             return false;
         }
         
