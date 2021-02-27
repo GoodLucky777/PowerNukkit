@@ -419,33 +419,40 @@ public class EntityMinecartCommandBlock extends EntityMinecartAbstract implement
         this.version = version;
     }
     
-    public boolean trigger(int successCount) {
+    public boolean trigger() {
+        // Don't trigger at same tick
         if (this.getLevel().getCurrentTick() == this.lastExecution) {
             return false;
         }
         
+        // Ignore (Empty command)
         if (this.command.equals("")) {
             return false;
         }
         
+        // Check gamerule
         if (!this.getLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCKS_ENABLED)) {
             return false;
         }
         
+        // Easter Egg
         if (this.command.equals("Searge")) {
             this.lastOutput = "#itzlipofutzli";
             this.successCount = 1;
             return true;
         }
         
+        // Remove a "/" if it exists
         this.tempCommand = this.command;
         if (this.tempCommand.startsWith("/")) {
             this.tempCommand = tempCommand.substring(1);
         }
         
+        // Reset last outputs
         this.lastOutput = "";
         this.lastOutputParams = EmptyArrays.EMPTY_STRINGS;
         
+        // Run command
         if (this.getServer().dispatchCommand(this, tempCommand)) {
             this.lastExecution = this.getLevel().getCurrentTick();
             this.successCount = 1; // TODO: Make successCount depend on command results
