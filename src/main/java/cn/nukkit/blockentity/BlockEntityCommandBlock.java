@@ -529,7 +529,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
     }
     
     public boolean trigger() {
-        this.trigger(0);
+        return this.trigger(0);
     }
     
     public boolean trigger(int chainLength) {
