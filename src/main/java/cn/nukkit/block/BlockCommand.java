@@ -154,6 +154,7 @@ public class BlockCommand extends BlockSolidMeta implements BlockEntityHolder<Bl
                 
                 if (!blockEntityCommandBlock.getPowered()) {
                     blockEntityCommandBlock.setPowered(true);
+                    blockEntityCommandBlock.trigger();
                 }
             } else {
                 blockEntityCommandBlock.setPowered(false);
