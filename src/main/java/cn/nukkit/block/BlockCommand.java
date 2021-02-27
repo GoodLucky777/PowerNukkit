@@ -166,7 +166,7 @@ public class BlockCommand extends BlockSolidMeta implements BlockEntityHolder<Bl
     @Override
     public boolean place(@Nonnull Item item, @Nonnull Block block, @Nonnull Block target, @Nonnull BlockFace face, double fx, double fy, double fz, Player player) {
         if (player != null) {
-            if (Math.abs(player.x - this.x) < 2 && Math.abs(player.z - this.z) < 2) {
+            if (Math.abs(player.x - (this.x + 0.5)) < 2 && Math.abs(player.z - (this.z + 0.5)) < 2) {
                 double playerEyeY = player.y + player.getEyeHeight();
                 if (playerEyeY - this.y > 2) {
                     this.setBlockFace(BlockFace.UP);
