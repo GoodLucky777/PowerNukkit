@@ -1,5 +1,6 @@
 package cn.nukkit.block;
 
+import cn.nukkit.blockentity.BlockEntityCommandBlock;
 import cn.nukkit.level.GameRule;
 import cn.nukkit.utils.BlockColor;
 
@@ -25,12 +26,14 @@ public class BlockCommandChain extends BlockCommand {
     
     public boolean triggerChain(int successCount, int chainLength) {
         // Check max chain length gamerule
-        if (this.getLevel().getGameRules().getInteger(GameRule.MAX_COMMAND_CHAIN_LENGTH) < chain) {
+        if (this.getLevel().getGameRules().getInteger(GameRule.MAX_COMMAND_CHAIN_LENGTH) < chainLength) {
             return false;
         }
         
+        BlockEntityCommandBlock blockEntityCommandBlock = this.getBlockEntity();
+        
         // Check power
-        if (!(this.auto || this.powered)) {
+        if (!(blockEntityCommandBlock.getAuto() || blockEntityCommandBlock.getPowered())) {
             return false;
         }
         
@@ -39,7 +42,7 @@ public class BlockCommandChain extends BlockCommand {
             return false;
         }
         
-        trigger();
+        blockEntityCommandBlock.trigger();
         
         return true;
     }
