@@ -528,11 +528,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         this.version = version;
     }
     
-    public boolean trigger(int successCount) {
-        return trigger(successCount, 0);
-    }
-    
-    public boolean trigger(int successCount, int chain) {
+    public boolean trigger() {
         // Don't run at same tick
         if (this.getLevel().getCurrentTick() == this.lastExecution) {
             return false;
@@ -548,24 +544,8 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             return false;
         }
         
-        // Chain check
-        if (chain > 0 && this.commandBlockMode == MODE_CHAIN) {
-            // Check max chain length gamerule
-            if (this.getLevel().getGameRules().getInteger(GameRule.MAX_COMMAND_CHAIN_LENGTH) < chain) {
-                return false;
-            }
-            
-            // Check power
-            if (!(this.auto || this.powered)) {
-                return false;
-            }
-            
-            // Chain and conditional check
-            if (this.conditionMet && (successCount <= 0)) {
-                return false;
-            }
         // Conditional check (Except chain mode)
-        } else if (this.conditionMet) {
+        if (this.conditionMet && this.commandBlockMode != MODE_CHAIN) {
             // Check block face opposite block is command block
             Block block = this.getBlock().getSide(((BlockCommand) this.getBlock()).getBlockFace().getOpposite());
             if (block instanceof BlockCommand) {
@@ -585,7 +565,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             return true;
         }
         
-        // Remove "/" if it exists
+        // Remove a "/" if it exists
         this.tempCommand = this.command;
         if (this.tempCommand.startsWith("/")) {
             this.tempCommand = tempCommand.substring(1);
@@ -609,7 +589,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         // Trigger chain command block
         Block block = this.getBlock().getSide(((BlockCommand) this.getBlock()).getBlockFace());
         if (block instanceof BlockCommandChain) {
-            (((BlockCommand) block).getBlockEntity()).trigger(this.successCount, chain++);
+            ((BlockCommandChain) block).triggerChain(this.successCount, chain++);
         }
         
         return true;
