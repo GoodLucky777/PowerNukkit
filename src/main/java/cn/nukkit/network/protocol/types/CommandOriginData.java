@@ -48,4 +48,20 @@ public final class CommandOriginData {
         @PowerNukkitOnly @Since("1.4.0.0-PN") GAME_MASTER_ENTITY_SERVER,
         @PowerNukkitOnly @Since("1.4.0.0-PN") SCRIPT
     }
+    
+    public CommandOriginData createCommandBlockOriginData() {
+        return new CommandOriginData(Origin.BLOCK, UUID.randomUUID(), "", -1L); // TODO: Is this correct?
+    }
+    
+    public CommandOriginData createCommandBlockMinecartOriginData() {
+        return new CommandOriginData(Origin.MINECART_BLOCK, UUID.randomUUID(), "", -1L); // TODO: Is this correct?
+    }
+    
+    public CommandOriginData createConsoleOriginData() {
+        return new CommandOriginData(Origin.DEDICATED_SERVER, UUID.randomUUID(), "", -1L); // TODO: Is this correct?
+    }
+    
+    public CommandOriginData createPlayerOriginData() {
+        return new CommandOriginData(Origin.PLAYER, UUID.randomUUID(), "", -1L);
+    }
 }
