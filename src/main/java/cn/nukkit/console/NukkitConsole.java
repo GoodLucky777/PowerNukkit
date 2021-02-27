@@ -2,9 +2,14 @@ package cn.nukkit.console;
 
 import cn.nukkit.Server;
 import cn.nukkit.event.server.ServerCommandEvent;
+import cn.nukkit.network.protocol.types.CommandOriginData;
+
 import co.aikar.timings.Timings;
+
 import lombok.RequiredArgsConstructor;
+
 import net.minecrell.terminalconsole.SimpleTerminalConsole;
+
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 
@@ -32,7 +37,7 @@ public class NukkitConsole extends SimpleTerminalConsole {
                 server.getPluginManager().callEvent(event);
             }
             if (!event.isCancelled()) {
-                Server.getInstance().getScheduler().scheduleTask(() -> server.dispatchCommand(event.getSender(), event.getCommand()));
+                Server.getInstance().getScheduler().scheduleTask(() -> server.dispatchCommand(event.getSender(), event.getCommand(), CommandOriginData.createConsoleOriginData()));
             }
             Timings.serverCommandTimer.stopTiming();
         } else {
