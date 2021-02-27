@@ -1,5 +1,6 @@
 package cn.nukkit.block;
 
+import cn.nukkit.level.GameRule;
 import cn.nukkit.utils.BlockColor;
 
 /**
@@ -20,5 +21,26 @@ public class BlockCommandChain extends BlockCommand {
     @Override
     public String getName() {
         return "Chain Command Block";
+    }
+    
+    public boolean triggerChain(int successCount, int chainLength) {
+        // Check max chain length gamerule
+        if (this.getLevel().getGameRules().getInteger(GameRule.MAX_COMMAND_CHAIN_LENGTH) < chain) {
+            return false;
+        }
+        
+        // Check power
+        if (!(this.auto || this.powered)) {
+            return false;
+        }
+        
+        // Chain and conditional check
+        if (this.conditionMet && (successCount <= 0)) {
+            return false;
+        }
+        
+        trigger();
+        
+        return true;
     }
 }
