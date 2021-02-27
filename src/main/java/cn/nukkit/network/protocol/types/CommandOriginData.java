@@ -49,19 +49,19 @@ public final class CommandOriginData {
         @PowerNukkitOnly @Since("1.4.0.0-PN") SCRIPT
     }
     
-    public CommandOriginData createCommandBlockOriginData() {
+    public static CommandOriginData createCommandBlockOriginData() {
         return new CommandOriginData(Origin.BLOCK, UUID.randomUUID(), "", -1L); // TODO: Is this correct?
     }
     
-    public CommandOriginData createCommandBlockMinecartOriginData() {
+    public static CommandOriginData createCommandBlockMinecartOriginData() {
         return new CommandOriginData(Origin.MINECART_BLOCK, UUID.randomUUID(), "", -1L); // TODO: Is this correct?
     }
     
-    public CommandOriginData createConsoleOriginData() {
+    public static CommandOriginData createConsoleOriginData() {
         return new CommandOriginData(Origin.DEDICATED_SERVER, UUID.randomUUID(), "", -1L); // TODO: Is this correct?
     }
     
-    public CommandOriginData createPlayerOriginData() {
+    public static CommandOriginData createPlayerOriginData() {
         return new CommandOriginData(Origin.PLAYER, UUID.randomUUID(), "", -1L);
     }
 }
