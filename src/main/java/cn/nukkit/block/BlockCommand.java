@@ -181,7 +181,7 @@ public class BlockCommand extends BlockSolidMeta implements BlockEntityHolder<Bl
             }
         }
         
-        return BlockEntityHolder.setBlockAndCreateEntity(this) != null;
+        return BlockEntityHolder.setBlockAndCreateEntity(this, true, true) != null;
     }
     
     @Override
