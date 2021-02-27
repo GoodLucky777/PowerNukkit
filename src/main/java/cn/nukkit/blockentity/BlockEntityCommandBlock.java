@@ -539,7 +539,7 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
             return false;
         }
         
-        // Check gamerules
+        // Check gamerule
         if (!this.getLevel().getGameRules().getBoolean(GameRule.COMMAND_BLOCKS_ENABLED)) {
             return false;
         }
