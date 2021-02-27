@@ -154,26 +154,6 @@ public class BlockEntityCommandBlock extends BlockEntitySpawnable implements Blo
         return this.getServer();
     }
     
-    @Override
-    public CompoundTag getSpawnCompound() {
-        return getDefaultCompound(this, BlockEntity.COMMAND_BLOCK)
-            .putBoolean("auto", this.namedTag.getBoolean("auto"))
-            .putString("Command", this.namedTag.getString("Command"))
-            .putBoolean("conditionMet", this.namedTag.getBoolean("conditionMet"))
-            .putString("CustomName", this.hasName() ? this.getName() : "")
-            .putBoolean("ExecuteOnFirstTick", this.namedTag.getBoolean("ExecuteOnFirstTick"))
-            .putInt("LPCommandMode", this.namedTag.getInt("LPCommandMode"))
-            .putBoolean("LPCondionalMode", this.namedTag.getBoolean("LPCondionalMode"))
-            .putBoolean("LPRedstoneMode", this.namedTag.getBoolean("LPRedstoneMode"))
-            .putLong("LastExecution", this.namedTag.getLong("LastExecution"))
-            .putString("LastOutput", this.namedTag.getString("LastOutput"))
-            .putList(this.namedTag.getList("LastOutputParams")))
-            .putInt("SuccessCount", this.namedTag.getInt("SuccessCount"))
-            .putInt("TickDelay", this.namedTag.getInt("TickDelay"))
-            .putBoolean("TrackOutput", this.namedTag.getBoolean("TrackOutput"))
-            .putInt("Version", this.namedTag.getInt("Version"));
-    }
-    
     public int getSuccessCount() {
         return successCount;
     }
