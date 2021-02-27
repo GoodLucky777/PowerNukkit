@@ -62,9 +62,5 @@ public interface ICommandBlock extends CommandSender {
     
     void setVersion(int version);
     
-    default boolean trigger() {
-        return this.trigger(1);
-    }
-    
-    boolean trigger(int successCount);
+    boolean trigger();
 }
