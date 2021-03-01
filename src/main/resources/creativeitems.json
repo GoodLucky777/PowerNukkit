@@ -4425,10 +4425,13 @@
     },
     // GoodLucky
     {
-      "id": "minecraft:ruby"
+      "id": "goodlucky:ruby"
     },
     {
       "id": "minecraft:sapphire"
+    },
+    {
+      "id": "minecraft:opal"
     },
     {
       "id": "minecraft:bacon"
