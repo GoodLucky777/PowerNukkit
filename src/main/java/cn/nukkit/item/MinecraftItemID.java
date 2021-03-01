@@ -950,7 +950,10 @@ public enum MinecraftItemID {
     @PowerNukkitOnly @Since("1.3.2.0-PN") WATER_BUCKET,
     @PowerNukkitOnly @Since("1.3.2.0-PN") LIGHT_GRAY_DYE,
     @PowerNukkitOnly @Since("1.3.2.0-PN") CHARCOAL,
-    @PowerNukkitOnly @Since("1.3.2.0-PN") AGENT_SPAWN_EGG
+    @PowerNukkitOnly @Since("1.3.2.0-PN") AGENT_SPAWN_EGG,
+    
+    // GoodLucky
+    RUBY,
     ;
     private static Map<String, MinecraftItemID> namespacedIdMap = Arrays.stream(values())
             .collect(Collectors.toMap(id-> id.getNamespacedId().toLowerCase(), Function.identity()));
