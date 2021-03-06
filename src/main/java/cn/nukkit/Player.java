@@ -5810,4 +5810,13 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         pk.message = message;
         this.dataPacket(pk);
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void completeUsingItem(int itemId, int action) {
+        CompletedUsingItemPacket pk = new CompletedUsingItemPacket();
+        pk.itemId = itemId;
+        pk.action = action;
+        this.dataPacket(pk);
+    }
 }
