@@ -415,6 +415,7 @@ public class Item implements Cloneable, BlockID, ItemID {
             // GoodLucky
             list[RUBY] = ItemRuby.class; // 5000
             list[SAPPHIRE] = ItemSapphire.class; // 5001
+            list[OPAL] = ItemOpal.class; // 5002
             
             list[BACON] = ItemBacon.class; // 5400
             list[BAGUETTE] = ItemBaguette.class; // 5401
