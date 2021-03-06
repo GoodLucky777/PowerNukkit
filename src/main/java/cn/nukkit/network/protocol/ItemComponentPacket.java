@@ -89,6 +89,18 @@ public class ItemComponentPacket extends DataPacket {
                     .putInt("creative_category", 4)
                     .putInt("max_stack_size", 64)))
         ),
+        new Entry("goodlucky:opal", new CompoundTag("")
+            .putString("name", "goodlucky:opal")
+            .putInt("id", 5002)
+            .putCompound("components", new CompoundTag("components")
+                .putCompound("minecraft:display_name", new CompoundTag("minecraft:display_name")
+                    .putString("value", "item.goodlucky:opal.name"))
+                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
+                    .putString("texture", "goodlucky:opal"))
+                .putCompound("item_properties", new CompoundTag("item_properties")
+                    .putInt("creative_category", 4)
+                    .putInt("max_stack_size", 64)))
+        ),
         new Entry("goodlucky:bacon", new CompoundTag("")
             .putString("name", "goodlucky:bacon")
             .putInt("id", 5400)
