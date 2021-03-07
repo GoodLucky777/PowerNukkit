@@ -48,6 +48,7 @@ import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiPredicate;
 
 import static cn.nukkit.network.protocol.SetEntityLinkPacket.*;
@@ -382,7 +383,9 @@ public abstract class Entity extends Location implements Metadatable {
     @Since("1.3.0.0-PN") public static final int DATA_FLAG_CELEBRATING_SPECIAL = 94;
 
     public static long entityCount = 1;
-
+    
+    public static final AtomicLong entityUniqueIdGenerator = new AtomicLong();
+    
     private static final Map<String, Class<? extends Entity>> knownEntities = new HashMap<>();
     private static final Map<String, String> shortNames = new HashMap<>();
 
@@ -585,13 +588,13 @@ public abstract class Entity extends Location implements Metadatable {
         this.isPlayer = this instanceof Player;
         this.temporalVector = new Vector3();
         
-        if () {
-            this.id = 
+        if (this.namedTag.contains("UniqueID")) {
+            this.id = this.namedTag.getLong("UniqueID");
         } else {
             this.id = Entity.entityUniqueIdGenerator.incrementAndGet();
         }
         
-        Entity.entityCount++; // For 
+        Entity.entityCount++;
         
         this.justCreated = true;
         this.namedTag = nbt;
@@ -1056,7 +1059,9 @@ public abstract class Entity extends Location implements Metadatable {
                 this.namedTag.remove("CustomNameAlwaysVisible");
             }
         }
-
+        
+        this.namedTag.putLong("UniqueID", this.id);
+        
         this.namedTag.putList(new ListTag<DoubleTag>("Pos")
                 .add(new DoubleTag("0", this.x))
                 .add(new DoubleTag("1", this.y))
