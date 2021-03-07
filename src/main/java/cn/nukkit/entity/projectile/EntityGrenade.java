@@ -78,7 +78,7 @@ public class EntityGrenade extends EntityProjectile {
     
     @Override
     public void explode() {
-        ExplosionPrimeEvent event = new ExplosionPrimeEvent(this, 10);
+        EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(this, 10);
         this.server.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
             Explosion explosion = new Explosion(this, event.getForce(), this.shootingEntity);
