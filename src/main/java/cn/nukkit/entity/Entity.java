@@ -384,6 +384,8 @@ public abstract class Entity extends Location implements Metadatable {
 
     public static long entityCount = 1;
     
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     public static final AtomicLong entityUniqueIdGenerator = new AtomicLong();
     
     private static final Map<String, Class<? extends Entity>> knownEntities = new HashMap<>();
@@ -588,11 +590,20 @@ public abstract class Entity extends Location implements Metadatable {
         this.isPlayer = this instanceof Player;
         this.temporalVector = new Vector3();
         
+        long tempId;
         if (this.namedTag.contains("UniqueID")) {
-            this.id = this.namedTag.getLong("UniqueID");
+            tempId = this.namedTag.getLong("UniqueID");
         } else {
-            this.id = Entity.entityUniqueIdGenerator.incrementAndGet();
+            tempId = Entity.entityUniqueIdGenerator.incrementAndGet();
         }
+        
+        // Check UniqueID already using
+        while (this.getLevel().getEntity(tempId) != null) {
+            log.debug("Entity UniqueID {} is already allocated in this level. Generating new UniqueID.", tempId);
+            tempId = Entity.entityUniqueIdGenerator.incrementAndGet();
+        }
+        
+        this.id = tempId;
         
         Entity.entityCount++;
         
