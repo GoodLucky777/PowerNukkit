@@ -326,7 +326,7 @@ public abstract class EntityProjectile extends Entity implements EntityOwnableNe
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    @Overrdie
+    @Override
     public void setShooter(Entity shooter) {
         super.setShooter(shooter);
         
