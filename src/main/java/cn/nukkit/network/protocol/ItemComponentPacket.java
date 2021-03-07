@@ -377,6 +377,20 @@ public class ItemComponentPacket extends DataPacket {
                     .putInt("damage_change", 1)
                     .putInt("max_durable", 1562))
                 .putCompound("minecraft:weapon", new CompoundTag("minecraft:weapon")))
+        ),
+        new Entry("goodlucky:grenade_frag", new CompoundTag("")
+            .putString("name", "goodlucky:grenade_frag")
+            .putInt("id", 6100)
+            .putCompound("components", new CompoundTag("components")
+                .putCompound("minecraft:display_name", new CompoundTag("minecraft:display_name")
+                    .putString("value", "item.goodlucky:grenade_frag.name"))
+                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
+                    .putString("texture", "goodlucky:grenade_frag"))
+                .putCompound("item_properties", new CompoundTag("item_properties")
+                    .putInt("creative_category", 3)
+                    .putBoolean("hand_equipped", true)
+                    .putInt("max_stack_size", 1))
+                .putCompound("minecraft:projectile", new CompoundTag("minecraft:projectile")))
         )
     };
 }

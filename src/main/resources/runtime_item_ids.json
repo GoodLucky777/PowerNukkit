@@ -4765,5 +4765,10 @@
     "name": "goodlucky:ruby_sword",
     "id": 6000,
     "oldId": 6000
+  },
+  {
+    "name": "goodlucky:grenade_frag",
+    "id": 6100,
+    "oldId": 6100
   }
 ]

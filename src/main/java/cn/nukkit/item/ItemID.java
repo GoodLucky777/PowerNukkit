@@ -311,4 +311,6 @@ public interface ItemID {
     int WINE = 5412;
     
     int RUBY_SWORD = 6000;
+    
+    int GRENADE_FRAG = 6100;
 }
