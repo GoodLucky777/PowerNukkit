@@ -383,11 +383,7 @@ public abstract class Entity extends Location implements Metadatable {
     @Since("1.3.0.0-PN") public static final int DATA_FLAG_CELEBRATING_SPECIAL = 94;
 
     public static long entityCount = 1;
-    
-    @PowerNukkitOnly
-    @Since("1.4.0.0-PN")
-    public static final AtomicLong entityUniqueIdGenerator = new AtomicLong();
-    
+
     private static final Map<String, Class<? extends Entity>> knownEntities = new HashMap<>();
     private static final Map<String, String> shortNames = new HashMap<>();
 
