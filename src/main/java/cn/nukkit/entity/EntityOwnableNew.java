@@ -13,7 +13,5 @@ public interface EntityOwnableNew {
 
     long getOwnerId();
 
-    default void setOwnerId(long ownerId) {
-        this.setDataProperty(new LongEntityData(Entity.DATA_OWNER_EID, ownerId));
-    }
+    void setOwnerId(long ownerId);
 }
