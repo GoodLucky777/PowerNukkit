@@ -523,7 +523,7 @@ public abstract class BaseLevelProvider implements LevelProvider {
     @Since("1.4.0.0-PN")
     @Override
     public void setLastEntityUniqueId(long lastEntityUniqueId) {
-        this.levelData.putInt("LastEntityUniqueId", lastEntityUniqueId);
+        this.levelData.putLong("LastEntityUniqueId", lastEntityUniqueId);
         this.lastEntityUniqueId = lastEntityUniqueId;
     }
 }
