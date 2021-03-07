@@ -585,20 +585,19 @@ public abstract class Entity extends Location implements Metadatable {
         this.isPlayer = this instanceof Player;
         this.temporalVector = new Vector3();
         
-        long tempId;
         if (this.namedTag.contains("UniqueID")) {
-            tempId = this.namedTag.getLong("UniqueID");
+            long tempId = this.namedTag.getLong("UniqueID");
+            
+            // Check saved UniqueID already using
+            if (this.getLevel().isAllocatedEntityUniqueId(tempId)) {
+                log.debug("Saved Entity UniqueID {} is already allocated in this level. Generating new UniqueID.", tempId);
+                tempId = this.getLevel().generateEntityUniqueId();
+            }
+            
+            this.id = tempId;
         } else {
-            tempId = Entity.entityUniqueIdGenerator.incrementAndGet();
+            this.id = this.getLevel().generateEntityUniqueId();
         }
-        
-        // Check UniqueID already using
-        while (this.getLevel().getEntity(tempId) != null) {
-            log.debug("Entity UniqueID {} is already allocated in this level. Generating new UniqueID.", tempId);
-            tempId = Entity.entityUniqueIdGenerator.incrementAndGet();
-        }
-        
-        this.id = tempId;
         
         Entity.entityCount++;
         
