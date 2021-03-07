@@ -121,7 +121,13 @@ public interface LevelProvider {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    default long getLastUniqueId() {
+    default long getLastEntityUniqueId() {
         return 0;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    default void setLastEntityUniqueId(long lastEntityUniqueId) {
+        
     }
 }
