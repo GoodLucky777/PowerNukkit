@@ -1322,6 +1322,7 @@ public class Level implements ChunkManager, Metadatable {
         levelProvider.setThunderTime(this.thunderTime);
         levelProvider.setCurrentTick(this.levelCurrentTick);
         levelProvider.setGameRules(this.gameRules);
+        levelProvider.setLastEntityUniqueId(this.lastEntityUniqueId);
         this.saveChunks();
         if (levelProvider instanceof BaseLevelProvider) {
             levelProvider.saveLevelData();
