@@ -83,7 +83,6 @@ public class EntityGrenade extends EntityProjectile implements EntityExplosive {
         if (!event.isCancelled()) {
             Explosion explosion = new Explosion(this.getPosition(), event.getForce(), this);
             explosion.explodeB();
-            this.close();
         }
     }
 }
