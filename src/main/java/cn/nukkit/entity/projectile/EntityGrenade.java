@@ -12,7 +12,7 @@ import cn.nukkit.nbt.tag.CompoundTag;
  */
 public class EntityGrenade extends EntityProjectile {
 
-    public static final int NETWORK_ID = 81;
+    public static final int NETWORK_ID = 94;
     
     public EntityGrenade(FullChunk chunk, CompoundTag nbt) {
         this(chunk, nbt, null);
