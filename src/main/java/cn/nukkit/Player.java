@@ -4803,7 +4803,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         pk.pitch = (float) pitch;
         pk.yaw = (float) yaw;
         pk.mode = mode;
-
+        pk.onGround = this.onGround;
+        
         if (targets != null) {
             Server.broadcastPacket(targets, pk);
         } else {
