@@ -4310,7 +4310,7 @@ public class Level implements ChunkManager, Metadatable {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public long isAllocatedEntityUniqueId(long entityUniqueId) {
+    public boolean isAllocatedEntityUniqueId(long entityUniqueId) {
         return getEntity(entityUniqueId) != null;
     }
 }
