@@ -2608,7 +2608,7 @@ public class Level implements ChunkManager, Metadatable {
     }
 
     public Entity getEntity(long entityId) {
-        return this.entities.containsKey(entityId) ? this.entities.get(entityId) : null;
+        return (this.entities.containsKey(entityId) || entityId != -1L) ? this.entities.get(entityId) : null;
     }
 
     public Entity[] getEntities() {
@@ -4301,7 +4301,7 @@ public class Level implements ChunkManager, Metadatable {
     @Since("1.4.0.0-PN")
     public long generateEntityUniqueId() {
         long tempId = this.entityUniqueIdGenerator.incrementAndGet();
-        while (isAllocatedEntityUniqueId(tempId)) {
+        while (isAllocatedEntityUniqueId(tempId) || entityUniqueId == -1L) {
             tempId = this.entityUniqueIdGenerator.incrementAndGet();
         }
         
@@ -4311,6 +4311,6 @@ public class Level implements ChunkManager, Metadatable {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public boolean isAllocatedEntityUniqueId(long entityUniqueId) {
-        return getEntity(entityUniqueId) != null;
+        return getEntity(entityUniqueId) != null || entityUniqueId == -1L;
     }
 }
