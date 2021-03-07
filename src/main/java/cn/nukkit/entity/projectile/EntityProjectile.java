@@ -289,4 +289,16 @@ public abstract class EntityProjectile extends Entity {
     public void setAge(boolean hasAge) {
         this.hasAge = hasAge;
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public Entity getShooter() {
+        return this.shootingEntity;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setShooter(Entity shooter) {
+        this.shootingEntity = shooter;
+    }
 }
