@@ -1,6 +1,7 @@
 package cn.nukkit.entity.projectile;
 
 import cn.nukkit.entity.Entity;
+import cn.nukkit.entity.EntityExplosive;
 import cn.nukkit.event.entity.EntityExplosionPrimeEvent;
 import cn.nukkit.level.Explosion;
 import cn.nukkit.level.Level;
@@ -10,7 +11,7 @@ import cn.nukkit.nbt.tag.CompoundTag;
 /**
  * @author GoodLucky777
  */
-public class EntityGrenade extends EntityProjectile {
+public class EntityGrenade extends EntityProjectile implements EntityExplosive {
 
     public static final int NETWORK_ID = 94;
     
@@ -75,6 +76,7 @@ public class EntityGrenade extends EntityProjectile {
         return hasUpdate;
     }
     
+    @Override
     public void explode() {
         EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(this, 10);
         this.server.getPluginManager().callEvent(event);
