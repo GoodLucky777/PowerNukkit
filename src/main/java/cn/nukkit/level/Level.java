@@ -73,6 +73,7 @@ import java.io.File;
 import java.lang.ref.SoftReference;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -302,6 +303,10 @@ public class Level implements ChunkManager, Metadatable {
     @Since("1.4.0.0-PN")
     private long lastEntityUniqueId = 0;
     
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static final AtomicLong entityUniqueIdGenerator;
+    
     public Level(Server server, String name, String path, Class<? extends LevelProvider> provider) {
         this(server, name, path,
                 ()-> {
@@ -379,6 +384,8 @@ public class Level implements ChunkManager, Metadatable {
         this.skyLightSubtracted = this.calculateSkylightSubtracted(1);
         
         this.lastEntityUniqueId = levelProvider.getLastEntityUniqueId();
+        
+        this.entityUniqueIdGenerator = new AtomicLong(this.lastEntityUniqueId);
     }
 
     public static long chunkHash(int x, int z) {
@@ -4277,12 +4284,33 @@ public class Level implements ChunkManager, Metadatable {
 //
 //        return sorted;
 //    }
-      
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     public long getLastEntityUniqueId() {
         return this.lastEntityUniqueId;
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     public void setLastEntityUniqueId(long lastEntityUniqueId) {
         this.lastEntityUniqueId = lastEntityUniqueId;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public long generateEntityUniqueId() {
+        long tempId = this.entityUniqueIdGenerator.incrementAndGet();
+        while (isAllocatedEntityUniqueId(tempId)) {
+            tempId = this.entityUniqueIdGenerator.incrementAndGet();
+        }
+        
+        return tempId;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public long isAllocatedEntityUniqueId(long entityUniqueId) {
+        return getEntity(entityUniqueId) != null;
     }
 }
