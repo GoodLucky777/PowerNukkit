@@ -584,8 +584,15 @@ public abstract class Entity extends Location implements Metadatable {
 
         this.isPlayer = this instanceof Player;
         this.temporalVector = new Vector3();
-
-        this.id = Entity.entityCount++;
+        
+        if () {
+            this.id = 
+        } else {
+            this.id = Entity.entityUniqueIdGenerator.incrementAndGet();
+        }
+        
+        Entity.entityCount++; // For 
+        
         this.justCreated = true;
         this.namedTag = nbt;
 
