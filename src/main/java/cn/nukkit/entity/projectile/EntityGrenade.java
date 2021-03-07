@@ -67,8 +67,7 @@ public class EntityGrenade extends EntityProjectile {
                 this.explode();
             }
             
-            this.kill();
-            hasUpdate = true;
+            this.close();
         }
         
         this.timing.stopTiming();
@@ -81,6 +80,9 @@ public class EntityGrenade extends EntityProjectile {
         this.server.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
             Explosion explosion = new Explosion(this, event.getForce(), this);
+            
+            this.close();
+            
             explosion.explodeB();
         }
     }
