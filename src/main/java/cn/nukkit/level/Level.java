@@ -4301,7 +4301,7 @@ public class Level implements ChunkManager, Metadatable {
     @Since("1.4.0.0-PN")
     public long generateEntityUniqueId() {
         long tempId = this.entityUniqueIdGenerator.incrementAndGet();
-        while (isAllocatedEntityUniqueId(tempId) || entityUniqueId == -1L) {
+        while (isAllocatedEntityUniqueId(tempId) || tempId == -1L) {
             tempId = this.entityUniqueIdGenerator.incrementAndGet();
         }
         
