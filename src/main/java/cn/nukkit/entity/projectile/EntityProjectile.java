@@ -314,7 +314,7 @@ public abstract class EntityProjectile extends Entity implements EntityOwnableNe
     @Since("1.4.0.0-PN")
     @Override
     public void setOwnerId(long ownerId) {
-        super.setOwnerId(shooter);
+        super.setOwnerId(ownerId);
         
         this.ownerId = ownerId;
         this.setDataProperty(new LongEntityData(DATA_SHOOTER_ID, ownerId));
