@@ -305,7 +305,7 @@ public class Level implements ChunkManager, Metadatable {
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    public static final AtomicLong entityUniqueIdGenerator;
+    public static AtomicLong entityUniqueIdGenerator;
     
     public Level(Server server, String name, String path, Class<? extends LevelProvider> provider) {
         this(server, name, path,
