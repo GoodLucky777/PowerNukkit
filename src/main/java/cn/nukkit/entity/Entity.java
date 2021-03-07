@@ -585,22 +585,6 @@ public abstract class Entity extends Location implements Metadatable {
         this.isPlayer = this instanceof Player;
         this.temporalVector = new Vector3();
         
-        if (this.namedTag.contains("UniqueID")) {
-            long tempId = this.namedTag.getLong("UniqueID");
-            
-            // Check saved UniqueID already using
-            if (this.getLevel().isAllocatedEntityUniqueId(tempId)) {
-                log.debug("Saved Entity UniqueID {} is already allocated in this level. Generating new UniqueID.", tempId);
-                tempId = this.getLevel().generateEntityUniqueId();
-            }
-            
-            this.id = tempId;
-        } else {
-            this.id = this.getLevel().generateEntityUniqueId();
-        }
-        
-        Entity.entityCount++;
-        
         this.justCreated = true;
         this.namedTag = nbt;
 
@@ -628,7 +612,23 @@ public abstract class Entity extends Location implements Metadatable {
                 motionList.get(1).data,
                 motionList.get(2).data
         ));
-
+        
+        Entity.entityCount++;
+        
+        if (this.namedTag.contains("UniqueID")) {
+            long tempId = this.namedTag.getLong("UniqueID");
+            
+            // Check saved UniqueID already using
+            if (this.getLevel().isAllocatedEntityUniqueId(tempId)) {
+                log.debug("Saved Entity UniqueID {} is already allocated in this level. Generating new UniqueID.", tempId);
+                tempId = this.getLevel().generateEntityUniqueId();
+            }
+            
+            this.id = tempId;
+        } else {
+            this.id = this.getLevel().generateEntityUniqueId();
+        }
+        
         if (!this.namedTag.contains("FallDistance")) {
             this.namedTag.putFloat("FallDistance", 0);
         }
