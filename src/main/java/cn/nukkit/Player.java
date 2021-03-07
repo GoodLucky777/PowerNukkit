@@ -2964,11 +2964,19 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             ((EntityRideable) riding).mountEntity(this);
                             break;
                         case InteractPacket.ACTION_OPEN_INVENTORY:
-                            if (targetEntity.getId() != this.getId()) break;
+                            if (targetEntity instanceof EntityRideable) {
+                                if (!(targetEntity instanceof EntityBoat || targetEntity instanceof EntityMinecartEmpty)) {
+                                    break;
+                                }
+                            } else if (targetEntity.getId() != this.getId()) {
+                                break;
+                            }
+                            
                             if (!this.inventoryOpen) {
                                 this.inventory.open(this);
                                 this.inventoryOpen = true;
                             }
+                            
                             break;
                     }
                     break;
