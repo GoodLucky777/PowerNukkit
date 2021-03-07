@@ -79,11 +79,9 @@ public class EntityGrenade extends EntityProjectile {
         EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(this, 10);
         this.server.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
-            Explosion explosion = new Explosion(this, event.getForce(), this);
-            
-            this.close();
-            
+            Explosion explosion = new Explosion(this.getPosition(), event.getForce(), this);
             explosion.explodeB();
+            this.close();
         }
     }
 }
