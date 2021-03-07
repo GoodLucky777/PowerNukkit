@@ -297,7 +297,11 @@ public class Level implements ChunkManager, Metadatable {
     private int dimension;
 
     public GameRules gameRules;
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private long lastEntityUniqueId = 0;
+    
     public Level(Server server, String name, String path, Class<? extends LevelProvider> provider) {
         this(server, name, path,
                 ()-> {
@@ -373,6 +377,8 @@ public class Level implements ChunkManager, Metadatable {
         this.tickRate = 1;
 
         this.skyLightSubtracted = this.calculateSkylightSubtracted(1);
+        
+        this.lastEntityUniqueId = levelProvider.getLastEntityUniqueId();
     }
 
     public static long chunkHash(int x, int z) {
@@ -4270,4 +4276,12 @@ public class Level implements ChunkManager, Metadatable {
 //
 //        return sorted;
 //    }
+      
+    public long getLastEntityUniqueId() {
+        return this.lastEntityUniqueId;
+    }
+
+    public void setLastEntityUniqueId(long lastEntityUniqueId) {
+        this.lastEntityUniqueId = lastEntityUniqueId;
+    }
 }
