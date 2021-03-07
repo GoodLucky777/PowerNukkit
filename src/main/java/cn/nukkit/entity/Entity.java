@@ -48,7 +48,6 @@ import java.lang.reflect.Constructor;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiPredicate;
 
 import static cn.nukkit.network.protocol.SetEntityLinkPacket.*;
