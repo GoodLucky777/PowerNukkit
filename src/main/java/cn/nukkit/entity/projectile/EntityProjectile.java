@@ -318,6 +318,7 @@ public abstract class EntityProjectile extends Entity implements EntityOwnableNe
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
+    @Override
     public Entity getShooter() {
         this.shootingEntity = this.getLevel().getEntity(this.ownerId);
         return this.shootingEntity;
@@ -325,7 +326,10 @@ public abstract class EntityProjectile extends Entity implements EntityOwnableNe
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
+    @Overrdie
     public void setShooter(Entity shooter) {
+        super.setShooter(shooter);
+        
         this.shootingEntity = shooter;
         this.setDataProperty(new LongEntityData(DATA_SHOOTER_ID, shooter.getId()));
     }
