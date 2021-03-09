@@ -14,11 +14,21 @@ import cn.nukkit.math.NukkitRandom;
  */
 public class PopulatorBamboo extends PopulatorSurfaceBlock {
 
-    private float podzolProbability = 0.2f;
+    private double podzolProbability = 0.2;
     
     @Override
     protected boolean canStay(int x, int y, int z, FullChunk chunk) {
         return EnsureCover.ensureCover(x, y, z, chunk) && (EnsureGrassBelow.ensureGrassBelow(x, y, z, chunk) || EnsureBelow.ensureBelow(x, y, z, DIRT, chunk) || EnsureBelow.ensureBelow(x, y, z, PODZOL, chunk));
+    }
+    
+    private void generatePodzol(int x, int y, int z, FullChunk chunk, NukkitRandom random) {
+        int size = random.nextBoundedInt(4) + 1;
+        
+        for (int podzolX = x - size; podzolX <= x + size; podzolX++) {
+            for (int podzolZ = z - size; podzolZ <= z + size; podzolZ++) {
+                
+            }
+        }
     }
     
     @Override
@@ -28,10 +38,15 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
     
     @Override
     protected void placeBlock(int x, int y, int z, int id, FullChunk chunk, NukkitRandom random) {
+        if (random.nextDouble() < this.podzolProbability) {
+            generatePodzol(x, y, z, chunk, random);
+        }
+        
+        int height = random.nextBoundedInt(12) + 5;
         
     }
     
-    public void setPodzolProbability(float podzolProbability) {
+    public void setPodzolProbability(double podzolProbability) {
         this.podzolProbability = podzolProbability;
     }
 }
