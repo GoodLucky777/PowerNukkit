@@ -19,16 +19,16 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
     private static final BlockState STATE_PODZOL = BlockState.of(PODZOL);
     // TODO: Use BlockState if BlockBamboo implement BlockState
     private static final BlockBamboo BLOCK_BAMBOO = new BlockBamboo();
-    private static final BlockBamboo BLOCK_BAMBOO_DEFAULT = BLOCK_BAMBOO.clone();
+    private static final BlockBamboo BLOCK_BAMBOO_DEFAULT = (BlockBamboo) BLOCK_BAMBOO.clone();
     static { BLOCK_BAMBOO_DEFAULT.setThick(true); }
-    private static final BlockBamboo BLOCK_BAMBOO_LEAF_SMALL = BLOCK_BAMBOO_DEFAULT.clone();
-    private static final BlockBamboo BLOCK_BAMBOO_LEAF_LARGE = BLOCK_BAMBOO_DEFAULT.clone();
-    private static final BlockBamboo BLOCK_BAMBOO_LEAF_LARGE_AGED = BLOCK_BAMBOO_LEAF_LARGE.clone();
+    private static final BlockBamboo BLOCK_BAMBOO_LEAF_SMALL = (BlockBamboo) BLOCK_BAMBOO_DEFAULT.clone();
+    private static final BlockBamboo BLOCK_BAMBOO_LEAF_LARGE = (BlockBamboo) BLOCK_BAMBOO_DEFAULT.clone();
     static {
         BLOCK_BAMBOO_LEAF_SMALL.setLeafSize(BlockBamboo.LEAF_SIZE_SMALL);
         BLOCK_BAMBOO_LEAF_LARGE.setLeafSize(BlockBamboo.LEAF_SIZE_LARGE);
-        BLOCK_BAMBOO_LEAF_LARGE_AGED.setAge(1);
     }
+    private static final BlockBamboo BLOCK_BAMBOO_LEAF_LARGE_AGED = (BlockBamboo) BLOCK_BAMBOO_LEAF_LARGE.clone();
+    static { BLOCK_BAMBOO_LEAF_LARGE_AGED.setAge(1); }
     
     private double podzolProbability = 0.2;
     
@@ -40,7 +40,7 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
     private int checkMaxHeight(int x, int y, int z, FullChunk chunk, int height) {
         int maxHeight = 0;
         for (int i = 0; i < height; i++) {
-            if (level.getBlockId(x, (y + i), z) == AIR) {
+            if (chunk.getBlockId(x, (y + i), z) == AIR) {
                 maxHeight++;
             } else {
                 break;
