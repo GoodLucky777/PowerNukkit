@@ -3,7 +3,6 @@ package cn.nukkit.level.generator.populator.impl;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockBamboo;
 import cn.nukkit.blockstate.BlockState;
-import cn.nukkit.level.Level;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.level.generator.populator.helper.EnsureBelow;
 import cn.nukkit.level.generator.populator.helper.EnsureCover;
@@ -37,24 +36,23 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
         return EnsureCover.ensureCover(x, y, z, chunk) && (EnsureGrassBelow.ensureGrassBelow(x, y, z, chunk) || EnsureBelow.ensureBelow(x, y, z, DIRT, chunk) || EnsureBelow.ensureBelow(x, y, z, PODZOL, chunk));
     }
     
-    private int checkMaxHeight(int x, int y, int z, FullChunk chunk, int height) {
-        int maxHeight = 0;
-        for (int i = 0; i < height; i++) {
-            if (chunk.getBlockId(x, (y + i), z) == AIR) {
-                maxHeight++;
-            } else {
-                break;
-            }
-        }
-        
-        return maxHeight;
-    }
-    
     private void generateBamboo(int x, int y, int z, FullChunk chunk, NukkitRandom random) {
-        int height = random.nextBoundedInt(12) + 5;
+        final int height = getMaxHeight(x, y, z, chunk, random.nextBoundedInt(12) + 5);
         
         for (int i = y; i < height; i++) {
-            chunk.setBlock(x, y + i, z, BLOCK_BAMBOO);
+            if (i > (height - 3)) {
+                if (i > (height - 2)) {
+                    if (i == (height - 1)) {
+                        chunk.setBlock(x, y + i, z, BLOCK_BAMBOO_LEAF_LARGE_AGED);
+                    } else {
+                        chunk.setBlock(x, y + i, z, BLOCK_BAMBOO_LEAF_LARGE);
+                    }
+                } else {
+                    chunk.setBlock(x, y + i, z, BLOCK_BAMBOO_LEAF_SMALL);
+                }
+            } else {
+                chunk.setBlock(x, y + i, z, BLOCK_BAMBOO_DEFAULT);
+            }
         }
     }
     
@@ -77,6 +75,19 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
     @Override
     protected int getBlockId(int x, int z, NukkitRandom random, FullChunk chunk) {
         return BAMBOO << Block.DATA_BITS;
+    }
+    
+    private int getMaxHeight(int x, int y, int z, FullChunk chunk, int height) {
+        int maxHeight = 0;
+        for (int i = 0; i < height; i++) {
+            if (chunk.getBlockId(x, (y + i), z) == AIR) {
+                maxHeight++;
+            } else {
+                break;
+            }
+        }
+        
+        return maxHeight;
     }
     
     @Override
