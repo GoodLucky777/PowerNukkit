@@ -19,7 +19,7 @@ public class PopulatorVines extends PopulatorCount {
     protected int getHighestWorkableBlock(ChunkManager level, int x, int z, FullChunk chunk) {
         int y;
         for (y = 254; y >= 64; --y) { // Vines don't generate under Y 64
-            if (!(PopulatorHelpers.isNonSolid(chunk.getBlockId(x - 1, y, z)) || PopulatorHelpers.isNonSolid(chunk.getBlockId(x + 1, y, z)) || PopulatorHelpers.isNonSolid(chunk.getBlockId(x, y, z - 1)) || PopulatorHelpers.isNonSolid(chunk.getBlockId(x, y, z + 1)) || PopulatorHelpers.isNonSolid(chunk.getBlockId(x, y + 1, z)))) {
+            if (!(PopulatorHelpers.isNonSolid(chunk.getBlockId(x - 1, y, z)) || PopulatorHelpers.isNonSolid(chunk.getBlockId(x + 1, y, z)) || PopulatorHelpers.isNonSolid(chunk.getBlockId(x, y, z - 1)) || PopulatorHelpers.isNonSolid(chunk.getBlockId(x, y, z + 1)))) {
                 break;
             }
         }
@@ -30,7 +30,7 @@ public class PopulatorVines extends PopulatorCount {
     @Override
     protected void placeBlock(int x, int y, int z, int id, FullChunk chunk, NukkitRandom random) {
         if (chunk.getBlockId(x, y, z) == AIR) {
-            Set<BlockFace> attachFaces = new Set<BlockFace>;
+            Set<BlockFace> attachFaces = new Set<>;
             
             if (chunk.getBlockState(x - 1, y, z).getBlock().isSolid()) {
                 attachFaces.add(BlockFace.WEST);
