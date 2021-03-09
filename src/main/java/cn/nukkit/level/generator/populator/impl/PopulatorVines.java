@@ -26,7 +26,9 @@ public class PopulatorVines extends PopulatorCount {
     @Override
     protected void placeBlock(int x, int y, int z, int id, FullChunk chunk, NukkitRandom random) {
         if (chunk.getBlockId(x, y, z) == AIR) {
-            
+            if (chunk.getBlockState(x - 1, y, z).getBlock().isSolid()) {
+                chunk.setBlockState(VINE, );
+            }
         }
     }
 }
