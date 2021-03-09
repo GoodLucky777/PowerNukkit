@@ -20,7 +20,7 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
     // TODO: Use BlockState if BlockBamboo implement BlockState
     private static final BlockBamboo BLOCK_BAMBOO = new BlockBamboo();
     private static final BlockBamboo BLOCK_BAMBOO_DEFAULT = BLOCK_BAMBOO.clone();
-    static BLOCK_BAMBOO_DEFAULT.setThick(true);
+    static { BLOCK_BAMBOO_DEFAULT.setThick(true); }
     private static final BlockBamboo BLOCK_BAMBOO_LEAF_SMALL = BLOCK_BAMBOO_DEFAULT.clone();
     private static final BlockBamboo BLOCK_BAMBOO_LEAF_LARGE = BLOCK_BAMBOO_DEFAULT.clone();
     private static final BlockBamboo BLOCK_BAMBOO_LEAF_LARGE_AGED = BLOCK_BAMBOO_LEAF_LARGE.clone();
