@@ -14,6 +14,9 @@ import cn.nukkit.math.NukkitRandom;
  */
 public class PopulatorBamboo extends PopulatorSurfaceBlock {
 
+    private static BlockState STATE_PODZOL = BlockState.of(PODZOL);
+    private static BlockState STATE_BAMBOO = BlockState.of(BAMBOO);
+    
     private double podzolProbability = 0.2;
     
     @Override
@@ -22,11 +25,17 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
     }
     
     private void generatePodzol(int x, int y, int z, FullChunk chunk, NukkitRandom random) {
-        int size = random.nextBoundedInt(4) + 1;
+        int radius = random.nextBoundedInt(4) + 1;
         
-        for (int podzolX = x - size; podzolX <= x + size; podzolX++) {
-            for (int podzolZ = z - size; podzolZ <= z + size; podzolZ++) {
-                
+        for (int podzolX = x - radius; podzolX <= x + radius; podzolX++) {
+            for (int podzolZ = z - radius; podzolZ <= z + radius; podzolZ++) {
+                if ((podzolX - x) * (podzolX - x) + (podzolZ - z) * (podzolZ - z) <= radius * radius) {
+                    int checkId = chunk.getBlockId(x, y - 1, z);
+                    
+                    if (checkId == GRASS || checkId == DIRT) {
+                        chunk.setBlockState(x, y - 1, z, STATE_PODZOL);
+                    }
+                }
             }
         }
     }
