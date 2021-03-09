@@ -10,13 +10,15 @@ import cn.nukkit.level.generator.populator.type.PopulatorSurfaceBlock;
 import cn.nukkit.math.NukkitRandom;
 
 /**
- * @author Good777LUCKY
+ * @author GoodLucky777
  */
 public class PopulatorBamboo extends PopulatorSurfaceBlock {
 
+    private float podzolProbability = 0.2f;
+    
     @Override
     protected boolean canStay(int x, int y, int z, FullChunk chunk) {
-        return EnsureCover.ensureCover(x, y, z, chunk) && (EnsureGrassBelow.ensureGrassBelow(x, y, z, chunk) || EnsureBelow.ensureBelow(x, y, z, PODZOL, chunk));
+        return EnsureCover.ensureCover(x, y, z, chunk) && (EnsureGrassBelow.ensureGrassBelow(x, y, z, chunk) || EnsureBelow.ensureBelow(x, y, z, DIRT, chunk) || EnsureBelow.ensureBelow(x, y, z, PODZOL, chunk));
     }
     
     @Override
@@ -27,5 +29,9 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
     @Override
     protected void placeBlock(int x, int y, int z, int id, FullChunk chunk, NukkitRandom random) {
         
+    }
+    
+    public void setPodzolProbability(float podzolProbability) {
+        this.podzolProbability = podzolProbability;
     }
 }
