@@ -102,7 +102,7 @@ public enum EnumBiome {
     MESA_PLATEAU_F_M(166, new MesaPlateauFMBiome()),
     MESA_PLATEAU_M(167, new MesaPlateauMBiome()),
     BAMBOO_JUNGLE(168, new BambooJungleBiome()),
-    BAMBOO_JUNGLE_HILLS(169, new BambooJungleHillsBiome()):
+    BAMBOO_JUNGLE_HILLS(169, new BambooJungleHillsBiome());
     
     public final int id;
     public final Biome biome;
