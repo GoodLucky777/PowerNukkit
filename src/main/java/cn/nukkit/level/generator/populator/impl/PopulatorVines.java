@@ -23,40 +23,33 @@ public class PopulatorVines extends PopulatorCount {
             x += random.nextBoundedInt(4) - random.nextBoundedInt(4);
             z += random.nextBoundedInt(4) - random.nextBoundedInt(4);
             
-            if (chunk.getBlockId(x, y, z) == AIR) {
+            if (level.getBlockId(x, y, z) == AIR) {
                 Set<BlockFace> attachFaces = new HashSet<>();
                 
-                if (chunk.getBlockState(x - 1, y, z).getBlock().isSolid()) {
+                if (level.getBlockState(x - 1, y, z).getBlock().isSolid()) {
                     attachFaces.add(BlockFace.WEST);
                 }
                 
-                if (chunk.getBlockState(x + 1, y, z).getBlock().isSolid()) {
+                if (level.getBlockState(x + 1, y, z).getBlock().isSolid()) {
                     attachFaces.add(BlockFace.EAST);
                 }
                 
-                if (chunk.getBlockState(x, y, z - 1).getBlock().isSolid()) {
+                if (level.getBlockState(x, y, z - 1).getBlock().isSolid()) {
                     attachFaces.add(BlockFace.SOUTH);
                 }
                 
-                if (chunk.getBlockState(x, y, z + 1).getBlock().isSolid()) {
+                if (level.getBlockState(x, y, z + 1).getBlock().isSolid()) {
                     attachFaces.add(BlockFace.NORTH);
                 }
                 
-                chunk.setBlockState(x, y, z, BlockState.of(VINE, BlockVine.getMetaFromFaces(attachFaces)));
+                level.setBlockState(x, y, z, BlockState.of(VINE, BlockVine.getMetaFromFaces(attachFaces)));
             }
         }
     }
     
     @Override
     protected int getHighestWorkableBlock(ChunkManager level, int x, int z, FullChunk chunk) {
-        int y;
-        for (y = 254; y >= 64; --y) { // Vines don't generate under Y 64
-            if (!(PopulatorHelpers.isNonSolid(chunk.getBlockId(x - 1, y, z)) || PopulatorHelpers.isNonSolid(chunk.getBlockId(x + 1, y, z)) || PopulatorHelpers.isNonSolid(chunk.getBlockId(x, y, z - 1)) || PopulatorHelpers.isNonSolid(chunk.getBlockId(x, y, z + 1)))) {
-                break;
-            }
-        }
-        
-        return y == 0 ? -1 : ++y;
+        return -1;
     }
     
     @Override
