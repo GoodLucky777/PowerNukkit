@@ -45,13 +45,13 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
                     if (i == (height - 1)) {
                         chunk.setBlockState(x, y + i, z, BlockState.of(BLOCK_BAMBOO_LEAF_LARGE_AGED.getId(), BLOCK_BAMBOO_LEAF_LARGE_AGED.getDamage()));
                     } else {
-                        chunk.setBlock(x, y + i, z, BLOCK_BAMBOO_LEAF_LARGE);
+                        chunk.setBlockState(x, y + i, z, BlockState.of(BLOCK_BAMBOO_LEAF_LARGE.getId(), BLOCK_BAMBOO_LEAF_LARGE.getDamage()));
                     }
                 } else {
-                    chunk.setBlock(x, y + i, z, BLOCK_BAMBOO_LEAF_SMALL);
+                    chunk.setBlockState(x, y + i, z, BlockState.of(BLOCK_BAMBOO_LEAF_SMALL.getId(), BLOCK_BAMBOO_LEAF_SMALL.getDamage()));
                 }
             } else {
-                chunk.setBlock(x, y + i, z, BLOCK_BAMBOO_DEFAULT);
+                chunk.setBlockState(x, y + i, z, BlockState.of(BLOCK_BAMBOO_DEFAULT.getId(), BLOCK_BAMBOO_DEFAULT.getDamage()));
             }
         }
     }
