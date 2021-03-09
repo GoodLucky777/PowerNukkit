@@ -19,16 +19,35 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
     private static final BlockState STATE_PODZOL = BlockState.of(PODZOL);
     // TODO: Use BlockState if BlockBamboo implement BlockState
     private static final BlockBamboo BLOCK_BAMBOO = new BlockBamboo();
-    private static final BlockBamboo BLOCK_BAMBOO_DEFAULT = BLOCK_BAMBOO.setThick(true).clone();
-    private static final BlockBamboo BLOCK_BAMBOO_LEAF_SMALL = BLOCK_BAMBOO_DEFAULT.setLeafSize(BlockBamboo.LEAF_SIZE_SMALL);
-    private static final BlockBamboo BLOCK_BAMBOO_LEAF_LARGE = BLOCK_BAMBOO_DEFAULT.setLeafSize(BlockBamboo.LEAF_SIZE_LARGE);
-    private static final BlockBamboo BLOCK_BAMBOO_LEAF_LARGE_AGED = BLOCK_BAMBOO_LEAF_LARGE.setAge(1);
+    private static final BlockBamboo BLOCK_BAMBOO_DEFAULT = BLOCK_BAMBOO.clone();
+    static BLOCK_BAMBOO_DEFAULT.setThick(true);
+    private static final BlockBamboo BLOCK_BAMBOO_LEAF_SMALL = BLOCK_BAMBOO_DEFAULT.clone();
+    private static final BlockBamboo BLOCK_BAMBOO_LEAF_LARGE = BLOCK_BAMBOO_DEFAULT.clone();
+    private static final BlockBamboo BLOCK_BAMBOO_LEAF_LARGE_AGED = BLOCK_BAMBOO_LEAF_LARGE.clone();
+    static {
+        BLOCK_BAMBOO_LEAF_SMALL.setLeafSize(BlockBamboo.LEAF_SIZE_SMALL);
+        BLOCK_BAMBOO_LEAF_LARGE.setLeafSize(BlockBamboo.LEAF_SIZE_LARGE);
+        BLOCK_BAMBOO_LEAF_LARGE_AGED.setAge(1);
+    }
     
     private double podzolProbability = 0.2;
     
     @Override
     protected boolean canStay(int x, int y, int z, FullChunk chunk) {
         return EnsureCover.ensureCover(x, y, z, chunk) && (EnsureGrassBelow.ensureGrassBelow(x, y, z, chunk) || EnsureBelow.ensureBelow(x, y, z, DIRT, chunk) || EnsureBelow.ensureBelow(x, y, z, PODZOL, chunk));
+    }
+    
+    private int checkMaxHeight(int x, int y, int z, FullChunk chunk, int height) {
+        int maxHeight = 0;
+        for (int i = 0; i < height; i++) {
+            if (level.getBlockId(x, (y + i), z) == AIR) {
+                maxHeight++;
+            } else {
+                break;
+            }
+        }
+        
+        return maxHeight;
     }
     
     private void generateBamboo(int x, int y, int z, FullChunk chunk, NukkitRandom random) {
