@@ -43,7 +43,7 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
             if (i > (height - 3)) {
                 if (i > (height - 2)) {
                     if (i == (height - 1)) {
-                        chunk.setBlock(x, y + i, z, BLOCK_BAMBOO_LEAF_LARGE_AGED);
+                        chunk.setBlockState(x, y + i, z, BlockState.of(BLOCK_BAMBOO_LEAF_LARGE_AGED.getId(), BLOCK_BAMBOO_LEAF_LARGE_AGED.getDamage()));
                     } else {
                         chunk.setBlock(x, y + i, z, BLOCK_BAMBOO_LEAF_LARGE);
                     }
