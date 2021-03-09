@@ -9,6 +9,7 @@ import cn.nukkit.level.generator.populator.impl.tree.JungleTreePopulator;
  * @author DaPorkchop_
  */
 public class JungleBiome extends GrassyBiome {
+
     public JungleBiome() {
         super();
 
@@ -21,8 +22,8 @@ public class JungleBiome extends GrassyBiome {
         this.addPopulator(bigTrees);
         
         PopulatorVines vines = new PopulatorVines();
-        vines.setBaseAmount(5);
-        vines.setRandomAmount(5);
+        vines.setBaseAmount(10);
+        vines.setRandomAmount(8);
         this.addPopulator(vines);
     }
 
