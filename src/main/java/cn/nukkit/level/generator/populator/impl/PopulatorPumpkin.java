@@ -19,6 +19,6 @@ public class PopulatorPumpkin extends PopulatorSurfaceBlock {
     
     @Override
     protected int getBlockId(int x, int z, NukkitRandom random, FullChunk chunk) {
-        return PUMPKIN_BLOCK << Block.DATA_BITS;
+        return PUMPKIN << Block.DATA_BITS;
     }
 }
