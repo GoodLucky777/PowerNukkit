@@ -1,6 +1,7 @@
 package cn.nukkit.level.generator.populator.impl;
 
 import cn.nukkit.block.Block;
+import cn.nukkit.block.BlockBamboo;
 import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.format.FullChunk;
@@ -16,13 +17,24 @@ import cn.nukkit.math.NukkitRandom;
 public class PopulatorBamboo extends PopulatorSurfaceBlock {
 
     private static BlockState STATE_PODZOL = BlockState.of(PODZOL);
-    private static BlockState STATE_BAMBOO = BlockState.of(BAMBOO);
+    // TODO: Use BlockState if BlockBamboo implement BlockState
+    private static Block BLOCK_BAMBOO = new BlockBamboo();
+    private static Block BLOCK_BAMBOO_LEAF_LARGE = new BlockBamboo().setLeafSize(BlockBamboo.LEAF_SIZE_LARGE);
+    private static Block BLOCK_BAMBOO_LEAF_SMALL = new BlockBamboo().setLeafSize(BlockBamboo.LEAF_SIZE_SMALL);
     
     private double podzolProbability = 0.2;
     
     @Override
     protected boolean canStay(int x, int y, int z, FullChunk chunk) {
         return EnsureCover.ensureCover(x, y, z, chunk) && (EnsureGrassBelow.ensureGrassBelow(x, y, z, chunk) || EnsureBelow.ensureBelow(x, y, z, DIRT, chunk) || EnsureBelow.ensureBelow(x, y, z, PODZOL, chunk));
+    }
+    
+    private void generateBamboo(int x, int y, int z, FullChunk chunk, NukkitRandom random) {
+        int height = random.nextBoundedInt(12) + 5;
+        
+        for (int i = y; i < height; i++) {
+            chunk.setBlock(x, y + i, z, BLOCK_BAMBOO);
+        }
     }
     
     private void generatePodzol(int x, int y, int z, FullChunk chunk, NukkitRandom random) {
@@ -52,8 +64,7 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
             generatePodzol(x, y, z, chunk, random);
         }
         
-        int height = random.nextBoundedInt(12) + 5;
-        
+        generateBamboo(x, y, z, chunk, random);
     }
     
     public void setPodzolProbability(double podzolProbability) {
