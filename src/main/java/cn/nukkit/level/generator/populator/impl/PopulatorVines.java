@@ -17,27 +17,33 @@ import java.util.Set;
  */
 public class PopulatorVines extends PopulatorCount {
 
-    private void generateVines(int x, int y, int z, FullChunk chunk, NukkitRandom random) {
-        if (chunk.getBlockId(x, y, z) == AIR) {
-            Set<BlockFace> attachFaces = new HashSet<>();
+    private void generateVines(ChunkManager level, int x, int z, NukkitRandom random) {
+        for (int y = 64; y < 256; y++) {
+            // Randomize x, z
+            x += random.nextBoundedInt(4) - random.nextBoundedInt(4);
+            z += random.nextBoundedInt(4) - random.nextBoundedInt(4);
             
-            if (chunk.getBlockState(x - 1, y, z).getBlock().isSolid()) {
-                attachFaces.add(BlockFace.WEST);
+            if (chunk.getBlockId(x, y, z) == AIR) {
+                Set<BlockFace> attachFaces = new HashSet<>();
+                
+                if (chunk.getBlockState(x - 1, y, z).getBlock().isSolid()) {
+                    attachFaces.add(BlockFace.WEST);
+                }
+                
+                if (chunk.getBlockState(x + 1, y, z).getBlock().isSolid()) {
+                    attachFaces.add(BlockFace.EAST);
+                }
+                
+                if (chunk.getBlockState(x, y, z - 1).getBlock().isSolid()) {
+                    attachFaces.add(BlockFace.SOUTH);
+                }
+                
+                if (chunk.getBlockState(x, y, z + 1).getBlock().isSolid()) {
+                    attachFaces.add(BlockFace.NORTH);
+                }
+                
+                chunk.setBlockState(x, y, z, BlockState.of(VINE, BlockVine.getMetaFromFaces(attachFaces)));
             }
-            
-            if (chunk.getBlockState(x + 1, y, z).getBlock().isSolid()) {
-                attachFaces.add(BlockFace.EAST);
-            }
-            
-            if (chunk.getBlockState(x, y, z - 1).getBlock().isSolid()) {
-                attachFaces.add(BlockFace.SOUTH);
-            }
-            
-            if (chunk.getBlockState(x, y, z + 1).getBlock().isSolid()) {
-                attachFaces.add(BlockFace.NORTH);
-            }
-            
-            chunk.setBlockState(x, y, z, BlockState.of(VINE, BlockVine.getMetaFromFaces(attachFaces)));
         }
     }
     
@@ -57,9 +63,7 @@ public class PopulatorVines extends PopulatorCount {
     protected void populateCount(ChunkManager level, int chunkX, int chunkZ, NukkitRandom random, FullChunk chunk) {
         int x = random.nextBoundedInt(16);
         int z = random.nextBoundedInt(16);
-        int y = getHighestWorkableBlock(level, x, z, chunk);
-        if (y >= 64) {
-            generateVines(x, y, z, chunk, random);
-        }
+        
+        generateVines(level, x, z, random);
     }
 }
