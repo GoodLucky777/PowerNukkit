@@ -1,6 +1,7 @@
 package cn.nukkit.level.generator.populator.impl;
 
 import cn.nukkit.block.Block;
+import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.level.generator.populator.helper.EnsureBelow;
