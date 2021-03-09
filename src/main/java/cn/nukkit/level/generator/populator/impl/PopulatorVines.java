@@ -16,8 +16,7 @@ import java.util.Set;
  */
 public class PopulatorVines extends PopulatorCount {
 
-    @Override
-    protected void generateVines(int x, int y, int z, FullChunk chunk, NukkitRandom random) {
+    private void generateVines(int x, int y, int z, FullChunk chunk, NukkitRandom random) {
         if (chunk.getBlockId(x, y, z) == AIR) {
             Set<BlockFace> attachFaces = new Set<>();
             
