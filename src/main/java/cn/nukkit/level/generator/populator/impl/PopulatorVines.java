@@ -9,6 +9,7 @@ import cn.nukkit.level.generator.populator.type.PopulatorCount;
 import cn.nukkit.math.BlockFace;
 import cn.nukkit.math.NukkitRandom;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -18,7 +19,7 @@ public class PopulatorVines extends PopulatorCount {
 
     private void generateVines(int x, int y, int z, FullChunk chunk, NukkitRandom random) {
         if (chunk.getBlockId(x, y, z) == AIR) {
-            Set<BlockFace> attachFaces = new Set<>();
+            Set<BlockFace> attachFaces = new HashSet<>();
             
             if (chunk.getBlockState(x - 1, y, z).getBlock().isSolid()) {
                 attachFaces.add(BlockFace.WEST);
@@ -36,7 +37,7 @@ public class PopulatorVines extends PopulatorCount {
                 attachFaces.add(BlockFace.NORTH);
             }
             
-            chunk.setBlockState(BlockState.of(VINE, BlockVine.getMetaFromFaces(attachFaces)));
+            chunk.setBlockState(x, y, z, BlockState.of(VINE, BlockVine.getMetaFromFaces(attachFaces)));
         }
     }
     
@@ -57,8 +58,8 @@ public class PopulatorVines extends PopulatorCount {
         int x = random.nextBoundedInt(16);
         int z = random.nextBoundedInt(16);
         int y = getHighestWorkableBlock(level, x, z, chunk);
-        if (y >= 64 && canStay(x, y, z, chunk)) {
-            genersteVines(x, y, z, chunk, random);
+        if (y >= 64) {
+            generateVines(x, y, z, chunk, random);
         }
     }
 }
