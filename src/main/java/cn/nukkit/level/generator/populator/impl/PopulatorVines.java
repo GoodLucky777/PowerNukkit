@@ -23,26 +23,26 @@ public class PopulatorVines extends PopulatorCount {
             x += random.nextBoundedInt(4) - random.nextBoundedInt(4);
             z += random.nextBoundedInt(4) - random.nextBoundedInt(4);
             
-            if (level.getBlockId(x, y, z) == AIR) {
+            if (level.getBlockIdAt(x, y, z) == AIR) {
                 Set<BlockFace> attachFaces = new HashSet<>();
                 
-                if (level.getBlockState(x - 1, y, z).getBlock().isSolid()) {
+                if (level.getBlockStateAt(x - 1, y, z).getBlock().isSolid()) {
                     attachFaces.add(BlockFace.WEST);
                 }
                 
-                if (level.getBlockState(x + 1, y, z).getBlock().isSolid()) {
+                if (level.getBlockStateAt(x + 1, y, z).getBlock().isSolid()) {
                     attachFaces.add(BlockFace.EAST);
                 }
                 
-                if (level.getBlockState(x, y, z - 1).getBlock().isSolid()) {
+                if (level.getBlockStateAt(x, y, z - 1).getBlock().isSolid()) {
                     attachFaces.add(BlockFace.SOUTH);
                 }
                 
-                if (level.getBlockState(x, y, z + 1).getBlock().isSolid()) {
+                if (level.getBlockStateAt(x, y, z + 1).getBlock().isSolid()) {
                     attachFaces.add(BlockFace.NORTH);
                 }
                 
-                level.setBlockState(x, y, z, BlockState.of(VINE, BlockVine.getMetaFromFaces(attachFaces)));
+                level.setBlockStateAt(x, y, z, BlockState.of(VINE, BlockVine.getMetaFromFaces(attachFaces)));
             }
         }
     }
@@ -54,9 +54,6 @@ public class PopulatorVines extends PopulatorCount {
     
     @Override
     protected void populateCount(ChunkManager level, int chunkX, int chunkZ, NukkitRandom random, FullChunk chunk) {
-        int x = random.nextBoundedInt(16);
-        int z = random.nextBoundedInt(16);
-        
-        generateVines(level, x, z, random);
+        generateVines(level, chunkX + random.nextBoundedInt(16), chunkZ + random.nextBoundedInt(16), random);
     }
 }
