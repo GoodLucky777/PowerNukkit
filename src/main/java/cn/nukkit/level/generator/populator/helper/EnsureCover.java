@@ -4,6 +4,7 @@ import cn.nukkit.level.format.FullChunk;
 
 import static cn.nukkit.block.BlockID.AIR;
 import static cn.nukkit.block.BlockID.SNOW_LAYER;
+import static cn.nukkit.block.BlockID.TALL_GRASS;
 
 /**
  * @author DaPorkchop_
