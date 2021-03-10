@@ -22,8 +22,8 @@ public class JungleBiome extends GrassyBiome {
         this.addPopulator(bigTrees);
         
         PopulatorVines vines = new PopulatorVines();
-        vines.setBaseAmount(1);
-        vines.setRandomAmount(2);
+        vines.setBaseAmount(5);
+        vines.setRandomAmount(3);
         this.addPopulator(vines);
     }
 
