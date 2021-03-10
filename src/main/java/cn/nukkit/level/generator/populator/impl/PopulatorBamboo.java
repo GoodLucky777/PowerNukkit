@@ -41,7 +41,7 @@ public class PopulatorBamboo extends PopulatorCount {
         final int height = getMaxHeight(level, x, y, z, random.nextBoundedInt(12) + 5);
         
         for (int i = 0; i < height; i++) {
-            if (i > (height - 3)) {
+            if (i > (height - 3) && height >= 3) {
                 if (i > (height - 2)) {
                     if (i == (height - 1)) {
                         level.setBlockStateAt(x, y + i, z, BlockState.of(BLOCK_BAMBOO_LEAF_LARGE_AGED.getId(), BLOCK_BAMBOO_LEAF_LARGE_AGED.getDamage()));
