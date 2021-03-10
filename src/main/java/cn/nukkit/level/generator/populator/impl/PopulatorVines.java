@@ -54,6 +54,6 @@ public class PopulatorVines extends PopulatorCount {
     
     @Override
     protected void populateCount(ChunkManager level, int chunkX, int chunkZ, NukkitRandom random, FullChunk chunk) {
-        generateVines(level, chunkX + random.nextBoundedInt(16), chunkZ + random.nextBoundedInt(16), random);
+        generateVines(level, (chunkX << 4) + random.nextBoundedInt(16), (chunkZ << 4) + random.nextBoundedInt(16), random);
     }
 }
