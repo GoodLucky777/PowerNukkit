@@ -40,7 +40,7 @@ public class PopulatorBamboo extends PopulatorCount {
     private void generateBamboo(ChunkManager level, int x, int y, int z, NukkitRandom random) {
         final int height = getMaxHeight(level, x, y, z, random.nextBoundedInt(12) + 5);
         
-        for (int i = y; i < y + height; i++) {
+        for (int i = 0; i < height; i++) {
             if (i > (height - 3)) {
                 if (i > (height - 2)) {
                     if (i == (height - 1)) {
