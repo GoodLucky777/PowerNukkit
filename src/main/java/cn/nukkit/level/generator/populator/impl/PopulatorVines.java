@@ -42,7 +42,9 @@ public class PopulatorVines extends PopulatorCount {
                     attachFaces.add(BlockFace.NORTH);
                 }
                 
-                level.setBlockStateAt(x, y, z, BlockState.of(VINE, BlockVine.getMetaFromFaces(attachFaces)));
+                if (!attachFaces.isEmpty()) {
+                    level.setBlockStateAt(x, y, z, BlockState.of(VINE, BlockVine.getMetaFromFaces(attachFaces)));
+                }
             }
         }
     }
