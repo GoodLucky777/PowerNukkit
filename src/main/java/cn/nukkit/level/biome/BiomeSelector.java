@@ -188,7 +188,7 @@ public class BiomeSelector {
                             biome = EnumBiome.SWAMP;
                         }
                     } else if (rainfall > 0.1f) {
-                        if (hills < -0.3f) {
+                        if (hills < -0.4f) {
                             if (hills > -0.15f) {
                                 biome = EnumBiome.BAMBOO_JUNGLE;
                             } else {
