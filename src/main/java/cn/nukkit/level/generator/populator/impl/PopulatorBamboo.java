@@ -11,6 +11,7 @@ import cn.nukkit.level.generator.populator.helper.EnsureGrassBelow;
 import cn.nukkit.level.generator.populator.helper.PopulatorHelpers;
 import cn.nukkit.level.generator.populator.type.PopulatorCount;
 import cn.nukkit.math.NukkitRandom;
+import cn.nukkit.utils.MainLogger;
 
 /**
  * @author GoodLucky777
@@ -39,7 +40,7 @@ public class PopulatorBamboo extends PopulatorCount {
     
     private void generateBamboo(ChunkManager level, int x, int y, int z, NukkitRandom random) {
         final int height = getMaxHeight(level, x, y, z, random.nextBoundedInt(12) + 5);
-        
+        MainLogger.getLogger().info(String.valueOf(height));
         for (int i = y; i < height; i++) {
             if (i > (height - 3)) {
                 if (i > (height - 2)) {
