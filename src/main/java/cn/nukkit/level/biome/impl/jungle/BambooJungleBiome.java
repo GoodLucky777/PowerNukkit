@@ -22,10 +22,10 @@ public class BambooJungleBiome extends JungleBiome {
         jungleBigTrees.setRandomAmount(1);
         this.addPopulator(jungleBigTrees);
         
-        PopulatorTree oakBigTree = new PopulatorTree(BlockSapling.OAK); // TODO: Should be only Fancy (Big) Oak Tree
+        /*PopulatorTree oakBigTree = new PopulatorTree(BlockSapling.OAK); // TODO: Should be only Fancy (Big) Oak Tree
         oakBigTree.setBaseAmount(-1);
         oakBigTree.setRandomAmount(2);
-        this.addPopulator(oakBigTree);
+        this.addPopulator(oakBigTree);*/
         
         PopulatorVines vines = new PopulatorVines();
         vines.setBaseAmount(1);
