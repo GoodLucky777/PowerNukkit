@@ -86,7 +86,8 @@ public class PopulatorBamboo extends PopulatorCount {
         return maxHeight;
     }
     
-    private int getHighestWorkableBlock(ChunkManager level, int x, int z, FullChunk chunk) {
+    @Override
+    protected int getHighestWorkableBlock(ChunkManager level, int x, int z, FullChunk chunk) {
         int y;
         for (y = 254; y >= 0; --y) {
             if (!PopulatorHelpers.isNonSolid(chunk.getBlockId(x, y, z))) {
