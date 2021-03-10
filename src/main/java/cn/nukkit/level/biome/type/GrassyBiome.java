@@ -23,13 +23,13 @@ public abstract class GrassyBiome extends CoveredBiome {
         this.addPopulator(tallGrass);
         
         PopulatorMelon melon = new PopulatorMelon();
-        melon.setBaseAmount(-175);
-        melon.setRandomAmount(185);
+        melon.setBaseAmount(-1500);
+        melon.setRandomAmount(1510);
         this.addPopulator(melon);
         
         PopulatorPumpkin pumpkin = new PopulatorPumpkin();
-        pumpkin.setBaseAmount(-175);
-        pumpkin.setRandomAmount(185);
+        pumpkin.setBaseAmount(-1500);
+        pumpkin.setRandomAmount(1510);
         this.addPopulator(pumpkin);
     }
 
