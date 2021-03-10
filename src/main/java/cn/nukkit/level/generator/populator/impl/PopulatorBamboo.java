@@ -65,7 +65,7 @@ public class PopulatorBamboo extends PopulatorSurfaceBlock {
                     int checkId = chunk.getBlockId(x, y - 1, z);
                     
                     if (checkId == GRASS || checkId == DIRT) {
-                        chunk.setBlockState(x, y - 1, z, STATE_PODZOL);
+                        chunk.setBlockState(podzolX, y - 1, podzolZ, STATE_PODZOL);
                     }
                 }
             }
