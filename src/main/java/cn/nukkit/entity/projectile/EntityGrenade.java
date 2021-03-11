@@ -13,7 +13,7 @@ import cn.nukkit.nbt.tag.CompoundTag;
  */
 public class EntityGrenade extends EntityProjectile implements EntityExplosive {
 
-    public static final int NETWORK_ID = 94;
+    public static final int NETWORK_ID = 500;
     
     public EntityGrenade(FullChunk chunk, CompoundTag nbt) {
         this(chunk, nbt, null);
@@ -78,7 +78,7 @@ public class EntityGrenade extends EntityProjectile implements EntityExplosive {
     
     @Override
     public void explode() {
-        EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(this, 10);
+        EntityExplosionPrimeEvent event = new EntityExplosionPrimeEvent(this, 5);
         this.server.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
             Explosion explosion = new Explosion(this.getPosition(), event.getForce(), this);
