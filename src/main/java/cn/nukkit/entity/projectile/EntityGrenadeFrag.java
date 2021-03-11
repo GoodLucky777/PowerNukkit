@@ -11,15 +11,15 @@ import cn.nukkit.nbt.tag.CompoundTag;
 /**
  * @author GoodLucky777
  */
-public class EntityGrenade extends EntityProjectile implements EntityExplosive {
+public class EntityGrenadeFrag extends EntityProjectile implements EntityExplosive {
 
-    public static final int NETWORK_ID = 500;
+    public static final int NETWORK_ID = 600;
     
-    public EntityGrenade(FullChunk chunk, CompoundTag nbt) {
+    public EntityGrenadeFrag(FullChunk chunk, CompoundTag nbt) {
         this(chunk, nbt, null);
     }
     
-    public EntityGrenade(FullChunk chunk, CompoundTag nbt, Entity shootingEntity) {
+    public EntityGrenadeFrag(FullChunk chunk, CompoundTag nbt, Entity shootingEntity) {
         super(chunk, nbt, shootingEntity);
     }
     
