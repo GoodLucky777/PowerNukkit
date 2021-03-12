@@ -79,37 +79,17 @@ public class ItemComponentPacket extends DataPacket {
     }
     
     public static final Entry[] entries = {
-        new Entry("goodlucky:ruby", getDefaultItemComponent("goodlucky:ruby", 5000, "goodlucky:ruby", 64, 4)
+        new Entry("goodlucky:ruby",
+            getDefaultItemComponent("goodlucky:ruby", 5000, "goodlucky:ruby", 64, 4)
         ),
-        new Entry("goodlucky:sapphire", new CompoundTag("")
-            .putString("name", "goodlucky:sapphire")
-            .putInt("id", 5001)
-            .putCompound("components", new CompoundTag("components")
-                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
-                    .putString("texture", "goodlucky:sapphire"))
-                .putCompound("item_properties", new CompoundTag("item_properties")
-                    .putInt("creative_category", 4)
-                    .putInt("max_stack_size", 64)))
+        new Entry("goodlucky:sapphire",
+            getDefaultItemComponent("goodlucky:sapphire", 5001, "goodlucky:sapphire", 64, 4)
         ),
-        new Entry("goodlucky:opal", new CompoundTag("")
-            .putString("name", "goodlucky:opal")
-            .putInt("id", 5002)
-            .putCompound("components", new CompoundTag("components")
-                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
-                    .putString("texture", "goodlucky:opal"))
-                .putCompound("item_properties", new CompoundTag("item_properties")
-                    .putInt("creative_category", 4)
-                    .putInt("max_stack_size", 64)))
+        new Entry("goodlucky:opal",
+            getDefaultItemComponent("goodlucky:opal", 5002, "goodlucky:opal", 64, 4)
         ),
-        new Entry("goodlucky:bacon", new CompoundTag("")
-            .putString("name", "goodlucky:bacon")
-            .putInt("id", 5400)
-            .putCompound("components", new CompoundTag("components")
-                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
-                    .putString("texture", "goodlucky:bacon"))
-                .putCompound("item_properties", new CompoundTag("item_properties")
-                    .putInt("creative_category", 3)
-                    .putInt("max_stack_size", 64)
+        new Entry("goodlucky:bacon",
+            getDefaultItemComponent("goodlucky:bacon", 5400, "goodlucky:bacon", 64, 3)
                     .putInt("use_duration", 32)
                     .putInt("use_animation", 1))
                 .putCompound("minecraft:food", new CompoundTag("minecraft:food")
