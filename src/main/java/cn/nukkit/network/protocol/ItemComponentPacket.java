@@ -66,7 +66,7 @@ public class ItemComponentPacket extends DataPacket {
     
     
     
-    private static CompoundTag getDefaultItemComponent(String name, int id, String icon, int maxStackSize, int creativeCategory, ) {
+    private static CompoundTag getDefaultItemComponent(String name, int id, String icon, int maxStackSize, int creativeCategory) {
         return new CompoundTag("")
             .putString("name", name)
             .putInt("id", id)
@@ -79,15 +79,7 @@ public class ItemComponentPacket extends DataPacket {
     }
     
     public static final Entry[] entries = {
-        new Entry("goodlucky:ruby", new CompoundTag("")
-            .putString("name", "goodlucky:ruby")
-            .putInt("id", 5000)
-            .putCompound("components", new CompoundTag("components")
-                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
-                    .putString("texture", "goodlucky:ruby"))
-                .putCompound("item_properties", new CompoundTag("item_properties")
-                    .putInt("creative_category", 4)
-                    .putInt("max_stack_size", 64)))
+        new Entry("goodlucky:ruby", getDefaultItemComponent("goodlucky:ruby", 5000, "goodlucky:ruby", 64, 4)
         ),
         new Entry("goodlucky:sapphire", new CompoundTag("")
             .putString("name", "goodlucky:sapphire")
