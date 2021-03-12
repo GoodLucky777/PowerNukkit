@@ -78,6 +78,24 @@ public class ItemComponentPacket extends DataPacket {
                     .putInt("creative_category", creativeCategory)))
     }
     
+    private static CompoundTag getFoodItemComponent(String name, int id, String icon, int maxStackSize, int creativeCategory, int useAnimation, int useDuration, int nutrition, boolean canAlwaysEat, float saturationModifier) {
+        return new CompoundTag("")
+            .putString("name", name)
+            .putInt("id", id)
+            .putCompound("components", new CompoundTag("components")
+                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
+                    .putString("texture", icon))
+                .putCompound("item_properties", new CompoundTag("item_properties")
+                    .putInt("max_stack_size", maxStackSize)
+                    .putInt("creative_category", creativeCategory)
+                    .putInt("use_animation", useAnimation)
+                    .putInt("use_duration", useDuration))
+                .putCompound("minecraft:food", new CompoundTag("minecraft:food")
+                    .putInt("nutrition", nutrition)
+                    .putBoolean("can_always_eat", canAlwaysEat))
+                .putFloat("saturation_modifier", saturationModifier))
+    }
+    
     public static final Entry[] entries = {
         new Entry("goodlucky:ruby",
             getDefaultItemComponent("goodlucky:ruby", 5000, "goodlucky:ruby", 64, 4)
@@ -89,29 +107,10 @@ public class ItemComponentPacket extends DataPacket {
             getDefaultItemComponent("goodlucky:opal", 5002, "goodlucky:opal", 64, 4)
         ),
         new Entry("goodlucky:bacon",
-            getDefaultItemComponent("goodlucky:bacon", 5400, "goodlucky:bacon", 64, 3)
-                    .putInt("use_duration", 32)
-                    .putInt("use_animation", 1))
-                .putCompound("minecraft:food", new CompoundTag("minecraft:food")
-                    .putInt("nutrition", 1)
-                    .putBoolean("can_always_eat", false))
-                .putFloat("saturation_modifier", 0.1f))
+            getFoodItemComponent("goodlucky:bacon", 5400, "goodlucky:bacon", 64, 3, 1, 32, 1, false, 0.1f)
         ),
-        new Entry("goodlucky:baguette", new CompoundTag("")
-            .putString("name", "goodlucky:baguette")
-            .putInt("id", 5401)
-            .putCompound("components", new CompoundTag("components")
-                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
-                    .putString("texture", "goodlucky:baguette"))
-                .putCompound("item_properties", new CompoundTag("item_properties")
-                    .putInt("creative_category", 3)
-                    .putInt("max_stack_size", 64)
-                    .putInt("use_duration", 32))
-                .putCompound("minecraft:food", new CompoundTag("minecraft:food")
-                    .putFloat("nutrition", 1.0f)
-                    .putString("saturation_modifier", "low")
-                    .putBoolean("can_always_eat", false))
-                .putInt("use_animation", 1))
+        new Entry("goodlucky:baguette", 
+            getFoodItemComponent("goodlucky:baguette", 5401, "goodlucky:baguette", 64, 3, 1, 32, 15, false, 0.6f)
         ),
         new Entry("goodlucky:beer", new CompoundTag("")
             .putString("name", "goodlucky:beer")
