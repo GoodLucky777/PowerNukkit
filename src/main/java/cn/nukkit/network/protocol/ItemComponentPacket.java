@@ -112,30 +112,17 @@ public class ItemComponentPacket extends DataPacket {
         new Entry("goodlucky:baguette", 
             getFoodItemComponent("goodlucky:baguette", 5401, "goodlucky:baguette", 64, 3, 1, 32, 15, false, 0.6f)
         ),
-        new Entry("goodlucky:beer", new CompoundTag("")
+        new Entry("goodlucky:beer",
             getFoodItemComponent("goodlucky:beer", 5402, "goodlucky:beer", 64, 3, 1, 32, 1, true, 0.1f)
         ),
-        new Entry("goodlucky:brownie", new CompoundTag("")
+        new Entry("goodlucky:brownie",
             getFoodItemComponent("goodlucky:brownie", 5403, "goodlucky:brownie", 64, 3, 1, 32, 7, false, 0.6f)
         ),
-        new Entry("goodlucky:cheese", new CompoundTag("")
+        new Entry("goodlucky:cheese",
             getFoodItemComponent("goodlucky:cheese", 5404, "goodlucky:cheese", 64, 3, 1, 32, 2, false, 0.3f)
         ),
-        new Entry("goodlucky:chocolate", new CompoundTag("")
-            .putString("name", "goodlucky:chocolate")
-            .putInt("id", 5405)
-            .putCompound("components", new CompoundTag("components")
-                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
-                    .putString("texture", "goodlucky:chocolate"))
-                .putCompound("item_properties", new CompoundTag("item_properties")
-                    .putInt("creative_category", 3)
-                    .putInt("max_stack_size", 64)
-                    .putInt("use_duration", 32))
-                .putCompound("minecraft:food", new CompoundTag("minecraft:food")
-                    .putFloat("nutrition", 1.0f)
-                    .putString("saturation_modifier", "low")
-                    .putBoolean("can_always_eat", false))
-                .putInt("use_animation", 1))
+        new Entry("goodlucky:chocolate",
+            getFoodItemComponent("goodlucky:chocolate", 5405, "goodlucky:chocolate", 64, 3, 1, 32, 2, false, 0.6f)
         ),
         new Entry("goodlucky:fried_chicken", new CompoundTag("")
             .putString("name", "goodlucky:fried_chicken")
