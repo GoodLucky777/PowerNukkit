@@ -80,6 +80,9 @@ public class NBTIO {
     private static Item fixAlphaItem(int id, int damage, int count) {
         PNAlphaItemID badAlphaId = PNAlphaItemID.getBadAlphaId(id);
         if (badAlphaId == null) {
+            if (id == 6001) { // Fix sapphire id
+                return Item.get(5001, damage, count);
+            }
             return null;
         }
         Item recovered = badAlphaId.getMinecraftItemId().get(count);

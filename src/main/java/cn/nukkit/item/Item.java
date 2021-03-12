@@ -412,6 +412,29 @@ public class Item implements Cloneable, BlockID, ItemID {
 
             list[SOUL_CAMPFIRE] = ItemCampfireSoul.class; //801
             
+            // GoodLucky
+            list[RUBY] = ItemRuby.class; // 5000
+            list[SAPPHIRE] = ItemSapphire.class; // 5001
+            list[OPAL] = ItemOpal.class; // 5002
+            
+            list[BACON] = ItemBacon.class; // 5400
+            list[BAGUETTE] = ItemBaguette.class; // 5401
+            list[BEER] = ItemBeer.class; // 5402
+            list[BROWNIE] = ItemBrownie.class; // 5403
+            list[CHEESE] = ItemCheese.class; // 5404
+            list[CHOCOLATE] = ItemChocolate.class; // 5405
+            list[FRIED_CHICKEN] = ItemFriedChicken.class; // 5406
+            list[FRIED_CHICKEN_LEG] = ItemFriedChickenLeg.class; // 5407
+            list[FRIED_EGG] = ItemFriedEgg.class; // 5408
+            list[APPLE_PIE] = ItemApplePie.class; // 5409
+            list[PRETZEL] = ItemPretzel.class; // 5410
+            list[WHISKEY] = ItemWhiskey.class; // 5411
+            list[WINE] = ItemWine.class; // 5412
+            
+            list[RUBY_SWORD] = ItemSwordRuby.class; // 6000
+            
+            list[GRENADE_FRAG] = ItemGrenadeFrag.class; // 6100
+            
             for (int i = 0; i < 256; ++i) {
                 if (Block.list[i] != null) {
                     list[i] = Block.list[i];
@@ -1461,5 +1484,12 @@ public class Item implements Cloneable, BlockID, ItemID {
             return null;
         }
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getNetworkId() {
+        return RuntimeItems.getNetworkId(
+            RuntimeItems.getRuntimeMapping().getNetworkFullId(this)
+        );
+    }
 }

@@ -4422,6 +4422,61 @@
     },
     {
       "id" : "minecraft:lodestone_compass"
+    },
+    // GoodLucky
+    {
+      "id": "goodlucky:ruby"
+    },
+    {
+      "id": "minecraft:sapphire"
+    },
+    {
+      "id": "minecraft:opal"
+    },
+    {
+      "id": "minecraft:bacon"
+    },
+    {
+      "id": "minecraft:baguette"
+    },
+    {
+      "id": "minecraft:beer"
+    },
+    {
+      "id": "minecraft:brownie"
+    },
+    {
+      "id": "minecraft:cheese"
+    },
+    {
+      "id": "minecraft:chocolate"
+    },
+    {
+      "id": "minecraft:fried_chicken"
+    },
+    {
+      "id": "minecraft:fried_chicken_leg"
+    },
+    {
+      "id": "minecraft:fried_egg"
+    },
+    {
+      "id": "minecraft:apple_pie"
+    },
+    {
+      "id": "minecraft:pretzel"
+    },
+    {
+      "id": "minecraft:whiskey"
+    },
+    {
+      "id": "minecraft:wine"
+    },
+    {
+      "id": "minecraft:ruby_sword"
+    },
+    {
+      "id": "minecraft:grenade_frag"
     }
   ]
 }
