@@ -64,6 +64,20 @@ public class ItemComponentPacket extends DataPacket {
         }
     }
     
+    
+    
+    private static CompoundTag getDefaultItemComponent(String name, int id, String icon, int maxStackSize, int creativeCategory, ) {
+        return new CompoundTag("")
+            .putString("name", name)
+            .putInt("id", id)
+            .putCompound("components", new CompoundTag("components")
+                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
+                    .putString("texture", icon))
+                .putCompound("item_properties", new CompoundTag("item_properties")
+                    .putInt("max_stack_size", maxStackSize)
+                    .putInt("creative_category", creativeCategory)))
+    }
+    
     public static final Entry[] entries = {
         new Entry("goodlucky:ruby", new CompoundTag("")
             .putString("name", "goodlucky:ruby")
