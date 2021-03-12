@@ -107,7 +107,7 @@ public class ItemComponentPacket extends DataPacket {
                     .putInt("use_duration", 32)
                     .putInt("use_animation", 1))
                 .putCompound("minecraft:food", new CompoundTag("minecraft:food")
-                    .putFloat("nutrition", 1.0f)
+                    .putInt("nutrition", 1)
                     .putBoolean("can_always_eat", false))
                 .putFloat("saturation_modifier", 0.1f))
         ),
