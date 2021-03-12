@@ -75,7 +75,7 @@ public class ItemComponentPacket extends DataPacket {
                     .putString("texture", icon))
                 .putCompound("item_properties", new CompoundTag("item_properties")
                     .putInt("max_stack_size", maxStackSize)
-                    .putInt("creative_category", creativeCategory)))
+                    .putInt("creative_category", creativeCategory)));
     }
     
     private static CompoundTag getFoodItemComponent(String name, int id, String icon, int maxStackSize, int creativeCategory, int useAnimation, int useDuration, int nutrition, boolean canAlwaysEat, float saturationModifier) {
@@ -93,7 +93,7 @@ public class ItemComponentPacket extends DataPacket {
                 .putCompound("minecraft:food", new CompoundTag("minecraft:food")
                     .putInt("nutrition", nutrition)
                     .putBoolean("can_always_eat", canAlwaysEat))
-                .putFloat("saturation_modifier", saturationModifier))
+                .putFloat("saturation_modifier", saturationModifier));
     }
     
     public static final Entry[] entries = {
@@ -113,52 +113,13 @@ public class ItemComponentPacket extends DataPacket {
             getFoodItemComponent("goodlucky:baguette", 5401, "goodlucky:baguette", 64, 3, 1, 32, 15, false, 0.6f)
         ),
         new Entry("goodlucky:beer", new CompoundTag("")
-            .putString("name", "goodlucky:beer")
-            .putInt("id", 5402)
-            .putCompound("components", new CompoundTag("components")
-                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
-                    .putString("texture", "goodlucky:beer"))
-                .putCompound("item_properties", new CompoundTag("item_properties")
-                    .putInt("creative_category", 3)
-                    .putInt("max_stack_size", 64)
-                    .putInt("use_duration", 32))
-                .putCompound("minecraft:food", new CompoundTag("minecraft:food")
-                    .putFloat("nutrition", 1.0f)
-                    .putString("saturation_modifier", "low")
-                    .putBoolean("can_always_eat", true))
-                .putInt("use_animation", 1))
+            getFoodItemComponent("goodlucky:beer", 5402, "goodlucky:beer", 64, 3, 1, 32, 1, true, 0.1f)
         ),
         new Entry("goodlucky:brownie", new CompoundTag("")
-            .putString("name", "goodlucky:brownie")
-            .putInt("id", 5403)
-            .putCompound("components", new CompoundTag("components")
-                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
-                    .putString("texture", "goodlucky:brownie"))
-                .putCompound("item_properties", new CompoundTag("item_properties")
-                    .putInt("creative_category", 3)
-                    .putInt("max_stack_size", 64)
-                    .putInt("use_duration", 32))
-                .putCompound("minecraft:food", new CompoundTag("minecraft:food")
-                    .putFloat("nutrition", 1.0f)
-                    .putString("saturation_modifier", "low")
-                    .putBoolean("can_always_eat", false))
-                .putInt("use_animation", 1))
+            getFoodItemComponent("goodlucky:brownie", 5403, "goodlucky:brownie", 64, 3, 1, 32, 7, false, 0.6f)
         ),
         new Entry("goodlucky:cheese", new CompoundTag("")
-            .putString("name", "goodlucky:cheese")
-            .putInt("id", 5404)
-            .putCompound("components", new CompoundTag("components")
-                .putCompound("minecraft:icon", new CompoundTag("minecraft:icon")
-                    .putString("texture", "goodlucky:cheese"))
-                .putCompound("item_properties", new CompoundTag("item_properties")
-                    .putInt("creative_category", 3)
-                    .putInt("max_stack_size", 64)
-                    .putInt("use_duration", 32))
-                .putCompound("minecraft:food", new CompoundTag("minecraft:food")
-                    .putFloat("nutrition", 1.0f)
-                    .putString("saturation_modifier", "low")
-                    .putBoolean("can_always_eat", false))
-                .putInt("use_animation", 1))
+            getFoodItemComponent("goodlucky:cheese", 5404, "goodlucky:cheese", 64, 3, 1, 32, 2, false, 0.3f)
         ),
         new Entry("goodlucky:chocolate", new CompoundTag("")
             .putString("name", "goodlucky:chocolate")
