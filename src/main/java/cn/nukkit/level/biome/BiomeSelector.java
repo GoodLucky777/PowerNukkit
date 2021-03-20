@@ -188,20 +188,10 @@ public class BiomeSelector {
                             biome = EnumBiome.SWAMP;
                         }
                     } else if (rainfall > 0.1f) {
-                        if (hills < -0.4f) {
-                            if (hills > -0.15f) {
-                                biome = EnumBiome.BAMBOO_JUNGLE;
-                            } else {
-                                biome = EnumBiome.BAMBOO_JUNGLE_HILLS;
-                            }
-                        } else if (hills < 0.2f) {
-                            if (noiseOcean < 0.155f)  {
-                                biome = EnumBiome.JUNGLE_M;
-                            } else {
-                                biome = EnumBiome.JUNGLE;
-                            }
+                        if (noiseOcean < 0.155f)  {
+                            biome = EnumBiome.JUNGLE_M;
                         } else {
-                            biome = EnumBiome.JUNGLE_HILLS;
+                            biome = EnumBiome.JUNGLE;
                         }
                     } else {
                         if (noiseOcean < 0f)    {
