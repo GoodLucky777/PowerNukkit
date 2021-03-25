@@ -39,8 +39,10 @@ public class ResourcePackStackPacket extends DataPacket {
         }
 
         this.putString(this.gameVersion);
-        this.putLInt(0); // Experiments length
-        this.putBoolean(false); // Were experiments previously toggled
+        this.putLInt(1); // Experiments length
+          this.putString("data_driven_items");
+          this.putBoolean(true);
+        this.putBoolean(true); // Were experiments previously toggled
     }
 
     @Override
