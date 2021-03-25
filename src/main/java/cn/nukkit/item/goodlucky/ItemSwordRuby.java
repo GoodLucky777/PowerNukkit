@@ -26,7 +26,7 @@ public class ItemSwordRuby extends ItemTool {
     
     @Override
     public int getTier() {
-        return ItemTool.TIER_RUBY;
+        return ItemTool.TIER_DIAMOND;
     }
     
     @Override
