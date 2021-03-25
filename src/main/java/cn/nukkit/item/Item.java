@@ -482,6 +482,29 @@ public class Item implements Cloneable, BlockID, ItemID {
                 log.error("Error while registering a creative item", e);
             }
         }
+        
+        // GoodLucky
+        addCreativeItem(Item.get(RUBY, 0, 1));
+        addCreativeItem(Item.get(SAPPHIRE, 0, 1));
+        addCreativeItem(Item.get(OPAL, 0, 1));
+        
+        addCreativeItem(Item.get(BACON, 0, 1));
+        addCreativeItem(Item.get(BAGUETTE, 0, 1));
+        addCreativeItem(Item.get(BEER, 0, 1));
+        addCreativeItem(Item.get(BROWNIE, 0, 1));
+        addCreativeItem(Item.get(CHEESE, 0, 1));
+        addCreativeItem(Item.get(CHOCOLATE, 0, 1));
+        addCreativeItem(Item.get(FRIED_CHICKEN, 0, 1));
+        addCreativeItem(Item.get(FRIED_CHICKEN_LEG, 0, 1));
+        addCreativeItem(Item.get(FRIED_EGG, 0, 1));
+        addCreativeItem(Item.get(APPLE_PIE, 0, 1));
+        addCreativeItem(Item.get(PRETZEL, 0, 1));
+        addCreativeItem(Item.get(WHISKEY, 0, 1));
+        addCreativeItem(Item.get(WINE, 0, 1));
+        
+        addCreativeItem(Item.get(RUBY_SWORD, 0, 1));
+        
+        addCreativeItem(Item.get(GRENADE_FRAG, 0, 1));
     }
 
     public static void clearCreativeItems() {
