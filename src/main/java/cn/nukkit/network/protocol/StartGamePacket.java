@@ -8,6 +8,7 @@ import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.CompoundTag;
 
 import java.io.IOException;
+import java.nio.ByteOrder;
 
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
@@ -82,7 +83,10 @@ public class StartGamePacket extends DataPacket {
     @PowerNukkitOnly @Since("1.4.0.0-PN") public int limitedWorldHeight = 16;
     @PowerNukkitOnly @Since("1.4.0.0-PN") public boolean netherType = false;
     @PowerNukkitOnly @Since("1.4.0.0-PN") public boolean forceExperimentalGameplay = false;
-    public String levelId = ""; //base64 string, usually the same as world folder name in vanilla
+    /**
+     * Base64 string, usually the same as world folder name in vanilla
+     */
+    public String levelId = "";
     public String worldName;
     public String premiumWorldTemplateId = "00000000-0000-0000-0000-000000000000";
     public boolean isTrial = false;
@@ -158,6 +162,7 @@ public class StartGamePacket extends DataPacket {
         this.putBoolean(this.netherType);
         this.putBoolean(this.forceExperimentalGameplay);
         // TODO: handle force experimental
+
         this.putString(this.levelId);
         this.putString(this.worldName);
         this.putString(this.premiumWorldTemplateId);
@@ -178,7 +183,7 @@ public class StartGamePacket extends DataPacket {
                 this.put(NBTIO.write(property.getProperties(), ByteOrder.LITTLE_ENDIAN, true));
             }
         } catch (IOException e) {
-            log.error("Error while encoding NBT data of StartGamePacket properties", e);
+            log.error("Error while encoding properties data of StartGamePacket", e);
         }
         this.put(RuntimeItems.getRuntimeMapping().getItemDataPalette());
         this.putString(this.multiplayerCorrelationId);
@@ -190,7 +195,7 @@ public class StartGamePacket extends DataPacket {
     @Since("1.4.0.0-PN")
     public static class ExperimentData {
     
-        public static final ExperimentData[] EMPTY_ARRAY = new Entry[0];
+        public static final ExperimentData[] EMPTY_ARRAY = new ExperimentData[0];
         
         private final String name;
         private final boolean enabled;
@@ -214,7 +219,7 @@ public class StartGamePacket extends DataPacket {
     @Since("1.4.0.0-PN")
     public static class BlockPropertyData {
     
-        public static final BlockPropertyData[] EMPTY_ARRAY = new Entry[0];
+        public static final BlockPropertyData[] EMPTY_ARRAY = new BlockPropertyData[0];
         
         private final String name;
         private final CompoundTag properties;
