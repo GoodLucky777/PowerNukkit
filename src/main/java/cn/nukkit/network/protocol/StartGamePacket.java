@@ -59,6 +59,7 @@ public class StartGamePacket extends DataPacket {
     public boolean commandsEnabled;
     public boolean isTexturePacksRequired = false;
     public GameRules gameRules;
+    @PowerNukkitOnly @Since("1.4.0.0-PN") public ExperimentData[] experiments = ExperimentData.EMPTY_ARRAY;
     @PowerNukkitOnly @Since("1.4.0.0-PN") public boolean experimentsPreviouslyToggled = false;
     public boolean bonusChest = false;
     public boolean hasStartWithMapEnabled = false;
@@ -124,7 +125,11 @@ public class StartGamePacket extends DataPacket {
         this.putBoolean(this.commandsEnabled);
         this.putBoolean(this.isTexturePacksRequired);
         this.putGameRules(this.gameRules);
-        this.putLInt(0); // Experiment count
+        this.putLInt(experiments.length);
+        for (ExperimentData experiment : this.experiments) {
+            this.putString(experiment.getName());
+            this.putBoolean(experiment.isEnabled());
+        }
         this.putBoolean(this.experimentsPreviouslyToggled);
         this.putBoolean(this.bonusChest);
         this.putBoolean(this.hasStartWithMapEnabled);
@@ -160,6 +165,30 @@ public class StartGamePacket extends DataPacket {
         this.put(RuntimeItems.getRuntimeMapping().getItemDataPalette());
         this.putString(this.multiplayerCorrelationId);
         this.putBoolean(this.isInventoryServerAuthoritative);
+    }
+    
+    @ToString
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static class ExperimentData {
+    
+        public static final Entry[] EMPTY_ARRAY = new Entry[0];
+        
+        private final String name;
+        private final boolean enabled;
+        
+        public ExperimentData(String name, boolean enabled) {
+            this.name = name;
+            this.data = data;
+        }
+        
+        public String getName() {
+            return name;
+        }
+        
+        public boolean isEnabled() {
+            return enabled;
+        }
     }
     
     @PowerNukkitOnly
