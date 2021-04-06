@@ -1,12 +1,10 @@
 package cn.nukkit.network.protocol;
 
-import cn.nukkit.item.RuntimeItems;
+import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
-import cn.nukkit.blockstate.BlockStateRegistry;
+import cn.nukkit.item.RuntimeItems;
 import cn.nukkit.level.GameRules;
-import cn.nukkit.utils.BinaryStream;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
 
@@ -77,7 +75,11 @@ public class StartGamePacket extends DataPacket {
     public String worldName;
     public String premiumWorldTemplateId = "";
     public boolean isTrial = false;
+    @Deprecated
     public boolean isMovementServerAuthoritative;
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public AuthoritativeMovementMode authoritativeMovementMode;
     @Since("1.3.0.0-PN") public boolean isInventoryServerAuthoritative;
     public long currentTick;
 
@@ -146,7 +148,11 @@ public class StartGamePacket extends DataPacket {
         this.putString(this.worldName);
         this.putString(this.premiumWorldTemplateId);
         this.putBoolean(this.isTrial);
-        this.putUnsignedVarInt(this.isMovementServerAuthoritative ? 1 : 0); // 2 - rewind
+        if (authoritativeMovementMode != null) {
+            this.putVarInt(authoritativeMovementMode.ordinal());
+        } else {
+            this.putVarInt(this.isMovementServerAuthoritative ? 1 : 0); // 2 - rewind
+        }
         this.putVarInt(0); // RewindHistorySize
         this.putBoolean(false); // isServerAuthoritativeBlockBreaking
         this.putLLong(this.currentTick);
@@ -155,5 +161,13 @@ public class StartGamePacket extends DataPacket {
         this.put(RuntimeItems.getRuntimeMapping().getItemDataPalette());
         this.putString(this.multiplayerCorrelationId);
         this.putBoolean(this.isInventoryServerAuthoritative);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public enum AuthoritativeMovementMode {
+        CLIENT,
+        SERVER,
+        SERVER_WITH_REWIND
     }
 }
