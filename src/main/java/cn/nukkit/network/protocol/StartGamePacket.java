@@ -4,7 +4,10 @@ import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.item.RuntimeItems;
 import cn.nukkit.level.GameRules;
+import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.CompoundTag;
+
+import java.io.IOException;
 
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
@@ -171,9 +174,9 @@ public class StartGamePacket extends DataPacket {
         try {
             for (BlockPropertyData property : this.properties) {
                 this.putString(property.getName());
-                this.put(property.getProperties());
+                this.put(NBTIO.write(property.getProperties(), ByteOrder.LITTLE_ENDIAN, true));
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             log.error("Error while encoding NBT data of StartGamePacket properties", e);
         }
         this.put(RuntimeItems.getRuntimeMapping().getItemDataPalette());
