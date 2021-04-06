@@ -176,7 +176,7 @@ public class StartGamePacket extends DataPacket {
     @Since("1.4.0.0-PN")
     public static class ExperimentData {
     
-        public static final Entry[] EMPTY_ARRAY = new Entry[0];
+        public static final ExperimentData[] EMPTY_ARRAY = new Entry[0];
         
         private final String name;
         private final boolean enabled;
