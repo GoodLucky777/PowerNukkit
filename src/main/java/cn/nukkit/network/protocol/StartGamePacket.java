@@ -48,6 +48,7 @@ public class StartGamePacket extends DataPacket {
     public int dayCycleStopTime = -1; //-1 = not stopped, any positive value = stopped at that time
     public int eduEditionOffer = 0;
     public boolean hasEduFeaturesEnabled = false;
+    @PowerNukkitOnly @Since("1.4.0.0-PN") public String educationProductionId = "";
     public float rainLevel;
     public float lightningLevel;
     public boolean hasConfirmedPlatformLockedContent = false;
@@ -58,6 +59,7 @@ public class StartGamePacket extends DataPacket {
     public boolean commandsEnabled;
     public boolean isTexturePacksRequired = false;
     public GameRules gameRules;
+    @PowerNukkitOnly @Since("1.4.0.0-PN") public boolean experimentsPreviouslyToggled = false;
     public boolean bonusChest = false;
     public boolean hasStartWithMapEnabled = false;
     @Since("1.3.0.0-PN") public boolean trustingPlayers;
@@ -75,11 +77,8 @@ public class StartGamePacket extends DataPacket {
     public String worldName;
     public String premiumWorldTemplateId = "";
     public boolean isTrial = false;
-    @Deprecated
-    public boolean isMovementServerAuthoritative;
-    @PowerNukkitOnly
-    @Since("1.4.0.0-PN")
-    public AuthoritativeMovementMode authoritativeMovementMode;
+    @Deprecated public boolean isMovementServerAuthoritative;
+    @PowerNukkitOnly @Since("1.4.0.0-PN") public AuthoritativeMovementMode authoritativeMovementMode;
     @Since("1.3.0.0-PN") public boolean isInventoryServerAuthoritative;
     public long currentTick;
 
@@ -114,7 +113,7 @@ public class StartGamePacket extends DataPacket {
         this.putVarInt(this.dayCycleStopTime);
         this.putVarInt(this.eduEditionOffer);
         this.putBoolean(this.hasEduFeaturesEnabled);
-        this.putString(""); // Education Edition Product ID
+        this.putString(this.educationProductionId);
         this.putLFloat(this.rainLevel);
         this.putLFloat(this.lightningLevel);
         this.putBoolean(this.hasConfirmedPlatformLockedContent);
@@ -126,7 +125,7 @@ public class StartGamePacket extends DataPacket {
         this.putBoolean(this.isTexturePacksRequired);
         this.putGameRules(this.gameRules);
         this.putLInt(0); // Experiment count
-        this.putBoolean(false); // Were experiments previously toggled
+        this.putBoolean(this.experimentsPreviouslyToggled);
         this.putBoolean(this.bonusChest);
         this.putBoolean(this.hasStartWithMapEnabled);
         this.putVarInt(this.permissionLevel);
