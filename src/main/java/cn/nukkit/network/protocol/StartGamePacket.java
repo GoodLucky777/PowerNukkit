@@ -78,7 +78,7 @@ public class StartGamePacket extends DataPacket {
     public boolean isFromWorldTemplate = false;
     public boolean isWorldTemplateOptionLocked = false;
     public boolean isOnlySpawningV1Villagers = false;
-    public String vanillaVersion = ProtocolInfo.MINECRAFT_VERSION_NETWORK;
+    public String vanillaVersion = "*";
     @PowerNukkitOnly @Since("1.4.0.0-PN") public int limitedWorldWidth = 16;
     @PowerNukkitOnly @Since("1.4.0.0-PN") public int limitedWorldHeight = 16;
     @PowerNukkitOnly @Since("1.4.0.0-PN") public boolean netherType = false;
@@ -91,10 +91,8 @@ public class StartGamePacket extends DataPacket {
     public String premiumWorldTemplateId = "00000000-0000-0000-0000-000000000000";
     public boolean isTrial = false;
     @Deprecated public boolean isMovementServerAuthoritative;
-    @PowerNukkitOnly @Since("1.4.0.0-PN") public AuthoritativeMovementMode authoritativeMovementMode;
-    
+    @PowerNukkitOnly @Since("1.4.0.0-PN") public SyncedPlayerMovementSettings playerMovementSettings = null;
     public long currentTick;
-
     public int enchantmentSeed;
     @PowerNukkitOnly @Since("1.4.0.0-PN") public BlockPropertyData[] properties = BlockPropertyData.EMPTY_ARRAY;
     
@@ -167,13 +165,15 @@ public class StartGamePacket extends DataPacket {
         this.putString(this.worldName);
         this.putString(this.premiumWorldTemplateId);
         this.putBoolean(this.isTrial);
-        if (authoritativeMovementMode != null) {
-            this.putVarInt(authoritativeMovementMode.ordinal());
-        } else {
+        if (playerMovementSettings == null) { // For backward compatibility
             this.putVarInt(this.isMovementServerAuthoritative ? 1 : 0); // 2 - rewind
+            this.putVarInt(0); // RewindHistorySize
+            this.putBoolean(false); // isServerAuthoritativeBlockBreaking
+        } else {
+            this.putVarInt(playerMovementSettings.getAuthoritativeMovementMode().ordinal());
+            this.putVarInt(playerMovementSettings.getRewindHistorySize());
+            this.putBoolean(playerMovementSettings.isServerAuthoritativeBlockBreaking());
         }
-        this.putVarInt(0); // RewindHistorySize
-        this.putBoolean(false); // isServerAuthoritativeBlockBreaking
         this.putLLong(this.currentTick);
         this.putVarInt(this.enchantmentSeed);
         this.putUnsignedVarInt(this.properties.length);
@@ -211,6 +211,34 @@ public class StartGamePacket extends DataPacket {
         
         public boolean isEnabled() {
             return enabled;
+        }
+    }
+    
+    @ToString
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static class SyncedPlayerMovementSettings {
+    
+        private final AuthoritativeMovementMode movementMode;
+        private final int rewindHistorySize;
+        private final boolean serverAuthoritativeBlockBreaking;
+        
+        public SyncedPlayerMovementSettings(AuthoritativeMovementMode movementMode, int rewindHistorySize, boolean serverAuthoritativeBlockBreaking) {
+            this.movementMode = movementMode;
+            this.rewindHistorySize = rewindHistorySize;
+            this.serverAuthoritativeBlockBreaking = serverAuthoritativeBlockBreaking;
+        }
+        
+        public AuthoritativeMovementMode getMovementMode() {
+            return movementMode;
+        }
+        
+        public int getRewindHistorySize() {
+            return rewindHistorySize;
+        }
+        
+        public boolean isServerAuthoritativeBlockBreaking() {
+            return serverAuthoritativeBlockBreaking;
         }
     }
     
