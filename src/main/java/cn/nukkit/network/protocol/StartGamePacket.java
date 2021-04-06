@@ -88,13 +88,14 @@ public class StartGamePacket extends DataPacket {
     public boolean isTrial = false;
     @Deprecated public boolean isMovementServerAuthoritative;
     @PowerNukkitOnly @Since("1.4.0.0-PN") public AuthoritativeMovementMode authoritativeMovementMode;
-    @Since("1.3.0.0-PN") public boolean isInventoryServerAuthoritative;
+    
     public long currentTick;
 
     public int enchantmentSeed;
-    public BlockPropertyData[] properties = BlockPropertyData.EMPTY_ARRAY;
+    @PowerNukkitOnly @Since("1.4.0.0-PN") public BlockPropertyData[] properties = BlockPropertyData.EMPTY_ARRAY;
     
     public String multiplayerCorrelationId = "";
+    @Since("1.3.0.0-PN") public boolean isInventoryServerAuthoritative;
 
     @Override
     public void decode() {
