@@ -4,6 +4,7 @@ import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.item.RuntimeItems;
 import cn.nukkit.level.GameRules;
+import cn.nukkit.nbt.tag.CompoundTag;
 
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
@@ -88,7 +89,8 @@ public class StartGamePacket extends DataPacket {
     public long currentTick;
 
     public int enchantmentSeed;
-
+    public BlockPropertyData[] properties = BlockPropertyData.EMPTY_ARRAY;
+    
     public String multiplayerCorrelationId = "";
 
     @Override
@@ -129,7 +131,7 @@ public class StartGamePacket extends DataPacket {
         this.putBoolean(this.commandsEnabled);
         this.putBoolean(this.isTexturePacksRequired);
         this.putGameRules(this.gameRules);
-        this.putLInt(experiments.length);
+        this.putLInt(this.experiments.length);
         for (ExperimentData experiment : this.experiments) {
             this.putString(experiment.getName());
             this.putBoolean(experiment.isEnabled());
@@ -165,7 +167,15 @@ public class StartGamePacket extends DataPacket {
         this.putBoolean(false); // isServerAuthoritativeBlockBreaking
         this.putLLong(this.currentTick);
         this.putVarInt(this.enchantmentSeed);
-        this.putUnsignedVarInt(0); // Custom blocks
+        this.putUnsignedVarInt(this.properties.length);
+        try {
+            for (BlockPropertyData property : this.properties) {
+                this.putString(property.getName());
+                this.put(property.getProperties());
+            }
+        } catch (Exception e) {
+            log.error("Error while encoding NBT data of StartGamePacket properties", e);
+        }
         this.put(RuntimeItems.getRuntimeMapping().getItemDataPalette());
         this.putString(this.multiplayerCorrelationId);
         this.putBoolean(this.isInventoryServerAuthoritative);
@@ -183,7 +193,7 @@ public class StartGamePacket extends DataPacket {
         
         public ExperimentData(String name, boolean enabled) {
             this.name = name;
-            this.data = data;
+            this.enabled = enabled;
         }
         
         public String getName() {
@@ -192,6 +202,30 @@ public class StartGamePacket extends DataPacket {
         
         public boolean isEnabled() {
             return enabled;
+        }
+    }
+    
+    @ToString
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static class BlockPropertyData {
+    
+        public static final BlockPropertyData[] EMPTY_ARRAY = new Entry[0];
+        
+        private final String name;
+        private final CompoundTag properties;
+        
+        public BlockPropertyData(String name, CompoundTag properties) {
+            this.name = name;
+            this.properties = properties;
+        }
+        
+        public String getName() {
+            return name;
+        }
+        
+        public CompoundTag getProperties() {
+            return properties;
         }
     }
     
