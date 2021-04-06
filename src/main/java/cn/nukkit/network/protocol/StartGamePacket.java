@@ -170,7 +170,7 @@ public class StartGamePacket extends DataPacket {
             this.putVarInt(0); // RewindHistorySize
             this.putBoolean(false); // isServerAuthoritativeBlockBreaking
         } else {
-            this.putVarInt(playerMovementSettings.getAuthoritativeMovementMode().ordinal());
+            this.putVarInt(playerMovementSettings.getMovementMode().ordinal());
             this.putVarInt(playerMovementSettings.getRewindHistorySize());
             this.putBoolean(playerMovementSettings.isServerAuthoritativeBlockBreaking());
         }
