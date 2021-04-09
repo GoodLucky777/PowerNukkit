@@ -83,6 +83,19 @@ public class BlockStateRegistry {
             throw new AssertionError(e);
         }
         //</editor-fold>
+        
+        // GoodLucky
+        metaOverrides.put(
+            new CompoundTag("block")
+                .putString("name", "goodlucky:ruby_ore")
+                .putCompound("states", new CompoundTag("states"))
+        ,
+            new ListTag<CompoundTag>
+                .putList(
+                    new CompoundTag("LegacyStates")
+                        
+                )
+        );
 
         //<editor-fold desc="Loading block_ids.csv" defaultstate="collapsed">
         try (InputStream stream = Server.class.getClassLoader().getResourceAsStream("block_ids.csv")) { 
