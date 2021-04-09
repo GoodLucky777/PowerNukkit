@@ -116,6 +116,10 @@ public class BlockStateRegistry {
         }
         //</editor-fold>
 
+        // GoodLucky
+        this.registerPersistenceName(5000, "goodlucky:ruby_ore");
+        this.registerPersistenceName(5200, "goodlucky:ruby_block");
+
         ListTag<CompoundTag> tag;
         //<editor-fold desc="Loading runtime_block_states.dat" defaultstate="collapsed">
         try (InputStream stream = Server.class.getClassLoader().getResourceAsStream("runtime_block_states.dat")) {
