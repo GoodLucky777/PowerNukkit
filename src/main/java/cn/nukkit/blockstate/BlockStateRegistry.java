@@ -142,7 +142,8 @@ public class BlockStateRegistry {
         // GoodLucky
         tag.add(new CompoundTag("")
             .putCompound("block", new CompoundTag("block")
-                .putString("goodlucky:ruby_ore")
+                .putString("name", "goodlucky:ruby_ore")
+                .putCompound("states", new CompoundTag("states"))
                 )
         );
 
