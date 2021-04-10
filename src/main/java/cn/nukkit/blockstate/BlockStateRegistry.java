@@ -96,9 +96,9 @@ public class BlockStateRegistry {
                 .putString("name", "goodlucky:ruby_ore")
                 .putCompound("states", new CompoundTag("states"))
         ,
-            temp
+            null //temp
         );
-        log.info(metaOverrides.toString());
+        //log.info(metaOverrides.toString()); // Debug log
 
         //<editor-fold desc="Loading block_ids.csv" defaultstate="collapsed">
         try (InputStream stream = Server.class.getClassLoader().getResourceAsStream("block_ids.csv")) { 
