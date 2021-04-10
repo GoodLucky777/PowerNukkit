@@ -327,6 +327,10 @@ public class BlockStateRegistry {
     }
 
     public int getRuntimeId(BlockState state) {
+        // GoodLucky
+        if (state.getBlockId() == BlockID.RUBY_ORE) return 5411;
+        if (state.getBlockId() == BlockID.RUBY_BLOCK) return 5410;
+        
         return getRegistration(state).runtimeId;
     }
     
