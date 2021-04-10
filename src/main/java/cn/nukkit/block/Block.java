@@ -59,7 +59,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
     @Deprecated
     @DeprecationDetails(since = "1.4.0.0-PN", reason = "It is being replaced by an other solution that don't require a fixed size")
     @PowerNukkitOnly
-    public static final int MAX_BLOCK_ID = dynamic(600);
+    public static final int MAX_BLOCK_ID = dynamic(/*600*/5200);
     
     @Deprecated
     @DeprecationDetails(since = "1.4.0.0-PN", reason = "It's not a constant value, it may be changed on major updates and" +
@@ -603,6 +603,10 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
             list[CHISELED_NETHER_BRICKS] = BlockBricksNetherChiseled.class; //557
             list[CRACKED_NETHER_BRICKS] = BlockBricksNetherCracked.class; //558
             list[QUARTZ_BRICKS] = BlockBricksQuartz.class; //559
+            
+            // GoodLucky
+            list[RUBY_ORE] = BlockOreRuby.class; // 5000
+            list[RUBY_BLOCK] = BlockRuby.class; //5200
             
             initializing = true;
             
