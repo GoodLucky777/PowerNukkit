@@ -51,9 +51,4 @@ public class BlockRuby extends BlockSolid {
     public boolean canHarvestWithHand() {
         return false;
     }
-    
-    @Override
-    public int getRuntimeId() {
-        return 5410;
-    }
 }
