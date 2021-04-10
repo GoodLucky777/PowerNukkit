@@ -133,8 +133,8 @@ public class BlockStateRegistry {
         //</editor-fold>
 
         // GoodLucky
-        blockIdToPersistenceName.put(5000, "goodlucky:ruby_ore");
-        persistenceNameToBlockId.put("goodlucky:ruby_ore", 5000);
+        //blockIdToPersistenceName.put(5000, "goodlucky:ruby_ore");
+        //persistenceNameToBlockId.put("goodlucky:ruby_ore", 5000);
         //blockIdToPersistenceName.put(5200, "goodlucky:ruby_block");
         //persistenceNameToBlockId.put("goodlucky:ruby_block", 5200);
 
@@ -156,12 +156,12 @@ public class BlockStateRegistry {
         //</editor-fold>
         
         // GoodLucky
-        tag.add(new CompoundTag("")
+        /*tag.add(new CompoundTag("")
             .putCompound("block", new CompoundTag("block")
                 .putString("name", "goodlucky:ruby_ore")
                 .putCompound("states", new CompoundTag("states"))
             )
-        );
+        );*/
 
         Integer infoUpdateRuntimeId = null;
         
