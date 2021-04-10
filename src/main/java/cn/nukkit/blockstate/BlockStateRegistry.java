@@ -96,7 +96,7 @@ public class BlockStateRegistry {
                 .putString("name", "goodlucky:ruby_ore")
                 .putCompound("states", new CompoundTag("states"))
         ,
-            temp;
+            temp
         );
 
         //<editor-fold desc="Loading block_ids.csv" defaultstate="collapsed">
