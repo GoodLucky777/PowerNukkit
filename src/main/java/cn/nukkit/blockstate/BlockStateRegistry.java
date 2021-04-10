@@ -96,7 +96,7 @@ public class BlockStateRegistry {
                         .putCompound("0", new CompoundTag("0")
                             .putInt("id", 5000)
                             .putShort("val", 0)
-                    )
+                        )
                 )
         );
 
@@ -160,7 +160,7 @@ public class BlockStateRegistry {
             .putCompound("block", new CompoundTag("block")
                 .putString("name", "goodlucky:ruby_ore")
                 .putCompound("states", new CompoundTag("states"))
-                )
+            )
         );
 
         Integer infoUpdateRuntimeId = null;
