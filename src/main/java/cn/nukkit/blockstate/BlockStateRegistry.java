@@ -86,16 +86,17 @@ public class BlockStateRegistry {
         
         // GoodLucky
         List<CompoundTag> temp = new ArrayList<CompoundTag>("LegacyStates");
+        temp.add(
+            new CompoundTag("0")
+                .putInt("id", 5000)
+                .putShort("val", 0)
+        );
         metaOverrides.put(
             new CompoundTag("block")
                 .putString("name", "goodlucky:ruby_ore")
                 .putCompound("states", new CompoundTag("states"))
         ,
-            temp.add(
-                new CompoundTag("0")
-                    .putInt("id", 5000)
-                    .putShort("val", 0)
-            )
+            temp;
         );
 
         //<editor-fold desc="Loading block_ids.csv" defaultstate="collapsed">
