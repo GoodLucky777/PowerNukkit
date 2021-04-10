@@ -85,7 +85,7 @@ public class BlockStateRegistry {
         //</editor-fold>
         
         // GoodLucky
-        List<CompoundTag> temp = new ArrayList<CompoundTag>("LegacyStates");
+        List<CompoundTag> temp = new ArrayList<CompoundTag>();
         temp.add(
             new CompoundTag("0")
                 .putInt("id", 5000)
