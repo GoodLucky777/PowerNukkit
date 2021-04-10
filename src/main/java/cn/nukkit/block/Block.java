@@ -1159,7 +1159,7 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
     
     @PowerNukkitOnly
     @Since("1.3.0.0-PN")
-    public final int getRuntimeId() {
+    public /*final - Goodlucky - bad hack*/ int getRuntimeId() {
         return getCurrentState().getRuntimeId();
     }
     
