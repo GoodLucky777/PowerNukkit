@@ -133,8 +133,8 @@ public class BlockStateRegistry {
         //</editor-fold>
 
         // GoodLucky
-        //blockIdToPersistenceName.put(5000, "goodlucky:ruby_ore");
-        //persistenceNameToBlockId.put("goodlucky:ruby_ore", 5000);
+        blockIdToPersistenceName.put(5000, "goodlucky:ruby_ore");
+        persistenceNameToBlockId.put("goodlucky:ruby_ore", 5000);
         //blockIdToPersistenceName.put(5200, "goodlucky:ruby_block");
         //persistenceNameToBlockId.put("goodlucky:ruby_block", 5200);
 
@@ -169,11 +169,27 @@ public class BlockStateRegistry {
             int runtimeId = runtimeIdAllocator.getAndIncrement();
 
             // GoodLucky
+            idCheck:
             for (int i = 0; i < 3; i++) {
-                if (runtimeId == BlockID.R_RUBY_ORE || runtimeId == BlockID.R_RUBY_BLOCK) {
-                    runtimeId = runtimeIdAllocator.getAndIncrement();
-                } else {
-                    break;
+                switch (runtimeId) {
+                    default:
+                        break idCheck;
+                    case BlockID.R_RUBY_ORE:
+                        registerStateId(new CompoundTag("")
+                           .putCompound("block", new CompoundTag("block")
+                               .putString("name", "goodlucky:ruby_ore")
+                               .putCompound("states", new CompoundTag("states"))
+                        , runtimeId);
+                        runtimeId = runtimeIdAllocator.getAndIncrement();
+                        break;
+                    case BlockID.R_RUBY_BLOCK:
+                        registerStateId(new CompoundTag("")
+                           .putCompound("block", new CompoundTag("block")
+                               .putString("name", "goodlucky:ruby_block")
+                               .putCompound("states", new CompoundTag("states"))
+                        , runtimeId);
+                        runtimeId = runtimeIdAllocator.getAndIncrement();
+                        break;
                 }
             }
 
