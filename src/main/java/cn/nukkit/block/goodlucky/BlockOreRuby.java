@@ -84,9 +84,4 @@ public class BlockOreRuby extends BlockSolid {
     public boolean canSilkTouch() {
         return true;
     }
-    
-    @Override
-    public int getRuntimeId() {
-        return 5411;
-    }
 }
