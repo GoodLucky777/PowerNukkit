@@ -167,6 +167,12 @@ public class BlockStateRegistry {
         
         for (CompoundTag state : tag.getAll()) {
             int runtimeId = runtimeIdAllocator.getAndIncrement();
+
+            // GoodLucky
+            if (runtimeId == 4410 || runtimeId == 5511) {
+                continue;
+            }
+
             String name = state.getCompound("block").getString("name").toLowerCase();
             
             if (name.equals("minecraft:unknown")) {
