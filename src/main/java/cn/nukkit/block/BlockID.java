@@ -514,8 +514,4 @@ public interface BlockID {
     // GoodLucky
     int RUBY_ORE = 5000;
     int RUBY_BLOCK = 5200;
-    
-    // GoodLucky Runtime Id
-    int R_RUBY_ORE = 5511;
-    int R_RUBY_BLOCK = 5510;
 }
