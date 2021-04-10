@@ -85,7 +85,7 @@ public class BlockStateRegistry {
         //</editor-fold>
         
         // GoodLucky
-        List<CompoundTag> temp = new ArrayList<CompoundTag>();
+        /*List<CompoundTag> temp = new ArrayList<CompoundTag>();
         temp.add(
             new CompoundTag("0")
                 .putInt("id", 5000)
@@ -97,8 +97,8 @@ public class BlockStateRegistry {
                 .putCompound("states", new CompoundTag("states"))
         ,
             null //temp
-        );
-        log.info(metaOverrides.toString()); // Debug log
+        );*/
+        //log.info(metaOverrides.toString()); // Debug log
 
         //<editor-fold desc="Loading block_ids.csv" defaultstate="collapsed">
         try (InputStream stream = Server.class.getClassLoader().getResourceAsStream("block_ids.csv")) { 
