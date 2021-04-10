@@ -170,7 +170,7 @@ public class BlockStateRegistry {
 
             // GoodLucky
             if (runtimeId == BlockID.R_RUBY_ORE || runtimeId == BlockID.R_RUBY_BLOCK) {
-                continue;
+                runtimeId = runtimeIdAllocator.getAndIncrement();
             }
 
             String name = state.getCompound("block").getString("name").toLowerCase();
