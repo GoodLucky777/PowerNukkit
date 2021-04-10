@@ -169,7 +169,7 @@ public class BlockStateRegistry {
             int runtimeId = runtimeIdAllocator.getAndIncrement();
 
             // GoodLucky
-            if (runtimeId == 4410 || runtimeId == 5511) {
+            if (runtimeId == BlockID.R_RUBY_ORE || runtimeId == BlockID.R_RUBY_BLOCK) {
                 continue;
             }
 
