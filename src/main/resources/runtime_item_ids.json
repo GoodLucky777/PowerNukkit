@@ -4681,7 +4681,7 @@
     "id": 616
   },
   // GoodLucky
-  /*{
+  {
     "name": "goodlucky:ruby_ore",
     "id": -4745,
     "oldId": -4745
@@ -4690,7 +4690,7 @@
     "name": "goodlucky:ruby_block",
     "id": -4945,
     "oldId": -4945
-  },*/
+  },
   {
     "name": "goodlucky:ruby",
     "id": 5000,
