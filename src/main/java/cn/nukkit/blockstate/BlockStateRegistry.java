@@ -90,13 +90,11 @@ public class BlockStateRegistry {
                 .putString("name", "goodlucky:ruby_ore")
                 .putCompound("states", new CompoundTag("states"))
         ,
-            new ListTag<CompoundTag>
+            new ListTag<CompoundTag>("LegacyStates")
                 .add(
-                    new CompoundTag("LegacyStates")
-                        .putCompound("0", new CompoundTag("0")
-                            .putInt("id", 5000)
-                            .putShort("val", 0)
-                        )
+                    new CompoundTag("0")
+                        .putInt("id", 5000)
+                        .putShort("val", 0)
                 )
         );
 
