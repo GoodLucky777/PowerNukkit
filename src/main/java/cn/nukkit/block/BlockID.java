@@ -510,4 +510,8 @@ public interface BlockID {
     int CRACKED_NETHER_BRICKS = 558;
     int QUARTZ_BRICKS = 559;
     //int UNKNOWN = 600;
+    
+    // GoodLucky Runtime Id
+    int R_RUBY_ORE = 5511;
+    int R_RUBY_BLOCK = 5510;
 }
