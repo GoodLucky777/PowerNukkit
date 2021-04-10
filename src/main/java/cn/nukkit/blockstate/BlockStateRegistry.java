@@ -135,8 +135,8 @@ public class BlockStateRegistry {
         // GoodLucky
         blockIdToPersistenceName.put(5000, "goodlucky:ruby_ore");
         persistenceNameToBlockId.put("goodlucky:ruby_ore", 5000);
-        //blockIdToPersistenceName.put(5200, "goodlucky:ruby_block");
-        //persistenceNameToBlockId.put("goodlucky:ruby_block", 5200);
+        blockIdToPersistenceName.put(5200, "goodlucky:ruby_block");
+        persistenceNameToBlockId.put("goodlucky:ruby_block", 5200);
 
         ListTag<CompoundTag> tag;
         //<editor-fold desc="Loading runtime_block_states.dat" defaultstate="collapsed">
@@ -179,6 +179,7 @@ public class BlockStateRegistry {
                            .putCompound("block", new CompoundTag("block")
                                .putString("name", "goodlucky:ruby_ore")
                                .putCompound("states", new CompoundTag("states"))
+                           )
                         , runtimeId);
                         runtimeId = runtimeIdAllocator.getAndIncrement();
                         break;
@@ -187,6 +188,7 @@ public class BlockStateRegistry {
                            .putCompound("block", new CompoundTag("block")
                                .putString("name", "goodlucky:ruby_block")
                                .putCompound("states", new CompoundTag("states"))
+                           )
                         , runtimeId);
                         runtimeId = runtimeIdAllocator.getAndIncrement();
                         break;
