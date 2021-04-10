@@ -174,7 +174,7 @@ public class BlockStateRegistry {
                 switch (runtimeId) {
                     default:
                         break idCheck;
-                    case 5411:
+                    case 5511:
                         registerState(5000, 0, new CompoundTag("")
                             .putCompound("block", new CompoundTag("block")
                                 .putString("name", "goodlucky:ruby_ore")
@@ -183,7 +183,7 @@ public class BlockStateRegistry {
                         , runtimeId);
                         runtimeId = runtimeIdAllocator.getAndIncrement();
                         break;
-                    case 5410:
+                    case 5510:
                         registerState(5200, 0, new CompoundTag("")
                             .putCompound("block", new CompoundTag("block")
                                 .putString("name", "goodlucky:ruby_block")
@@ -327,10 +327,6 @@ public class BlockStateRegistry {
     }
 
     public int getRuntimeId(BlockState state) {
-        // GoodLucky
-        if (state.getBlockId() == BlockID.RUBY_ORE) return 5411;
-        if (state.getBlockId() == BlockID.RUBY_BLOCK) return 5410;
-        
         return getRegistration(state).runtimeId;
     }
     
