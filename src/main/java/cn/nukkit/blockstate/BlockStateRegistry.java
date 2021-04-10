@@ -85,7 +85,7 @@ public class BlockStateRegistry {
         //</editor-fold>
         
         // GoodLucky
-        List<CompoundTag> temp = new ListTag<>("LegacyStates");
+        List<CompoundTag> temp = new ListTag<CompoundTag>("LegacyStates");
         metaOverrides.put(
             new CompoundTag("block")
                 .putString("name", "goodlucky:ruby_ore")
