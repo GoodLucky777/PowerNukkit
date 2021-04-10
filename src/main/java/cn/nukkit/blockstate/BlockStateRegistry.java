@@ -98,6 +98,7 @@ public class BlockStateRegistry {
         ,
             temp
         );
+        log.info(metaOverrides.toString());
 
         //<editor-fold desc="Loading block_ids.csv" defaultstate="collapsed">
         try (InputStream stream = Server.class.getClassLoader().getResourceAsStream("block_ids.csv")) { 
