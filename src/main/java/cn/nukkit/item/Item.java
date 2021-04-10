@@ -484,6 +484,9 @@ public class Item implements Cloneable, BlockID, ItemID {
         }
         
         // GoodLucky
+        addCreativeItem(new ItemBlock(Block.get(BlockID.RUBY_ORE), 0, 1));
+        addCreativeItem(new ItemBlock(Block.get(BlockID.RUBY_BLOCK), 0, 1));
+        
         addCreativeItem(Item.get(RUBY, 0, 1));
         addCreativeItem(Item.get(SAPPHIRE, 0, 1));
         addCreativeItem(Item.get(OPAL, 0, 1));
