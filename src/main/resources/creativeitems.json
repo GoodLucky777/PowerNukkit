@@ -1646,52 +1646,68 @@
       "id" : "minecraft:wither_rose"
     },
     {
-      "id" : "minecraft:white_dye"
+      "id" : "minecraft:white_dye",
+      "damage": 19
     },
     {
-      "id" : "minecraft:light_gray_dye"
+      "id" : "minecraft:light_gray_dye",
+      "damage": 7
     },
     {
-      "id" : "minecraft:gray_dye"
+      "id" : "minecraft:gray_dye",
+      "damage": 8
     },
     {
-      "id" : "minecraft:black_dye"
+      "id" : "minecraft:black_dye",
+      "damage": 16
     },
     {
-      "id" : "minecraft:brown_dye"
+      "id" : "minecraft:brown_dye",
+      "damage": 17
     },
     {
-      "id" : "minecraft:red_dye"
+      "id" : "minecraft:red_dye",
+      "damage": 1
     },
     {
-      "id" : "minecraft:orange_dye"
+      "id" : "minecraft:orange_dye",
+      "damage": 14
     },
     {
-      "id" : "minecraft:yellow_dye"
+      "id" : "minecraft:yellow_dye",
+      "damage": 11
     },
     {
-      "id" : "minecraft:lime_dye"
+      "id" : "minecraft:lime_dye",
+      "damage": 10
     },
     {
-      "id" : "minecraft:green_dye"
+      "id" : "minecraft:green_dye",
+      "damage": 2
     },
     {
-      "id" : "minecraft:cyan_dye"
+      "id" : "minecraft:cyan_dye",
+      "damage": 6
     },
     {
-      "id" : "minecraft:light_blue_dye"
+      "id" : "minecraft:light_blue_dye",
+      "damage": 12
     },
     {
-      "id" : "minecraft:blue_dye"
+      "id" : "minecraft:blue_dye",
+      "damage": 18
     },
     {
-      "id" : "minecraft:purple_dye"
+      "id" : "minecraft:purple_dye",
+      "damage": 5
     },
     {
-      "id" : "minecraft:magenta_dye"
+      "id" : "minecraft:magenta_dye",
+      "damage": 13
     },
     {
-      "id" : "minecraft:pink_dye"
+      "id" : "minecraft:pink_dye",
+      "damage": 9
     },
     {
       "id" : "minecraft:ink_sac"
@@ -1700,10 +1716,12 @@
       "id" : "minecraft:cocoa_beans"
     },
     {
-      "id" : "minecraft:lapis_lazuli"
+      "id" : "minecraft:lapis_lazuli",
+      "damage": 4
     },
     {
-      "id" : "minecraft:bone_meal"
+      "id" : "minecraft:bone_meal",
+      "damage": 15
     },
     {
       "id" : "minecraft:vine"
@@ -1846,193 +1864,256 @@
       "id" : "minecraft:turtle_egg"
     },
     {
-      "id" : "minecraft:chicken_spawn_egg"
+      "id" : "minecraft:chicken_spawn_egg",
+      "damage": 10
     },
     {
-      "id" : "minecraft:bee_spawn_egg"
+      "id" : "minecraft:bee_spawn_egg",
+      "damage": 122
     },
     {
-      "id" : "minecraft:cow_spawn_egg"
+      "id" : "minecraft:cow_spawn_egg",
+      "damage": 11
     },
     {
-      "id" : "minecraft:pig_spawn_egg"
+      "id" : "minecraft:pig_spawn_egg",
+      "damage": 12
     },
     {
-      "id" : "minecraft:sheep_spawn_egg"
+      "id" : "minecraft:sheep_spawn_egg",
+      "damage": 13
     },
     {
-      "id" : "minecraft:wolf_spawn_egg"
+      "id" : "minecraft:wolf_spawn_egg",
+      "damage": 14
     },
     {
-      "id" : "minecraft:polar_bear_spawn_egg"
+      "id" : "minecraft:polar_bear_spawn_egg",
+      "damage": 28
     },
     {
-      "id" : "minecraft:ocelot_spawn_egg"
+      "id" : "minecraft:ocelot_spawn_egg",
+      "damage": 22
     },
     {
-      "id" : "minecraft:cat_spawn_egg"
+      "id" : "minecraft:cat_spawn_egg",
+      "damage": 75
     },
     {
-      "id" : "minecraft:mooshroom_spawn_egg"
+      "id" : "minecraft:mooshroom_spawn_egg",
+      "damage": 16
     },
     {
-      "id" : "minecraft:bat_spawn_egg"
+      "id" : "minecraft:bat_spawn_egg",
+      "damage": 19
     },
     {
-      "id" : "minecraft:parrot_spawn_egg"
+      "id" : "minecraft:parrot_spawn_egg",
+      "damage": 30
     },
     {
-      "id" : "minecraft:rabbit_spawn_egg"
+      "id" : "minecraft:rabbit_spawn_egg",
+      "damage": 18
     },
     {
-      "id" : "minecraft:llama_spawn_egg"
+      "id" : "minecraft:llama_spawn_egg",
+      "damage": 29
     },
     {
-      "id" : "minecraft:horse_spawn_egg"
+      "id" : "minecraft:horse_spawn_egg",
+      "damage": 23
     },
     {
-      "id" : "minecraft:donkey_spawn_egg"
+      "id" : "minecraft:donkey_spawn_egg",
+      "damage": 24
     },
     {
-      "id" : "minecraft:mule_spawn_egg"
+      "id" : "minecraft:mule_spawn_egg",
+      "damage": 25
     },
     {
-      "id" : "minecraft:skeleton_horse_spawn_egg"
+      "id" : "minecraft:skeleton_horse_spawn_egg",
+      "damage": 26
     },
     {
-      "id" : "minecraft:zombie_horse_spawn_egg"
+      "id" : "minecraft:zombie_horse_spawn_egg",
+      "damage": 27
     },
     {
-      "id" : "minecraft:tropical_fish_spawn_egg"
+      "id" : "minecraft:tropical_fish_spawn_egg",
+      "damage": 111
     },
     {
-      "id" : "minecraft:cod_spawn_egg"
+      "id" : "minecraft:cod_spawn_egg",
+      "damage": 112
     },
     {
-      "id" : "minecraft:pufferfish_spawn_egg"
+      "id" : "minecraft:pufferfish_spawn_egg",
+      "damage": 108
     },
     {
-      "id" : "minecraft:salmon_spawn_egg"
+      "id" : "minecraft:salmon_spawn_egg",
+      "damage": 109
     },
     {
-      "id" : "minecraft:dolphin_spawn_egg"
+      "id" : "minecraft:dolphin_spawn_egg",
+      "damage": 31
     },
     {
-      "id" : "minecraft:turtle_spawn_egg"
+      "id" : "minecraft:turtle_spawn_egg",
+      "damage": 74
     },
     {
-      "id" : "minecraft:panda_spawn_egg"
+      "id" : "minecraft:panda_spawn_egg",
+      "damage": 113
     },
     {
-      "id" : "minecraft:fox_spawn_egg"
+      "id" : "minecraft:fox_spawn_egg",
+      "damage": 121
     },
     {
-      "id" : "minecraft:creeper_spawn_egg"
+      "id" : "minecraft:creeper_spawn_egg",
+      "damage": 33
     },
     {
-      "id" : "minecraft:enderman_spawn_egg"
+      "id" : "minecraft:enderman_spawn_egg",
+      "damage": 38
     },
     {
-      "id" : "minecraft:silverfish_spawn_egg"
+      "id" : "minecraft:silverfish_spawn_egg",
+      "damage": 39
     },
     {
-      "id" : "minecraft:skeleton_spawn_egg"
+      "id" : "minecraft:skeleton_spawn_egg",
+      "damage": 34
     },
     {
-      "id" : "minecraft:wither_skeleton_spawn_egg"
+      "id" : "minecraft:wither_skeleton_spawn_egg",
+      "damage": 48
     },
     {
-      "id" : "minecraft:stray_spawn_egg"
+      "id" : "minecraft:stray_spawn_egg",
+      "damage": 46
     },
     {
-      "id" : "minecraft:slime_spawn_egg"
+      "id" : "minecraft:slime_spawn_egg",
+      "damage": 47
     },
     {
-      "id" : "minecraft:spider_spawn_egg"
+      "id" : "minecraft:spider_spawn_egg",
+      "damage": 35
     },
     {
-      "id" : "minecraft:zombie_spawn_egg"
+      "id" : "minecraft:zombie_spawn_egg",
+      "damage": 32
     },
     {
-      "id" : "minecraft:zombie_pigman_spawn_egg"
+      "id" : "minecraft:zombie_pigman_spawn_egg",
+      "damage": 36
     },
     {
-      "id" : "minecraft:husk_spawn_egg"
+      "id" : "minecraft:husk_spawn_egg",
+      "damage": 47
     },
     {
-      "id" : "minecraft:drowned_spawn_egg"
+      "id" : "minecraft:drowned_spawn_egg",
+      "damage": 110
     },
     {
-      "id" : "minecraft:squid_spawn_egg"
+      "id" : "minecraft:squid_spawn_egg",
+      "damage": 17
     },
     {
-      "id" : "minecraft:cave_spider_spawn_egg"
+      "id" : "minecraft:cave_spider_spawn_egg",
+      "damage": 40
     },
     {
-      "id" : "minecraft:witch_spawn_egg"
+      "id" : "minecraft:witch_spawn_egg",
+      "damage": 45
     },
     {
-      "id" : "minecraft:guardian_spawn_egg"
+      "id" : "minecraft:guardian_spawn_egg",
+      "damage": 49
     },
     {
-      "id" : "minecraft:elder_guardian_spawn_egg"
+      "id" : "minecraft:elder_guardian_spawn_egg",
+      "damage": 50
     },
     {
-      "id" : "minecraft:endermite_spawn_egg"
+      "id" : "minecraft:endermite_spawn_egg",
+      "damage": 55
     },
     {
-      "id" : "minecraft:magma_cube_spawn_egg"
+      "id" : "minecraft:magma_cube_spawn_egg",
+      "damage": 42
     },
     {
-      "id" : "minecraft:strider_spawn_egg"
+      "id" : "minecraft:strider_spawn_egg",
+      "damage": 125
     },
     {
-      "id" : "minecraft:hoglin_spawn_egg"
+      "id" : "minecraft:hoglin_spawn_egg",
+      "damage": 124
     },
     {
-      "id" : "minecraft:piglin_spawn_egg"
+      "id" : "minecraft:piglin_spawn_egg",
+      "damage": 123
     },
     {
-      "id" : "minecraft:zoglin_spawn_egg"
+      "id" : "minecraft:zoglin_spawn_egg",
+      "damage": 126
     },
     {
-      "id" : "minecraft:piglin_brute_spawn_egg"
+      "id" : "minecraft:piglin_brute_spawn_egg",
+      "damage": 127
     },
     {
-      "id" : "minecraft:ghast_spawn_egg"
+      "id" : "minecraft:ghast_spawn_egg",
+      "damage": 41
     },
     {
-      "id" : "minecraft:blaze_spawn_egg"
+      "id" : "minecraft:blaze_spawn_egg",
+      "damage": 43
     },
     {
-      "id" : "minecraft:shulker_spawn_egg"
+      "id" : "minecraft:shulker_spawn_egg",
+      "damage": 54
     },
     {
-      "id" : "minecraft:vindicator_spawn_egg"
+      "id" : "minecraft:vindicator_spawn_egg",
+      "damage": 57
     },
     {
-      "id" : "minecraft:evoker_spawn_egg"
+      "id" : "minecraft:evoker_spawn_egg",
+      "damage": 104
     },
     {
-      "id" : "minecraft:vex_spawn_egg"
+      "id" : "minecraft:vex_spawn_egg",
+      "damage": 105
     },
     {
-      "id" : "minecraft:villager_spawn_egg"
+      "id" : "minecraft:villager_spawn_egg",
+      "damage": 15
     },
     {
-      "id" : "minecraft:wandering_trader_spawn_egg"
+      "id" : "minecraft:wandering_trader_spawn_egg",
+      "damage": 118
     },
     {
-      "id" : "minecraft:zombie_villager_spawn_egg"
+      "id" : "minecraft:zombie_villager_spawn_egg",
+      "damage": 44
     },
     {
-      "id" : "minecraft:phantom_spawn_egg"
+      "id" : "minecraft:phantom_spawn_egg",
+      "damage": 58
     },
     {
-      "id" : "minecraft:pillager_spawn_egg"
+      "id" : "minecraft:pillager_spawn_egg",
+      "damage": 114
     },
     {
-      "id" : "minecraft:ravager_spawn_egg"
+      "id" : "minecraft:ravager_spawn_egg",
+      "damage": 59
     },
     {
       "id" : "minecraft:obsidian"
@@ -3397,25 +3478,32 @@
       "id" : "minecraft:bucket"
     },
     {
-      "id" : "minecraft:milk_bucket"
+      "id" : "minecraft:milk_bucket",
+      "damage": 1
     },
     {
-      "id" : "minecraft:water_bucket"
+      "id" : "minecraft:water_bucket",
+      "damage": 8
     },
     {
-      "id" : "minecraft:lava_bucket"
+      "id" : "minecraft:lava_bucket",
+      "damage": 10
     },
     {
-      "id" : "minecraft:cod_bucket"
+      "id" : "minecraft:cod_bucket",
+      "damage": 2
     },
     {
-      "id" : "minecraft:salmon_bucket"
+      "id" : "minecraft:salmon_bucket",
+      "damage": 3
     },
     {
-      "id" : "minecraft:tropical_fish_bucket"
+      "id" : "minecraft:tropical_fish_bucket",
+      "damage": 4
     },
     {
-      "id" : "minecraft:pufferfish_bucket"
+      "id" : "minecraft:pufferfish_bucket",
+      "damage": 5
     },
     {
       "id" : "minecraft:skull",
@@ -4019,19 +4107,24 @@
       "id" : "minecraft:oak_boat"
     },
     {
-      "id" : "minecraft:spruce_boat"
+      "id" : "minecraft:spruce_boat",
+      "damage": 1
     },
     {
-      "id" : "minecraft:birch_boat"
+      "id" : "minecraft:birch_boat",
+      "damage": 2
     },
     {
-      "id" : "minecraft:jungle_boat"
+      "id" : "minecraft:jungle_boat",
+      "damage": 3
     },
     {
-      "id" : "minecraft:acacia_boat"
+      "id" : "minecraft:acacia_boat",
+      "damage": 4
     },
     {
-      "id" : "minecraft:dark_oak_boat"
+      "id" : "minecraft:dark_oak_boat",
+      "damage": 5
     },
     {
       "id" : "minecraft:rail"

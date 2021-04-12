@@ -518,7 +518,7 @@ public class Item implements Cloneable, BlockID, ItemID {
         if (id > 255) {
             id = 255 - id;
         }
-        return get(id, meta, count, tags);
+        return get(id, meta, count, tags, 0);
     }
 
     public static Item get(int id) {
@@ -533,10 +533,12 @@ public class Item implements Cloneable, BlockID, ItemID {
         return get(id, meta, count, EmptyArrays.EMPTY_BYTES);
     }
 
+    public static Item get(int id, Integer meta, int count, byte[] tags) { return get(id, meta, count, tags, 0); }
+
     @PowerNukkitDifference(
             info = "Prevents players from getting invalid items by limiting the return to the maximum damage defined in Block.getMaxItemDamage()",
             since = "1.4.0.0-PN")
-    public static Item get(int id, Integer meta, int count, byte[] tags) {
+    public static Item get(int id, Integer meta, int count, byte[] tags, int blockRuntimeId) {
         try {
             Class c = null;
             if (id < 0) {
@@ -549,13 +551,18 @@ public class Item implements Cloneable, BlockID, ItemID {
 
             if (id < 256) {
                 int blockId = id < 0? 255 - id : id;
-                if (meta == 0) {
+                if (meta == 0 && blockRuntimeId == 0) {
                     item = new ItemBlock(Block.get(blockId), 0, count);
                 } else if (meta == -1) {
                     // Special case for item instances used in fuzzy recipes
                     item = new ItemBlock(Block.get(blockId), -1);
                 } else {
-                    BlockState state = BlockState.of(blockId, meta);
+                    BlockState state;
+                    if (blockRuntimeId == 0) {
+                        state = BlockState.of(blockId, meta);
+                    } else {
+                        state = BlockStateRegistry.getBlockStateByRuntimeId(blockRuntimeId);
+                    }
                     try {
                         state.validate();
                         item = state.asItemBlock(count);
@@ -592,6 +599,32 @@ public class Item implements Cloneable, BlockID, ItemID {
                     id, meta, id < 0? " ("+(255 - id)+")":"", e);
             return new Item(id, meta, count).setCompoundTag(tags);
         }
+    }
+
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static Item fromNameSpace(String nameSpace, int meta, int blockRuntimeId) {
+        MinecraftItemID minecraftItemID = MinecraftItemID.getByNamespaceId(nameSpace);
+        OptionalInt optionalBlockRuntimeId = OptionalInt.of(blockRuntimeId);
+        OptionalInt optionalMeta = OptionalInt.of(meta);
+        if (minecraftItemID != null) {
+            Item item;
+            if (optionalBlockRuntimeId.isPresent()) {
+                item = minecraftItemID.get(1, optionalBlockRuntimeId.getAsInt());
+            } else {
+                item = minecraftItemID.get(1);
+            }
+            if (optionalMeta.isPresent()) {
+                int damage = optionalMeta.getAsInt();
+                if (damage < 0) {
+                    item = item.createFuzzyCraftingRecipe();
+                } else {
+                    item.setDamage(damage);
+                }
+            }
+            return item;
+        }
+        return Item.get(0,0,0);
     }
 
     @PowerNukkitDifference(since = "1.3.2.0-PN", info = "Improve namespaced name handling and allows to get custom blocks by name")
@@ -679,7 +712,7 @@ public class Item implements Cloneable, BlockID, ItemID {
             }
         }
 
-        return get(Utils.toInt(data.get("id")), Utils.toInt(data.getOrDefault("damage", 0)), Utils.toInt(data.getOrDefault("count", 1)), nbtBytes);
+        return get(Utils.toInt(data.get("id")), Utils.toInt(data.getOrDefault("damage", 0)), Utils.toInt(data.getOrDefault("count", 1)), nbtBytes, 0);
     }
 
     private static Item fromJsonStringId(Map<String, Object> data) {
@@ -688,12 +721,16 @@ public class Item implements Cloneable, BlockID, ItemID {
 
         String id = data.get("id").toString();
         Item item;
+        int meta = 0;
+        int blockRuntimeId = 0;
         if (data.containsKey("damage")) {
-            int meta = Utils.toInt(data.get("damage"));
-            item = fromString(id+":"+meta);
-        } else {
-            item = fromString(id);
+            meta = Utils.toInt(data.get("damage"));
         }
+        if (data.containsKey("blockRuntimeId")) {
+            blockRuntimeId = Utils.toInt(data.get("blockRuntimeId"));
+        }
+
+        item = fromNameSpace(id, meta, blockRuntimeId);
         item.setCompoundTag(nbtBytes);
         return item;
     }
