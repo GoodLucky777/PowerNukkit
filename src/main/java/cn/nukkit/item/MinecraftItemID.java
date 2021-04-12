@@ -957,7 +957,7 @@ public enum MinecraftItemID {
     
     // Goodlucky
     RUBY_ORE("goodlucky:ruby_ore", "goodlucky:ruby_ore", new String[]{"goodlucky:ruby_ore"}),
-    RUBY_BLOCK("goodlucky:ruby_block", "goodlucky:ruby_block", new String[]{"goodlucky:ruby_block")
+    RUBY_BLOCK("goodlucky:ruby_block", "goodlucky:ruby_block", new String[]{"goodlucky:ruby_block"})
     ;
     private static final Map<String, MinecraftItemID> namespacedIdMap = Arrays.stream(values())
             .flatMap(id-> 
