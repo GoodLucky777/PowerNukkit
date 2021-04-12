@@ -4683,13 +4683,13 @@
   // GoodLucky
   {
     "name": "goodlucky:ruby_ore",
-    "id": -4775,
-    "oldId": -4775
+    "id": -4745,
+    "oldId": -4745
   },
   {
     "name": "goodlucky:ruby_block",
-    "id": -4975,
-    "oldId": -4975
+    "id": -4945,
+    "oldId": -4945
   },
   {
     "name": "goodlucky:ruby",
