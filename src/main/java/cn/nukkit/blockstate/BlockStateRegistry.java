@@ -230,7 +230,7 @@ public class BlockStateRegistry {
      * @return {@code null} if the runtime id does not matches any known block state.
      */
     @Nullable
-    public BlockState getBlockStateByRuntimeId(int runtimeId) {
+    public static BlockState getBlockStateByRuntimeId(int runtimeId) {
         Registration registration = findRegistrationByRuntimeId(runtimeId);
         if (registration == null) {
             return null;
