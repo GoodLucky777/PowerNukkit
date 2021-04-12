@@ -953,11 +953,7 @@ public enum MinecraftItemID {
     @PowerNukkitOnly @Since("1.3.2.0-PN") WATER_BUCKET,
     @PowerNukkitOnly @Since("1.3.2.0-PN") LIGHT_GRAY_DYE,
     @PowerNukkitOnly @Since("1.3.2.0-PN") CHARCOAL,
-    @PowerNukkitOnly @Since("1.3.2.0-PN") AGENT_SPAWN_EGG(false, false, true),
-    
-    // Goodlucky
-    RUBY_ORE("goodlucky:item.ruby_ore", "goodlucky:ruby_ore", new String[]{"goodlucky:ruby_ore"}),
-    RUBY_BLOCK("goodlucky:item.ruby_block", "goodlucky:ruby_block", new String[]{"goodlucky:ruby_block"})
+    @PowerNukkitOnly @Since("1.3.2.0-PN") AGENT_SPAWN_EGG(false, false, true)
     ;
     private static final Map<String, MinecraftItemID> namespacedIdMap = Arrays.stream(values())
             .flatMap(id-> 
