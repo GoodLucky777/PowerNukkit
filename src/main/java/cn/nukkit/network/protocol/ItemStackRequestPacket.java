@@ -2,8 +2,7 @@ package cn.nukkit.network.protocol;
 
 import cn.nukkit.api.Since;
 import cn.nukkit.inventory.stack.request.ItemStackRequest;
-import cn.nukkit.inventory.stack.request.action.StackRequestAction;
-import cn.nukkit.inventory.stack.request.action.StackRequestActionType;
+import cn.nukkit.inventory.stack.request.action.*;
 import cn.nukkit.item.Item;
 
 import lombok.ToString;
@@ -35,6 +34,14 @@ public class ItemStackRequestPacket extends DataPacket {
             for (int i = 0; i < this.getUnsignedVarInt(); i++) {
                 switch (StackRequestActionType.values()[this.getVarByte()]) {
                     case TAKE:
+                        TakeStackRequestAction takeStackRequestAction = new TakeStackRequestAction();
+                        takeStackRequestAction.count = this.getVarByte();
+                        takeStackRequestAction.source = this.getStackRequestSlotInfo();
+                        takeStackRequestAction.destination = this.getStackRequestSlotInfo();
+                        actions.add(takeStackRequestAction);
+                        break;
+                    case PLACE:
+                        
                         break;
                     default:
                         // Unknown action id
