@@ -32,10 +32,10 @@ public class ItemStackRequestPacket extends DataPacket {
             request.requestId = this.getVarInt();
             List<StackRequestAction> actions = new ArrayList<>();
             for (int i = 0; i < this.getUnsignedVarInt(); i++) {
-                switch (StackRequestActionType.values()[this.getVarByte()]) {
+                switch (StackRequestActionType.values()[this.getByte()]) {
                     case TAKE:
                         TakeStackRequestAction takeStackRequestAction = new TakeStackRequestAction();
-                        takeStackRequestAction.count = this.getVarByte();
+                        takeStackRequestAction.count = this.getByte();
                         takeStackRequestAction.source = this.getStackRequestSlotInfo();
                         takeStackRequestAction.destination = this.getStackRequestSlotInfo();
                         actions.add(takeStackRequestAction);
