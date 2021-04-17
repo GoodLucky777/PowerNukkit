@@ -2,6 +2,7 @@ package cn.nukkit.utils;
 
 import cn.nukkit.entity.Attribute;
 import cn.nukkit.entity.data.Skin;
+import cn.nukkit.inventory.stack.ContainerSlotType;
 import cn.nukkit.inventory.stack.request.StackRequestSlotInfo;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemDurable;
@@ -761,7 +762,7 @@ public class BinaryStream {
     @Since("1.4.0.0-PN")
     public StackRequestSlotInfo getStackRequestSlotInfo() {
         StackRequestSlotInfo stackRequestSlotInfo = new StackRequestSlotInfo();
-        stackRequestSlotInfo.container = this.getByte();
+        stackRequestSlotInfo.container = ContainerSlotType.values()[this.getByte()];
         stackRequestSlotInfo.count = this.getByte();
         stackRequestSlotInfo.stackNetworkId = this.getVarInt();
         return stackRequestSlotInfo;
