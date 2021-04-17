@@ -2,6 +2,7 @@ package cn.nukkit.network.protocol;
 
 import cn.nukkit.api.Since;
 import cn.nukkit.inventory.stack.request.ItemStackRequest;
+import cn.nukkit.inventory.stack.request.action.StackRequestAction;
 import cn.nukkit.item.Item;
 
 import lombok.ToString;
@@ -29,10 +30,17 @@ public class ItemStackRequestPacket extends DataPacket {
         for (int i = 0; i < this.getUnsignedVarInt(); i++) {
             ItemStackRequest request = new ItemStackRequest();
             request.requestId = this.getVarInt();
+            List<StackRequestAction> actions = new ArrayList<>();
             for (int i = 0; i < this.getUnsignedVarInt(); i++) {
-                
+                switch (this.getVarByte()) {
+                    case TAKE:
+                        break;
+                    default:
+                        // Unknown action id
+                        break;
+                }
             }
-            request.actions = ;
+            request.actions = actions;
             List<String> filterStrings = new ArrayList<>();
             for (int i = 0; i < this.getUnsignedVarInt(); i++) {
                 filterStrings.add(this.getString());
