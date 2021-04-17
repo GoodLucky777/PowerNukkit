@@ -46,7 +46,7 @@ public class ItemStackRequestPacket extends DataPacket {
                         PlaceStackRequestAction placeStackRequestAction = new PlaceStackRequestAction();
                         placeStackRequestAction.count = (byte) this.getByte();
                         placeStackRequestAction.source = this.getStackRequestSlotInfo();
-                        ppaceStackRequestAction.destination = this.getStackRequestSlotInfo();
+                        placeStackRequestAction.destination = this.getStackRequestSlotInfo();
                         actions.add(placeStackRequestAction);
                         break;
                     default:
