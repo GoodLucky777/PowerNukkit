@@ -9,5 +9,5 @@ public class ItemStackResponse {
 
     public StackResponseStatus result;
     public int requestId;
-    public List<ContainerEntry> containers;
+    public List<StackResponseContainerInfo> containers;
 }
