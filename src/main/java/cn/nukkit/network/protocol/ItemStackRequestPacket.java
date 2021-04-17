@@ -32,10 +32,12 @@ public class ItemStackRequestPacket extends DataPacket {
             for (int i = 0; i < this.getUnsignedVarInt(); i++) {
                 
             }
-            String[] filterStrings;
+            request.actions = ;
+            List<String> filterStrings = new ArrayList<>();
             for (int i = 0; i < this.getUnsignedVarInt(); i++) {
-                filterStrings[i] = this.getString();
+                filterStrings.add(this.getString());
             }
+            request.filterStrings = filterStrings;
             
             requests.add(request);
         }
