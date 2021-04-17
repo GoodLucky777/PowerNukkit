@@ -3,6 +3,7 @@ package cn.nukkit.network.protocol;
 import cn.nukkit.api.Since;
 import cn.nukkit.inventory.stack.request.ItemStackRequest;
 import cn.nukkit.inventory.stack.request.action.StackRequestAction;
+import cn.nukkit.inventory.stack.request.action.StackRequestActionType;
 import cn.nukkit.item.Item;
 
 import lombok.ToString;
@@ -32,7 +33,7 @@ public class ItemStackRequestPacket extends DataPacket {
             request.requestId = this.getVarInt();
             List<StackRequestAction> actions = new ArrayList<>();
             for (int i = 0; i < this.getUnsignedVarInt(); i++) {
-                switch (this.getVarByte()) {
+                switch (StackRequestActionType.values()[this.getVarByte()]) {
                     case TAKE:
                         break;
                     default:
