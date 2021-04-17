@@ -68,7 +68,7 @@ public class ItemStackRequestPacket extends DataPacket {
         }
     }
     
-    @Desperated
+    @Deprecated
     @Since("1.4.0.0-PN")
     @Value
     public static class Request {
@@ -76,7 +76,7 @@ public class ItemStackRequestPacket extends DataPacket {
         private final List<ItemStackAction> actions;
     }
     
-    @Desperated
+    @Deprecated
     @Since("1.4.0.0-PN")
     @Value
     public static class ItemStackAction {
