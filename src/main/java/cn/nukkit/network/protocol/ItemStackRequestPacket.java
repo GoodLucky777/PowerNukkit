@@ -2,6 +2,7 @@ package cn.nukkit.network.protocol;
 
 import cn.nukkit.api.Since;
 import cn.nukkit.item.Item;
+
 import lombok.ToString;
 import lombok.Value;
 
@@ -13,8 +14,9 @@ import java.util.StringJoiner;
 @Since("1.4.0.0-PN")
 @ToString
 public class ItemStackRequestPacket extends DataPacket {
+
     @Since("1.4.0.0-PN")
-    public final List<Request> requests = new ArrayList<>();
+    public final List<ItemStackRequest> requests = new ArrayList<>();
 
     @Override
     public byte pid() {
@@ -23,14 +25,21 @@ public class ItemStackRequestPacket extends DataPacket {
 
     @Override
     public void decode() {
-
+        for (int i = 0; i < this.getUnsignedVarInt(); i++) {
+            
+        }
     }
 
     @Override
     public void encode() {
-
+        this.reset();
+        this.putUnsignedVarInt(this.requests.size());
+        for (ItemStackRequest request : this.requests) {
+            
+        }
     }
     
+    @Desperated
     @Since("1.4.0.0-PN")
     @Value
     public static class Request {
@@ -38,6 +47,7 @@ public class ItemStackRequestPacket extends DataPacket {
         private final List<ItemStackAction> actions;
     }
     
+    @Desperated
     @Since("1.4.0.0-PN")
     @Value
     public static class ItemStackAction {
