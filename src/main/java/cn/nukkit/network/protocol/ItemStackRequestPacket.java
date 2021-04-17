@@ -35,7 +35,7 @@ public class ItemStackRequestPacket extends DataPacket {
                 switch (StackRequestActionType.values()[this.getByte()]) {
                     case TAKE:
                         TakeStackRequestAction takeStackRequestAction = new TakeStackRequestAction();
-                        takeStackRequestAction.count = this.getByte();
+                        takeStackRequestAction.count = (byte) this.getByte();
                         takeStackRequestAction.source = this.getStackRequestSlotInfo();
                         takeStackRequestAction.destination = this.getStackRequestSlotInfo();
                         actions.add(takeStackRequestAction);
