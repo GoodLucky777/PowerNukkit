@@ -2,6 +2,7 @@ package cn.nukkit.utils;
 
 import cn.nukkit.entity.Attribute;
 import cn.nukkit.entity.data.Skin;
+import cn.nukkit.inventory.stack.request.StackRequestSlotInfo;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemDurable;
 import cn.nukkit.item.ItemID;
@@ -755,7 +756,17 @@ public class BinaryStream {
     public boolean feof() {
         return this.offset < 0 || this.offset >= this.buffer.length;
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public StackRequestSlotInfo getStackRequestSlotInfo() {
+        StackRequestSlotInfo stackRequestSlotInfo = new StackRequestSlotInfo();
+        stackRequestSlotInfo.container = this.getByte();
+        stackRequestSlotInfo.count = this.getByte();
+        stackRequestSlotInfo.stackNetworkId = this.getVarInt();
+        return stackRequestSlotInfo;
+    }
+    
     private void ensureCapacity(int minCapacity) {
         // overflow-conscious code
         if (minCapacity - buffer.length > 0) {
