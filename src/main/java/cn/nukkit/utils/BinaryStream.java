@@ -765,7 +765,7 @@ public class BinaryStream {
     public StackRequestSlotInfo getStackRequestSlotInfo() {
         StackRequestSlotInfo stackRequestSlotInfo = new StackRequestSlotInfo();
         stackRequestSlotInfo.container = ContainerSlotType.values()[this.getByte()];
-        stackRequestSlotInfo.count = (int) this.getByte();
+        stackRequestSlotInfo.count = (byte) this.getByte();
         stackRequestSlotInfo.stackNetworkId = this.getVarInt();
         return stackRequestSlotInfo;
     }
