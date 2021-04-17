@@ -1,8 +1,5 @@
 package cn.nukkit.inventory.stack.request.action;
 
-/**
- * @author GoodLucky777
- */
 public enum StackRequestActionType {
 
     TAKE,
