@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
-
+/**
+ * @author GoodLucky777
+ */
 @Since("1.4.0.0-PN")
 @ToString
 public class ItemStackRequestPacket extends DataPacket {
@@ -41,7 +43,11 @@ public class ItemStackRequestPacket extends DataPacket {
                         actions.add(takeStackRequestAction);
                         break;
                     case PLACE:
-                        
+                        PlaceStackRequestAction placeStackRequestAction = new PlaceStackRequestAction();
+                        placeStackRequestAction.count = (byte) this.getByte();
+                        placeStackRequestAction.source = this.getStackRequestSlotInfo();
+                        ppaceStackRequestAction.destination = this.getStackRequestSlotInfo();
+                        actions.add(placeStackRequestAction);
                         break;
                     default:
                         // Unknown action id
