@@ -31,11 +31,11 @@ public class ItemStackRequestPacket extends DataPacket {
             ItemStackRequest request = new ItemStackRequest();
             request.requestId = this.getVarInt();
             List<StackRequestAction> actions = new ArrayList<>();
-            for (int i = 0; i < this.getUnsignedVarInt(); i++) {
+            for (int j = 0; j < this.getUnsignedVarInt(); j++) {
                 switch (StackRequestActionType.values()[this.getByte()]) {
                     case TAKE:
                         TakeStackRequestAction takeStackRequestAction = new TakeStackRequestAction();
-                        takeStackRequestAction.count = this.getByte();
+                        takeStackRequestAction.count = (int) this.getByte();
                         takeStackRequestAction.source = this.getStackRequestSlotInfo();
                         takeStackRequestAction.destination = this.getStackRequestSlotInfo();
                         actions.add(takeStackRequestAction);
@@ -50,7 +50,7 @@ public class ItemStackRequestPacket extends DataPacket {
             }
             request.actions = actions;
             List<String> filterStrings = new ArrayList<>();
-            for (int i = 0; i < this.getUnsignedVarInt(); i++) {
+            for (int k = 0; k < this.getUnsignedVarInt(); k++) {
                 filterStrings.add(this.getString());
             }
             request.filterStrings = filterStrings;
