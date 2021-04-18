@@ -29,7 +29,15 @@ public class ItemStackResponsePacket extends DataPacket {
     @Override
     public void encode() {
         this.reset();
-        
+        this.putUnsignedVarInt(responses.size());
+        for (ItemStackResponse response : this.responses) {
+            this.putByte(response.result.ordinal());
+            this.putVarInt(response.requestId);
+            this.putUnsignedVarInt(response.containers.size());
+            for (StackResponseContainerInfo container : response.containers) {
+                
+            }
+        }
     }
 
     @Override
