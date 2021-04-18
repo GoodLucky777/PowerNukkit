@@ -3,6 +3,8 @@ package cn.nukkit.network.protocol;
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.inventory.stack.response.ItemStackResponse;
+import cn.nukkit.inventory.stack.response.StackResponseContainerInfo;
+import cn.nukkit.inventory.stack.response.StackResponseSlotInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,14 +37,18 @@ public class ItemStackResponsePacket extends DataPacket {
             this.putVarInt(response.requestId);
             this.putUnsignedVarInt(response.containers.size());
             for (StackResponseContainerInfo container : response.containers) {
-                
+                this.putByte(container.container.ordinal());
+                this.putUnsignedVarInt(container.slots.size());
+                for (StackResponseSlotInfo slot : container.slots) {
+                    
+                }
             }
         }
     }
 
     @Override
     public void decode() {
-        throw new UnsupportedOperationException(); //TODO
+        throw new UnsupportedOperationException(); // TODO
     }
 
     @Override
