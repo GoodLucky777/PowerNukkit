@@ -3886,6 +3886,9 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     
                     ItemStackRequestPacket stackRequestPacket = (ItemStackRequestPacket) packet;
                     
+                    List<ItemStackResponse> responses = new ArrayList<>();
+                    
+                    // Handle item stack request
                     for (ItemStackRequest request : stackRequestPacket.requests) {
                         for (StackRequestAction action : request.actions) {
                             switch (action.getType()) {
@@ -3899,6 +3902,13 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             }
                         }
                     }
+                    
+                    // Send item stack response to client
+                    ItemStackResponsePacket itemStackResponsePacket = new ItemStackResponsePacket();
+                    itemStackResponsePacket.responses = responses;
+                    this.dataPacket(itemStackResponsePacket);
+                    
+                    break;
                 default:
                     break;
             }
