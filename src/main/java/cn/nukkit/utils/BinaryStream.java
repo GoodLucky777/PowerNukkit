@@ -770,6 +770,17 @@ public class BinaryStream {
         return stackRequestSlotInfo;
     }
     
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void putStackResponseSlotInfo(StackResponseSlotInfo stackResponseSlotInfo) {
+        this.putByte(stackResponseSlotInfo.slot);
+        this.putByte(stackResponseSlotInfo.hotbarSlot);
+        this.putByte(stackResponseSlotInfo.count);
+        this,putVarInt(stackResponseSlotInfo.stackNetworkId);
+        this.putString(stackResponseSlotInfo.customName);
+        this.putVarInt(stackResponseSlotInfo.durabilityCorrection);
+    }
+    
     private void ensureCapacity(int minCapacity) {
         // overflow-conscious code
         if (minCapacity - buffer.length > 0) {
