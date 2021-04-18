@@ -36,6 +36,10 @@ import cn.nukkit.event.server.DataPacketSendEvent;
 import cn.nukkit.form.window.FormWindow;
 import cn.nukkit.form.window.FormWindowCustom;
 import cn.nukkit.inventory.*;
+import cn.nukkit.inventory.stack.*;
+import cn.nukkit.inventory.stack.request.*;
+import cn.nukkit.inventory.stack.request.action.*;
+import cn.nukkit.inventory.stack.response.*;
 import cn.nukkit.inventory.transaction.*;
 import cn.nukkit.inventory.transaction.action.InventoryAction;
 import cn.nukkit.inventory.transaction.data.ReleaseItemData;
@@ -3873,6 +3877,18 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     notFound.setTrackingId(posTrackReq.getTrackingId());
                     dataPacket(notFound);
                     break;
+                case ProtocolInfo.ITEM_STACK_REQUEST_PACKET:
+                    // Ignore if the player is spectator
+                    if (this.isSpectator()) {
+                        this.sendAllInventories();
+                        break;
+                    }
+                    
+                    ItemStackRequestPacket stackRequestPacket = (ItemStackRequestPacket) packet;
+                    
+                    for (ItemStackRequest request : stackRequestPacket.requests) {
+                        
+                    }
                 default:
                     break;
             }
