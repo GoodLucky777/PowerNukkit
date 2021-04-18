@@ -33,11 +33,11 @@ public class ItemStackResponsePacket extends DataPacket {
         this.reset();
         this.putUnsignedVarInt(responses.size());
         for (ItemStackResponse response : this.responses) {
-            this.putByte(response.result.ordinal());
+            this.putByte((byte) response.result.ordinal());
             this.putVarInt(response.requestId);
             this.putUnsignedVarInt(response.containers.size());
             for (StackResponseContainerInfo container : response.containers) {
-                this.putByte(container.container.ordinal());
+                this.putByte((byte) container.container.ordinal());
                 this.putUnsignedVarInt(container.slots.size());
                 for (StackResponseSlotInfo slot : container.slots) {
                     this.putStackResponseSlotInfo(slot);
