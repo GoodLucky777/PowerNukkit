@@ -40,7 +40,7 @@ public class ItemStackResponsePacket extends DataPacket {
                 this.putByte(container.container.ordinal());
                 this.putUnsignedVarInt(container.slots.size());
                 for (StackResponseSlotInfo slot : container.slots) {
-                    
+                    this.putStackResponseSlotInfo(slot);
                 }
             }
         }
