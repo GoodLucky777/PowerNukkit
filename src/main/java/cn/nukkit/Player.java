@@ -3887,7 +3887,17 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     ItemStackRequestPacket stackRequestPacket = (ItemStackRequestPacket) packet;
                     
                     for (ItemStackRequest request : stackRequestPacket.requests) {
-                        
+                        for (StackRequestAction action : request.actions) {
+                            switch (action.getType()) {
+                                case DESTROY:
+                                    DestroyStackRequestAction destroyStackRequestAction = (DestroyStackRequestAction) action;
+                                    
+                                    break;
+                                default:
+                                    // Unknown action
+                                    break;
+                            }
+                        }
                     }
                 default:
                     break;
