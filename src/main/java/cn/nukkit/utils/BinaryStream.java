@@ -6,6 +6,7 @@ import cn.nukkit.entity.Attribute;
 import cn.nukkit.entity.data.Skin;
 import cn.nukkit.inventory.stack.ContainerSlotType;
 import cn.nukkit.inventory.stack.request.StackRequestSlotInfo;
+import cn.nukkit.inventory.stack.response.StackResponseSlotInfo;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemDurable;
 import cn.nukkit.item.ItemID;
