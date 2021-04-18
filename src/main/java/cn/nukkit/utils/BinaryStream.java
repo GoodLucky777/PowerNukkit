@@ -776,7 +776,7 @@ public class BinaryStream {
         this.putByte(stackResponseSlotInfo.slot);
         this.putByte(stackResponseSlotInfo.hotbarSlot);
         this.putByte(stackResponseSlotInfo.count);
-        this,putVarInt(stackResponseSlotInfo.stackNetworkId);
+        this.putVarInt(stackResponseSlotInfo.stackNetworkId);
         this.putString(stackResponseSlotInfo.customName);
         this.putVarInt(stackResponseSlotInfo.durabilityCorrection);
     }
