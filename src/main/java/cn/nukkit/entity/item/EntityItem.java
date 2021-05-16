@@ -193,7 +193,7 @@ public class EntityItem extends Entity {
                 if (this.pickupDelay < 0) {
                     this.pickupDelay = 0;
                 }
-            } else {
+            }/* else { // Done in Player#checkNearEntities
                 for (Entity entity : this.level.getNearbyEntities(this.boundingBox.grow(1, 0.5, 1), this)) {
                     if (entity instanceof Player) {
                         if (((Player) entity).pickupEntity(this, true)) {
@@ -201,7 +201,7 @@ public class EntityItem extends Entity {
                         }
                     }
                 }
-            }
+            }*/
             
             if (this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z, 0) == BlockID.WATER 
                 || this.level.getBlockIdAt((int) this.x, (int) this.boundingBox.getMaxY(), (int) this.z, 0) == BlockID.STILL_WATER
