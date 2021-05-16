@@ -1,13 +1,14 @@
 package cn.nukkit.item;
 
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockID;
 import cn.nukkit.utils.BlockColor;
 import cn.nukkit.utils.DyeColor;
 
 /**
- * author: MagicDroidX
- * Nukkit Project
+ * @author MagicDroidX (Nukkit Project)
  */
 public class ItemDye extends Item {
 
@@ -66,6 +67,31 @@ public class ItemDye extends Item {
         if (this.meta == DyeColor.BROWN.getDyeData()) {
             this.block = Block.get(BlockID.COCOA_BLOCK);
         }
+    }
+
+    @PowerNukkitOnly
+    @Since("1.3.2.0-PN")
+    protected ItemDye(int id, Integer meta, int count, String name) {
+        super(id, meta, count, name);
+    }
+
+    @Since("1.3.2.0-PN")
+    @PowerNukkitOnly
+    @Override
+    public boolean isFertilizer() {
+        return getId() == DYE && getDyeColor().equals(DyeColor.WHITE);
+    }
+    
+    @Since("1.3.2.0-PN")
+    @PowerNukkitOnly
+    public boolean isLapisLazuli() {
+        return getId() == DYE && getDyeColor().equals(DyeColor.BLUE);
+    }
+
+    @Since("1.3.2.0-PN")
+    @PowerNukkitOnly
+    public boolean isCocoaBeans() {
+        return getId() == DYE && getDyeColor().equals(DyeColor.BROWN);
     }
 
     @Deprecated

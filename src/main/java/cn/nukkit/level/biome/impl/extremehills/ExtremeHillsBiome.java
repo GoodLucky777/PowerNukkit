@@ -2,24 +2,32 @@ package cn.nukkit.level.biome.impl.extremehills;
 
 import cn.nukkit.block.BlockSapling;
 import cn.nukkit.level.biome.type.GrassyBiome;
+import cn.nukkit.level.generator.populator.impl.PopulatorInfestedBlock;
+import cn.nukkit.level.generator.populator.impl.PopulatorOreEmerald;
 import cn.nukkit.level.generator.populator.impl.PopulatorTree;
 
 /**
- * author: DaPorkchop_
- * Nukkit Project
+ * @author DaPorkchop_ (Nukkit Project)
  * <p>
  * make sure this is touching another extreme hills type or it'll look dumb
  *
  * steep mountains with flat areas between
  */
 public class ExtremeHillsBiome extends GrassyBiome {
+
     public ExtremeHillsBiome() {
         this(true);
     }
 
     public ExtremeHillsBiome(boolean tree) {
         super();
-
+        
+        PopulatorOreEmerald oreEmerald = new PopulatorOreEmerald();
+        this.addPopulator(oreEmerald);
+        
+        PopulatorInfestedBlock infestedBlock = new PopulatorInfestedBlock();
+        this.addPopulator(infestedBlock);
+        
         if (tree) {
             PopulatorTree trees = new PopulatorTree(BlockSapling.SPRUCE);
             trees.setBaseAmount(2);

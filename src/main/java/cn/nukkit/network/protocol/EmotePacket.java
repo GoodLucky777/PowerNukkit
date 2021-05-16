@@ -1,13 +1,15 @@
 package cn.nukkit.network.protocol;
 
+import cn.nukkit.api.Since;
 import lombok.ToString;
 
 @ToString
 public class EmotePacket extends DataPacket {
     public static final byte NETWORK_ID = ProtocolInfo.EMOTE_PACKET;
-    public long runtimeId;
-    public String emoteID;
-    public byte flags;
+    
+    @Since("1.3.0.0-PN") public long runtimeId;
+    @Since("1.3.0.0-PN") public String emoteID;
+    @Since("1.3.0.0-PN") public byte flags;
 
     @Override
     public byte pid() {
@@ -16,7 +18,7 @@ public class EmotePacket extends DataPacket {
 
     @Override
     public void decode() {
-        this.runtimeId = this.getUnsignedVarLong();
+        this.runtimeId = this.getEntityRuntimeId();
         this.emoteID = this.getString();
         this.flags = (byte) this.getByte();
     }
@@ -24,7 +26,7 @@ public class EmotePacket extends DataPacket {
     @Override
     public void encode() {
         this.reset();
-        this.putUnsignedVarLong(this.runtimeId);
+        this.putEntityRuntimeId(this.runtimeId);
         this.putString(this.emoteID);
         this.putByte(flags);
     }

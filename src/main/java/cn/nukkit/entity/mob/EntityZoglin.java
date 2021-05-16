@@ -1,11 +1,14 @@
 package cn.nukkit.entity.mob;
 
+import cn.nukkit.Player;
+import cn.nukkit.api.Since;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
 
 /**
  * @author Erik Miller | EinBexiii
  */
+@Since("1.3.1.0-PN")
 public class EntityZoglin extends EntityMob {
 
     public final static int NETWORK_ID = 126;
@@ -38,5 +41,15 @@ public class EntityZoglin extends EntityMob {
     @Override
     public String getName() {
         return "Zoglin";
+    }
+
+    @Override
+    public boolean isUndead() {
+        return true;
+    }
+
+    @Override
+    public boolean isPreventingSleep(Player player) {
+        return true;
     }
 }

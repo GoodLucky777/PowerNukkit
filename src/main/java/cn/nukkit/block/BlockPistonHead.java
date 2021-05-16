@@ -1,13 +1,17 @@
 package cn.nukkit.block;
 
+import cn.nukkit.api.PowerNukkitDifference;
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemBlock;
 import cn.nukkit.math.BlockFace;
+import cn.nukkit.utils.Faceable;
 
 /**
  * @author CreeperFace
  */
-public class BlockPistonHead extends BlockTransparentMeta {
+public class BlockPistonHead extends BlockTransparentMeta implements Faceable {
 
     public BlockPistonHead() {
         this(0);
@@ -39,26 +43,50 @@ public class BlockPistonHead extends BlockTransparentMeta {
 
     @Override
     public Item[] getDrops(Item item) {
-        return new Item[0];
+        return Item.EMPTY_ARRAY;
     }
 
     @Override
+    @PowerNukkitDifference(info = "Remove BlockEntity of piston on break.", since = "1.4.0.0-PN")
     public boolean onBreak(Item item) {
         this.level.setBlock(this, Block.get(BlockID.AIR), true, true);
-        Block piston = getSide(getFacing().getOpposite());
+        Block side = getSide(getBlockFace().getOpposite());
 
-        if (piston instanceof BlockPistonBase && ((BlockPistonBase) piston).getFacing() == this.getFacing()) {
+        if (side instanceof BlockPistonBase && ((BlockPistonBase) side).getBlockFace() == this.getBlockFace()) {
+            BlockPistonBase piston = (BlockPistonBase) side;
             piston.onBreak(item);
+
+            if(piston.getBlockEntity() != null) piston.getBlockEntity().close();
         }
         return true;
     }
 
-    public BlockFace getFacing() {
-        return BlockFace.fromIndex(this.getDamage()).getOpposite();
+    @Override
+    public BlockFace getBlockFace() {
+        BlockFace face = BlockFace.fromIndex(this.getDamage());
+
+        return face.getHorizontalIndex() >= 0 ? face.getOpposite() : face;
     }
 
     @Override
     public boolean canBePushed() {
+        return false;
+    }
+
+    @Override
+    public boolean canBePulled() {
+        return false;
+    }
+
+    @Override
+    public boolean isSolid() {
+        return false;
+    }
+
+    @Since("1.3.0.0-PN")
+    @PowerNukkitOnly
+    @Override
+    public boolean isSolid(BlockFace side) {
         return false;
     }
 

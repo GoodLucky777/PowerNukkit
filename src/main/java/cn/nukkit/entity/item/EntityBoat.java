@@ -1,6 +1,10 @@
 package cn.nukkit.entity.item;
 
 import cn.nukkit.Player;
+import cn.nukkit.api.DeprecationDetails;
+import cn.nukkit.api.PowerNukkitDifference;
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockWater;
 import cn.nukkit.entity.Entity;
@@ -12,11 +16,10 @@ import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.event.vehicle.VehicleMoveEvent;
 import cn.nukkit.event.vehicle.VehicleUpdateEvent;
 import cn.nukkit.item.Item;
-import cn.nukkit.item.ItemBoat;
+import cn.nukkit.item.ItemID;
 import cn.nukkit.level.GameRule;
 import cn.nukkit.level.Location;
 import cn.nukkit.level.format.FullChunk;
-import cn.nukkit.level.particle.SmokeParticle;
 import cn.nukkit.math.AxisAlignedBB;
 import cn.nukkit.math.NukkitMath;
 import cn.nukkit.math.Vector3;
@@ -28,14 +31,18 @@ import cn.nukkit.network.protocol.SetEntityLinkPacket;
 import java.util.ArrayList;
 
 /**
- * Created by yescallop on 2016/2/13.
+ * @author yescallop
+ * @since 2016/2/13
  */
 public class EntityBoat extends EntityVehicle {
 
     public static final int NETWORK_ID = 90;
 
-    public static final int DATA_WOOD_ID = 20;
-
+    @Deprecated @DeprecationDetails(since = "1.3.2.0-PN", by = "Cloudburst Nukkit", 
+            reason = "Was removed because it is already defined in Entity.DATA_VARIANT",
+            replaceWith = "Entity.DATA_VARIANT")
+    @PowerNukkitOnly public static final int DATA_WOOD_ID = 20;
+    
     public static final Vector3f RIDER_PLAYER_OFFSET = new Vector3f(0, 1.02001f, 0);
     public static final Vector3f RIDER_OFFSET = new Vector3f(0, -0.2f, 0);
 
@@ -50,6 +57,11 @@ public class EntityBoat extends EntityVehicle {
     public static final double SINKING_MAX_SPEED = 0.005;
 
     protected boolean sinking = true;
+    
+    @Deprecated
+    @DeprecationDetails(since = "1.3.2.0-PN", by = "PowerNukkit", 
+            reason = "Unreliable direct field access", replaceWith = "getVariant(), setVariant(int)")
+    @Since("1.3.2.0-PN") public int woodID;
 
     public EntityBoat(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
@@ -61,8 +73,13 @@ public class EntityBoat extends EntityVehicle {
     @Override
     protected void initEntity() {
         super.initEntity();
+        if (this.namedTag.contains("Variant")) {
+            woodID = this.namedTag.getInt("Variant");
+        } else if (this.namedTag.contains("woodID")) {
+            woodID = this.namedTag.getByte("woodID");
+        }
 
-        this.dataProperties.putByte(DATA_WOOD_ID, this.namedTag.getByte("woodID"));
+        this.dataProperties.putInt(DATA_VARIANT, woodID);
     }
 
     @Override
@@ -96,6 +113,11 @@ public class EntityBoat extends EntityVehicle {
     }
 
     @Override
+    public String getInteractButtonText() {
+        return "action.interact.ride.boat";
+    }
+
+    @Override
     public boolean attack(EntityDamageEvent source) {
         if (invulnerable) {
             return false;
@@ -119,9 +141,6 @@ public class EntityBoat extends EntityVehicle {
         for (Entity linkedEntity : this.passengers) {
             linkedEntity.riding = null;
         }
-
-        SmokeParticle particle = new SmokeParticle(this);
-        this.level.addParticle(particle);
     }
 
     @Override
@@ -374,7 +393,7 @@ public class EntityBoat extends EntityVehicle {
     public void applyEntityCollision(Entity entity) {
         if (this.riding == null && entity.riding != this && !entity.passengers.contains(this)) {
             if (!entity.boundingBox.intersectsWith(this.boundingBox.grow(0.20000000298023224, -0.1, 0.20000000298023224))
-                    || entity instanceof Player && ((Player) entity).getGamemode() == Player.SPECTATOR) {
+                    || entity instanceof Player && ((Player) entity).isSpectator()) {
                 return;
             }
 
@@ -409,12 +428,36 @@ public class EntityBoat extends EntityVehicle {
         return false;
     }
 
+    @PowerNukkitDifference(info = "Fixes a dupe issue when attacking too quickly", since = "1.3.1.2-PN")
     @Override
     public void kill() {
+        if (!isAlive()) {
+            return;
+        }
         super.kill();
 
         if (level.getGameRules().getBoolean(GameRule.DO_ENTITY_DROPS)) {
-            this.level.dropItem(this, new ItemBoat());
+            this.level.dropItem(this, Item.get(ItemID.BOAT, this.woodID));
         }
+    }
+
+    @Override
+    public void saveNBT() {
+        super.saveNBT();
+        this.namedTag.putInt("Variant", this.woodID); // Correct way in Bedrock Edition
+        this.namedTag.putByte("woodID", this.woodID); // Compatibility with Cloudburst Nukkit
+    }
+
+    @PowerNukkitOnly
+    @Since("1.3.2.0-PN")
+    public int getVariant() {
+        return this.woodID;
+    }
+
+    @PowerNukkitOnly
+    @Since("1.3.2.0-PN")
+    public void setVariant(int variant) {
+        this.woodID = variant;
+        this.dataProperties.putInt(DATA_VARIANT, variant);
     }
 }

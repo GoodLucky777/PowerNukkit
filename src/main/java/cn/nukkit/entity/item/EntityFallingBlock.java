@@ -1,6 +1,7 @@
 package cn.nukkit.entity.item;
 
 import cn.nukkit.block.Block;
+import cn.nukkit.block.BlockLava;
 import cn.nukkit.block.BlockLiquid;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.data.IntEntityData;
@@ -11,6 +12,7 @@ import cn.nukkit.item.Item;
 import cn.nukkit.level.GameRule;
 import cn.nukkit.level.GlobalBlockPalette;
 import cn.nukkit.level.format.FullChunk;
+import cn.nukkit.level.particle.DestroyBlockParticle;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.network.protocol.LevelEventPacket;
@@ -59,6 +61,7 @@ public class EntityFallingBlock extends Entity {
 
     protected int blockId;
     protected int damage;
+    protected boolean breakOnLava;
 
     public EntityFallingBlock(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
@@ -81,12 +84,15 @@ public class EntityFallingBlock extends Entity {
             }
         }
 
+        breakOnLava = namedTag.getBoolean("BreakOnLava");
+
         if (blockId == 0) {
             close();
             return;
         }
 
         this.fireProof = true;
+        this.setDataFlag(DATA_FLAGS, DATA_FLAG_FIRE_IMMUNE, true);
 
         setDataProperty(new IntEntityData(DATA_VARIANT, GlobalBlockPalette.getOrCreateRuntimeId(this.getBlock(), this.getDamage())));
     }
@@ -130,6 +136,15 @@ public class EntityFallingBlock extends Entity {
             motionZ *= friction;
 
             Vector3 pos = (new Vector3(x - 0.5, y, z - 0.5)).round();
+
+            if (breakOnLava && level.getBlock(pos.subtract(0, 1, 0)) instanceof BlockLava) {
+                close();
+                if (this.level.getGameRules().getBoolean(GameRule.DO_ENTITY_DROPS)) {
+                    getLevel().dropItem(this, Block.get(this.getBlock(), this.getDamage()).toItem());
+                }
+                level.addParticle(new DestroyBlockParticle(pos, Block.get(getBlock(), getDamage())));
+                return true;
+            }
 
             if (onGround) {
                 close();

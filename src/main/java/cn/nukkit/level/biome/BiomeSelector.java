@@ -4,8 +4,7 @@ import cn.nukkit.level.generator.noise.nukkit.f.SimplexF;
 import cn.nukkit.math.NukkitRandom;
 
 /**
- * author: DaPorkchop_
- * Nukkit Project
+ * @author DaPorkchop_ (Nukkit Project)
  */
 //WIP
 //do not touch lol
@@ -102,9 +101,27 @@ public class BiomeSelector {
                 }
             } else {
                 if (rainfall < 0f)  {
-                    biome = EnumBiome.OCEAN;
+                    if (temperature < -0.4f) {
+                        biome = EnumBiome.FROZEN_OCEAN;
+                    } else if (temperature < 0f) {
+                        biome = EnumBiome.COLD_OCEAN;
+                    } else if (temperature < 0.35f) {
+                        biome = EnumBiome.OCEAN;
+                    } else if (temperature < 0.6f) {
+                        biome = EnumBiome.LUKEWARM_OCEAN;
+                    } else {
+                        biome = EnumBiome.WARM_OCEAN;
+                    }
                 } else {
-                    biome = EnumBiome.DEEP_OCEAN;
+                    if (temperature < -0.4f) {
+                        biome = EnumBiome.DEEP_FROZEN_OCEAN;
+                    } else if (temperature < 0f) {
+                        biome = EnumBiome.DEEP_COLD_OCEAN;
+                    } else if (temperature < 0.4f) {
+                        biome = EnumBiome.DEEP_OCEAN;
+                    } else {
+                        biome = EnumBiome.DEEP_LUKEWARM_OCEAN;
+                    }
                 }
             }
         } else if (Math.abs(noiseRiver) < 0.04f) {

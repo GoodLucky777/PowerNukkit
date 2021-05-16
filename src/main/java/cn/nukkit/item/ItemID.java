@@ -1,5 +1,8 @@
 package cn.nukkit.item;
 
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
+
 public interface ItemID {
     int IRON_SHOVEL = 256;
     int IRON_PICKAXE = 257;
@@ -199,6 +202,7 @@ public interface ItemID {
     int DARK_OAK_DOOR = 431;
     int CHORUS_FRUIT = 432;
     int POPPED_CHORUS_FRUIT = 433;
+    @Since("1.2.1.0-PN") @PowerNukkitOnly int BANNER_PATTERN = 434;
 
     int DRAGON_BREATH = 437;
     int SPLASH_POTION = 438;
@@ -210,6 +214,7 @@ public interface ItemID {
     int SHULKER_SHELL = 445;
     int BANNER = 446;
     int TOTEM = 450;
+    
     int IRON_NUGGET = 452;
 
     int TRIDENT = 455;
@@ -229,7 +234,13 @@ public interface ItemID {
     int SCUTE = 468;
     int TURTLE_SHELL = 469;
     int PHANTOM_MEMBRANE = 470;
-
+    @PowerNukkitOnly int CROSSBOW = 471;
+    @PowerNukkitOnly int SPRUCE_SIGN = 472;
+    @PowerNukkitOnly int BIRCH_SIGN = 473;
+    @PowerNukkitOnly int JUNGLE_SIGN = 474;
+    @PowerNukkitOnly int ACACIA_SIGN = 475;
+    @PowerNukkitOnly int DARKOAK_SIGN = 476;
+    @PowerNukkitOnly int DARK_OAK_SIGN = 476;
     int SWEET_BERRIES = 477;
 
     int RECORD_13 = 500;
@@ -247,23 +258,59 @@ public interface ItemID {
 
     int SHIELD = 513;
 
+    @PowerNukkitOnly int CAMPFIRE = 720;
+
+    @PowerNukkitOnly int SUSPICIOUS_STEW = 734;
+    
     int HONEYCOMB = 736;
     int HONEY_BOTTLE = 737;
 
-    int LODESTONECOMPASS = 741;
-    int NETHERITE_INGOT = 742;
-    int NETHERITE_SWORD = 743;
-    int NETHERITE_SHOVEL = 744;
-    int NETHERITE_PICKAXE = 745;
-    int NETHERITE_AXE = 746;
-    int NETHERITE_HOE = 747;
-    int NETHERITE_HELMET = 748;
-    int NETHERITE_CHESTPLATE = 749;
-    int NETHERITE_LEGGINGS = 750;
-    int NETHERITE_BOOTS = 751;
-    int NETHERITE_SCRAP = 752;
+    @Since("1.3.2.0-PN") int LODESTONECOMPASS = 741;
+    @Since("1.4.0.0-PN") @PowerNukkitOnly int LODESTONE_COMPASS = LODESTONECOMPASS;
+    @Since("1.3.2.0-PN") int NETHERITE_INGOT = 742;
+    @Since("1.3.2.0-PN") int NETHERITE_SWORD = 743;
+    @Since("1.3.2.0-PN") int NETHERITE_SHOVEL = 744;
+    @Since("1.3.2.0-PN") int NETHERITE_PICKAXE = 745;
+    @Since("1.3.2.0-PN") int NETHERITE_AXE = 746;
+    @Since("1.3.2.0-PN") int NETHERITE_HOE = 747;
+    @Since("1.3.2.0-PN") int NETHERITE_HELMET = 748;
+    @Since("1.3.2.0-PN") int NETHERITE_CHESTPLATE = 749;
+    @Since("1.3.2.0-PN") int NETHERITE_LEGGINGS = 750;
+    @Since("1.3.2.0-PN") int NETHERITE_BOOTS = 751;
+    @Since("1.3.2.0-PN") int NETHERITE_SCRAP = 752;
+    @Since("1.4.0.0-PN") @PowerNukkitOnly int CRIMSON_SIGN = 753;
+    @Since("1.4.0.0-PN") @PowerNukkitOnly int WARPED_SIGN = 754;
+    @Since("1.4.0.0-PN") @PowerNukkitOnly int CRIMSON_DOOR = 755;
+    @Since("1.4.0.0-PN") @PowerNukkitOnly int WARPED_DOOR = 756;
+    @Since("1.3.2.0-PN") int WARPED_FUNGUS_ON_A_STICK = 757;
+    @Since("1.4.0.0-PN") @PowerNukkitOnly int CHAIN = 758;
+    @Since("1.3.2.0-PN") int RECORD_PIGSTEP = 759;
+    @Since("1.4.0.0-PN") @PowerNukkitOnly int NETHER_SPROUTS = 760;
 
-    int WARPED_FUNGUS_ON_A_STICK = 757;
+    @Since("1.4.0.0-PN") @PowerNukkitOnly int SOUL_CAMPFIRE = 801;
 
-    int RECORD_PIGSTEP = 759;
+    //@PowerNukkitOnly int DEBUG_STICK = <Possible:> 802+;
+    
+    // GoodLucky
+    int RUBY = 5000;
+    int SAPPHIRE = 5001;
+    int OPAL = 5002;
+    
+    int BACON = 5400;
+    int BAGUETTE = 5401;
+    int BEER = 5402;
+    int BROWNIE = 5403;
+    int CHEESE = 5404;
+    int CHOCOLATE = 5405;
+    int FRIED_CHICKEN = 5406;
+    int FRIED_CHICKEN_LEG = 5407;
+    int FRIED_EGG = 5408;
+    int APPLE_PIE = 5409;
+    int PRETZEL = 5410;
+    int WHISKEY = 5411;
+    int WINE = 5412;
+    
+    int RUBY_SWORD = 6000;
+    
+    int GRENADE_FRAG = 6100;
 }

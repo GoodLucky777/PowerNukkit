@@ -1,5 +1,6 @@
 package cn.nukkit.entity.mob;
 
+import cn.nukkit.Player;
 import cn.nukkit.entity.EntitySmite;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
@@ -38,5 +39,15 @@ public class EntityWitherSkeleton extends EntityMob implements EntitySmite {
     @Override
     public String getName() {
         return "WitherSkeleton";
+    }
+
+    @Override
+    public boolean isUndead() {
+        return true;
+    }
+
+    @Override
+    public boolean isPreventingSleep(Player player) {
+        return true;
     }
 }
