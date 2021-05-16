@@ -113,7 +113,6 @@ public class NetworkInventoryAction {
         this.inventorySlot = (int) packet.getUnsignedVarInt();
         this.oldItem = packet.getSlot();
         this.newItem = packet.getSlot();
-
         return this;
     }
 

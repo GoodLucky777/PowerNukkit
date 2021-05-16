@@ -1,6 +1,7 @@
 package cn.nukkit.network.protocol;
 
 import cn.nukkit.api.Since;
+import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.inventory.*;
 import cn.nukkit.item.Item;
 import lombok.ToString;
@@ -35,6 +36,7 @@ public class CraftingDataPacket extends DataPacket {
         Collections.addAll(entries, recipe);
     }
 
+    @PowerNukkitOnly
     public void addStonecutterRecipe(StonecutterRecipe... recipes) {
         Collections.addAll(entries, recipes);
     }
@@ -43,6 +45,7 @@ public class CraftingDataPacket extends DataPacket {
         Collections.addAll(entries, recipe);
     }
 
+    @PowerNukkitOnly
     public void addCartographyRecipe(CartographyRecipe... recipe) {
         Stream.of(recipe).filter(r -> r.getRecipeId() != null).forEachOrdered(r -> entries.add(r));
     }
@@ -51,14 +54,17 @@ public class CraftingDataPacket extends DataPacket {
         Collections.addAll(entries, recipe);
     }
 
+    @PowerNukkitOnly
     public void addSmokerRecipe(SmokerRecipe... recipe) {
         Collections.addAll(entries, recipe);
     }
 
+    @PowerNukkitOnly
     public void addBlastFurnaceRecipe(BlastFurnaceRecipe... recipe) {
         Collections.addAll(entries, recipe);
     }
 
+    @PowerNukkitOnly
     public void addCampfireRecipeRecipe(CampfireRecipe... recipe) {
         Collections.addAll(entries, recipe);
     }
@@ -103,7 +109,7 @@ public class CraftingDataPacket extends DataPacket {
                     this.putUnsignedVarInt(1);
                     this.putRecipeIngredient(stonecutter.getIngredient());
                     this.putUnsignedVarInt(1);
-                    this.putSlotInstance(stonecutter.getResult());
+                    this.putSlot(stonecutter.getResult(), true);
                     this.putUUID(stonecutter.getId());
                     this.putString(CRAFTING_TAG_STONECUTTER);
                     this.putVarInt(stonecutter.getPriority());
@@ -119,7 +125,7 @@ public class CraftingDataPacket extends DataPacket {
                         this.putRecipeIngredient(ingredient);
                     }
                     this.putUnsignedVarInt(1);
-                    this.putSlotInstance(shapeless.getResult());
+                    this.putSlot(shapeless.getResult(), true);
                     this.putUUID(shapeless.getId());
                     this.putString(recipe.getType() == RecipeType.CARTOGRAPHY ? CRAFTING_TAG_CARTOGRAPHY_TABLE : CRAFTING_TAG_CRAFTING_TABLE);
                     this.putVarInt(shapeless.getPriority());
@@ -141,7 +147,7 @@ public class CraftingDataPacket extends DataPacket {
                     outputs.addAll(shaped.getExtraResults());
                     this.putUnsignedVarInt(outputs.size());
                     for (Item output : outputs) {
-                        this.putSlotInstance(output);
+                        this.putSlot(output, true);
                     }
                     this.putUUID(shaped.getId());
                     this.putString(CRAFTING_TAG_CRAFTING_TABLE);
@@ -162,7 +168,7 @@ public class CraftingDataPacket extends DataPacket {
                     if (recipe.getType().name().endsWith("_DATA")) {
                         this.putVarInt(input.getDamage());
                     }
-                    this.putSlotInstance(smelting.getResult());
+                    this.putSlot(smelting.getResult(), true);
                     switch (recipe.getType()) {
                         case FURNACE:
                         case FURNACE_DATA:

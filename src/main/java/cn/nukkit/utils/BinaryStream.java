@@ -1,13 +1,13 @@
 package cn.nukkit.utils;
 
-import cn.nukkit.blockstate.BlockStateRegistry;
+import cn.nukkit.block.Block;
+import cn.nukkit.api.Since;
 import cn.nukkit.entity.Attribute;
 import cn.nukkit.entity.data.Skin;
-import cn.nukkit.item.Item;
-import cn.nukkit.item.ItemID;
-import cn.nukkit.item.RuntimeItems;
+import cn.nukkit.item.*;
 import cn.nukkit.level.GameRule;
 import cn.nukkit.level.GameRules;
+import cn.nukkit.level.GlobalBlockPalette;
 import cn.nukkit.math.BlockFace;
 import cn.nukkit.math.BlockVector3;
 import cn.nukkit.math.Vector3f;
@@ -376,18 +376,18 @@ public class BinaryStream {
     }
 
     public Item getSlot() {
-        int id = getVarInt();
-        if (id == 0) {
+        int networkId = getVarInt();
+        if (networkId == 0) {
             return Item.get(0, 0, 0);
         }
 
         int count = getLShort();
         int damage = (int) getUnsignedVarInt();
 
-        int fullId = RuntimeItems.getRuntimeMapping().getLegacyFullId(id);
-        boolean hasData = RuntimeItems.hasData(fullId);
-        id = RuntimeItems.getId(fullId);
+        int fullId = RuntimeItems.getRuntimeMapping().getLegacyFullId(networkId);
+        int id = RuntimeItems.getId(fullId);
 
+        boolean hasData = RuntimeItems.hasData(fullId);
         if (hasData) {
             damage = RuntimeItems.getData(fullId);
         }
@@ -477,15 +477,6 @@ public class BinaryStream {
             item.setNamedTag(namedTag);
         }
 
-        return item;
-    }
-
-    public void putSlotInstance(Item item) {
-        if (item == null || item.getId() == 0) {
-            this.putByte((byte) 0);
-            return;
-        }
-
         int networkFullId = RuntimeItems.getRuntimeMapping().getNetworkFullId(item);
         int networkId = RuntimeItems.getNetworkId(networkFullId);
 
@@ -500,33 +491,47 @@ public class BinaryStream {
     }
 
     public void putSlot(Item item) {
+        this.putSlot(item, false);
+    }
 
+    @Since("1.4.0.0-PN")
+    public void putSlot(Item item, boolean instanceItem) {
         if (item == null || item.getId() == 0) {
-            this.putByte((byte) 0);
+            putByte((byte) 0);
             return;
         }
 
         int networkFullId = RuntimeItems.getRuntimeMapping().getNetworkFullId(item);
         int networkId = RuntimeItems.getNetworkId(networkFullId);
 
-        int blockRuntimeId = BlockStateRegistry.getRuntimeId(item.getBlock().getCurrentState());
+        putVarInt(networkId);
+        putLShort(item.getCount());
 
-        this.putVarInt(networkId);
+        int legacyData = 0;
+        if (item.getId() > 256) { // Not a block
+            if (item instanceof ItemDurable || !RuntimeItems.hasData(networkFullId)) {
+                legacyData = item.getDamage();
+            }
+        }
+        putUnsignedVarInt(legacyData);
 
-        this.putLShort(item.getCount());
-        this.putUnsignedVarInt(item.getDamage());
-        this.putBoolean(true);
-        this.putVarInt(0);
-        writeCompoundTag(item, blockRuntimeId);
+        if (!instanceItem) {
+            putBoolean(true); // hasNetId
+            putVarInt(0); // netId
+        }
 
-    }
+        Block block = item.getBlockUnsafe();
+        int blockRuntimeId = block == null ? 0 : block.getRuntimeId();
+        putVarInt(blockRuntimeId);
 
-    private void writeCompoundTag(Item item, int blockRuntimeId) {
-        this.putVarInt(Math.max(blockRuntimeId, 0));
+        int data = 0;
+        if (item instanceof ItemDurable || item.getId() < 256) {
+            data = item.getDamage();
+        }
 
-        ByteBuf buf = ByteBufAllocator.DEFAULT.ioBuffer();
-        try (LittleEndianByteBufOutputStream stream = new LittleEndianByteBufOutputStream(buf)) {
-            if (item.getDamage() != 0) {
+        ByteBuf userDataBuf = ByteBufAllocator.DEFAULT.ioBuffer();
+        try (LittleEndianByteBufOutputStream stream = new LittleEndianByteBufOutputStream(userDataBuf)) {
+            if (data != 0) {
                 byte[] nbt = item.getCompoundTag();
                 CompoundTag tag;
                 if (nbt == null || nbt.length == 0) {
@@ -537,7 +542,7 @@ public class BinaryStream {
                 if (tag.contains("Damage")) {
                     tag.put("__DamageConflict__", tag.removeAndGet("Damage"));
                 }
-                tag.putInt("Damage", item.getDamage());
+                tag.putInt("Damage", data);
                 stream.writeShort(-1);
                 stream.writeByte(1); // Hardcoded in current version
                 stream.write(NBTIO.write(tag, ByteOrder.LITTLE_ENDIAN));
@@ -546,8 +551,9 @@ public class BinaryStream {
                 stream.writeByte(1); // Hardcoded in current version
                 stream.write(item.getCompoundTag());
             } else {
-                buf.writeShortLE(0);
+                userDataBuf.writeShortLE(0);
             }
+
             List<String> canPlaceOn = extractStringList(item, "CanPlaceOn");
             stream.writeInt(canPlaceOn.size());
             for (String string : canPlaceOn) {
@@ -564,14 +570,13 @@ public class BinaryStream {
                 stream.writeLong(0);
             }
 
-            byte[] bytes = new byte[buf.readableBytes()];
-            buf.readBytes(bytes);
-            this.putByteArray(bytes);
-
+            byte[] bytes = new byte[userDataBuf.readableBytes()];
+            userDataBuf.readBytes(bytes);
+            putByteArray(bytes);
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw new IllegalStateException("Unable to write item user data", e);
         } finally {
-            buf.release();
+            userDataBuf.release();
         }
     }
 
