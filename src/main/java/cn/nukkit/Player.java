@@ -1156,7 +1156,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                 log.trace("Outbound {}: {}", this.getName(), packet);
             }
 
-            this.interfaz.putPacket(this, packet, false, true);
+            this.interfaz.putPacket(this, packet, false, false);
         }
         return true;
     }
@@ -2252,8 +2252,11 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         startGamePacket.generator = 1; //0 old, 1 infinite, 2 flat
         startGamePacket.dimension = (byte) getLevel().getDimension();
         //startGamePacket.isInventoryServerAuthoritative = true;
-        this.dataPacket(startGamePacket);
-
+        this.dataPacketImmediately(startGamePacket);
+        
+        ItemComponentPacket itemComponentPacket = new ItemComponentPacket();
+        this.dataPacket(itemComponentPacket);
+        
         this.dataPacket(new BiomeDefinitionListPacket());
         this.dataPacket(new AvailableEntityIdentifiersPacket());
         this.inventory.sendCreativeContents();
@@ -2946,11 +2949,19 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             ((EntityRideable) riding).mountEntity(this);
                             break;
                         case InteractPacket.ACTION_OPEN_INVENTORY:
-                            if (targetEntity.getId() != this.getId()) break;
+                            if (targetEntity instanceof EntityRideable) {
+                                if (!(targetEntity instanceof EntityBoat || targetEntity instanceof EntityMinecartEmpty)) {
+                                    break;
+                                }
+                            } else if (targetEntity.getId() != this.getId()) {
+                                break;
+                            }
+                            
                             if (!this.inventoryOpen) {
                                 this.inventory.open(this);
                                 this.inventoryOpen = true;
                             }
+                            
                             break;
                     }
                     break;
@@ -3806,7 +3817,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             success = ((ItemBookAndQuill) newBook).swapPages(bookEditPacket.pageNumber, bookEditPacket.secondaryPageNumber);
                             break;
                         case SIGN_BOOK:
-                            newBook = Item.get(Item.WRITTEN_BOOK, 0, 1, oldBook.getCompoundTag());
+                            newBook = Item.get(Item.WRITTEN_BOOK, 0, 1, oldBook.getCompoundTag(), 0);
                             success = ((ItemBookWritten) newBook).signBook(bookEditPacket.title, bookEditPacket.author, bookEditPacket.xuid, ItemBookWritten.GENERATION_ORIGINAL);
                             break;
                         default:
@@ -4126,7 +4137,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             if (notify && reason.length() > 0) {
                 DisconnectPacket pk = new DisconnectPacket();
                 pk.message = reason;
-                this.dataPacket(pk);
+                this.dataPacketImmediately(pk); // Send DisconnectPacket before the connection is closed, so its reason will show properly
             }
 
             this.connected = false;
@@ -5839,5 +5850,38 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         pk.source = source;
         pk.message = message;
         this.dataPacket(pk);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void completeUsingItem(int itemId, int action) {
+        CompletedUsingItemPacket pk = new CompletedUsingItemPacket();
+        pk.itemId = itemId;
+        pk.action = action;
+        this.dataPacket(pk);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean dataPacketImmediately(DataPacket packet) {
+        if (!this.connected) {
+            return false;
+        }
+
+        try (Timing ignored = Timings.getSendDataPacketTiming(packet)) {
+            DataPacketSendEvent ev = new DataPacketSendEvent(this, packet);
+            this.server.getPluginManager().callEvent(ev);
+            if (ev.isCancelled()) {
+                return false;
+            }
+
+            if (log.isTraceEnabled() && !server.isIgnoredPacket(packet.getClass())) {
+                log.trace("Immediate Outbound {}: {}", this.getName(), packet);
+            }
+
+            this.interfaz.putPacket(this, packet, false, true);
+        }
+        
+        return true;
     }
 }

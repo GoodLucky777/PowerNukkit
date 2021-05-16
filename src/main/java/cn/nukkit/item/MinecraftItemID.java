@@ -1035,6 +1035,12 @@ public enum MinecraftItemID {
     }
 
     @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public Item get(int amount, int blockRuntimeId) {
+        return RuntimeItems.getRuntimeMapping().getItemByNamespaceId(getItemFormNamespaceId(), amount, blockRuntimeId);
+    }
+
+    @PowerNukkitOnly
     @Since("1.3.2.0-PN")
     public Item get(int amount, byte[] compoundTag) {
         Item item = get(amount);

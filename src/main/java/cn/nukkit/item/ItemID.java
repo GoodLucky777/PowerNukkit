@@ -291,4 +291,26 @@ public interface ItemID {
 
     //@PowerNukkitOnly int DEBUG_STICK = <Possible:> 802+;
     
+    // GoodLucky
+    int RUBY = 5000;
+    int SAPPHIRE = 5001;
+    int OPAL = 5002;
+    
+    int BACON = 5400;
+    int BAGUETTE = 5401;
+    int BEER = 5402;
+    int BROWNIE = 5403;
+    int CHEESE = 5404;
+    int CHOCOLATE = 5405;
+    int FRIED_CHICKEN = 5406;
+    int FRIED_CHICKEN_LEG = 5407;
+    int FRIED_EGG = 5408;
+    int APPLE_PIE = 5409;
+    int PRETZEL = 5410;
+    int WHISKEY = 5411;
+    int WINE = 5412;
+    
+    int RUBY_SWORD = 6000;
+    
+    int GRENADE_FRAG = 6100;
 }

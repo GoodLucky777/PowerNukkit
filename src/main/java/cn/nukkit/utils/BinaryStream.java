@@ -477,7 +477,17 @@ public class BinaryStream {
             item.setNamedTag(namedTag);
         }
 
-        return item;
+        int networkFullId = RuntimeItems.getRuntimeMapping().getNetworkFullId(item);
+        int networkId = RuntimeItems.getNetworkId(networkFullId);
+
+        int blockRuntimeId = BlockStateRegistry.getRuntimeId(item.getBlock().getCurrentState());
+
+        this.putVarInt(networkId);
+
+        this.putLShort(item.getCount());
+        this.putUnsignedVarInt(item.getDamage());
+        writeCompoundTag(item, blockRuntimeId);
+
     }
 
     public void putSlot(Item item) {

@@ -3,6 +3,7 @@ package cn.nukkit.item;
 import cn.nukkit.api.API;
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
+import io.netty.util.internal.EmptyArrays;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -132,23 +133,29 @@ public class RuntimeItemMapping {
      * Creates a new instance of the respective {@link Item} by the <b>namespaced id</b>.
      * @param namespaceId The namespaced id
      * @param amount How many items will be in the stack.
+     * @param runtimeBlockId The block runtime id.
      * @return The correct {@link Item} instance with the write <b>item id</b> and <b>item damage</b> values.
      * @throws IllegalArgumentException If there are unknown mappings in the process. 
      */
     @PowerNukkitOnly
-    @Since("1.3.2.0-PN")
+    @Since("1.4.0.0-PN")
     @Nonnull
-    public Item getItemByNamespaceId(@Nonnull String namespaceId, int amount) {
+    public Item getItemByNamespaceId(@Nonnull String namespaceId, int amount, int runtimeBlockId) {
         int legacyFullId = getLegacyFullId(
                 getNetworkIdByNamespaceId(namespaceId)
                         .orElseThrow(()-> new IllegalArgumentException("The network id of \""+namespaceId+"\" is unknown"))
         );
         if (RuntimeItems.hasData(legacyFullId)) {
-            return Item.get(RuntimeItems.getId(legacyFullId), RuntimeItems.getData(legacyFullId), amount);
+            return Item.get(RuntimeItems.getId(legacyFullId), RuntimeItems.getData(legacyFullId), amount, EmptyArrays.EMPTY_BYTES, runtimeBlockId);
         } else {
-            Item item = Item.get(RuntimeItems.getId(legacyFullId));
-            item.setCount(amount);
+            Item item = Item.get(RuntimeItems.getId(legacyFullId), 0, amount, EmptyArrays.EMPTY_BYTES, runtimeBlockId);
             return item;
         }
+    }
+
+    @PowerNukkitOnly
+    @Since("1.3.2.0-PN")
+    public Item getItemByNamespaceId(@Nonnull String namespaceId, int amount) {
+        return this.getItemByNamespaceId(namespaceId, amount, 0);
     }
 }
