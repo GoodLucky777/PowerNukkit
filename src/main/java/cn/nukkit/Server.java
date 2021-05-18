@@ -47,6 +47,7 @@ import cn.nukkit.math.NukkitMath;
 import cn.nukkit.metadata.EntityMetadataStore;
 import cn.nukkit.metadata.LevelMetadataStore;
 import cn.nukkit.metadata.PlayerMetadataStore;
+import cn.nukkit.metrics.NukkitMetrics;
 import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.DoubleTag;
@@ -250,6 +251,8 @@ public class Server {
     private boolean allowNether;
 
     private final Thread currentThread;
+    
+    private final long launchTime;
 
     private Watchdog watchdog;
 
@@ -276,6 +279,7 @@ public class Server {
             throw new IOException("Failed to delete " + tempDir);
         }
         instance = this;
+        launchTime = System.currentTimeMillis();
         CraftingManager.packet = new BatchPacket();
         CraftingManager.packet.payload = EmptyArrays.EMPTY_BYTES;
         
@@ -311,6 +315,7 @@ public class Server {
 
     Server(final String filePath, String dataPath, String pluginPath, String predefinedLanguage) {
         Preconditions.checkState(instance == null, "Already initialized!");
+        launchTime = System.currentTimeMillis();
         currentThread = Thread.currentThread(); // Saves the current thread instance as a reference, used in Server#isPrimaryThread()
         instance = this;
 
@@ -626,6 +631,9 @@ public class Server {
 
         this.consoleSender = new ConsoleCommandSender();
         this.commandMap = new SimpleCommandMap(this);
+
+        // Initialize metrics
+        NukkitMetrics.startNow(this);
 
         this.registerEntities();
         this.registerBlockEntities();
@@ -1670,11 +1678,15 @@ public class Server {
     }
 
     public String getMotd() {
-        return this.getPropertyString("motd", "A Nukkit Powered Server");
+        return this.getPropertyString("motd", "PowerNukkit Server");
     }
 
     public String getSubMotd() {
-        return this.getPropertyString("sub-motd", "https://nukkitx.com");
+        String subMotd = this.getPropertyString("sub-motd", "https://powernukkit.org");
+        if (subMotd.isEmpty()) {
+            subMotd = "https://powernukkit.org"; // The client doesn't allow empty sub-motd in 1.16.210
+        }
+        return subMotd;
     }
 
     public boolean getForceResources() {
@@ -2504,6 +2516,7 @@ public class Server {
         Entity.registerEntity("Silverfish", EntitySilverfish.class);
         Entity.registerEntity("Skeleton", EntitySkeleton.class);
         Entity.registerEntity("Slime", EntitySlime.class);
+        Entity.registerEntity("IronGolem", EntityIronGolem.class);
         Entity.registerEntity("SnowGolem", EntitySnowGolem.class);
         Entity.registerEntity("Spider", EntitySpider.class);
         Entity.registerEntity("Stray", EntityStray.class);
@@ -2559,6 +2572,7 @@ public class Server {
         Entity.registerEntity("ThrownPotion", EntityPotion.class);
         Entity.registerEntity("ThrownTrident", EntityThrownTrident.class);
         Entity.registerEntity("XpOrb", EntityXPOrb.class);
+        Entity.registerEntity("ArmorStand", EntityArmorStand.class);
 
         Entity.registerEntity("Human", EntityHuman.class, true);
         //Vehicle
@@ -2653,6 +2667,12 @@ public class Server {
     @Since("1.4.0.0-PN")
     public boolean isCheckMovement(){
         return checkMovement;
+    }
+
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public long getLaunchTime() {
+        return launchTime;
     }
 
     private class ConsoleThread extends Thread implements InterruptibleThread {
