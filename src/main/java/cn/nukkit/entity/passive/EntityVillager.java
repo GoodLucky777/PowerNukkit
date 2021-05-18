@@ -45,6 +45,7 @@ public class EntityVillager extends EntityCreature implements EntityNPC, EntityA
         this.setMaxHealth(20);
     }
 
+    @Override
     public boolean isBaby() {
         return this.getDataFlag(DATA_FLAGS, DATA_FLAG_BABY);
     }

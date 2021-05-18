@@ -1,6 +1,7 @@
 package cn.nukkit.entity.mob;
 
 import cn.nukkit.Player;
+import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.entity.EntityAgeable;
 import cn.nukkit.level.format.FullChunk;
@@ -59,11 +60,14 @@ public class EntityZoglin extends EntityMob implements EntityAgeable {
     public boolean isPreventingSleep(Player player) {
         return true;
     }
-    
+
+    @Override
     public boolean isBaby() {
         return this.getDataFlag(DATA_FLAGS, DATA_FLAG_BABY);
     }
 
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
     public void setBaby(boolean baby) {
         this.setDataFlag(DATA_FLAGS, DATA_FLAG_BABY, baby);
         this.setScale(baby ? 0.5f : 1.0f);
