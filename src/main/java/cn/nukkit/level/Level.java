@@ -1262,39 +1262,10 @@ public class Level implements ChunkManager, Metadatable {
                                 for (int i = 0; i < tickSpeed; ++i) {
                                     int lcg = this.getUpdateLCG();
                                     int x = lcg & 0x0f;
+                                    int y = lcg >>> 8 & 0x0f;
                                     int z = lcg >>> 16 & 0x0f;
-                                    int y = y;
-                                    Biome biome = Biome.getBiome(this.getBiomeId(x, z));
-                                    BlockState state = section.getBlockState(x, y, z);
-                                    boolean canRain = biome.canRain();
-                                    boolean isFreezing = biome.isFreezing();
-                                    
-                                    if (isFreezing) {
-                                        if (state ) {
-                                            section.setBlockState(x, y, z, STATE_ICE);
-                                        }
-                                        
-                                        if (canRain) {
-                                            if (state ) {
-                                                if (state ) {
-                                                    section.setBlockState(x, y, z, STATE_SNOW_LAYER[level]);
-                                                } else {
-                                                    section.setBlockState(x, y, z, STATE_SNOW_LAYER[0]);
-                                                }
-                                            }
-                                        }
-                                    }
-                                    
-                                    if (canRain) {
-                                        
-                                    }
-                                    
-                                    lcg = this.getUpdateLCG();
-                                    x = lcg & 0x0f;
-                                    y = lcg >>> 8 & 0x0f;
-                                    z = lcg >>> 16 & 0x0f;
 
-                                    state = section.getBlockState(x, y, z);
+                                    Blockstate state = section.getBlockState(x, y, z);
                                     if (randomTickBlocks[state.getBlockId()]) {
                                         Block block = state.getBlockRepairing(this, chunkX * 16 + x, (Y << 4) + y, chunkZ * 16 + z);
                                         block.onUpdate(BLOCK_UPDATE_RANDOM);
