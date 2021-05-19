@@ -1272,9 +1272,12 @@ public class Level implements ChunkManager, Metadatable {
                         }
                         
                         if (canRain && isRaining) {
-                            if (target.getBlock().isSolid()) {
+                            if (target.getBlock().canSnowAccumulate()) {
                                 if (target.equals(STATE_SNOW_LAYER)) {
-                                    chunk.setBlockState(x1, y1 + 1, z1, STATE_SNOW_LAYER.setData(target.getBlock().up().getData() + 1));
+                                    int snowHeight = ((BlockSnowLayer) target.getBlock()).getSnowHeight();
+                                    if (snowHeight <= BlockSnowLayer.SNOW_HEIGHT.getMaxValue()) {
+                                        chunk.setBlockState(x1, y1, z1, ((BlockSnowLayer) STATE_SNOW_LAYER.getBlock()).setSnowHeight(snowHeight + 1));
+                                    }
                                 } else {
                                     chunk.setBlockState(x1, y1 + 1, z1, STATE_SNOW_LAYER);
                                 }
