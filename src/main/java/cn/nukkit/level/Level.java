@@ -162,6 +162,9 @@ public class Level implements ChunkManager, Metadatable {
         randomTickBlocks[BlockID.TWISTING_VINES] = true;
     }
     
+    private static final BlockState STATE_ICE = BlockState.of(BlockID.ICE);
+    private static final BlockState STATE_SNOW_LAYER = BlockState.of(BlockID.SNOW_LAYER);
+    
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public static boolean canRandomTick(int blockId) {
