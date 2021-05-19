@@ -484,6 +484,9 @@ public class BlockCauldron extends BlockSolidMeta implements BlockEntityHolder<B
     @Since("1.4.0.0-PN")
     @Override
     public void fillRain() {
-        
+        if (ThreadLocalRandom.current().nextInt(20) == 0 && !this.isFull()) { // 5%
+            setFillLevel(getFillLevel() + 1);
+            this.level.setBlock(this, this, true);
+        }
     }
 }
