@@ -1256,27 +1256,27 @@ public class Level implements ChunkManager, Metadatable {
                 int tickSpeed = gameRules.getInteger(GameRule.RANDOM_TICK_SPEED);
 
                 if (tickSpeed > 0) {
-                    int lcg = this.getUpdateLCG();
-                    int x = lcg & 0x0f;
-                    int z = lcg >>> 16 & 0x0f;
-                    int y = chunk.getHighestBlockAt(x, z, false);
-                    Biome biome = Biome.getBiome(this.getBiomeId(x, z));
-                    BlockState target = chunk.getBlockStateAt(x, y, z);
+                    int lcg1 = this.getUpdateLCG();
+                    int x1 = lcg & 0x0f;
+                    int z1 = lcg >>> 16 & 0x0f;
+                    int y1 = chunk.getHighestBlockAt(x1, z1, false);
+                    Biome biome = Biome.getBiome(this.getBiomeId(x1, z1));
+                    BlockState target = chunk.getBlockState(x1, y1, z1);
                     boolean canRain = biome.canRain();
                     boolean isRaining = this.isRaining();
                     boolean isFreezing = biome.isFreezing(); // TODO: Need improvement for altitude temperature
                     
                     if (isFreezing) {
-                        if (state.equals(STATE_STILL_WATER)) {
-                            chunk.setBlockState(x, y, z, STATE_ICE);
+                        if (target.equals(STATE_STILL_WATER)) {
+                            chunk.setBlockState(x1, y1, z1, STATE_ICE);
                         }
                         
                         if (canRain && isRaining) {
                             if (target.getBlock().isSolid()) {
                                 if (target.equals(STATE_SNOW_LAYER)) {
-                                    chunk.setBlockState(x, y + 1, z, STATE_SNOW_LAYER.setData(target.up().getData()));
+                                    chunk.setBlockState(x1, y1 + 1, z1, STATE_SNOW_LAYER.setData(target.up().getData()));
                                 } else {
-                                    chunk.setBlockState(x, y + 1, z, STATE_SNOW_LAYER);
+                                    chunk.setBlockState(x1, y1 + 1, z1, STATE_SNOW_LAYER);
                                 }
                             }
                         }
@@ -1298,7 +1298,7 @@ public class Level implements ChunkManager, Metadatable {
                                     int y = lcg >>> 8 & 0x0f;
                                     int z = lcg >>> 16 & 0x0f;
 
-                                    Blockstate state = section.getBlockState(x, y, z);
+                                    BlockState state = section.getBlockState(x, y, z);
                                     if (randomTickBlocks[state.getBlockId()]) {
                                         Block block = state.getBlockRepairing(this, chunkX * 16 + x, (Y << 4) + y, chunkZ * 16 + z);
                                         block.onUpdate(BLOCK_UPDATE_RANDOM);
