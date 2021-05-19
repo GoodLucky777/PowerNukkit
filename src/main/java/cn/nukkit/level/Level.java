@@ -1257,8 +1257,8 @@ public class Level implements ChunkManager, Metadatable {
 
                 if (tickSpeed > 0) {
                     int lcg1 = this.getUpdateLCG();
-                    int x1 = lcg & 0x0f;
-                    int z1 = lcg >>> 16 & 0x0f;
+                    int x1 = lcg1 & 0x0f;
+                    int z1 = lcg1 >>> 16 & 0x0f;
                     int y1 = chunk.getHighestBlockAt(x1, z1, false);
                     Biome biome = Biome.getBiome(this.getBiomeId(x1, z1));
                     BlockState target = chunk.getBlockState(x1, y1, z1);
@@ -1274,7 +1274,7 @@ public class Level implements ChunkManager, Metadatable {
                         if (canRain && isRaining) {
                             if (target.getBlock().isSolid()) {
                                 if (target.equals(STATE_SNOW_LAYER)) {
-                                    chunk.setBlockState(x1, y1 + 1, z1, STATE_SNOW_LAYER.setData(target.up().getData()));
+                                    chunk.setBlockState(x1, y1 + 1, z1, STATE_SNOW_LAYER.setData(target.getBlock().up().getData() + 1));
                                 } else {
                                     chunk.setBlockState(x1, y1 + 1, z1, STATE_SNOW_LAYER);
                                 }
