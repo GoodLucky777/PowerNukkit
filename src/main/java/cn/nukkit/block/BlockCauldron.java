@@ -20,6 +20,7 @@ import cn.nukkit.utils.BlockColor;
 
 import javax.annotation.Nonnull;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author CreeperFace (Nukkit Project)
@@ -485,8 +486,8 @@ public class BlockCauldron extends BlockSolidMeta implements BlockEntityHolder<B
     @Override
     public void fillRain() {
         if (ThreadLocalRandom.current().nextInt(20) == 0 && !this.isFull()) { // 5%
-            setFillLevel(getFillLevel() + 1);
-            this.level.setBlock(this, this, true);
+            this.setFillLevel(this.getFillLevel() + 1);
+            this.getLevel().setBlock(this, this, true);
         }
     }
 }
