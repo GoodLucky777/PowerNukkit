@@ -1255,6 +1255,38 @@ public class Level implements ChunkManager, Metadatable {
                 int tickSpeed = gameRules.getInteger(GameRule.RANDOM_TICK_SPEED);
 
                 if (tickSpeed > 0) {
+                    int lcg = this.getUpdateLCG();
+                    int x = lcg & 0x0f;
+                    int z = lcg >>> 16 & 0x0f;
+                    int y = chunk.getHightestWorkableBlock();
+                    Biome biome = Biome.getBiome(this.getBiomeId(x, z));
+                    BlockState target = section.getBlockState(x, y, z);
+                    BlockState downTarget = target.down();
+                    boolean canRain = biome.canRain();
+                    boolean isFreezing = biome.isFreezing(); // TODO: Need improvement for altitude temperature
+                    
+                    if (isFreezing) {
+                        if (state.equals(STATE_STILL_WATER)) {
+                            section.setBlockState(x, y, z, STATE_ICE);
+                        }
+                        
+                        if (canRain && this.isRaining()) {
+                            if (target.getBlock().isSolid()) {
+                                if (target.equals(STATE_SNOW_LAYER)) {
+                                    section.setBlockState(x, y, z, STATE_SNOW_LAYER.setData(target.getData()));
+                                } else {
+                                    section.setBlockState(x, y, z, STATE_SNOW_LAYER);
+                                }
+                            }
+                        }
+                    }
+                    
+                    if (canRain && this.isRaining()) {
+                        if (target.getBlock().isRainGather()) {
+                            target.getBlock().fillRain();
+                        }
+                    }
+                    
                     if (this.useSections) {
                         for (ChunkSection section : ((Chunk) chunk).getSections()) {
                             if (!(section instanceof EmptyChunkSection)) {
