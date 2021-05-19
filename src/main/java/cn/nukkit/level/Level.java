@@ -1259,10 +1259,26 @@ public class Level implements ChunkManager, Metadatable {
                                 for (int i = 0; i < tickSpeed; ++i) {
                                     int lcg = this.getUpdateLCG();
                                     int x = lcg & 0x0f;
-                                    int y = lcg >>> 8 & 0x0f;
                                     int z = lcg >>> 16 & 0x0f;
-
+                                    int y = y;
+                                    
                                     BlockState state = section.getBlockState(x, y, z);
+                                    if (canFreeze) {
+                                        state.setBlockState();
+                                    }
+                                    if (canSnow) {
+                                        
+                                    }
+                                    if (canFillRain) {
+                                        
+                                    }
+                                    
+                                    lcg = this.getUpdateLCG();
+                                    x = lcg & 0x0f;
+                                    y = lcg >>> 8 & 0x0f;
+                                    z = lcg >>> 16 & 0x0f;
+
+                                    state = section.getBlockState(x, y, z);
                                     if (randomTickBlocks[state.getBlockId()]) {
                                         Block block = state.getBlockRepairing(this, chunkX * 16 + x, (Y << 4) + y, chunkZ * 16 + z);
                                         block.onUpdate(BLOCK_UPDATE_RANDOM);
