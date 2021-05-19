@@ -1276,7 +1276,7 @@ public class Level implements ChunkManager, Metadatable {
                                 if (target.equals(STATE_SNOW_LAYER)) {
                                     int snowHeight = ((BlockSnowLayer) target.getBlock()).getSnowHeight();
                                     if (snowHeight <= BlockSnowLayer.SNOW_HEIGHT.getMaxValue()) {
-                                        chunk.setBlockState(x1, y1, z1, ((BlockSnowLayer) STATE_SNOW_LAYER.getBlock()).setSnowHeight(snowHeight + 1));
+                                        chunk.setBlockState(x1, y1, z1, STATE_SNOW_LAYER.withProperty(BlockSnowLayer.SNOW_HEIGHT, snowHeight + 1));
                                     }
                                 } else {
                                     chunk.setBlockState(x1, y1 + 1, z1, STATE_SNOW_LAYER);
