@@ -472,4 +472,18 @@ public class BlockCauldron extends BlockSolidMeta implements BlockEntityHolder<B
     public int getLightFilter() {
         return 3;
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public boolean canFillRain() {
+        return true;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public void fillRain() {
+        
+    }
 }
