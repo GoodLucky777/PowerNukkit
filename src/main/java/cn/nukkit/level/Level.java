@@ -1261,15 +1261,28 @@ public class Level implements ChunkManager, Metadatable {
                                     int x = lcg & 0x0f;
                                     int z = lcg >>> 16 & 0x0f;
                                     int y = y;
-                                    
+                                    Biome biome = Biome.getBiome(this.getBiomeId(x, z));
                                     BlockState state = section.getBlockState(x, y, z);
-                                    if (canFreeze) {
-                                        state.setBlockState();
-                                    }
-                                    if (canSnow) {
+                                    boolean canRain = biome.canRain();
+                                    boolean isFreezing = biome.isFreezing();
+                                    
+                                    if (isFreezing) {
+                                        if (state ) {
+                                            section.setBlockState(x, y, z, STATE_ICE);
+                                        }
                                         
+                                        if (canRain) {
+                                            if (state ) {
+                                                if (state ) {
+                                                    section.setBlockState(x, y, z, STATE_SNOW_LAYER[level]);
+                                                } else {
+                                                    section.setBlockState(x, y, z, STATE_SNOW_LAYER[0]);
+                                                }
+                                            }
+                                        }
                                     }
-                                    if (canFillRain) {
+                                    
+                                    if (canRain) {
                                         
                                     }
                                     
