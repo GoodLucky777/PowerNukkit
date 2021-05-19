@@ -162,6 +162,7 @@ public class Level implements ChunkManager, Metadatable {
         randomTickBlocks[BlockID.TWISTING_VINES] = true;
     }
     
+    private static final BlockState STATE_STILL_WATER = BlockState.of(BlockID.STILL_WATER);
     private static final BlockState STATE_ICE = BlockState.of(BlockID.ICE);
     private static final BlockState STATE_SNOW_LAYER = BlockState.of(BlockID.SNOW_LAYER);
     
@@ -1258,30 +1259,30 @@ public class Level implements ChunkManager, Metadatable {
                     int lcg = this.getUpdateLCG();
                     int x = lcg & 0x0f;
                     int z = lcg >>> 16 & 0x0f;
-                    int y = chunk.getHightestWorkableBlock();
+                    int y = chunk.getHighestBlockAt(x, z, false);
                     Biome biome = Biome.getBiome(this.getBiomeId(x, z));
-                    BlockState target = section.getBlockState(x, y, z);
-                    BlockState downTarget = target.down();
+                    BlockState target = chunk.getBlockStateAt(x, y, z);
                     boolean canRain = biome.canRain();
+                    boolean isRaining = this.isRaining();
                     boolean isFreezing = biome.isFreezing(); // TODO: Need improvement for altitude temperature
                     
                     if (isFreezing) {
                         if (state.equals(STATE_STILL_WATER)) {
-                            section.setBlockState(x, y, z, STATE_ICE);
+                            chunk.setBlockState(x, y, z, STATE_ICE);
                         }
                         
-                        if (canRain && this.isRaining()) {
+                        if (canRain && isRaining) {
                             if (target.getBlock().isSolid()) {
                                 if (target.equals(STATE_SNOW_LAYER)) {
-                                    section.setBlockState(x, y, z, STATE_SNOW_LAYER.setData(target.getData()));
+                                    chunk.setBlockState(x, y + 1, z, STATE_SNOW_LAYER.setData(target.up().getData()));
                                 } else {
-                                    section.setBlockState(x, y, z, STATE_SNOW_LAYER);
+                                    chunk.setBlockState(x, y + 1, z, STATE_SNOW_LAYER);
                                 }
                             }
                         }
                     }
                     
-                    if (canRain && this.isRaining()) {
+                    if (canRain && isRaining) {
                         if (target.getBlock().isRainGather()) {
                             target.getBlock().fillRain();
                         }
