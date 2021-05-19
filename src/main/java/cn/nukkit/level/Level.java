@@ -1283,7 +1283,7 @@ public class Level implements ChunkManager, Metadatable {
                     }
                     
                     if (canRain && isRaining) {
-                        if (target.getBlock().isRainGather()) {
+                        if (target.getBlock().canFillRain()) {
                             target.getBlock().fillRain();
                         }
                     }
