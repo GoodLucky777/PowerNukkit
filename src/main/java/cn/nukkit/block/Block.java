@@ -2190,4 +2190,10 @@ public abstract class Block extends Position implements Metadatable, Cloneable, 
     @Since("1.4.0.0-PN")
     public void fillRain() {
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean canSnowAccumulate() {
+        return !isTransparent() && isSolid();
+    }
 }
