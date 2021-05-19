@@ -1258,37 +1258,39 @@ public class Level implements ChunkManager, Metadatable {
                 if (tickSpeed > 0) {
                     for (int t = 0; t < tickSpeed; t++) {
                         int lcg1 = this.getUpdateLCG();
-                        int x1 = lcg1 & 0x0f;
-                        int z1 = lcg1 >>> 16 & 0x0f;
-                        int y1 = chunk.getHighestBlockAt(x1, z1, false);
-                        Biome biome = Biome.getBiome(this.getBiomeId(x1, z1));
-                        BlockState target = chunk.getBlockState(x1, y1, z1);
-                        boolean canRain = biome.canRain();
-                        boolean isRaining = this.isRaining();
-                        boolean isFreezing = biome.isFreezing(); // TODO: Need improvement for altitude temperature
-                        
-                        if (isFreezing) {
-                            if (target.equals(STATE_STILL_WATER)) {
-                                chunk.setBlockState(x1, y1, z1, STATE_ICE);
-                            }
+                        if ((lcg >>> 8 & 0x0f) == 0) {
+                            int x1 = lcg1 & 0x0f;
+                            int z1 = lcg1 >>> 16 & 0x0f;
+                            int y1 = chunk.getHighestBlockAt(x1, z1, false);
+                            Biome biome = Biome.getBiome(this.getBiomeId(x1, z1));
+                            BlockState target = chunk.getBlockState(x1, y1, z1);
+                            boolean canRain = biome.canRain();
+                            boolean isRaining = this.isRaining();
+                            boolean isFreezing = biome.isFreezing(); // TODO: Need improvement for altitude temperature
                             
-                            if (canRain && isRaining) {
-                                if (target.getBlock().canSnowAccumulate()) {
-                                    if (target.equals(STATE_SNOW_LAYER)) {
-                                        int snowHeight = ((BlockSnowLayer) target.getBlock()).getSnowHeight();
-                                        if (snowHeight <= BlockSnowLayer.SNOW_HEIGHT.getMaxValue()) {
-                                            chunk.setBlockState(x1, y1, z1, STATE_SNOW_LAYER.withProperty(BlockSnowLayer.SNOW_HEIGHT, snowHeight + 1));
+                            if (isFreezing) {
+                                if (target.equals(STATE_STILL_WATER)) {
+                                    chunk.setBlockState(x1, y1, z1, STATE_ICE);
+                                }
+                                
+                                if (canRain && isRaining) {
+                                    if (target.getBlock().canSnowAccumulate()) {
+                                        if (target.equals(STATE_SNOW_LAYER)) {
+                                            int snowHeight = ((BlockSnowLayer) target.getBlock()).getSnowHeight();
+                                            if (snowHeight <= BlockSnowLayer.SNOW_HEIGHT.getMaxValue()) {
+                                                chunk.setBlockState(x1, y1, z1, STATE_SNOW_LAYER.withProperty(BlockSnowLayer.SNOW_HEIGHT, snowHeight + 1));
+                                            }
+                                        } else {
+                                            chunk.setBlockState(x1, y1 + 1, z1, STATE_SNOW_LAYER);
                                         }
-                                    } else {
-                                        chunk.setBlockState(x1, y1 + 1, z1, STATE_SNOW_LAYER);
                                     }
                                 }
                             }
-                        }
-                        
-                        if (canRain && isRaining) {
-                            if (target.getBlock().canFillRain()) {
-                                target.getBlock().fillRain();
+                            
+                            if (canRain && isRaining) {
+                                if (target.getBlock().canFillRain()) {
+                                    target.getBlock().fillRain();
+                                }
                             }
                         }
                     }
