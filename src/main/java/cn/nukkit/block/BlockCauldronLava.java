@@ -161,4 +161,18 @@ public class BlockCauldronLava extends BlockCauldron {
         this.level.updateComparatorOutputLevel(this);
         return true;
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public boolean canFillRain() {
+        return false;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public void fillRain() {
+        // Does Nothing
+    }
 }
