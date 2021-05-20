@@ -1270,7 +1270,7 @@ public class Level implements ChunkManager, Metadatable {
                             boolean isFreezing = biome.isFreezing(); // TODO: Need improvement for altitude temperature
                             log.info("Check: " + String.valueOf(x1) + " " + String.valueOf(y1) + " " + String.valueOf(z1) + " " + biome.getName() + " " + String.valueOf(targetId));
                             if (isFreezing) {
-                                if (targetId == BlockID.STILL_WATER) {
+                                if ((targetId == BlockID.WATER && target.getDamage() == 0) || targetId == BlockID.STILL_WATER) {
                                     chunk.setBlockState(x1, y1, z1, STATE_ICE);
                                     log.info("ICE!");
                                 }
