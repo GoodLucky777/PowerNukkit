@@ -1273,19 +1273,19 @@ public class Level implements ChunkManager, Metadatable {
                                     this.setBlockStateAt((chunkX << 4) + x1, y1, (chunkZ << 4) + z1, STATE_ICE);
                                     log.info("ICE!");
                                 }
-                                
-                                if (biome.canSnow() && isRaining) {
-                                    if (target.canSnowAccumulate()) {
-                                        if (targetId == BlockID.SNOW_LAYER) {
-                                            int snowHeight = ((BlockSnowLayer) target).getSnowHeight();
-                                            if (snowHeight <= BlockSnowLayer.SNOW_HEIGHT.getMaxValue()) {
-                                                this.setBlockStateAt((chunkX << 4) + x1, y1, (chunkZ << 4) + z1, STATE_SNOW_LAYER.withProperty(BlockSnowLayer.SNOW_HEIGHT, snowHeight + 1));
-                                            }
-                                        } else {
-                                            this.setBlockStateAt((chunkX << 4) + x1, y1 + 1, (chunkZ << 4) + z1, STATE_SNOW_LAYER);
+                            }
+                            
+                            if (biome.canSnow() && isRaining) {
+                                if (target.canSnowAccumulate()) {
+                                    if (targetId == BlockID.SNOW_LAYER) {
+                                        int snowHeight = ((BlockSnowLayer) target).getSnowHeight();
+                                        if (snowHeight <= BlockSnowLayer.SNOW_HEIGHT.getMaxValue()) {
+                                            this.setBlockStateAt((chunkX << 4) + x1, y1, (chunkZ << 4) + z1, STATE_SNOW_LAYER.withProperty(BlockSnowLayer.SNOW_HEIGHT, snowHeight + 1));
                                         }
-                                        log.info("SNOW!");
+                                    } else {
+                                        this.setBlockStateAt((chunkX << 4) + x1, y1 + 1, (chunkZ << 4) + z1, STATE_SNOW_LAYER);
                                     }
+                                    log.info("SNOW!");
                                 }
                             }
                             
