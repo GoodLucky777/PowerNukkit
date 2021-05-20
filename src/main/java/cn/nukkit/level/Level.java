@@ -1277,16 +1277,13 @@ public class Level implements ChunkManager, Metadatable {
                             
                             if (biome.canSnow() && isRaining) {
                                 if (target.canSnowAccumulate()) {
-                                    if (targetId == BlockID.SNOW_LAYER) {
-                                        int snowHeight = ((BlockSnowLayer) target).getSnowHeight();
-                                        if (snowHeight <= BlockSnowLayer.SNOW_HEIGHT.getMaxValue()) {
-                                            this.setBlockStateAt((chunkX << 4) + x1, y1, (chunkZ << 4) + z1, STATE_SNOW_LAYER.withProperty(BlockSnowLayer.SNOW_HEIGHT, snowHeight + 1));
-                                        }
-                                        log.info(String.valueOf(snowHeight) + "/" + String.valueOf(BlockSnowLayer.SNOW_HEIGHT.getMaxValue()));
-                                    } else {
-                                        this.setBlockStateAt((chunkX << 4) + x1, y1 + 1, (chunkZ << 4) + z1, STATE_SNOW_LAYER);
-                                    }
+                                    this.setBlockStateAt((chunkX << 4) + x1, y1 + 1, (chunkZ << 4) + z1, STATE_SNOW_LAYER);
                                     log.info("SNOW!");
+                                } else if (targetId == BlockID.SNOW_LAYER) {
+                                    if (targetId == BlockID.SNOW_LAYER) {
+                                        ((BlockSnowLayer) target).accumulateSnow();
+                                        log.info("MORE SNOW!");
+                                    }
                                 }
                             }
                             
