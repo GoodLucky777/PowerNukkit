@@ -1263,20 +1263,20 @@ public class Level implements ChunkManager, Metadatable {
                             int y1 = chunk.getHighestBlockAt(x1, z1, false);
                             
                             Biome biome = Biome.getBiome(chunk.getBiomeId(x1, z1));
-                            Block target = chunk.getBlockState(x1, y1, z1).getBlockRepairing(this, (chunkX << 4) + x1, y1, (chunkZ << 4) + z1);
+                            //Block target = chunk.getBlockState(x1, y1, z1).getBlockRepairing(this, (chunkX << 4) + x1, y1, (chunkZ << 4) + z1);
                             int targetId = chunk.getBlockId(x1, y1, z1);
                             boolean isRaining = this.isRaining();
                             boolean isFreezing = biome.isFreezing(); // TODO: Need improvement for altitude temperature
                             //log.debug("Check: " + String.valueOf(x1) + " " + String.valueOf(y1) + " " + String.valueOf(z1) + " " + biome.getName() + " " + (isFreezing ? "freezing" : "warm") + " " + String.valueOf(targetId));
                             if (isFreezing) {
-                                if ((targetId == BlockID.WATER && target.getDamage() == 0) || targetId == BlockID.STILL_WATER) {
+                                if ((targetId == BlockID.WATER /*&& target.getDamage() == 0*/) || targetId == BlockID.STILL_WATER) {
                                     //this.setBlockStateAt((chunkX << 4) + x1, y1, (chunkZ << 4) + z1, STATE_ICE);
                                     log.debug("ICE!");
                                 }
                             }
                             
                             if (biome.canSnow() && isRaining) {
-                                if (target.canSnowAccumulate()) {
+                                if (/*target.canSnowAccumulate()*/false) {
                                     //this.setBlockStateAt((chunkX << 4) + x1, y1 + 1, (chunkZ << 4) + z1, STATE_SNOW_LAYER);
                                     log.debug("SNOW!");
                                 } else if (targetId == BlockID.SNOW_LAYER) {
@@ -1288,8 +1288,8 @@ public class Level implements ChunkManager, Metadatable {
                             }
                             
                             if (biome.canRain() && isRaining) {
-                                if (target.canFillRain()) {
-                                    target.fillRain();
+                                if (/*target.canFillRain()*/false) {
+                                    //target.fillRain();
                                     log.info("RAIN FILL!");
                                 }
                             }
