@@ -346,13 +346,13 @@ public class BlockSnowLayer extends BlockFallableMeta {
         return side == BlockFace.UP && getSnowHeight() == SNOW_HEIGHT.getMaxValue();
     }
     
-    @PowerNukkitaonly
+    @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public void accumulateSnow() {
         this.accumulateSnow(1);
     }
     
-    @PowerNukkitaonly
+    @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public void accumulateSnow(int height) {
         if ((this.getSnowHeight() + height) <= SNOW_HEIGHT.getMaxValue()) {
