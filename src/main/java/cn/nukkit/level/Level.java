@@ -1265,7 +1265,6 @@ public class Level implements ChunkManager, Metadatable {
                             Biome biome = Biome.getBiome(chunk.getBiomeId(x1, z1));
                             Block target = chunk.getBlockState(x1, y1, z1).getBlockRepairing(this, (chunkX << 4) + x1, y1, (chunkZ << 4) + z1);
                             int targetId = chunk.getBlockId(x1, y1, z1);
-                            boolean canRain = biome.canRain();
                             boolean isRaining = this.isRaining();
                             boolean isFreezing = biome.isFreezing(); // TODO: Need improvement for altitude temperature
                             log.info("Check: " + String.valueOf(x1) + " " + String.valueOf(y1) + " " + String.valueOf(z1) + " " + biome.getName() + " " + (isFreezing ? "freezing" : "warm") + " " + String.valueOf(targetId));
@@ -1275,7 +1274,7 @@ public class Level implements ChunkManager, Metadatable {
                                     log.info("ICE!");
                                 }
                                 
-                                if (canRain && isRaining) {
+                                if (!biome.isDry() && isRaining) {
                                     if (target.canSnowAccumulate()) {
                                         if (targetId == BlockID.SNOW_LAYER) {
                                             int snowHeight = ((BlockSnowLayer) target).getSnowHeight();
@@ -1290,7 +1289,7 @@ public class Level implements ChunkManager, Metadatable {
                                 }
                             }
                             
-                            if (canRain && isRaining) {
+                            if (!biome.isDry() && isRaining) {
                                 if (target.canFillRain()) {
                                     target.fillRain();
                                     log.info("RAIN FILL!");
