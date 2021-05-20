@@ -1,5 +1,7 @@
 package cn.nukkit.level.biome.impl.river;
 
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.level.generator.populator.impl.WaterIcePopulator;
 
 /**
@@ -26,5 +28,12 @@ public class FrozenRiverBiome extends RiverBiome {
     @Override
     public boolean canRain() {
         return false;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    @Override
+    public boolean canSnow() {
+        return true;
     }
 }
