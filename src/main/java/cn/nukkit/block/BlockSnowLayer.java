@@ -345,4 +345,19 @@ public class BlockSnowLayer extends BlockFallableMeta {
     public boolean isSolid(BlockFace side) {
         return side == BlockFace.UP && getSnowHeight() == SNOW_HEIGHT.getMaxValue();
     }
+    
+    @PowerNukkitaonly
+    @Since("1.4.0.0-PN")
+    public void accumulateSnow() {
+        this.accumulateSnow(1);
+    }
+    
+    @PowerNukkitaonly
+    @Since("1.4.0.0-PN")
+    public void accumulateSnow(int height) {
+        if ((this.getSnowHeight() + height) <= SNOW_HEIGHT.getMaxValue()) {
+            this.setSnowHeight(this.getSnowHeight() + height);
+            this.setBlock(this, this, true);
+        }
+    }
 }
