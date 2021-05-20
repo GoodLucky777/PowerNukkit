@@ -1260,7 +1260,7 @@ public class Level implements ChunkManager, Metadatable {
                         if ((lcg1 >>> 8 & 0x0f) == 0) {
                             int x1 = lcg1 & 0x0f;
                             int z1 = lcg1 >>> 16 & 0x0f;
-                            int y1 = chunk.getHighestBlockAt(x1, z1, false);
+                            int y1 = chunk.getHighestBlockAt(x1, z1, true);
                             
                             Biome biome = Biome.getBiome(chunk.getBiomeId(x1, z1));
                             Block target = chunk.getBlockState(x1, y1, z1).getBlock();
@@ -1268,7 +1268,7 @@ public class Level implements ChunkManager, Metadatable {
                             boolean canRain = biome.canRain();
                             boolean isRaining = this.isRaining();
                             boolean isFreezing = biome.isFreezing(); // TODO: Need improvement for altitude temperature
-                            log.info("Check: " + String.valueOf(x1) + " " + String.valueOf(y1) + " " + String.valueOf(z1) + " " + biome.getName() + " " + String.valueOf(targetId));
+                            log.info("Check: " + String.valueOf(x1) + " " + String.valueOf(y1) + " " + String.valueOf(z1) + " " + biome.getName() + " " + (isFreezing ? "freezing" : "warm") + " " + String.valueOf(targetId));
                             if (isFreezing) {
                                 if ((targetId == BlockID.WATER && target.getDamage() == 0) || targetId == BlockID.STILL_WATER) {
                                     chunk.setBlockState(x1, y1, z1, STATE_ICE);
