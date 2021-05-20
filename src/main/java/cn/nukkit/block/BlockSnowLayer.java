@@ -355,7 +355,13 @@ public class BlockSnowLayer extends BlockFallableMeta {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public void accumulateSnow(int height) {
-        if ((this.getSnowHeight() + height) <= SNOW_HEIGHT.getMaxValue()) {
+        this.accumulateSnow(height, 2);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void accumulateSnow(int height, int maxHeight) {
+        if ((this.getSnowHeight() + height) <= Math.min(maxHeight, SNOW_HEIGHT.getMaxValue())) {
             this.setSnowHeight(this.getSnowHeight() + height);
             this.getLevel().setBlock(this, this, true);
         }
