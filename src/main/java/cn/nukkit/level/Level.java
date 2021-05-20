@@ -1272,6 +1272,7 @@ public class Level implements ChunkManager, Metadatable {
                             if (isFreezing) {
                                 if (targetId == BlockID.STILL_WATER) {
                                     chunk.setBlockState(x1, y1, z1, STATE_ICE);
+                                    log.info("ICE!");
                                 }
                                 
                                 if (canRain && isRaining) {
@@ -1284,6 +1285,7 @@ public class Level implements ChunkManager, Metadatable {
                                         } else {
                                             chunk.setBlockState(x1, y1 + 1, z1, STATE_SNOW_LAYER);
                                         }
+                                        log.info("SNOW!");
                                     }
                                 }
                             }
@@ -1291,6 +1293,7 @@ public class Level implements ChunkManager, Metadatable {
                             if (canRain && isRaining) {
                                 if (target.canFillRain()) {
                                     target.fillRain();
+                                    log.info("RAIN FILL!");
                                 }
                             }
                         }
