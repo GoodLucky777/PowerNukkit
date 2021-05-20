@@ -1282,7 +1282,6 @@ public class Level implements ChunkManager, Metadatable {
                                 } else if (targetId == BlockID.SNOW_LAYER) {
                                     if (targetId == BlockID.SNOW_LAYER) {
                                         ((BlockSnowLayer) target).accumulateSnow(1, 2);
-                                        log.debug("MORE SNOW!");
                                     }
                                 }
                             }
