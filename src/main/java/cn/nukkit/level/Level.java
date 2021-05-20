@@ -1252,6 +1252,7 @@ public class Level implements ChunkManager, Metadatable {
                 for (Entity entity : chunk.getEntities().values()) {
                     entity.scheduleUpdate();
                 }
+                
                 int tickSpeed = gameRules.getInteger(GameRule.RANDOM_TICK_SPEED);
 
                 if (tickSpeed > 0) {
@@ -1264,7 +1265,7 @@ public class Level implements ChunkManager, Metadatable {
                             
                             Biome biome = Biome.getBiome(/*chunk.getBiomeId(x1, z1)*/0);
                             //Block target = chunk.getBlockState(x1, y1, z1).getBlockRepairing(this, (chunkX << 4) + x1, y1, (chunkZ << 4) + z1);
-                            int targetId = chunk.getBlockId(x1, y1, z1);
+                            int targetId = /*chunk.getBlockId(x1, y1, z1)*/100;
                             boolean isRaining = this.isRaining();
                             boolean isFreezing = biome.isFreezing(); // TODO: Need improvement for altitude temperature
                             //log.debug("Check: " + String.valueOf(x1) + " " + String.valueOf(y1) + " " + String.valueOf(z1) + " " + biome.getName() + " " + (isFreezing ? "freezing" : "warm") + " " + String.valueOf(targetId));
