@@ -1262,6 +1262,7 @@ public class Level implements ChunkManager, Metadatable {
                             int x1 = lcg1 & 0x0f;
                             int z1 = lcg1 >>> 16 & 0x0f;
                             int y1 = chunk.getHighestBlockAt(x1, z1, false);
+                            log.info("Check: " + String.valueOf(x1) + " " + String.valueOf(y1) + " " + String.valueOf(z1));
                             Biome biome = Biome.getBiome(chunk.getBiomeId(x1, z1));
                             BlockState target = chunk.getBlockState(x1, y1, z1);
                             boolean canRain = biome.canRain();
