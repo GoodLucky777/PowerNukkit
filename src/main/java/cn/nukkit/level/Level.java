@@ -1267,14 +1267,14 @@ public class Level implements ChunkManager, Metadatable {
                             int targetId = chunk.getBlockId(x1, y1, z1);
                             boolean isRaining = this.isRaining();
                             boolean isFreezing = biome.isFreezing(); // TODO: Need improvement for altitude temperature
-                            log.info("Check: " + String.valueOf(x1) + " " + String.valueOf(y1) + " " + String.valueOf(z1) + " " + biome.getName() + " " + (isFreezing ? "freezing" : "warm") + " " + String.valueOf(targetId));
+                            //log.debug("Check: " + String.valueOf(x1) + " " + String.valueOf(y1) + " " + String.valueOf(z1) + " " + biome.getName() + " " + (isFreezing ? "freezing" : "warm") + " " + String.valueOf(targetId));
                             if (isFreezing) {
                                 if ((targetId == BlockID.WATER && target.getDamage() == 0) || targetId == BlockID.STILL_WATER) {
                                     this.setBlockStateAt((chunkX << 4) + x1, y1, (chunkZ << 4) + z1, STATE_ICE);
                                     log.info("ICE!");
                                 }
                                 
-                                if (!biome.isDry() && isRaining) {
+                                if (biome.canSnow() && isRaining) {
                                     if (target.canSnowAccumulate()) {
                                         if (targetId == BlockID.SNOW_LAYER) {
                                             int snowHeight = ((BlockSnowLayer) target).getSnowHeight();
@@ -1289,7 +1289,7 @@ public class Level implements ChunkManager, Metadatable {
                                 }
                             }
                             
-                            if (!biome.isDry() && isRaining) {
+                            if (biome.canRain() && isRaining) {
                                 if (target.canFillRain()) {
                                     target.fillRain();
                                     log.info("RAIN FILL!");
