@@ -161,8 +161,7 @@ public class Level implements ChunkManager, Metadatable {
         randomTickBlocks[BlockID.WARPED_NYLIUM] = true;
         randomTickBlocks[BlockID.TWISTING_VINES] = true;
     }
-    
-    private static final BlockState STATE_STILL_WATER = BlockState.of(BlockID.STILL_WATER);
+
     private static final BlockState STATE_ICE = BlockState.of(BlockID.ICE);
     private static final BlockState STATE_SNOW_LAYER = BlockState.of(BlockID.SNOW_LAYER);
     
@@ -1264,20 +1263,21 @@ public class Level implements ChunkManager, Metadatable {
                             int y1 = chunk.getHighestBlockAt(x1, z1, false);
                             log.info("Check: " + String.valueOf(x1) + " " + String.valueOf(y1) + " " + String.valueOf(z1));
                             Biome biome = Biome.getBiome(chunk.getBiomeId(x1, z1));
-                            BlockState target = chunk.getBlockState(x1, y1, z1);
+                            Block target = chunk.getBlockState(x1, y1, z1).getBlock();
+                            int targetId = chunk.getBlockId(x1, y1, z1);
                             boolean canRain = biome.canRain();
                             boolean isRaining = this.isRaining();
                             boolean isFreezing = biome.isFreezing(); // TODO: Need improvement for altitude temperature
                             
                             if (isFreezing) {
-                                if (target.equals(STATE_STILL_WATER)) {
+                                if (targetId == BlockID.STILL_WATER) {
                                     chunk.setBlockState(x1, y1, z1, STATE_ICE);
                                 }
                                 
                                 if (canRain && isRaining) {
-                                    if (target.getBlock().canSnowAccumulate()) {
-                                        if (target.equals(STATE_SNOW_LAYER)) {
-                                            int snowHeight = ((BlockSnowLayer) target.getBlock()).getSnowHeight();
+                                    if (target.canSnowAccumulate()) {
+                                        if (targetId == BlockID.SNOW_LAYER) {
+                                            int snowHeight = ((BlockSnowLayer) target).getSnowHeight();
                                             if (snowHeight <= BlockSnowLayer.SNOW_HEIGHT.getMaxValue()) {
                                                 chunk.setBlockState(x1, y1, z1, STATE_SNOW_LAYER.withProperty(BlockSnowLayer.SNOW_HEIGHT, snowHeight + 1));
                                             }
@@ -1289,8 +1289,8 @@ public class Level implements ChunkManager, Metadatable {
                             }
                             
                             if (canRain && isRaining) {
-                                if (target.getBlock().canFillRain()) {
-                                    target.getBlock().fillRain();
+                                if (target.canFillRain()) {
+                                    target.fillRain();
                                 }
                             }
                         }
