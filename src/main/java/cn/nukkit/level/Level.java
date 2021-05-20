@@ -1259,7 +1259,7 @@ public class Level implements ChunkManager, Metadatable {
                     for (int t = 0; t < tickSpeed; t++) {
                         // TODO: Improve performance
                         int lcg1 = this.getUpdateLCG();
-                        if ((lcg1 >>> 8 & 0x0f) == 0) {
+                        if ((lcg1 >>> 8 & 0x19) == 0) {
                             int x1 = lcg1 & 0x0f;
                             int z1 = lcg1 >>> 16 & 0x0f;
                             int y1 = chunk.getHighestBlockAt(x1, z1, false);
