@@ -1260,7 +1260,7 @@ public class Level implements ChunkManager, Metadatable {
                         if ((lcg1 >>> 8 & 0x0f) == 0) {
                             int x1 = lcg1 & 0x0f;
                             int z1 = lcg1 >>> 16 & 0x0f;
-                            int y1 = chunk.getHighestBlockAt(x1, z1, true);
+                            int y1 = chunk.getHighestBlockAt(x1, z1, false);
                             
                             Biome biome = Biome.getBiome(chunk.getBiomeId(x1, z1));
                             Block target = chunk.getBlockState(x1, y1, z1).getBlockRepairing(this, (chunkX << 4) + x1, y1, (chunkZ << 4) + z1);
@@ -1271,7 +1271,7 @@ public class Level implements ChunkManager, Metadatable {
                             log.info("Check: " + String.valueOf(x1) + " " + String.valueOf(y1) + " " + String.valueOf(z1) + " " + biome.getName() + " " + (isFreezing ? "freezing" : "warm") + " " + String.valueOf(targetId));
                             if (isFreezing) {
                                 if ((targetId == BlockID.WATER && target.getDamage() == 0) || targetId == BlockID.STILL_WATER) {
-                                    chunk.setBlockState(x1, y1, z1, STATE_ICE);
+                                    this.setBlockState((chunkX << 4) + x1, y1, (chunkZ << 4) + z1, STATE_ICE);
                                     log.info("ICE!");
                                 }
                                 
@@ -1280,10 +1280,10 @@ public class Level implements ChunkManager, Metadatable {
                                         if (targetId == BlockID.SNOW_LAYER) {
                                             int snowHeight = ((BlockSnowLayer) target).getSnowHeight();
                                             if (snowHeight <= BlockSnowLayer.SNOW_HEIGHT.getMaxValue()) {
-                                                chunk.setBlockState(x1, y1, z1, STATE_SNOW_LAYER.withProperty(BlockSnowLayer.SNOW_HEIGHT, snowHeight + 1));
+                                                this.setBlockState((chunkX << 4) + x1, y1, (chunkZ << 4) + z1, STATE_SNOW_LAYER.withProperty(BlockSnowLayer.SNOW_HEIGHT, snowHeight + 1));
                                             }
                                         } else {
-                                            chunk.setBlockState(x1, y1 + 1, z1, STATE_SNOW_LAYER);
+                                            this.setBlockState((chunkX << 4) + x1, y1 + 1, (chunkZ << 4) + z1, STATE_SNOW_LAYER);
                                         }
                                         log.info("SNOW!");
                                     }
