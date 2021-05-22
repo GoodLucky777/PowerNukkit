@@ -125,7 +125,7 @@ public class ItemComponentPacket extends DataPacket {
                 .putFloat("saturation_modifier", saturationModifier));
     }
     
-    public static final Entry[] entries = {
+    public static Entry[] entries = {
         new Entry("goodlucky:ruby",
             getDefaultItemComponent("goodlucky:ruby", 5000, "goodlucky:ruby", 64, 4, "craftingScreen.tab.items")
         ),
