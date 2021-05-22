@@ -22,9 +22,9 @@ public class ItemComponentPacket extends DataPacket {
     @Since("1.4.0.0-PN")
     public static final byte NETWORK_ID = ProtocolInfo.ITEM_COMPONENT_PACKET;
     
-    @PowerNukkitOnly
+    /*@PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    //private Entry[] entries = Entry.EMPTY_ARRAY;
+    private Entry[] entries = Entry.EMPTY_ARRAY;*/
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
