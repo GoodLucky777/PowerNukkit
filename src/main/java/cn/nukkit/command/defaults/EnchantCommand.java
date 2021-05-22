@@ -78,7 +78,7 @@ public class EnchantCommand extends VanillaCommand {
             item.addEnchantment(enchantment);
             player.getInventory().setItemInHand(item);
         } else {
-            Item enchanted = Item.get(ItemID.ENCHANTED_BOOK, 0, 1, item.getCompoundTag());
+            Item enchanted = Item.get(ItemID.ENCHANTED_BOOK, 0, 1, item.getCompoundTag(), 0);
             enchanted.addEnchantment(enchantment);
             Item clone = item.clone();
             clone.count--;
