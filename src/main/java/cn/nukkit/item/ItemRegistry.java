@@ -2,6 +2,7 @@ package cn.nukkit.item;
 
 import cn.nukkit.utils.Identifier;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
@@ -24,12 +25,14 @@ public class ItemRegistry {
         this.registerVanilla();
     }
     
-    public static getInstance() {
+    public static ItemRegistry getInstance() {
         return instance;
     }
     
     public void registerItem(Identifier identifier, Item item) {
+        Preconditions.checkArgument(item.getId() > 0, "Item ID should be larger than 0");
         
+        itemRegisteration.put(identifier, item);
     }
     
     public void registerVanilla() {
