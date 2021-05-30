@@ -21,13 +21,10 @@ public class ItemRegistry {
     
     private BiMap<Identifier, Item> itemRegisteration = HashBiMap.create();
     
-    static {
-        
-        instance = new ItemRegistry();
-    }
-    
     public ItemRegistry() {
         this.registerVanilla();
+        
+        instance = this;
     }
     
     public static ItemRegistry getInstance() {
