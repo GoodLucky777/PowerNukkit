@@ -56,7 +56,7 @@ public class ItemRegistry {
                     String[] parts = line.split(",");
                     Preconditions.checkArgument(parts.length == 2 || parts[0].matches("^[0-9]+$"));
                     if (parts.length > 1) {
-                        legacyIdRegistration.put(Integer.parseInt(parts[0]), Identifier.fromString(parts[1]));
+                        legacyIdRegistration.put(Integer.parseInt(parts[0]), Identifier.fromFullString(parts[1]));
                     }
                 }
             } catch (Exception e) {
@@ -87,10 +87,11 @@ public class ItemRegistry {
         itemRegisteration.put(this.getIdentifierFromLegacyId(item.getId()), item);
     }
     
-    public void registerVanilla() {
-        this.registerVanillaItem(new ItemShovelIron()); // 257
-        this.registerVanillaItem(new ItemPickaxeIron()); // 258
-        this.registerVanillaItem(new ItemAxeIron()); // 259
+    private void registerVanilla() {
+        this.registerVanillaItem(new ItemShovelIron()); // 256
+        this.registerVanillaItem(new ItemPickaxeIron()); // 257
+        this.registerVanillaItem(new ItemAxeIron()); // 258
+        this.registerVanillaItem(new ItemFlintAndSteel()); // 259
         
     }
 }
