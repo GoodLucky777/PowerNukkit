@@ -27,14 +27,14 @@ public class Identifier {
         return new Identifier(parts[0], parts[1]);
     }
     
-    public String getIdentifier() {
+    public String getString() {
         if (namespace.equals("minecraft")) {
             return name;
         }
         return this.getFullIdentifier();
     }
     
-    public String getFullIdentifier() {
+    public String getFullString() {
         return namespace + SEPARATOR + name;
     }
     
