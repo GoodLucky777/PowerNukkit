@@ -32,7 +32,7 @@ public class ItemRegistry {
     private final AtomicInteger runtimeIdAllocator = new AtomicInteger(256);
     private BiMap<Integer, Identifier> runtimeIdRegistration = HashBiMap.create();
     private byte[] itemPalette;
-    private ArrayList<Item> creativeItems = new ArrayList<>();
+    private ArrayList<Item> creativeItemRegisteration = new ArrayList<>();
     
     public ItemRegistry() {
         this.loadItemIds();
@@ -77,7 +77,16 @@ public class ItemRegistry {
     }
     
     private void loadCreativeItems() {
-        
+        Config config = new Config(Config.JSON);
+        config.load(Server.class.getClassLoader().getResourceAsStream("creativeitems.json"));
+        List<Map> list = config.getMapList("items");
+        for (Map map : list) {
+            try {
+                registerCreativeItem(Item.fromJsonStringId(map));
+            } catch (Exception e) {
+                log.error("Error while registering a creative item", e);
+            }
+        }
     }
     
     private void loadItemPalette() {
@@ -132,8 +141,8 @@ public class ItemRegistry {
         
     }
     
-    public void registerCreativeItem() {
-        
+    public void registerCreativeItem(Item item) {
+        this.creativeItemRegisteration.add(item);
     }
     
     public byte[] getItemPalette() {
