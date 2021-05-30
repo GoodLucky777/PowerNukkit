@@ -75,7 +75,13 @@ public class ItemRegistry {
     
     private void loadItemPalette() {
         BinaryStream paletteBuffer = new BinaryStream();
+        
         paletteBuffer.putUnsignedVarInt(runtimeIdRegistration.size());
+        for (Integer runtimeId : runtimeIdRegistration.keySet()) {
+            paletteBuffer.putString(this.getIdentifierFromRuntimeId(runtimeId));
+            paletteBuffer.putLShort(runtimeId);
+            paletteBuffer.putBoolean(false);
+        }
         
         itemPalette = paletteBuffer.getBuffer();
     }
@@ -117,5 +123,9 @@ public class ItemRegistry {
         this.registerVanillaItem(new ItemAxeIron()); // 258
         this.registerVanillaItem(new ItemFlintSteel()); // 259
         
+    }
+    
+    public byte[] getItemPalette() {
+        return itemPalette;
     }
 }
