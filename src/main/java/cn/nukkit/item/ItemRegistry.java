@@ -9,7 +9,7 @@ import com.google.common.collect.HashBiMap;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader
+import java.io.InputStreamReader;
 import java.io.IOException;
 import javax.annotation.ParametersAreNonnullByDefault;
 
