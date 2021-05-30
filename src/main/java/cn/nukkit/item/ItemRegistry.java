@@ -91,7 +91,7 @@ public class ItemRegistry {
         this.registerVanillaItem(new ItemShovelIron()); // 256
         this.registerVanillaItem(new ItemPickaxeIron()); // 257
         this.registerVanillaItem(new ItemAxeIron()); // 258
-        this.registerVanillaItem(new ItemFlintAndSteel()); // 259
+        this.registerVanillaItem(new ItemFlintSteel()); // 259
         
     }
 }
