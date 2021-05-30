@@ -10,7 +10,7 @@ public class ItemRegistry {
     private static final ItemRegistry instance;
     
     public ItemRegistry() {
-        this,registerVanilla();
+        this.registerVanilla();
     }
     
     public static getInstance() {
