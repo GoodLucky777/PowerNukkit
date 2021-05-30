@@ -1,6 +1,6 @@
 package cn.nukkit.item;
 
-import cn.nukkit,Server;
+import cn.nukkit.Server;
 import cn.nukkit.utils.Identifier;
 
 import com.google.common.base.Preconditions;
