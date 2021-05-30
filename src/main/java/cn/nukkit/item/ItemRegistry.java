@@ -1,6 +1,6 @@
 package cn.nukkit.item;
 
-import cn.nukkit.util.Identifier;
+import cn.nukkit.utils.Identifier;
 
 /**
  * @author GoodLucky777
