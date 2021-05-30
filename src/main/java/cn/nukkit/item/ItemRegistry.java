@@ -35,7 +35,7 @@ public class ItemRegistry {
     private static ItemRegistry instance;
     
     private BiMap<Integer, Identifier> legacyIdRegistration = HashBiMap.create();
-    private BiMap<Identifier, Item> itemRegisteration = HashBiMap.create();
+    private BiMap<Identifier, Item> itemRegistration = HashBiMap.create();
     private final AtomicInteger runtimeIdAllocator = new AtomicInteger(256);
     private BiMap<Integer, Identifier> runtimeIdRegistration = HashBiMap.create();
     private byte[] itemPalette;
