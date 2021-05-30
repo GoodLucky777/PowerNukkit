@@ -499,7 +499,7 @@ public class BinaryStream {
         putLShort(item.getCount());
 
         int legacyData = 0;
-        if (item.getId() > 256) { // Not a block
+        if (item.getId() > 255) { // Not a block
             if (item instanceof ItemDurable || !RuntimeItems.hasData(networkFullId)) {
                 legacyData = item.getDamage();
             }
