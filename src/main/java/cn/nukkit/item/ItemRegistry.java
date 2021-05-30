@@ -101,7 +101,7 @@ public class ItemRegistry {
         
         paletteBuffer.putUnsignedVarInt(runtimeIdRegistration.size());
         for (Integer runtimeId : runtimeIdRegistration.keySet()) {
-            paletteBuffer.putString(this.getIdentifierFromRuntimeId(runtimeId)).getFullString();
+            paletteBuffer.putString(this.getIdentifierFromRuntimeId(runtimeId).getFullString());
             paletteBuffer.putLShort(runtimeId);
             paletteBuffer.putBoolean(false);
         }
