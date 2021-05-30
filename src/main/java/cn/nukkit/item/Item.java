@@ -97,7 +97,9 @@ public class Item implements Cloneable, BlockID, ItemID {
                     },
                     (e1, e2) -> e1, LinkedHashMap::new
             ));
-
+    
+    private static ItemRegistry itemRegistry;
+    
     protected Block block = null;
     protected final int id;
     protected int meta;
@@ -149,6 +151,8 @@ public class Item implements Cloneable, BlockID, ItemID {
     }
 
     public static void init() {
+        itemRegistry = new ItemRegistry();
+        
         if (list == null) {
             list = new Class[65535];
             list[IRON_SHOVEL] = ItemShovelIron.class; //256
@@ -1538,5 +1542,10 @@ public class Item implements Cloneable, BlockID, ItemID {
             return null;
         }
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public static ItemRegistry getRegistry() {
+        return itemRegistry;
+    }
 }
