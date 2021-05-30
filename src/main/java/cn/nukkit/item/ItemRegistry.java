@@ -1,6 +1,7 @@
 package cn.nukkit.item;
 
 import cn.nukkit.Server;
+import cn.nukkit.utils.BinaryStream;
 import cn.nukkit.utils.Identifier;
 
 import com.google.common.base.Preconditions;
@@ -29,10 +30,12 @@ public class ItemRegistry {
     private BiMap<Identifier, Item> itemRegisteration = HashBiMap.create();
     private final AtomicInteger runtimeIdAllocator = new AtomicInteger(256);
     private BiMap<Integer, Identifier> runtimeIdRegistration = HashBiMap.create();
+    private byte[] itemPalette;
     
     public ItemRegistry() {
         this.loadItemIds();
         this.registerVanillaItems();
+        this.loadItemPalette();
         
         instance = this;
     }
@@ -68,6 +71,13 @@ public class ItemRegistry {
         } catch (IOException e) {
             throw new AssertionError(e);
         }
+    }
+    
+    private void loadItemPalette() {
+        BinaryStream paletteBuffer = new BinaryStream();
+        paletteBuffer.putUnsignedVarInt(runtimeIdRegistration.size());
+        
+        itemPalette = paletteBuffer.getBuffer();
     }
     
     public Identifier getIdentifierFromLegacyId(int legacyId) {
