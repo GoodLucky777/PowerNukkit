@@ -4,6 +4,7 @@ import cn.nukkit.Server;
 import cn.nukkit.utils.BinaryStream;
 import cn.nukkit.utils.Config;
 import cn.nukkit.utils.Identifier;
+import cn.nukkit.utils.Utils;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.BiMap;
@@ -14,9 +15,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.ParametersAreNonnullByDefault;
+
+import io.netty.util.internal.EmptyArrays;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -110,6 +115,21 @@ public class ItemRegistry {
     
     public Identifier getIdentifierFromRuntimeId(int runtimeId) {
         return runtimeIdRegistration.get(runtimeId);
+    }
+    
+    public Item getItemFromJsonStringId(Map<String, Object> data) {
+        String nbt = (String) data.get("nbt_b64");
+        byte[] nbtBytes = nbt != null ? Base64.getDecoder().decode(nbt) : EmptyArrays.EMPTY_BYTES;
+        String id = data.get("id").toString();
+        Item item;
+        if (data.containsKey("damage")) {
+            int meta = Utils.toInt(data.get("damage"));
+            item = fromString(id + ":" + meta);
+        } else {
+            item = fromString(id);
+        }
+        item.setCompoundTag(nbtBytes);
+        return item;
     }
     
     public int getLegacyIdFromIdentifier(Identifier identifier) {
