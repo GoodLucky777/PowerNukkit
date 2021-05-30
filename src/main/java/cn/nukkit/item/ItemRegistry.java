@@ -1,5 +1,7 @@
 package cn.nukkit.item;
 
+import cn.nukkit.util.Identifier;
+
 /**
  * @author GoodLucky777
  */
@@ -15,7 +17,7 @@ public class ItemRegistry {
         return instance;
     }
     
-    public void registerItem() {
+    public void registerItem(Item item, Identifier identifier) {
         
     }
     
