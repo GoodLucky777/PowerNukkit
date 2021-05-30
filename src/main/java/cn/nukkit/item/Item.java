@@ -21,6 +21,7 @@ import cn.nukkit.nbt.NBTIO;
 import cn.nukkit.nbt.tag.*;
 import cn.nukkit.utils.Binary;
 import cn.nukkit.utils.Config;
+import cn.nukkit.utils.Identifier;
 import cn.nukkit.utils.Utils;
 import io.netty.util.internal.EmptyArrays;
 import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
@@ -43,6 +44,7 @@ import java.util.stream.Stream;
  */
 @Log4j2
 public class Item implements Cloneable, BlockID, ItemID {
+
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public static final Item[] EMPTY_ARRAY = new Item[0];
@@ -101,7 +103,7 @@ public class Item implements Cloneable, BlockID, ItemID {
     private static ItemRegistry itemRegistry;
     
     protected Block block = null;
-    protected final int id;
+    protected final Identifier id;
     protected int meta;
     protected boolean hasMeta = true;
     private byte[] tags = EmptyArrays.EMPTY_BYTES;
@@ -113,35 +115,71 @@ public class Item implements Cloneable, BlockID, ItemID {
     protected int durability = 0;
 
     protected String name;
-
+    
+    @Deprecated
     public Item(int id) {
         this(id, 0, 1, UNKNOWN_STR);
     }
-
+    
+    @Deprecated
     public Item(int id, Integer meta) {
         this(id, meta, 1, UNKNOWN_STR);
     }
-
+    
+    @Deprecated
     public Item(int id, Integer meta, int count) {
         this(id, meta, count, UNKNOWN_STR);
     }
-
+    
+    @Deprecated
     public Item(int id, Integer meta, int count, String name) {
-        //this.id = id & 0xffff;
-        this.id = id;
+        this(this.getRegistry().getIdentifierFromLegacyId(id), meta, count, name);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public Item(Identifier identifier) {
+        this(identifier, 0);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public Item(Identifier identifier, Integer meta) {
+        this(identifier, meta, 1);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public Item(Identifier identifier, Integer meta, int count) {
+        this(identifier, meta, count, UNKNOWN_STR);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public Item(Identifier identifier, Integer meta, int count, String name) {
+        this.identifier = identifier;
         if (meta != null && meta >= 0) {
             this.meta = meta & 0xffff;
         } else {
             this.hasMeta = false;
         }
         this.count = count;
-        this.name = name != null? name.intern() : null;
-        /*f (this.block != null && this.id <= 0xff && Block.list[id] != null) { //probably useless
+        this.name = name != null ? name.intern() : null;
+        /*if (this.block != null && this.id <= 0xff && Block.list[id] != null) { //probably useless
             this.block = Block.get(this.id, this.meta);
             this.name = this.block.getName();
         }*/
     }
-
+    
+    /**
+     * Get identifier
+     */
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public Identifier getIdentifier() {
+        return identifier;
+    }
+    
     public boolean hasMeta() {
         return hasMeta;
     }
