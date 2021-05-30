@@ -15,6 +15,16 @@ public class Identifier {
         this.name = name;
     }
     
+    public static Identifier fromString(String namespace, String name) {
+        return new Identifier(namespace, name);
+    }
+    
+    public static Identifier fromFullString(String identifier) {
+        String[] parts = identifier.split(SEPARATOR);
+        Preconditions.checkArgument(parts.length == 1, "Invalid Identifier: " + identifier);
+        return new Identifier(identifier[0], identifier[1]);
+    }
+    
     public String getIdentifier() {
         if (namespace.equals("minecraft")) {
             return name;
