@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -31,10 +32,12 @@ public class ItemRegistry {
     private final AtomicInteger runtimeIdAllocator = new AtomicInteger(256);
     private BiMap<Integer, Identifier> runtimeIdRegistration = HashBiMap.create();
     private byte[] itemPalette;
+    private ArrayList<Item> creativeItems = new ArrayList<>();
     
     public ItemRegistry() {
         this.loadItemIds();
         this.registerVanillaItems();
+        this.loadCreativeItems();
         this.loadItemPalette();
         
         instance = this;
@@ -71,6 +74,10 @@ public class ItemRegistry {
         } catch (IOException e) {
             throw new AssertionError(e);
         }
+    }
+    
+    private void loadCreativeItems() {
+        
     }
     
     private void loadItemPalette() {
@@ -122,6 +129,10 @@ public class ItemRegistry {
         this.registerVanillaItem(new ItemPickaxeIron()); // 257
         this.registerVanillaItem(new ItemAxeIron()); // 258
         this.registerVanillaItem(new ItemFlintSteel()); // 259
+        
+    }
+    
+    public void registerCreativeItem() {
         
     }
     
