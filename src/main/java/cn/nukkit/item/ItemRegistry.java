@@ -9,6 +9,7 @@ import com.google.common.collect.HashBiMap;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader
 import java.io.IOException;
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -83,7 +84,7 @@ public class ItemRegistry {
     public synchronized void registerVanillaItem(Item item) {
         Preconditions.checkArgument(item.getId() > 0, "Item ID should be larger than 0");
         
-        itemRegisteration.put(this.getIdentifierFronLegacyId(item.getId()), item);
+        itemRegisteration.put(this.getIdentifierFromLegacyId(item.getId()), item);
     }
     
     public void registerVanilla() {
