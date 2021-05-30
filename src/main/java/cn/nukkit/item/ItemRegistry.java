@@ -62,6 +62,14 @@ public class ItemRegistry {
         }
     }
     
+    public Identifier getIdentifierFromLegacyId(int legacyId) {
+        return 
+    }
+    
+    public int getLegacyIdFromIdentifier(Identifier identifier) {
+        return 
+    }
+    
     public synchronized void registerItem(Identifier identifier, Item item) {
         Preconditions.checkArgument(item.getId() > 0, "Item ID should be larger than 0");
         
