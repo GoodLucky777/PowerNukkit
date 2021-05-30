@@ -76,7 +76,12 @@ public class ItemRegistry {
         itemRegisteration.put(identifier, item);
     }
     
+    private synchronized void registerVanillaItem(Item item) {
+        itemRegisteration.put(this.getIdentifierFronLegacyId(item.getId()), item);
+    }
+    
     public void registerVanilla() {
+        this.registerVanillaItem(new ItemShovelIron()); // 257
         
     }
 }
