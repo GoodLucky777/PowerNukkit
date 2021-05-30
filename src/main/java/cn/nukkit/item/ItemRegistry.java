@@ -89,7 +89,7 @@ public class ItemRegistry {
         List<Map> list = config.getMapList("items");
         for (Map map : list) {
             try {
-                registerCreativeItem(Item.fromJsonStringId(map));
+                registerCreativeItem(this.getItemfromJsonStringId(map));
             } catch (Exception e) {
                 log.error("Error while registering a creative item", e);
             }
