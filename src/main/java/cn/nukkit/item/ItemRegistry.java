@@ -26,10 +26,12 @@ public class ItemRegistry {
     
     private BiMap<Integer, Identifier> legacyIdRegistration = HashBiMap.create();
     private BiMap<Identifier, Item> itemRegisteration = HashBiMap.create();
+    private final AtomicInteger runtimeIdAllocator = new AtomicInteger(256);
+    private BiMap<Integer, Identifier> runtimeIdRegistration = HashBiMap.create();
     
     public ItemRegistry() {
         this.loadItemIds();
-        this.registerVanilla();
+        this.registerVanillaItems();
         
         instance = this;
     }
@@ -71,23 +73,33 @@ public class ItemRegistry {
         return legacyIdRegistration.get(legacyId);
     }
     
+    public Identifier getIdentifierFromRuntimeId(int runtimeId) {
+        return runtimeIdRegistration.get(runtimeId);
+    }
+    
     public int getLegacyIdFromIdentifier(Identifier identifier) {
         return legacyIdRegistration.inverse().get(identifier);
+    }
+    
+    public int getRuntimeIdFromIdentifier(Identifier identifier) {
+        return runtimeIdRegistration.inverse().get(identifier);
     }
     
     public synchronized void registerItem(Identifier identifier, Item item) {
         Preconditions.checkArgument(item.getId() > 0, "Item ID should be larger than 0");
         
         itemRegisteration.put(identifier, item);
+        runtimeIdRegistration.put(this.runtimeIdAllocator.getAndIncrement(), identifier);
     }
     
     public synchronized void registerVanillaItem(Item item) {
         Preconditions.checkArgument(item.getId() > 0, "Item ID should be larger than 0");
         
         itemRegisteration.put(this.getIdentifierFromLegacyId(item.getId()), item);
+        runtimeIdRegistration.put(this.runtimeIdAllocator.getAndIncrement(), identifier);
     }
     
-    private void registerVanilla() {
+    private void registerVanillaItems() {
         this.registerVanillaItem(new ItemShovelIron()); // 256
         this.registerVanillaItem(new ItemPickaxeIron()); // 257
         this.registerVanillaItem(new ItemAxeIron()); // 258
