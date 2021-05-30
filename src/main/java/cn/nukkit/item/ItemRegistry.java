@@ -21,7 +21,7 @@ import lombok.extern.log4j.Log4j2;
 @ParametersAreNonnullByDefault
 public class ItemRegistry {
 
-    private static final ItemRegistry instance;
+    private static ItemRegistry instance;
     
     private BiMap<Integer, Identifier> legacyIdRegistration = HashBiMap.create();
     private BiMap<Identifier, Item> itemRegisteration = HashBiMap.create();
@@ -80,12 +80,16 @@ public class ItemRegistry {
         itemRegisteration.put(identifier, item);
     }
     
-    private synchronized void registerVanillaItem(Item item) {
+    public synchronized void registerVanillaItem(Item item) {
+        Preconditions.checkArgument(item.getId() > 0, "Item ID should be larger than 0");
+        
         itemRegisteration.put(this.getIdentifierFronLegacyId(item.getId()), item);
     }
     
     public void registerVanilla() {
         this.registerVanillaItem(new ItemShovelIron()); // 257
+        this.registerVanillaItem(new ItemPickaxeIron()); // 258
+        this.registerVanillaItem(new ItemAxeIron()); // 259
         
     }
 }
