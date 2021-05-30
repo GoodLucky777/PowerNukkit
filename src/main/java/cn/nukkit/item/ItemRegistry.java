@@ -63,11 +63,11 @@ public class ItemRegistry {
     }
     
     public Identifier getIdentifierFromLegacyId(int legacyId) {
-        return 
+        return legacyIdRegistration.get(legacyId);
     }
     
     public int getLegacyIdFromIdentifier(Identifier identifier) {
-        return 
+        return legacyIdRegistration.inverse().get(identifier);
     }
     
     public synchronized void registerItem(Identifier identifier, Item item) {
