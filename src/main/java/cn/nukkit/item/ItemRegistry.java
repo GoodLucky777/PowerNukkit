@@ -120,13 +120,13 @@ public class ItemRegistry {
     public Item getItemFromJsonStringId(Map<String, Object> data) {
         String nbt = (String) data.get("nbt_b64");
         byte[] nbtBytes = nbt != null ? Base64.getDecoder().decode(nbt) : EmptyArrays.EMPTY_BYTES;
-        String id = data.get("id").toString();
+        Identifier identifier = Identifier.fromFullString(data.get("id").toString());
         Item item;
         if (data.containsKey("damage")) {
             int meta = Utils.toInt(data.get("damage"));
-            item = fromString(id + ":" + meta);
+            item = this.getItemFromIdentifer(identifier).setDamage(meta);
         } else {
-            item = fromString(id);
+            item = this.getItemFromIdentifer(identifier);
         }
         item.setCompoundTag(nbtBytes);
         return item;
