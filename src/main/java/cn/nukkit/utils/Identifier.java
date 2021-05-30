@@ -22,7 +22,7 @@ public class Identifier {
     public static Identifier fromFullString(String identifier) {
         String[] parts = identifier.split(SEPARATOR);
         Preconditions.checkArgument(parts.length == 1, "Invalid Identifier: " + identifier);
-        return new Identifier(identifier[0], identifier[1]);
+        return new Identifier(parts[0], parts[1]);
     }
     
     public String getIdentifier() {
