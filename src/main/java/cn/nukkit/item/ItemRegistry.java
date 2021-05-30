@@ -21,6 +21,11 @@ public class ItemRegistry {
     
     private BiMap<Identifier, Item> itemRegisteration = HashBiMap.create();
     
+    static {
+        
+        instance = new ItemRegistry();
+    }
+    
     public ItemRegistry() {
         this.registerVanilla();
     }
@@ -29,7 +34,7 @@ public class ItemRegistry {
         return instance;
     }
     
-    public void registerItem(Identifier identifier, Item item) {
+    public synchronized void registerItem(Identifier identifier, Item item) {
         Preconditions.checkArgument(item.getId() > 0, "Item ID should be larger than 0");
         
         itemRegisteration.put(identifier, item);
