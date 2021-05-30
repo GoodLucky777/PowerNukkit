@@ -27,6 +27,7 @@ import java.util.zip.GZIPInputStream;
 @PowerNukkitDifference(since = "1.4.0.0-PN", info = "It's the caller responsibility to close the provided streams")
 @PowerNukkitDifference(since = "1.4.0.0-PN", info = "Fixed output streams not being finished correctly")
 @PowerNukkitDifference(since = "1.4.0.0-PN", info = "Added defensive close invocations to byte array streams")
+@PowerNukkitDifference(since = "1.4.0.0-PN", info = "Save Item Identifier instead numerical Id")
 public class NBTIO {
 
     public static CompoundTag putItemHelper(Item item) {
@@ -35,7 +36,7 @@ public class NBTIO {
 
     public static CompoundTag putItemHelper(Item item, Integer slot) {
         CompoundTag tag = new CompoundTag((String) null)
-                .putShort("id", item.getId())
+                .putString("Name", item.getIdentifier().getFullString())
                 .putByte("Count", item.getCount())
                 .putShort("Damage", item.getDamage());
         if (slot != null) {
@@ -50,23 +51,14 @@ public class NBTIO {
     }
 
     public static Item getItemHelper(CompoundTag tag) {
-        if (!tag.contains("id") || !tag.contains("Count")) {
+        if (!tag.contains("Name") || !tag.contains("Count")) {
             return Item.get(0);
         }
-        int id = (short) tag.getShort("id");
+        String name = tag.getShort("Name");
         int damage = !tag.contains("Damage") ? 0 : tag.getShort("Damage");
         int amount = tag.getByte("Count");
         
-        Item item = fixAlphaItem(id, damage, amount);
-        if (item == null) {
-            try {
-                item = Item.get(id, damage, tag.getByte("Count"));
-            } catch (Exception e) {
-                item = Item.fromString(tag.getString("id"));
-                item.setDamage(damage);
-                item.setCount(tag.getByte("Count"));
-            }
-        }
+        Item item = new Item(identifier, damage, amount);
 
         Tag tagTag = tag.get("tag");
         if (tagTag instanceof CompoundTag) {
