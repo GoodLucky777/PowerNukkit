@@ -109,12 +109,20 @@ public class ItemRegistry {
         itemPalette = paletteBuffer.getBuffer();
     }
     
+    public Identifier getIdentifierFromItem(Item item) {
+        return itemRegistration.inverse().get(item);
+    }
+    
     public Identifier getIdentifierFromLegacyId(int legacyId) {
         return legacyIdRegistration.get(legacyId);
     }
     
     public Identifier getIdentifierFromRuntimeId(int runtimeId) {
         return runtimeIdRegistration.get(runtimeId);
+    }
+    
+    public Item getItemFromIdentifer(Identifier identifier) {
+        return itemRegistration.get(identifier);
     }
     
     public Item getItemFromJsonStringId(Map<String, Object> data) {
