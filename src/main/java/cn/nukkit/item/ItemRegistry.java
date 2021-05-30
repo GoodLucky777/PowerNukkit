@@ -96,7 +96,8 @@ public class ItemRegistry {
     public synchronized void registerVanillaItem(Item item) {
         Preconditions.checkArgument(item.getId() > 0, "Item ID should be larger than 0");
         
-        itemRegisteration.put(this.getIdentifierFromLegacyId(item.getId()), item);
+        Identifier identifier = this.getIdentifierFromLegacyId(item.getId());
+        itemRegisteration.put(identifier, item);
         runtimeIdRegistration.put(this.runtimeIdAllocator.getAndIncrement(), identifier);
     }
     
