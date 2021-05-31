@@ -236,7 +236,7 @@ public class BlockStateRegistry {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     @Nullable
-    public BlockState getBlockStateByRuntimeId(int runtimeId) {
+    public static BlockState getBlockStateByRuntimeId(int runtimeId) {
         Registration registration = findRegistrationByRuntimeId(runtimeId);
         if (registration == null) {
             return null;

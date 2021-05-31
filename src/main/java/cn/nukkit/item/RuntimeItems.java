@@ -56,7 +56,7 @@ public class RuntimeItems {
         for (Entry entry : entries) {
             paletteBuffer.putString(entry.name);
             paletteBuffer.putLShort(entry.id);
-            paletteBuffer.putBoolean(false); // Component item
+            paletteBuffer.putBoolean(entry.id >= 5000 ? true : false); // Component item
             namespaceNetworkMap.put(entry.name, entry.id);
             networkNamespaceMap.put(entry.id, entry.name);
             if (entry.oldId != null) {

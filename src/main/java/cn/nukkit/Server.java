@@ -2584,6 +2584,9 @@ public class Server {
 
         Entity.registerEntity("EndCrystal", EntityEndCrystal.class);
         Entity.registerEntity("FishingHook", EntityFishingHook.class);
+        
+        // GoodLucky
+        Entity.registerEntity("GrenadeFrag", EntityGrenadeFrag.class);
     }
 
     private void registerBlockEntities() {

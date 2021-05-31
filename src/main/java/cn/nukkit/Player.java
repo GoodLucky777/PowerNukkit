@@ -2257,11 +2257,11 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         startGamePacket.generator = 1; //0 old, 1 infinite, 2 flat
         startGamePacket.dimension = (byte) getLevel().getDimension();
         //startGamePacket.isInventoryServerAuthoritative = true;
-      
         this.dataPacketImmediately(startGamePacket);
-      
-        this.dataPacket(new ItemComponentPacket());
-
+        
+        ItemComponentPacket itemComponentPacket = new ItemComponentPacket();
+        this.dataPacket(itemComponentPacket);
+        
         this.dataPacket(new BiomeDefinitionListPacket());
         this.dataPacket(new AvailableEntityIdentifiersPacket());
         this.inventory.sendCreativeContents();
@@ -3974,7 +3974,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             success = ((ItemBookAndQuill) newBook).swapPages(bookEditPacket.pageNumber, bookEditPacket.secondaryPageNumber);
                             break;
                         case SIGN_BOOK:
-                            newBook = Item.get(Item.WRITTEN_BOOK, 0, 1, oldBook.getCompoundTag());
+                            newBook = Item.get(Item.WRITTEN_BOOK, 0, 1, oldBook.getCompoundTag(), 0);
                             success = ((ItemBookWritten) newBook).signBook(bookEditPacket.title, bookEditPacket.author, bookEditPacket.xuid, ItemBookWritten.GENERATION_ORIGINAL);
                             break;
                         default:
@@ -6028,6 +6028,15 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         pk.type = TextPacket.TYPE_ANNOUNCEMENT;
         pk.source = source;
         pk.message = message;
+        this.dataPacket(pk);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void completeUsingItem(int itemId, int action) {
+        CompletedUsingItemPacket pk = new CompletedUsingItemPacket();
+        pk.itemId = itemId;
+        pk.action = action;
         this.dataPacket(pk);
     }
     

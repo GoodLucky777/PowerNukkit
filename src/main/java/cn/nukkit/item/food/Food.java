@@ -84,7 +84,7 @@ public abstract class Food {
             .addEffect(Effect.getEffect(Effect.NAUSEA).setAmplifier(1).setDuration(15 * 20))
             .addEffect(Effect.getEffect(Effect.POISON).setAmplifier(4).setDuration(60 * 20))
             .addRelative(Item.PUFFERFISH));
-    public static final Food dried_kelp = registerDefaultFood(new FoodNormal(1, 0.6F).addRelative(Item.DRIED_KELP));
+    public static final Food dried_kelp = registerDefaultFood(new FoodNormal(1, 0.6F).addRelative(Item.DRIED_KELP).setEatingTick(16));
     public static final Food sweet_berries = registerDefaultFood(new FoodNormal(2, 0.4F).addRelative(Item.SWEET_BERRIES));
     
     @PowerNukkitOnly
@@ -130,7 +130,28 @@ public abstract class Food {
     @PowerNukkitDifference(since = "1.4.0.0-PN", info = "PowerNukkit uses FoodHoney instead of FoodNormal")
     @Since("1.4.0.0-PN")
     public static final Food honey_bottle = honey;
-
+    
+    // GoodLucky
+    public static final Food bacon = registerDefaultFood(new FoodNormal(1, 0.6F).addRelative(Item.BACON));
+    public static final Food baguette = registerDefaultFood(new FoodNormal(15, 14F).addRelative(Item.BAGUETTE));
+    public static final Food beer = registerDefaultFood(new FoodEffective(1, 0.2F)
+        .addEffect(Effect.getEffect(Effect.NAUSEA).setAmplifier(1).setDuration(35 * 20))
+        .addRelative(Item.BEER));
+    public static final Food brownie = registerDefaultFood(new FoodNormal(7, 7.5F).addRelative(Item.BROWNIE));
+    public static final Food cheese = registerDefaultFood(new FoodNormal(2, 0.4F).addRelative(Item.CHEESE));
+    public static final Food chocolate = registerDefaultFood(new FoodNormal(2, 1.5F).addRelative(Item.CHOCOLATE));
+    public static final Food fried_chicken = registerDefaultFood(new FoodNormal(8, 8.0F).addRelative(Item.FRIED_CHICKEN));
+    public static final Food fried_chicken_leg = registerDefaultFood(new FoodNormal(1, 0.7F).addRelative(Item.FRIED_CHICKEN_LEG));
+    public static final Food fried_egg = registerDefaultFood(new FoodNormal(1, 0.35F).addRelative(Item.FRIED_EGG));
+    public static final Food apple_pie = registerDefaultFood(new FoodNormal(6, 3.4F).addRelative(Item.APPLE_PIE));
+    public static final Food pretzel = registerDefaultFood(new FoodNormal(15, 12.5F).addRelative(Item.PRETZEL));
+    public static final Food whiskey = registerDefaultFood(new FoodEffective(1, 0.25F)
+        .addEffect(Effect.getEffect(Effect.NAUSEA).setAmplifier(3).setDuration(180 * 20))
+        .addRelative(Item.WHISKEY));
+    public static final Food wine = registerDefaultFood(new FoodEffective(1, 0.25F)
+        .addEffect(Effect.getEffect(Effect.NAUSEA).setAmplifier(2).setDuration(90 * 20))
+        .addRelative(Item.WINE));
+    
     //Opened API for plugins
     public static Food registerFood(Food food, Plugin plugin) {
         Objects.requireNonNull(food);
@@ -214,7 +235,24 @@ public abstract class Food {
         this.restoreSaturation = restoreSaturation;
         return this;
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    protected int eatingTick = 31;
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public int getEatingTick() {
+        return eatingTick;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public Food setEatingTick(int eatingTick) {
+        this.eatingTick = eatingTick;
+        return this;
+    }
+    
     static class NodeIDMeta {
         final int id;
         final int meta;
@@ -233,5 +271,4 @@ public abstract class Food {
             this.plugin = plugin;
         }
     }
-
 }
