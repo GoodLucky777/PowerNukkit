@@ -113,6 +113,10 @@ public class ItemRegistry {
         this.creativeItemRegisteration.clear();
     }
     
+    public ArrayList<Item> getCreativeItems() {
+        return new ArrayList<>(this.creativeItemRegisteration);
+    }
+    
     public Identifier getIdentifierFromItem(Item item) {
         return itemRegistration.inverse().get(item);
     }
