@@ -530,7 +530,7 @@ public class Item implements Cloneable, BlockID, ItemID {
     }
     
     // Item data
-    protected final Identifier id;
+    protected final Identifier identifier;
     protected Block block = null;
     protected boolean hasMeta = true;
     protected int meta;
