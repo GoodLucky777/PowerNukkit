@@ -114,10 +114,7 @@ public class ItemRegistry {
     }
     
     public Item getCreativeItem(int index) {
-        int index = this.getCreativeItemIndex(item);
-        if (index != -1) {
-            this.creativeItemRegisteration.remove(index);
-        }
+        return (index >= 0 && index < this.creativeItemRegisteration.size()) ? this.creativeItemRegisteration.get(index) : null;
     }
     
     public int getCreativeItemIndex(Item item) {
