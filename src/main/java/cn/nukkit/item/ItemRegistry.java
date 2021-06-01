@@ -113,8 +113,33 @@ public class ItemRegistry {
         this.creativeItemRegisteration.clear();
     }
     
+    public Item getCreativeItem(int index) {
+        int index = this.getCreativeItemIndex(item);
+        if (index != -1) {
+            this.creativeItemRegisteration.remove(index);
+        }
+    }
+    
+    public int getCreativeItemIndex(Item item) {
+        for (int i = 0; i < this.creativeItemRegisteration.size(); i++) {
+            if (item.equals(this.creativeItemRegisteration.get(i), !item.isTool())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
     public ArrayList<Item> getCreativeItems() {
         return new ArrayList<>(this.creativeItemRegisteration);
+    }
+    
+    public boolean isCreativeItem(Item item) {
+        for (Item aCreative : this.creativeItemRegisteration) {
+            if (item.equals(aCreative, !item.isTool())) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public Identifier getIdentifierFromItem(Item item) {
@@ -185,5 +210,12 @@ public class ItemRegistry {
     
     public byte[] getItemPalette() {
         return itemPalette;
+    }
+    
+    public static void unregisterCreativeItem(Item item) {
+        int index = this.getCreativeItemIndex(item);
+        if (index != -1) {
+            this.creativeItemRegisteration.remove(index);
+        }
     }
 }
