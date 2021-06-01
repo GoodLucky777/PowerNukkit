@@ -49,4 +49,9 @@ public class Identifier {
     public static String getSeperator() {
         return SEPARATOR;
     }
+    
+    @Override
+    public final boolean equals(Object identifier) {
+        return identifier instanceof Identifier && this.getNamespace().equals(((Identifier) identifier).getNamespace()) && this.getName().equals(((Identifier) identifier).getName());
+    }
 }
