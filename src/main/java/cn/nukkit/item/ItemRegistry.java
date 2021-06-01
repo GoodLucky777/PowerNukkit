@@ -83,7 +83,7 @@ public class ItemRegistry {
         }
     }
     
-    private void loadCreativeItems() {
+    public void loadCreativeItems() {
         Config config = new Config(Config.JSON);
         config.load(Server.class.getClassLoader().getResourceAsStream("creativeitems.json"));
         List<Map> list = config.getMapList("items");
