@@ -134,8 +134,8 @@ public class ItemRegistry {
     }
     
     public boolean isCreativeItem(Item item) {
-        for (Item aCreative : this.creativeItemRegisteration) {
-            if (item.equals(aCreative, !item.isTool())) {
+        for (Item creative : this.creativeItemRegisteration) {
+            if (item.equals(creative, !item.isTool())) {
                 return true;
             }
         }
