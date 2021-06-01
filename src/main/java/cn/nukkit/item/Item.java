@@ -5,7 +5,7 @@ import cn.nukkit.Server;
 import cn.nukkit.api.*;
 import cn.nukkit.api.Since;
 import cn.nukkit.block.Block;
-import cn.nukkit.block.BlockID;
+import cn.nukkit.block.BlockIdentifier;
 import cn.nukkit.blockproperty.UnknownRuntimeIdException;
 import cn.nukkit.blockproperty.exception.InvalidBlockPropertyMetaException;
 import cn.nukkit.blockstate.BlockState;
@@ -43,7 +43,7 @@ import java.util.stream.Stream;
  * @author MagicDroidX (Nukkit Project)
  */
 @Log4j2
-public class Item implements Cloneable, BlockID, ItemID {
+public class Item implements Cloneable, BlockIdentifier, ItemIdentifier {
 
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
