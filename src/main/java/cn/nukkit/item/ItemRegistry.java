@@ -209,7 +209,7 @@ public class ItemRegistry {
         return itemPalette;
     }
     
-    public static void unregisterCreativeItem(Item item) {
+    public void unregisterCreativeItem(Item item) {
         int index = this.getCreativeItemIndex(item);
         if (index != -1) {
             this.creativeItemRegisteration.remove(index);
