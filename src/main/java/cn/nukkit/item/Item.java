@@ -187,13 +187,13 @@ public class Item implements Cloneable, BlockID, ItemID {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public static Item get(Identifier identifier) {
-        return get(id, 0);
+        return get(identifier, 0);
     }
     
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public static Item get(Identifier identifier, Integer meta) {
-        return get(id, meta, 1);
+        return get(identifier, meta, 1);
     }
     
     @PowerNukkitOnly
@@ -490,43 +490,43 @@ public class Item implements Cloneable, BlockID, ItemID {
     @Deprecated
     //@SuppressWarnings("unchecked")
     private static void initCreativeItems() {
-        this.getRegistry().clearCreativeItems();
-        this.getRegistry().loadCreativeItems();
+        getRegistry().clearCreativeItems();
+        getRegistry().loadCreativeItems();
     }
     
     @Deprecated
     public static void clearCreativeItems() {
-        this.getRegistry().clearCreativeItems();
+        getRegistry().clearCreativeItems();
     }
     
     @Deprecated
     public static ArrayList<Item> getCreativeItems() {
-        return this.getRegistry().getCreativeItems();
+        return getRegistry().getCreativeItems();
     }
     
     @Deprecated
     public static void addCreativeItem(Item item) {
-        this.getRegistry().registerCreativeItem(item);
+        getRegistry().registerCreativeItem(item);
     }
     
     @Deprecated
     public static void removeCreativeItem(Item item) {
-        this.getRegistry().unregisterCreativeItem(item);
+        getRegistry().unregisterCreativeItem(item);
     }
     
     @Deprecated
     public static boolean isCreativeItem(Item item) {
-        return this.getRegistry().isCreativeItem(item);
+        return getRegistry().isCreativeItem(item);
     }
     
     @Deprecated
     public static Item getCreativeItem(int index) {
-        return this.getRegistry().getCreativeItem(index);
+        return getRegistry().getCreativeItem(index);
     }
     
     @Deprecated
     public static int getCreativeItemIndex(Item item) {
-        return this.getRegistry().getCreativeItemIndex(item);
+        return getRegistry().getCreativeItemIndex(item);
     }
     
     // Item data
@@ -973,7 +973,11 @@ public class Item implements Cloneable, BlockID, ItemID {
     final public String getName() {
         return this.hasCustomName() ? this.getCustomName() : this.name;
     }
-
+    
+    public boolean canBeActivated() {
+        return false;
+    }
+    
     final public boolean canBePlaced() {
         return ((this.block != null) && this.block.canBePlaced());
     }
