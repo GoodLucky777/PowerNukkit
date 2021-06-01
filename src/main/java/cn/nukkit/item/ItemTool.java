@@ -190,7 +190,7 @@ public abstract class ItemTool extends Item implements ItemDurable {
 
     @Override
     public boolean isTool() {
-        switch (this.id) {
+        switch (this.identifier) {
             case FLINT_STEEL:
             case SHEARS:
             case BOW:
