@@ -54,11 +54,11 @@ public class NBTIO {
         if (!tag.contains("Name") || !tag.contains("Count")) {
             return Item.get(0);
         }
-        String name = tag.getShort("Name");
+        String name = tag.getString("Name");
         int damage = !tag.contains("Damage") ? 0 : tag.getShort("Damage");
         int amount = tag.getByte("Count");
         
-        Item item = new Item(identifier, damage, amount);
+        Item item = new Item(name, damage, amount);
 
         Tag tagTag = tag.get("tag");
         if (tagTag instanceof CompoundTag) {
