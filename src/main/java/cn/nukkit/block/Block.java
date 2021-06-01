@@ -49,8 +49,8 @@ import static cn.nukkit.utils.Utils.dynamic;
 @PowerNukkitDifference(info = "Implements IMutableBlockState only on PowerNukkit", since = "1.4.0.0-PN")
 @SuppressWarnings({"java:S2160", "java:S3400"})
 @Log4j2
-public abstract class Block extends Position implements Metadatable, Cloneable, AxisAlignedBB, BlockID, IMutableBlockState {
-    
+public abstract class Block extends Position implements Metadatable, Cloneable, AxisAlignedBB, BlockIdentifier, IMutableBlockState {
+
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public static final Block[] EMPTY_ARRAY = new Block[0];
