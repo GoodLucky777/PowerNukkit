@@ -181,7 +181,7 @@ public class ItemRegistry {
     public synchronized void registerItem(Identifier identifier, Item item) {
         Preconditions.checkArgument(item.getId() > 0, "Item ID should be larger than 0");
         
-        itemRegisteration.put(identifier, item);
+        itemRegistration.put(identifier, item);
         runtimeIdRegistration.put(this.runtimeIdAllocator.getAndIncrement(), identifier);
     }
     
@@ -189,7 +189,7 @@ public class ItemRegistry {
         Preconditions.checkArgument(item.getId() > 0, "Item ID should be larger than 0");
         
         Identifier identifier = this.getIdentifierFromLegacyId(item.getId());
-        itemRegisteration.put(identifier, item);
+        itemRegistration.put(identifier, item);
         runtimeIdRegistration.put(this.runtimeIdAllocator.getAndIncrement(), identifier);
     }
     
