@@ -8,6 +8,7 @@ import com.google.common.base.Preconditions;
 public class Identifier {
 
     private static final String SEPARATOR = ":";
+    private static final String DEFAULT_NAMESPACE = "minecraft";
     
     // TODO: Add Identifier Regex Pattern
     
@@ -17,6 +18,10 @@ public class Identifier {
     public Identifier(String namespace, String name) {
         this.namespace = namespace;
         this.name = name;
+    }
+    
+    public static Identifier fromString(String name) {
+        return fromString(DEFAULT_NAMESPACE, name);
     }
     
     public static Identifier fromString(String namespace, String name) {
@@ -30,7 +35,7 @@ public class Identifier {
     }
     
     public String getString() {
-        if (namespace.equals("minecraft")) {
+        if (namespace.equals(DEFAULT_NAMESPACE)) {
             return name;
         }
         return this.getFullString();
@@ -50,6 +55,10 @@ public class Identifier {
     
     public static String getSeperator() {
         return SEPARATOR;
+    }
+    
+    public static String getDefaultNamespace() {
+        return DEFAULT_NAMESPACE;
     }
     
     @Override
