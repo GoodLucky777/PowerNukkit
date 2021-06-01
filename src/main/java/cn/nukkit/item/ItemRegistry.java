@@ -109,6 +109,10 @@ public class ItemRegistry {
         itemPalette = paletteBuffer.getBuffer();
     }
     
+    public void clearCreativeItems() {
+        this.creativeItemRegisteration.clear();
+    }
+    
     public Identifier getIdentifierFromItem(Item item) {
         return itemRegistration.inverse().get(item);
     }
