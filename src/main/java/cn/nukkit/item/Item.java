@@ -123,7 +123,7 @@ public class Item implements Cloneable, BlockID, ItemID {
     
     @Deprecated
     public Item(int id, Integer meta, int count, String name) {
-        this(this.getRegistry().getIdentifierFromLegacyId(id), meta, count, name);
+        this(getRegistry().getIdentifierFromLegacyId(id), meta, count, name);
     }
     
     @PowerNukkitOnly
@@ -181,7 +181,7 @@ public class Item implements Cloneable, BlockID, ItemID {
             info = "Prevents players from getting invalid items by limiting the return to the maximum damage defined in Block.getMaxItemDamage()",
             since = "1.4.0.0-PN")
     public static Item get(int id, Integer meta, int count, byte[] tags) {
-        return get(this.getRegistry().getIdentifierFromLegacyId(id), meta, count, tags);
+        return get(getRegistry().getIdentifierFromLegacyId(id), meta, count, tags);
     }
     
     @PowerNukkitOnly
