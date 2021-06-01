@@ -9,6 +9,8 @@ public class Identifier {
 
     private static final String SEPARATOR = ":";
     
+    // TODO: Add Identifier Regex Pattern
+    
     private final String namespace;
     private final String name;
     
@@ -31,7 +33,7 @@ public class Identifier {
         if (namespace.equals("minecraft")) {
             return name;
         }
-        return this.getFullIdentifier();
+        return this.getFullString();
     }
     
     public String getFullString() {
