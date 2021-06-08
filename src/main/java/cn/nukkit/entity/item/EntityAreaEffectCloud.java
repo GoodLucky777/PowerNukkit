@@ -1,7 +1,7 @@
 package cn.nukkit.entity.item;
 
 import cn.nukkit.api.PowerNukkitOnly;
-import cn.nukkit,api.Since;
+import cn.nukkit.api.Since;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityLiving;
 import cn.nukkit.entity.data.FloatEntityData;
@@ -412,7 +412,7 @@ public class EntityAreaEffectCloud extends Entity {
     }
     
     @PowerNukkitOnly
-    @Since("1.4.0.0-PN")
+    @Since("1.4.0.1-PN")
     @Override
     public String getName() {
         return "Area Effect Cloud";
