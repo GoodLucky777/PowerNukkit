@@ -1,6 +1,8 @@
 package cn.nukkit.entity.item;
 
 import cn.nukkit.api.PowerNukkitDifference;
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.projectile.EntityProjectile;
 import cn.nukkit.level.Sound;
@@ -102,5 +104,12 @@ public class EntityExpBottle extends EntityProjectile {
     @Override
     protected void addHitEffect() {
         this.getLevel().addSound(this, Sound.RANDOM_GLASS);
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.1-PN")
+    @Override
+    public String getName() {
+        return "Bottle o' Enchanting";
     }
 }
