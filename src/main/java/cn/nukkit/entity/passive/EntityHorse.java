@@ -1,5 +1,7 @@
 package cn.nukkit.entity.passive;
 
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.nbt.tag.CompoundTag;
@@ -45,5 +47,12 @@ public class EntityHorse extends EntityAnimal {
     @Override
     public Item[] getDrops() {
         return new Item[]{Item.get(Item.LEATHER)};
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.1-PN")
+    @Override
+    public String getName() {
+        return "Horse";
     }
 }
