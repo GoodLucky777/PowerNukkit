@@ -1,6 +1,8 @@
 package cn.nukkit.entity.item;
 
 import cn.nukkit.api.PowerNukkitDifference;
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.EntityExplosive;
 import cn.nukkit.entity.data.IntEntityData;
@@ -177,5 +179,12 @@ public class EntityPrimedTNT extends Entity implements EntityExplosive {
 
     public Entity getSource() {
         return source;
+    }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.1-PN")
+    @Override
+    public String getName() {
+        return "Block of TNT";
     }
 }
