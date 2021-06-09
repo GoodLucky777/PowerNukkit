@@ -9,13 +9,20 @@ import lombok.ToString;
  * @author GoodLucky777
  */
 @PowerNukkitOnly
-@Since("1.4.0.1-PN")
+@Since("FUTURE")
 @ToString
 public class TickSyncPacket extends DataPacket {
 
+    @PowerNukkitOnly
+    @Since("FUTURE")
     public static final byte NETWORK_ID = ProtocolInfo.TICK_SYNC_PACKET;
     
+    @PowerNukkitOnly
+    @Since("FUTURE")
     public long requestTimestamp;
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
     public long responseTimestamp;
     
     @Override
