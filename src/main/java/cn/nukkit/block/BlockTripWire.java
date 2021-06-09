@@ -1,6 +1,8 @@
 package cn.nukkit.block;
 
 import cn.nukkit.Player;
+import cn.nukkit.api.PowerNukkitDifference;
+import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemString;
@@ -8,10 +10,13 @@ import cn.nukkit.level.Level;
 import cn.nukkit.math.AxisAlignedBB;
 import cn.nukkit.math.BlockFace;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author CreeperFace
  */
-public class BlockTripWire extends BlockFlowable {
+public class BlockTripWire extends BlockTransparentMeta {
 
     public BlockTripWire(int meta) {
         super(meta);
@@ -34,6 +39,17 @@ public class BlockTripWire extends BlockFlowable {
     @Override
     public boolean canPassThrough() {
         return true;
+    }
+
+    @PowerNukkitOnly
+    @Override
+    public int getWaterloggingLevel() {
+        return 2;
+    }
+
+    @Override
+    public boolean canBeFlowedInto() {
+        return false;
     }
 
     @Override
@@ -86,8 +102,13 @@ public class BlockTripWire extends BlockFlowable {
         }
     }
 
+    @PowerNukkitDifference(info = "Trigger observer.", since = "1.4.0.0-PN")
     @Override
     public void onEntityCollide(Entity entity) {
+        if (!this.level.getServer().isRedstoneEnabled()) {
+            return;
+        }
+
         if (!entity.doesTriggerPressurePlate()) {
             return;
         }
@@ -100,10 +121,15 @@ public class BlockTripWire extends BlockFlowable {
             this.updateHook(false);
 
             this.level.scheduleUpdate(this, 10);
+            this.level.updateComparatorOutputLevelSelective(this, true);
         }
     }
 
-    public void updateHook(boolean scheduleUpdate) {
+    private void updateHook(boolean scheduleUpdate) {
+        if (!this.level.getServer().isRedstoneEnabled()) {
+            return;
+        }
+
         for (BlockFace side : new BlockFace[]{BlockFace.SOUTH, BlockFace.WEST}) {
             for (int i = 1; i < 42; ++i) {
                 Block block = this.getSide(side, i);
@@ -128,8 +154,13 @@ public class BlockTripWire extends BlockFlowable {
         }
     }
 
+    @PowerNukkitDifference(info = "Trigger observer.", since = "1.4.0.0-PN")
     @Override
     public int onUpdate(int type) {
+        if (!this.level.getServer().isRedstoneEnabled()) {
+            return 0;
+        }
+
         if (type == Level.BLOCK_UPDATE_SCHEDULED) {
             if (!isPowered()) {
                 return type;
@@ -150,6 +181,8 @@ public class BlockTripWire extends BlockFlowable {
                 this.setPowered(false);
                 this.level.setBlock(this, this, true, false);
                 this.updateHook(false);
+
+                this.level.updateComparatorOutputLevelSelective(this, true);
             }
             return type;
         }
@@ -158,7 +191,7 @@ public class BlockTripWire extends BlockFlowable {
     }
 
     @Override
-    public boolean place(Item item, Block block, Block target, BlockFace face, double fx, double fy, double fz, Player player) {
+    public boolean place(@Nonnull Item item, @Nonnull Block block, @Nonnull Block target, @Nonnull BlockFace face, double fx, double fy, double fz, @Nullable Player player) {
         this.getLevel().setBlock(this, this, true, true);
         this.updateHook(false);
 
