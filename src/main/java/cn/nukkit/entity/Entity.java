@@ -444,7 +444,7 @@ public abstract class Entity extends Location implements Metadatable {
 
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
-    private String identifier;
+    private String identifier = null;
 
     public float getHeight() {
         return 0;
