@@ -1029,7 +1029,9 @@ public abstract class Entity extends Location implements Metadatable {
             }
         }
         
-        this.namedTag.putString("identifier", this.identifier);
+        if (this.identifier != null) {
+            this.namedTag.putString("identifier", this.identifier);
+        }
         
         this.namedTag.putList(new ListTag<DoubleTag>("Pos")
                 .add(new DoubleTag("0", this.x))
