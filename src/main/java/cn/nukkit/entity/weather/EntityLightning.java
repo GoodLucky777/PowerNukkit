@@ -151,8 +151,7 @@ public class EntityLightning extends Entity implements EntityLightningStrike {
         return true;
     }
     
-    @PowerNukkitOnly
-    @Since("1.4.0.1-PN")
+    
     @Override
     public String getName() {
         return "Lightning Bolt";

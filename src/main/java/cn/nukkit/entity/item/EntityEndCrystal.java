@@ -110,8 +110,7 @@ public class EntityEndCrystal extends Entity implements EntityExplosive {
         this.setDataFlag(DATA_FLAGS, DATA_FLAG_SHOWBASE, value);
     }
     
-    @PowerNukkitOnly
-    @Since("1.4.0.1-PN")
+    
     @Override
     public String getName() {
         return "Ender Crystal";

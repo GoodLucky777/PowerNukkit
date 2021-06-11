@@ -110,8 +110,7 @@ public class EntityEnderPearl extends EntityProjectile {
         this.level.addLevelEvent(this.shootingEntity.add(0.5, 0.5, 0.5), LevelEventPacket.EVENT_SOUND_PORTAL);
     }
     
-    @PowerNukkitOnly
-    @Since("1.4.0.1-PN")
+    
     @Override
     public String getName() {
         return "Ender Pearl";

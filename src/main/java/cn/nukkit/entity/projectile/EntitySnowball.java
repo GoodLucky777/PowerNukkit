@@ -117,8 +117,7 @@ public class EntitySnowball extends EntityProjectile {
         level.getServer().batchPackets(level.getChunkPlayers(chunkX, chunkZ).values().toArray(Player.EMPTY_ARRAY), allPackets);
     }
     
-    @PowerNukkitOnly
-    @Since("1.4.0.1-PN")
+    
     @Override
     public String getName() {
         return "Snowball";

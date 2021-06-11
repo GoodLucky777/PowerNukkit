@@ -186,8 +186,7 @@ public class EntityFirework extends Entity {
         return 0.25f;
     }
     
-    @PowerNukkitOnly
-    @Since("1.4.0.1-PN")
+    
     @Override
     public String getName() {
         return "Firework Rocket";

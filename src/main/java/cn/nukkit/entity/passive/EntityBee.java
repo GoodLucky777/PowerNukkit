@@ -122,8 +122,7 @@ public class EntityBee extends EntityAnimal {
     
     }
     
-    @PowerNukkitOnly
-    @Since("1.4.0.1-PN")
+    
     @Override
     public String getName() {
         return "Bee";

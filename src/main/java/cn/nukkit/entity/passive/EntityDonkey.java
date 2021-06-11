@@ -49,8 +49,7 @@ public class EntityDonkey extends EntityAnimal {
         return new Item[]{Item.get(Item.LEATHER)};
     }
     
-    @PowerNukkitOnly
-    @Since("1.4.0.1-PN")
+    
     @Override
     public String getName() {
         return "Donkey";

@@ -49,8 +49,7 @@ public class EntityZombieHorse extends EntityAnimal implements EntitySmite {
         return true;
     }
     
-    @PowerNukkitOnly
-    @Since("1.4.0.1-PN")
+    
     @Override
     public String getName() {
         return "Zombie Horse";

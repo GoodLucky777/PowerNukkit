@@ -37,8 +37,7 @@ public class EntityBat extends EntityAnimal {
         this.setMaxHealth(6);
     }
     
-    @PowerNukkitOnly
-    @Since("1.4.0.1-PN")
+    
     @Override
     public String getName() {
         return "Bat";

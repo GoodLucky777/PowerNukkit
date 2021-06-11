@@ -411,8 +411,6 @@ public class EntityAreaEffectCloud extends Entity {
         return NETWORK_ID;
     }
     
-    @PowerNukkitOnly
-    @Since("1.4.0.1-PN")
     @Override
     public String getName() {
         return "Area Effect Cloud";

@@ -229,8 +229,7 @@ public class EntityFallingBlock extends Entity {
         return false;
     }
     
-    @PowerNukkitOnly
-    @Since("1.4.0.1-PN")
+    
     @Override
     public String getName() {
         return "Falling Block";

@@ -106,8 +106,7 @@ public class EntityExpBottle extends EntityProjectile {
         this.getLevel().addSound(this, Sound.RANDOM_GLASS);
     }
     
-    @PowerNukkitOnly
-    @Since("1.4.0.1-PN")
+    
     @Override
     public String getName() {
         return "Bottle o' Enchanting";

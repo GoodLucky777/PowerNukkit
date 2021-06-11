@@ -51,8 +51,7 @@ public class EntityLlama extends EntityAnimal {
         this.setMaxHealth(15);
     }
     
-    @PowerNukkitOnly
-    @Since("1.4.0.1-PN")
+    
     @Override
     public String getName() {
         return "Llama";
