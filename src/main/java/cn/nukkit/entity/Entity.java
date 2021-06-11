@@ -18,9 +18,8 @@ import cn.nukkit.event.entity.EntityPortalEnterEvent.PortalType;
 import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.event.player.PlayerInteractEvent.Action;
 import cn.nukkit.event.player.PlayerTeleportEvent;
-import cn.nukkit.inventory.PlayerInventory;
-import cn.nukkit.inventory.PlayerOffhandInventory;
 import cn.nukkit.item.Item;
+import cn.nukkit.item.ItemID;
 import cn.nukkit.level.*;
 import cn.nukkit.level.format.FullChunk;
 import cn.nukkit.math.*;
@@ -106,11 +105,11 @@ public abstract class Entity extends Location implements Metadatable {
     @Since("1.2.0.0-PN") public static final int DATA_CHARGE_AMOUNT = dynamic(22);
     public static final int DATA_ENDERMAN_HELD_RUNTIME_ID = dynamic(23); //short
     @PowerNukkitOnly @Since("1.4.0.0-PN") public static final int DATA_CLIENT_EVENT = dynamic(24); //byte
-    
+
     @Deprecated @DeprecationDetails(since = "1.4.0.0-PN", by = "PowerNukkit",
             reason = "Apparently this the ID 24 was reused to represent CLIENT_EVENT but Cloudburst Nukkit is still mapping it as age")
     public static final int DATA_ENTITY_AGE = dynamic(DATA_CLIENT_EVENT); //short
-    
+
     @PowerNukkitOnly @Since("1.4.0.0-PN") public static final int DATA_USING_ITEM = dynamic(25); //byte
     public static final int DATA_PLAYER_FLAGS = dynamic(26); //byte
     @Since("1.2.0.0-PN") public static final int DATA_PLAYER_INDEX = dynamic(27);
@@ -126,7 +125,7 @@ public abstract class Entity extends Location implements Metadatable {
     public static final int DATA_LEAD_HOLDER_EID = dynamic(37); //long
     public static final int DATA_SCALE = dynamic(38); //float
     @Since("1.4.0.0-PN") public static final int DATA_INTERACTIVE_TAG = dynamic(39); //string (button text)
-    
+
     @PowerNukkitOnly @Since("1.2.0.0-PN")
     @Deprecated @DeprecationDetails(
             by = "PowerNukkit", since = "1.4.0.0-PN",
@@ -134,7 +133,7 @@ public abstract class Entity extends Location implements Metadatable {
                     "and Nukkit added this constant with a different name",
             replaceWith = "DATA_INTERACTIVE_TAG")
     public static final int DATA_HAS_NPC_COMPONENT = dynamic(DATA_INTERACTIVE_TAG); //byte
-    
+
     public static final int DATA_NPC_SKIN_ID = dynamic(40); //string
     public static final int DATA_URL_TAG = dynamic(41); //string
     public static final int DATA_MAX_AIR = dynamic(42); //short
@@ -215,9 +214,11 @@ public abstract class Entity extends Location implements Metadatable {
     @Since("1.3.0.0-PN") public static final int DATA_NEARBY_CURED_DISCOUNT_TIMESTAMP = dynamic(117); //int
     @Since("1.3.0.0-PN") public static final int DATA_HITBOX = dynamic(118); //NBT
     @Since("1.3.0.0-PN") public static final int DATA_IS_BUOYANT = dynamic(119); //byte
-    @Since("1.4.0.0-PN") public static final int DATA_FREEZING_EFFECT_STRENGTH = 120;
-    @Since("1.3.0.0-PN") public static final int DATA_BUOYANCY_DATA = dynamic(120); //string
-    @Since("1.4.0.0-PN") public static final int DATA_GOAT_HORN_COUNT = 122;
+    @Since("1.5.0.0-PN") @PowerNukkitOnly public static final int DATA_BASE_RUNTIME_ID = dynamic(120); // ???
+    @Since("1.4.0.0-PN") public static final int DATA_FREEZING_EFFECT_STRENGTH = dynamic(121);
+    @Since("1.3.0.0-PN") public static final int DATA_BUOYANCY_DATA = dynamic(122); //string
+    @Since("1.4.0.0-PN") public static final int DATA_GOAT_HORN_COUNT = dynamic(123); // ???
+    @Since("1.5.0.0-PN") @PowerNukkitOnly public static final int DATA_UPDATE_PROPERTIES = dynamic(124); // ???
 
     // Flags
     public static final int DATA_FLAG_ONFIRE = dynamic(0);
@@ -328,6 +329,7 @@ public abstract class Entity extends Location implements Metadatable {
     @Since("1.3.0.0-PN") public static final int DATA_FLAG_ADMIRING = dynamic(93);
     @Since("1.3.0.0-PN") public static final int DATA_FLAG_CELEBRATING_SPECIAL = dynamic(94);
     @Since("1.4.0.0-PN") public static final int DATA_FLAG_RAM_ATTACK = dynamic(96);
+    @Since("1.5.0.0-PN") @PowerNukkitOnly public static final int DATA_FLAG_PLAYING_DEAD = dynamic(97);
 
     public static long entityCount = 1;
 
@@ -610,15 +612,27 @@ public abstract class Entity extends Location implements Metadatable {
         this.setDataProperty(new FloatEntityData(DATA_SCALE, scale), false);
         this.setDataProperty(new ByteEntityData(DATA_COLOR, 0), false);
 
-        this.chunk.addEntity(this);
-        this.level.addEntity(this);
+        try {
+            this.chunk.addEntity(this);
+            this.level.addEntity(this);
 
-        this.initEntity();
+            this.initEntity();
 
-        this.lastUpdate = this.server.getTick();
-        this.server.getPluginManager().callEvent(new EntitySpawnEvent(this));
+            this.lastUpdate = this.server.getTick();
 
-        this.scheduleUpdate();
+            EntitySpawnEvent event = new EntitySpawnEvent(this);
+
+            this.server.getPluginManager().callEvent(event);
+
+            if (event.isCancelled()) {
+                this.close(false);
+            } else {
+                this.scheduleUpdate();
+            }
+        } catch(Exception e) {
+            this.close(false);
+            throw e;
+        }
     }
 
     public boolean hasCustomName() {
@@ -931,7 +945,7 @@ public abstract class Entity extends Location implements Metadatable {
                         cause.addSuppressed(exceptions.get(i));
                     }
                 }
-                log.error("Could not create an entity of type {} with {} args", name, args == null? 0 : args.length, cause);
+                log.debug("Could not create an entity of type {} with {} args", name, args == null? 0 : args.length, cause);
             }
         } else {
             log.debug("Entity type {} is unknown", name);
@@ -1189,14 +1203,23 @@ public abstract class Entity extends Location implements Metadatable {
             this.setAbsorption(Math.max(0, this.getAbsorption() + source.getDamage(EntityDamageEvent.DamageModifier.ABSORPTION)));
         }
         setLastDamageCause(source);
-        float health = getHealth() - source.getFinalDamage();
-        if (health < 1 && this.isPlayer) {
+
+        float newHealth = getHealth() - source.getFinalDamage();
+        if (newHealth < 1 && this instanceof Player) {
             if (source.getCause() != DamageCause.VOID && source.getCause() != DamageCause.SUICIDE) {
                 Player p = (Player) this;
-                PlayerOffhandInventory offhandInventory = p.getOffhandInventory();
-                PlayerInventory playerInventory = p.getInventory();
-                if (offhandInventory.getItem(0).getId() == Item.TOTEM || playerInventory.getItemInHand().getId() == Item.TOTEM) {
+                boolean totem = false;
+                if (p.getOffhandInventory().getItem(0).getId() == ItemID.TOTEM) {
+                    p.getOffhandInventory().clear(0);
+                    totem = true;
+                } else if (p.getInventory().getItemInHand().getId() == ItemID.TOTEM) {
+                    p.getInventory().clear(p.getInventory().getHeldItemIndex());
+                    totem = true;
+                }
+                if (totem) {
                     this.getLevel().addLevelEvent(this, LevelEventPacket.EVENT_SOUND_TOTEM);
+                    this.getLevel().addParticleEffect(this, ParticleEffect.TOTEM);
+
                     this.extinguish();
                     this.removeAllEffects();
                     this.setHealth(1);
@@ -1210,18 +1233,13 @@ public abstract class Entity extends Location implements Metadatable {
                     pk.event = EntityEventPacket.CONSUME_TOTEM;
                     p.dataPacket(pk);
 
-                    if (offhandInventory.getItem(0).getId() == Item.TOTEM) {
-                        offhandInventory.clear(0);
-                    } else {
-                        playerInventory.clear(playerInventory.getHeldItemIndex());
-                    }
-
                     source.setCancelled(true);
                     return false;
                 }
             }
         }
-        setHealth(health);
+
+        setHealth(newHealth);
         return true;
     }
 
@@ -1344,7 +1362,7 @@ public abstract class Entity extends Location implements Metadatable {
                 direction = 5;
             }
 
-            double force = new Random().nextDouble() * 0.2 + 0.1;
+            double force = ThreadLocalRandom.current().nextDouble() * 0.2 + 0.1;
 
             if (direction == 0) {
                 this.motionX = -force;
@@ -1988,7 +2006,9 @@ public abstract class Entity extends Location implements Metadatable {
         return hasWaterAt(this.getEyeHeight());
     }
 
-    private boolean hasWaterAt(float height) {
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    protected boolean hasWaterAt(float height) {
         double y = this.y + height;
         Block block = this.level.getBlock(this.temporalVector.setComponents(NukkitMath.floorDouble(this.x), NukkitMath.floorDouble(y), NukkitMath.floorDouble(this.z)));
 
@@ -2207,7 +2227,7 @@ public abstract class Entity extends Location implements Metadatable {
         }
     }
 
-    @PowerNukkitDifference(since = "1.3.2.0-PN", info = "Will do nothing if the entity is on ground and all args are 0")
+    @PowerNukkitDifference(since = "1.4.0.0-PN", info = "Will do nothing if the entity is on ground and all args are 0")
     protected void checkGroundState(double movX, double movY, double movZ, double dx, double dy, double dz) {
         if (onGround && movX == 0 && movY == 0 && movZ == 0 && dx == 0 && dy == 0 && dz == 0) {
             return;
@@ -2540,8 +2560,51 @@ public abstract class Entity extends Location implements Metadatable {
     public void close() {
         if (!this.closed) {
             this.closed = true;
-            this.server.getPluginManager().callEvent(new EntityDespawnEvent(this));
+
+            try {
+                EntityDespawnEvent event = new EntityDespawnEvent(this);
+
+                this.server.getPluginManager().callEvent(event);
+
+                if (event.isCancelled()) {
+                    this.closed = false;
+                    return;
+                }
+            } catch (Throwable e) {
+                this.closed = false;
+                throw e;
+            }
+
+            try {
+                this.despawnFromAll();
+            } finally {
+                try {
+                    if (this.chunk != null) {
+                        this.chunk.removeEntity(this);
+                    }
+                } finally {
+                    if (this.level != null) {
+                        this.level.removeEntity(this);
+                    }
+                }
+            }
+        }
+    }
+
+    private void close(Boolean despawn) {
+        if (!this.closed) {
+            this.closed = true;
+
+            if (despawn) {
+                EntityDespawnEvent event = new EntityDespawnEvent(this);
+
+                this.server.getPluginManager().callEvent(event);
+
+                if (event.isCancelled()) return;
+            }
+
             this.despawnFromAll();
+
             if (this.chunk != null) {
                 this.chunk.removeEntity(this);
             }
