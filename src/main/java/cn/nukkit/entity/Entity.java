@@ -442,6 +442,10 @@ public abstract class Entity extends Location implements Metadatable {
     @Since("1.4.0.0-PN")
     public boolean noClip = false;
 
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    private String identifier;
+
     public float getHeight() {
         return 0;
     }
@@ -542,7 +546,16 @@ public abstract class Entity extends Location implements Metadatable {
         this.chunk = chunk;
         this.setLevel(chunk.getProvider().getLevel());
         this.server = chunk.getProvider().getLevel().getServer();
-
+        
+        if (!this.namedTag.contains("identifier")) {
+            if (AddEntityPacket.LEGACY_IDS.get(NETWORK_ID) != null) {
+                this.namedTag.putString("identifier", AddEntityPacket.LEGACY_IDS.get(NETWORK_ID));
+                this.identifier = this.namedTag.getString("identifier");
+            } else {
+                this.identifier = null;
+            }
+        }
+        
         this.boundingBox = new SimpleAxisAlignedBB(0, 0, 0, 0, 0, 0);
 
         ListTag<DoubleTag> posList = this.namedTag.getList("Pos", DoubleTag.class);
@@ -1011,7 +1024,9 @@ public abstract class Entity extends Location implements Metadatable {
                 this.namedTag.remove("CustomNameAlwaysVisible");
             }
         }
-
+        
+        this.namedTag.putString("identifier", this.identifier);
+        
         this.namedTag.putList(new ListTag<DoubleTag>("Pos")
                 .add(new DoubleTag("0", this.x))
                 .add(new DoubleTag("1", this.y))
@@ -1092,6 +1107,9 @@ public abstract class Entity extends Location implements Metadatable {
         addEntity.type = this.getNetworkId();
         addEntity.entityUniqueId = this.getId();
         addEntity.entityRuntimeId = this.getId();
+        if (this.identifier != null) {
+            addEntity.id = this.identifier;
+        }
         addEntity.yaw = (float) this.yaw;
         addEntity.headYaw = (float) this.yaw;
         addEntity.pitch = (float) this.pitch;
@@ -2727,7 +2745,24 @@ public abstract class Entity extends Location implements Metadatable {
     public boolean isPreventingSleep(Player player) {
         return false;
     }
-
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public String getIdentifier() {
+        return identifier;
+    }
+    
+    /**
+     * You can use to add a custom entity without registry things.
+     * This is a dangerous method, please use this if you know what you are doing.
+     * @param An entity identifier. For example, minecraft:chicken.
+     */
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
