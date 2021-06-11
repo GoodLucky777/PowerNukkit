@@ -552,7 +552,7 @@ public abstract class Entity extends Location implements Metadatable {
                 this.identifier = this.getIdentifier();
             } else if (AddEntityPacket.LEGACY_IDS.get(NETWORK_ID) != null) {
                 this.namedTag.putString("identifier", AddEntityPacket.LEGACY_IDS.get(NETWORK_ID));
-                this.identifier = this.namedTag.getString("identifier");
+                this.identifier = AddEntityPacket.LEGACY_IDS.get(NETWORK_ID);
             } else {
                 this.identifier = null;
             }
