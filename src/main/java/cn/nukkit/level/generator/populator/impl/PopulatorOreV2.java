@@ -51,6 +51,7 @@ public class PopulatorOreV2 extends Populator {
         double scaleMinY = y + random.nextBoundedInt(3) - 2;
         
         for (int i = 0; i < ore.getCount(); ++i) {
+            cn.nukkit.utils.MainLogger.getLogger().info("0");
             float sizeIncr = (float) i / (float) ore.getCount();
             double scaleX = scaleMaxX + (scaleMinX - scaleMaxX) * (double) sizeIncr;
             double scaleY = scaleMaxY + (scaleMinY - scaleMaxY) * (double) sizeIncr;
@@ -77,9 +78,12 @@ public class PopulatorOreV2 extends Populator {
                                 double zVal = ((double) zSeg + 0.5D - scaleZ) / (randVec1 / 2.0D);
                                 
                                 if (xVal * xVal + yVal * yVal < 1.0D) {
+                                    cn.nukkit.utils.MainLogger.getLogger().info("1");
                                     for (OreV2.ReplaceRule replaceRule : ore.getReplaceRules()) {
                                         for (BlockState mayReplace : replaceRule.getMayReplace()) {
+                                            cn.nukkit.utils.MainLogger.getLogger().info("2");
                                             if (level.getBlockStateAt(xSeg, ySeg, zSeg).equals(mayReplace)) {
+                                                cn.nukkit.utils.MainLogger.getLogger().info("3");
                                                 level.setBlockStateAt(xSeg, ySeg, zSeg, replaceRule.getPlacesBlock());
                                             }
                                         }
