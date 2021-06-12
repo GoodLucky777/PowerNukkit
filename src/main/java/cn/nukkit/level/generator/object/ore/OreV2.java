@@ -14,7 +14,7 @@ import lombok.Data;
 @PowerNukkitOnly
 @Since("FUTURE")
 @Data
-public class Ore {
+public class OreV2 {
 
     private final int count;
     private final List<ReplaceRule> replaceRules;
