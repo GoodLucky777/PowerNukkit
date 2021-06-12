@@ -200,7 +200,7 @@ public class Normal extends Generator {
         );
 
         this.populators = ImmutableList.of(
-                new PopulatorOreV2(new OreV2(33, ImmutableList.of(new ReplaceRule(BlockState.of(BlockID.DEEPSLATE), ImmutableList.of(STATE_STONE))), 10, 0, 16, 0, 16, 0, 16), // Deepslate
+                new PopulatorOreV2(new OreV2(33, ImmutableList.of(new ReplaceRule(BlockState.of(BlockID.DEEPSLATE), ImmutableList.of(STATE_STONE)))), 10, 0, 16, 0, 16, 0, 16), // Deepslate
                 new PopulatorOre(STONE, new OreType[]{
                         new OreType(Block.get(BlockID.TUFF), 2, 33, 0, 16),
                         new OreType(Block.get(BlockID.COAL_ORE), 20, 17, 0, 128),
