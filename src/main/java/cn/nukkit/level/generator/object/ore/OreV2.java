@@ -20,7 +20,7 @@ public class OreV2 {
     private final List<ReplaceRule> replaceRules;
     
     @Data
-    public class ReplaceRule {
+    public static class ReplaceRule {
     
         private final BlockState placesBlock;
         private final List<BlockState> mayReplace;
