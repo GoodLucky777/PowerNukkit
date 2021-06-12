@@ -210,7 +210,7 @@ public class Normal extends Generator {
                 new PopulatorOreV2(new OreV2(8, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.DIAMOND_ORE), ImmutableList.of(STATE_STONE)))), 1, 0, 16, 0, 16, 0, 16), // Diamond Ore
                 new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.DIRT), ImmutableList.of(STATE_STONE)))), 10, 0, 16, 0, 128, 0, 16), // Dirt
                 new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.GRAVEL), ImmutableList.of(STATE_STONE)))), 8, 0, 16, 0, 128, 0, 16), // Gravel
-                new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.STONE, BlockStone.GRANITR), ImmutableList.of(STATE_STONE)))), 10, 0, 16, 0, 80, 0, 16), // Granite
+                new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.STONE, BlockStone.GRANITE), ImmutableList.of(STATE_STONE)))), 10, 0, 16, 0, 80, 0, 16), // Granite
                 new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.STONE, BlockStone.DIORITE), ImmutableList.of(STATE_STONE)))), 10, 0, 16, 0, 80, 0, 16), // Diorite
                 new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.STONE, BlockStone.ANDESITE), ImmutableList.of(STATE_STONE)))), 10, 0, 16, 0, 80, 0, 16), // Andesite
                 
