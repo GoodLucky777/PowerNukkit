@@ -201,20 +201,19 @@ public class Normal extends Generator {
 
         this.populators = ImmutableList.of(
                 new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.DEEPSLATE), ImmutableList.of(STATE_STONE)))), 10, 0, 16, 0, 16, 0, 16), // Deepslate
-                new PopulatorOre(STONE, new OreType[]{
-                        new OreType(Block.get(BlockID.TUFF), 2, 33, 0, 16),
-                        new OreType(Block.get(BlockID.COAL_ORE), 20, 17, 0, 128),
-                        new OreType(Block.get(BlockID.IRON_ORE), 20, 9, 0, 64),
-                        new OreType(Block.get(BlockID.REDSTONE_ORE), 8, 8, 0, 16),
-                        new OreType(Block.get(BlockID.LAPIS_ORE), 1, 7, 0, 16),
-                        new OreType(Block.get(BlockID.GOLD_ORE), 2, 9, 0, 32),
-                        new OreType(Block.get(BlockID.DIAMOND_ORE), 1, 8, 0, 16),
-                        new OreType(Block.get(BlockID.DIRT), 10, 33, 0, 128),
-                        new OreType(Block.get(BlockID.GRAVEL), 8, 33, 0, 128),
-                        new OreType(Block.get(BlockID.STONE, BlockStone.GRANITE), 10, 33, 0, 80),
-                        new OreType(Block.get(BlockID.STONE, BlockStone.DIORITE), 10, 33, 0, 80),
-                        new OreType(Block.get(BlockID.STONE, BlockStone.ANDESITE), 10, 33, 0, 80)
-                }),
+                new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.TUFF), ImmutableList.of(STATE_STONE)))), 2, 0, 16, 0, 16, 0, 16), // Tuff
+                new PopulatorOreV2(new OreV2(17, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.COAL_ORE), ImmutableList.of(STATE_STONE)))), 20, 0, 16, 0, 128, 0, 16), // Coal Ore
+                new PopulatorOreV2(new OreV2(9, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.IRON_ORE), ImmutableList.of(STATE_STONE)))), 20, 0, 16, 0, 64, 0, 16), // Iron Ore
+                new PopulatorOreV2(new OreV2(8, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.REDSTONE_ORE), ImmutableList.of(STATE_STONE)))), 8, 0, 16, 0, 16, 0, 16), // Redstone ore
+                new PopulatorOreV2(new OreV2(7, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.LAPIS_ORE), ImmutableList.of(STATE_STONE)))), 1, 0, 16, 0, 16, 0, 16), // Lapis Ore
+                new PopulatorOreV2(new OreV2(9, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.GOLD_ORE), ImmutableList.of(STATE_STONE)))), 2, 0, 16, 0, 32, 0, 16), // Gold Ore
+                new PopulatorOreV2(new OreV2(8, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.DIAMOND_ORE), ImmutableList.of(STATE_STONE)))), 1, 0, 16, 0, 16, 0, 16), // Diamond Ore
+                new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.DIRT), ImmutableList.of(STATE_STONE)))), 10, 0, 16, 0, 128, 0, 16), // Dirt
+                new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.GRAVEL), ImmutableList.of(STATE_STONE)))), 8, 0, 16, 0, 128, 0, 16), // Gravel
+                new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.STONE, BlockStone.GRANITR), ImmutableList.of(STATE_STONE)))), 10, 0, 16, 0, 80, 0, 16), // Granite
+                new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.STONE, BlockStone.DIORITE), ImmutableList.of(STATE_STONE)))), 10, 0, 16, 0, 80, 0, 16), // Diorite
+                new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.STONE, BlockStone.ANDESITE), ImmutableList.of(STATE_STONE)))), 10, 0, 16, 0, 80, 0, 16), // Andesite
+                
                 new PopulatorCaves()//,
                 //new PopulatorRavines()
         );
