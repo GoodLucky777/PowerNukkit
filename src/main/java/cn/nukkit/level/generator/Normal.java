@@ -1,6 +1,7 @@
 package cn.nukkit.level.generator;
 
 import cn.nukkit.block.*;
+import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.level.biome.Biome;
 import cn.nukkit.level.biome.BiomeSelector;
@@ -9,14 +10,17 @@ import cn.nukkit.level.format.generic.BaseFullChunk;
 import cn.nukkit.level.generator.noise.vanilla.f.NoiseGeneratorOctavesF;
 import cn.nukkit.level.generator.noise.vanilla.f.NoiseGeneratorPerlinF;
 import cn.nukkit.level.generator.object.ore.OreType;
+import cn.nukkit.level.generator.object.ore.OreV2;
 import cn.nukkit.level.generator.populator.impl.PopulatorBedrock;
 import cn.nukkit.level.generator.populator.impl.PopulatorCaves;
 import cn.nukkit.level.generator.populator.impl.PopulatorGroundCover;
 import cn.nukkit.level.generator.populator.impl.PopulatorOre;
+import cn.nukkit.level.generator.populator.impl.PopulatorOreV2;
 import cn.nukkit.level.generator.populator.type.Populator;
 import cn.nukkit.math.MathHelper;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
+
 import com.google.common.collect.ImmutableList;
 
 import java.util.*;
@@ -104,6 +108,9 @@ import java.util.*;
  * End.java
  */
 public class Normal extends Generator {
+
+    private static final BlockState STATE_STONE = BlockState.of(BlockID.STONE);
+    
     private static final float[] biomeWeights = new float[25];
 
     static {
@@ -193,8 +200,8 @@ public class Normal extends Generator {
         );
 
         this.populators = ImmutableList.of(
+                new PopulatorOreV2(new OreV2(33, ImmutableList.of(new ReplaceRule(BlockState.of(BlockID.DEEPSLATE), ImmutableList.of(STATE_STONE))), 10, 0, 16, 0, 16, 0, 16), // Deepslate
                 new PopulatorOre(STONE, new OreType[]{
-                        new OreType(Block.get(BlockID.DEEPSLATE), 10, 33, 0, 16),
                         new OreType(Block.get(BlockID.TUFF), 2, 33, 0, 16),
                         new OreType(Block.get(BlockID.COAL_ORE), 20, 17, 0, 128),
                         new OreType(Block.get(BlockID.IRON_ORE), 20, 9, 0, 64),
