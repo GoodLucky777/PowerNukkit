@@ -81,7 +81,7 @@ public class PopulatorOreV2 extends Populator {
                                     //cn.nukkit.utils.MainLogger.getLogger().info("1");
                                     for (OreV2.ReplaceRule replaceRule : ore.getReplaceRules()) {
                                         for (BlockState mayReplace : replaceRule.getMayReplace()) {
-                                            cn.nukkit.utils.MainLogger.getLogger().info(level.getBlockStateAt(xSeg, ySeg, zSeg).getBlock().toString() + " ||| " + mayReplace.getBlock().toString() + " ||| " + String.valueOf(level.getBlockStateAt(xSeg, ySeg, zSeg).equals(mayReplace)));
+                                            cn.nukkit.utils.MainLogger.getLogger().info(level.getBlockStateAt(xSeg, ySeg, zSeg).toString() + " ||| " + mayReplace.toString() + " ||| " + String.valueOf(level.getBlockStateAt(xSeg, ySeg, zSeg).equals(mayReplace)));
                                             if (level.getBlockStateAt(xSeg, ySeg, zSeg).equals(mayReplace)) {
                                                 cn.nukkit.utils.MainLogger.getLogger().info("OK");
                                                 level.setBlockStateAt(xSeg, ySeg, zSeg, replaceRule.getPlacesBlock());
