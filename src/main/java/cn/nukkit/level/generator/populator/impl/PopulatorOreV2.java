@@ -80,7 +80,6 @@ public class PopulatorOreV2 extends Populator {
                                     for (OreV2.ReplaceRule replaceRule : ore.getReplaceRules()) {
                                         for (BlockState mayReplace : replaceRule.getMayReplace()) {
                                             if (level.getBlockStateAt(xSeg, ySeg, zSeg).equals(mayReplace)) {
-                                                cn.nukkit.utils.MainLogger.getLogger().info("OK");
                                                 level.setBlockStateAt(xSeg, ySeg, zSeg, replaceRule.getPlacesBlock());
                                             }
                                         }
