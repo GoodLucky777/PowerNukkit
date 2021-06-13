@@ -2,7 +2,7 @@ package cn.nukkit.level.biome.impl.extremehills;
 
 import cn.nukkit.block.BlockSapling;
 import cn.nukkit.level.biome.type.GrassyBiome;
-import cn.nukkit.level.generator.populator.impl.PopulatorOreEmerald;
+import cn.nukkit.level.generator.populator.impl.PopulatorOreV2;
 import cn.nukkit.level.generator.populator.impl.PopulatorTree;
 
 /**
@@ -20,7 +20,7 @@ public class ExtremeHillsBiome extends GrassyBiome {
     public ExtremeHillsBiome(boolean tree) {
         super();
         
-        PopulatorOreEmerald oreEmerald = new PopulatorOreEmerald();
+        PopulatorOreV2 oreEmerald = new PopulatorOreV2(new OreV2(8, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.EMERALD_ORE), ImmutableList.of(STATE_STONE)))), 1, 0, 16, 0, 32, 0, 16); // Emerald Ore               
         this.addPopulator(oreEmerald);
         
         if (tree) {
