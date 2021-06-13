@@ -204,6 +204,7 @@ public class Normal extends Generator {
                 new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.TUFF), ImmutableList.of(STATE_STONE)))), 2, 0, 16, 0, 16, 0, 16), // Tuff
                 new PopulatorOreV2(new OreV2(17, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.COAL_ORE), ImmutableList.of(STATE_STONE)))), 20, 0, 16, 0, 128, 0, 16), // Coal Ore
                 new PopulatorOreV2(new OreV2(9, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.IRON_ORE), ImmutableList.of(STATE_STONE)))), 20, 0, 16, 0, 64, 0, 16), // Iron Ore
+                new PopulatorOreV2(new OreV2(10, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.COPPER_ORE), ImmutableList.of(STATE_STONE)))), 10, 0, 16, 0, 64, 0, 16), // Copper Ore
                 new PopulatorOreV2(new OreV2(8, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.REDSTONE_ORE), ImmutableList.of(STATE_STONE)))), 8, 0, 16, 0, 16, 0, 16), // Redstone ore
                 new PopulatorOreV2(new OreV2(7, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.LAPIS_ORE), ImmutableList.of(STATE_STONE)))), 1, 0, 16, 0, 16, 0, 16), // Lapis Ore
                 new PopulatorOreV2(new OreV2(9, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(BlockID.GOLD_ORE), ImmutableList.of(STATE_STONE)))), 2, 0, 16, 0, 32, 0, 16), // Gold Ore
