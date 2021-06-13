@@ -77,7 +77,7 @@ public class PopulatorOreV2 extends Populator {
                             for (int zSeg = minZ; zSeg <= maxZ; ++zSeg) {
                                 double zVal = ((double) zSeg + 0.5D - scaleZ) / (randVec1 / 2.0D);
                                 
-                                if (xVal * xVal + yVal * yVal < 1.0D) {
+                                if (xVal * xVal + yVal * yVal + zVal * zVal < 1.0D) {
                                     //cn.nukkit.utils.MainLogger.getLogger().info("1");
                                     for (OreV2.ReplaceRule replaceRule : ore.getReplaceRules()) {
                                         for (BlockState mayReplace : replaceRule.getMayReplace()) {
