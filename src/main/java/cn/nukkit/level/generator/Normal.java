@@ -14,7 +14,6 @@ import cn.nukkit.level.generator.object.ore.OreV2;
 import cn.nukkit.level.generator.populator.impl.PopulatorBedrock;
 import cn.nukkit.level.generator.populator.impl.PopulatorCaves;
 import cn.nukkit.level.generator.populator.impl.PopulatorGroundCover;
-import cn.nukkit.level.generator.populator.impl.PopulatorOre;
 import cn.nukkit.level.generator.populator.impl.PopulatorOreV2;
 import cn.nukkit.level.generator.populator.type.Populator;
 import cn.nukkit.math.MathHelper;
