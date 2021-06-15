@@ -25,7 +25,7 @@ public class ExtremeHillsBiome extends GrassyBiome {
     public ExtremeHillsBiome(boolean tree) {
         super();
         
-        PopulatorOreV2 oreEmerald = new PopulatorOreV2(new OreV2(8, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(EMERALD_ORE), ImmutableList.of(BlockState.of(STONE))))), 1, 0, 16, 0, 32, 0, 16); // Emerald Ore               
+        PopulatorOreV2 oreEmerald = new PopulatorOreV2(new OreV2(8, ImmutableList.of(new OreV2.ReplaceRule(BlockState.of(EMERALD_ORE), ImmutableList.of(BlockState.of(STONE))), new OreV2.ReplaceRule(BlockState.of(BlockID.DEEPSLATE_EMERALD_ORE), ImmutableList.of(BlockState.of(DEEPSLATE))))), 1, 0, 16, 0, 32, 0, 16); // Emerald Ore               
         this.addPopulator(oreEmerald);
         
         if (tree) {
