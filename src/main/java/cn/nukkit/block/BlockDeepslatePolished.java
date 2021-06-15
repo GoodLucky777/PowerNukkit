@@ -5,25 +5,24 @@ import cn.nukkit.api.Since;
 
 /**
  * @author LoboMetalurgico
- * @since 11/06/2021
+ * @since 08/06/2021
  */
 
 @PowerNukkitOnly
 @Since("FUTURE")
-public class BlockCopperWaxedWeatheredCut extends BlockCopper {
+public class BlockDeepslatePolished extends BlockDeepslateCobbled {
     @PowerNukkitOnly
     @Since("FUTURE")
-    public BlockCopperWaxedWeatheredCut() {
-
+    public BlockDeepslatePolished() {
     }
 
     @Override
     public String getName() {
-        return "Waxed Weathered Cut Copper";
+        return "Polished Deepslate";
     }
 
     @Override
     public int getId() {
-        return WAXED_WEATHERED_CUT_COPPER;
+        return POLISHED_DEEPSLATE;
     }
 }
