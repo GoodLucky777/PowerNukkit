@@ -14,11 +14,11 @@ import com.google.common.collect.ImmutableList;
 import java.util.Collections;
 import java.util.Map;
 
-/*
+/**
  * @author GoodLucky777
  */
 // TODO: Better generator
-public class PowerNukkit extends Normal {
+public class PowerNukkitOverworld extends Normal {
 
     private static final BlockState STATE_STONE = BlockState.of(BlockID.STONE);
     private static final BlockState STATE_DEEPSLATE = BlockState.of(BlockID.DEEPSLATE);
