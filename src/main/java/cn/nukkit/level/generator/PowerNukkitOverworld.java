@@ -1,10 +1,13 @@
 package cn.nukkit.level.generator;
 
+import cn.nukkit.block.BlockID;
+import cn.nukkit.block.BlockStone;
 import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.level.biome.Biome;
 import cn.nukkit.level.generator.object.ore.OreType;
 import cn.nukkit.level.generator.object.ore.OreV2;
+import cn.nukkit.level.generator.populator.impl.PopulatorCaves;
 import cn.nukkit.level.generator.populator.impl.PopulatorOreV2;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
