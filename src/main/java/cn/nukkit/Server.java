@@ -693,7 +693,7 @@ public class Server {
         Generator.addGenerator(Normal.class, "default", Generator.TYPE_INFINITE);
         Generator.addGenerator(Nether.class, "nether", Generator.TYPE_NETHER);
         //todo: add old generator and hell generator
-        Generator.addGenerator(PowerNukkitOverworld.class, "PowerNukkitOverworld", Generator.TYPE_OVERWORLD);
+        Generator.addGenerator(PowerNukkitOverworld.class, "PowerNukkitOverworld", Generator.TYPE_INFINITE);
 
         for (String name : this.getConfig("worlds", new HashMap<String, Object>()).keySet()) {
             if (!this.loadLevel(name)) {
@@ -2192,7 +2192,11 @@ public class Server {
         if (generator == null) {
             generator = Generator.getGenerator(this.getLevelType());
         }
-
+        
+        if (generator.getName().equals("PowerNukkitOverworld")) {
+            log.warning(TextFormat.RED + "You are using PowerNukkit's experimental world generator! If you use it to the original world from Cloudburst Nukkit, the world will be corrupted. Also, there may be a breaking change in the future.");
+        }
+        
         if (provider == null) {
             provider = LevelProviderManager.getProviderByName(this.getConfig().get("level-settings.default-format", "anvil"));
         }
