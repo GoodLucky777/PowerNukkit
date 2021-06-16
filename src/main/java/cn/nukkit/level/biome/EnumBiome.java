@@ -16,6 +16,7 @@ import cn.nukkit.level.biome.impl.jungle.*;
 import cn.nukkit.level.biome.impl.mesa.*;
 import cn.nukkit.level.biome.impl.mushroom.MushroomIslandBiome;
 import cn.nukkit.level.biome.impl.mushroom.MushroomIslandShoreBiome;
+import cn.nukkit.level.biome.impl.nether.*;
 import cn.nukkit.level.biome.impl.ocean.DeepOceanBiome;
 import cn.nukkit.level.biome.impl.ocean.FrozenOceanBiome;
 import cn.nukkit.level.biome.impl.ocean.OceanBiome;
