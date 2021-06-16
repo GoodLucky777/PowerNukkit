@@ -2193,7 +2193,7 @@ public class Server {
             generator = Generator.getGenerator(this.getLevelType());
         }
         
-        if (generator instanceof PowerNukkitOverworld) {
+        if (((Generator) generator) instanceof PowerNukkitOverworld) {
             log.warn(TextFormat.RED + "You are using PowerNukkit's experimental world generator! If you use it to the original world from Cloudburst Nukkit, the world will be corrupted. Also, there may be a breaking change in the future.");
         }
         
