@@ -36,6 +36,7 @@ public class PowerNukkitOverworld extends Normal {
     
     public PowerNukkitOverworld(Map<String, Object> options) {
         // Just used for future update.
+        super(options);
     }
     
     @Override
