@@ -692,6 +692,7 @@ public class Server {
         Generator.addGenerator(Normal.class, "default", Generator.TYPE_INFINITE);
         Generator.addGenerator(Nether.class, "nether", Generator.TYPE_NETHER);
         //todo: add old generator and hell generator
+        Generator.addGenerator(PowerNukkitOverworld.class, "PowerNukkitOverworld", Generator.TYPE_OVERWORLD);
 
         for (String name : this.getConfig("worlds", new HashMap<String, Object>()).keySet()) {
             if (!this.loadLevel(name)) {
