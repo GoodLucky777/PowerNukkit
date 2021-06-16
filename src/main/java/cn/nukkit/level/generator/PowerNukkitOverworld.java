@@ -1,5 +1,7 @@
 package cn.nukkit.level.generator;
 
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.block.BlockID;
 import cn.nukkit.block.BlockStone;
 import cn.nukkit.blockstate.BlockState;
@@ -21,6 +23,8 @@ import java.util.Map;
  * @author GoodLucky777
  */
 // TODO: Better generator
+@PowerNukkitOnly
+@Since("FUTURE")
 public class PowerNukkitOverworld extends Normal {
 
     private static final BlockState STATE_STONE = BlockState.of(BlockID.STONE);
