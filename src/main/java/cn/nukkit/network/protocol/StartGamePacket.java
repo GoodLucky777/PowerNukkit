@@ -98,7 +98,8 @@ public class StartGamePacket extends DataPacket {
     
     public String multiplayerCorrelationId = "";
     @Since("1.3.0.0-PN") public boolean isInventoryServerAuthoritative;
-
+    @Since("FUTURE") public String serverEngine = "";
+    
     @Override
     public void decode() {
 
@@ -188,6 +189,7 @@ public class StartGamePacket extends DataPacket {
         this.put(RuntimeItems.getRuntimeMapping().getItemDataPalette());
         this.putString(this.multiplayerCorrelationId);
         this.putBoolean(this.isInventoryServerAuthoritative);
+        this.putString(this.serverEngine);
     }
     
     @ToString
