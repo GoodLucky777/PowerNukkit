@@ -1,4 +1,4 @@
-package cn.nukkit.level.biome.impl;
+package cn.nukkit.level.biome.impl.nether;
 
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
