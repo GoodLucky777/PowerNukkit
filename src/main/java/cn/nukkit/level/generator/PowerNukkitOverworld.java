@@ -41,7 +41,7 @@ public class PowerNukkitOverworld extends Normal {
     
     @Override
     public ChunkManager getChunkManager() {
-        return super();
+        return super.getChunkManager();
     }
     
     @Override
@@ -66,7 +66,7 @@ public class PowerNukkitOverworld extends Normal {
     
     @Override
     public void init(ChunkManager level, NukkitRandom random) {
-        super(level, random);
+        super.init(level, random);
         
         this.populators = ImmutableList.of(
                 new PopulatorOreV2(new OreV2(33, ImmutableList.of(new OreV2.ReplaceRule(STATE_DEEPSLATE, ImmutableList.of(STATE_STONE)))), 10, 0, 16, 0, 16, 0, 16), // Deepslate
@@ -91,15 +91,15 @@ public class PowerNukkitOverworld extends Normal {
     
     @Override
     public void generateChunk(final int chunkX, final int chunkZ) {
-        super(chunkX, chunkZ);
+        super.generateChunk(chunkX, chunkZ);
     }
     
     public Biome pickBiome(int x, int z) {
-        return super(x, z);
+        return super.pickBiome(x, z);
     }
     
     @Override
     public void populateChunk(int chunkX, int chunkZ) {
-        super(chunkX, chunkZ);
+        super.populateChunk(chunkX, chunkZ);
     }
 }
