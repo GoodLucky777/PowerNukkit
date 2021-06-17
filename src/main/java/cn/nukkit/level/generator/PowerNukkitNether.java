@@ -187,7 +187,7 @@ public class PowerNukkitNether extends Generator {
                     dens -= nh;
                     index++;
                     if (k > 13) {
-                        double lowering = (double)((float)(k - 13) / 3.0 F);
+                        double lowering = (double)((float)(k - 13) / 3.0F);
                         dens = dens * (1.0D - lowering) + lowering * -10.0D;
                     }
 
