@@ -9,12 +9,12 @@ import cn.nukkit.math.NukkitRandom;
 /**
  * @author GoodLucky777
  * /
-public class GroupBlockPopulator extends PopulatorCount {
+public class PopulatorGroupBlock extends PopulatorCount {
 
     private final BlockState block;
     private final int tries;
     
-    public GroupBlockPopulator(BlockState block, int tries) {
+    public PopulatorGroupBlock(BlockState block, int tries) {
         this.block = block;
         this.tries = tries;
     }
