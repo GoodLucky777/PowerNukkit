@@ -254,9 +254,9 @@ public class PowerNukkitNether extends Generator {
                 BlockState topState = STATE_NETHERRACK;
                 BlockState groundState = STATE_NETHERRACK;
 
-                boolean soulSand = this.soulsandNoise[x + z * 16] + this.nukkitRandom.nextDouble() * 0.2D > 0.0D;
-                boolean gravel = this.gravelNoise[x + z * 16] + this.nukkitRandom.nextDouble() * 0.2D > 0.0D;
-                int surfaceHeight = (int)(this.surfaceNoise[x + z * 16] / 3.0D + 3.0D + this.nukkitRandom.nextDouble() * 0.25D);
+                boolean soulSand = this.soulsandNoise[x | z << 4] + this.nukkitRandom.nextDouble() * 0.2D > 0.0D;
+                boolean gravel = this.gravelNoise[x | z << 4] + this.nukkitRandom.nextDouble() * 0.2D > 0.0D;
+                int surfaceHeight = (int)(this.surfaceNoise[x | z << 4] / 3.0D + 3.0D + this.nukkitRandom.nextDouble() * 0.25D);
                 int deep = -1;
                 for (int y = 127; y >= 0; y--) {
                     if (y <= this.nukkitRandom.nextBoundedInt(5) || y >= 127 - this.nukkitRandom.nextBoundedInt(5)) {
