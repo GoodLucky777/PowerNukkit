@@ -163,7 +163,7 @@ public class PowerNukkitNether extends Generator {
 
         double[] nv = new double[17];
         for (int i = 0; i < 17; i++) {
-            nv[i] = Math.cos((double) j * Math.PI * 6.0D / (double) 17) * 2.0D;
+            nv[i] = Math.cos((double) i * Math.PI * 6.0D / (double) 17) * 2.0D;
             double nh = i > 17 / 2 ? 17 - 1 - i : i;
             if (nh < 4.0D) {
                 nh = 4.0D - nh;
