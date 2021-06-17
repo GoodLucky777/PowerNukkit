@@ -57,8 +57,8 @@ public class PowerNukkitNether extends Generator {
     private static final BlockState STATE_NETHERRACK = BlockState.of(NETHERRACK);
     private static final BlockState STATE_SOULSAND = BlockState.of(SOUL_SAND);
 
-    private double LAVA_HEIGHT = 32;
-    private double BEDROCK_DEPTH = 5;
+    private int LAVA_HEIGHT = 32;
+    private int BEDROCK_DEPTH = 5;
 
     private static double coordinateScale = 684.412D;
     private static double heightScale = 2053.236D;
