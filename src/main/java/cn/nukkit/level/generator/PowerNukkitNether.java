@@ -13,7 +13,9 @@ import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @author GoodLucky777
@@ -129,7 +131,7 @@ public class PowerNukkitNether extends Generator {
         this.getLevel() = level;
         this.nukkitRandom = random;
         this.random = new Random();
-        this.nukkitRandom .setSeed(this.getLevel().getSeed());
+        this.nukkitRandom.setSeed(this.getLevel().getSeed());
         this.localSeed1 = this.random.nextLong();
         this.localSeed2 = this.random.nextLong();
 
