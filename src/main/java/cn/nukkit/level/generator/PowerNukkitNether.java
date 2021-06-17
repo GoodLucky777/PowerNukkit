@@ -13,6 +13,7 @@ import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -55,14 +56,14 @@ public class PowerNukkitNether extends Generator {
     private static final BlockState STATE_GRAVEL = BlockState.of(GRAVEL);
     private static final BlockState STATE_NETHERRACK = BlockState.of(NETHERRACK);
     private static final BlockState STATE_SOULSAND = BlockState.of(SOUL_SAND);
-    
+
     private double LAVA_HEIGHT = 32;
     private double BEDROCK_DEPTH = 5;
-    
+
     private static double coordinateScale = 684.412D;
     private static double heightScale = 2053.236D;
     private static double surfaceScale = 0.0625D;
-    
+
     private NoiseGeneratorOctavesD roughness;
     private NoiseGeneratorOctavesD roughness2;
     private NoiseGeneratorOctavesD detail;
@@ -75,11 +76,11 @@ public class PowerNukkitNether extends Generator {
     private double[] gravelNoise = new double[256];
     private double[] surfaceNoise = new double[256];
     private final double[][][] density = new double[5][5][17];
-    
+
     double[] detailNoise;
     double[] roughnessNoise;
     double[] roughnessNoise2;
-    
+
     private ChunkManager level;
     private NukkitRandom nukkitRandom;
     private Random random;
@@ -93,7 +94,7 @@ public class PowerNukkitNether extends Generator {
         this(Collections.emptyMap());
     }
 
-    public PowerNukkitNether(Map <String, Object> options) {
+    public PowerNukkitNether(Map<String, Object> options) {
         // Just used for future update.
     }
 
@@ -121,17 +122,17 @@ public class PowerNukkitNether extends Generator {
     public ChunkManager getChunkManager() {
         return level;
     }
-    
+
     public Vector3 getSpawn() {
         return new Vector3(0.5, 64, 0.5);
     }
 
     @Override
     public void init(ChunkManager level, NukkitRandom random) {
-        this.getLevel() = level;
+        this.level = level;
         this.nukkitRandom = random;
         this.random = new Random();
-        this.nukkitRandom.setSeed(this.getLevel().getSeed());
+        this.nukkitRandom.setSeed(this.level.getSeed());
         this.localSeed1 = this.random.nextLong();
         this.localSeed2 = this.random.nextLong();
 
@@ -148,28 +149,28 @@ public class PowerNukkitNether extends Generator {
     public void generateChunk(int chunkX, int chunkZ) {
         int baseX = chunkX << 4;
         int baseZ = chunkZ << 4;
-        
+
         int densityX = chunkX << 2;
         int densityZ = chunkZ << 2;
-        
-        this.nukkitRandom.setSeed(chunkX * localSeed1 ^ chunkZ * localSeed2 ^ this.getLevel().getSeed());
+
+        this.nukkitRandom.setSeed(chunkX * localSeed1 ^ chunkZ * localSeed2 ^ this.level.getSeed());
 
         BaseFullChunk chunk = level.getChunk(chunkX, chunkZ);
-        
+
         this.detailNoise = this.detail.generateNoiseOctaves(this.detailNoise, densityX, 0, densityZ, 5, 17, 5, 8.555150000000001D, 34.2206D, 8.555150000000001D);
         this.roughnessNoise = this.roughness.generateNoiseOctaves(this.roughnessNoise, densityX, 0, densityZ, 5, 17, 5, coordinateScale, heightScale, coordinateScale);
         this.roughnessNoise2 = this.roughness2.generateNoiseOctaves(this.roughnessNoise2, densityX, 0, densityZ, 5, 17, 5, coordinateScale, heightScale, coordinateScale);
-        
+
         double[] nv = new double[17];
         for (int i = 0; i < 17; i++) {
-            nv[i] = Math.cos((double)j * Math.PI * 6.0D / (double)17) * 2.0D;
+            nv[i] = Math.cos((double) j * Math.PI * 6.0D / (double) 17) * 2.0D;
             double nh = i > 17 / 2 ? 17 - 1 - i : i;
             if (nh < 4.0D) {
                 nh = 4.0D - nh;
                 nv[i] -= nh * nh * nh * 10.0D;
             }
         }
-        
+
         int index = 0;
 
         for (int i = 0; i < 5; i++) {
@@ -179,14 +180,14 @@ public class PowerNukkitNether extends Generator {
                     double noiseR2 = this.roughnessNoise2[index] / 512.0D;
                     double noiseD = (this.detailNoise[index] / 10.0D + 1.0D) / 2.0D;
                     double nh = nv[k];
-                    
+
                     // linear interpolation
-                    double dens = noiseD < 0 ? noiseR
-                            : noiseD > 1 ? noiseR2 : noiseR + (noiseR2 - noiseR) * noiseD;
+                    double dens = noiseD < 0 ? noiseR :
+                        noiseD > 1 ? noiseR2 : noiseR + (noiseR2 - noiseR) * noiseD;
                     dens -= nh;
                     index++;
                     if (k > 13) {
-                        double lowering = (double)((float)(k - 13) / 3.0F);
+                        double lowering = (double)((float)(k - 13) / 3.0 F);
                         dens = dens * (1.0D - lowering) + lowering * -10.0D;
                     }
 
@@ -212,7 +213,7 @@ public class PowerNukkitNether extends Generator {
                     double d6 = (this.density[i + 1][j][k + 1] - d2) / 8;
                     double d7 = (this.density[i][j + 1][k + 1] - d3) / 8;
                     double d8 = (this.density[i + 1][j + 1][k + 1] - d4) / 8;
-                    
+
                     for (int l = 0; l < 8; l++) {
                         double d9 = d1;
                         double d10 = d3;
@@ -243,22 +244,22 @@ public class PowerNukkitNether extends Generator {
                 }
             }
         }
-        
+
         this.surfaceNoise = this.netherrackExculsivityNoiseGen.generateNoiseOctaves(this.surfaceNoise, baseX, baseZ, 0, 16, 16, 1, surfaceScale, surfaceScale, surfaceScale);
         this.soulsandNoise = this.soulsandGravelNoiseGen.generateNoiseOctaves(this.soulsandNoise, baseX, baseZ, 0, 16, 16, 1, 0.03125D, 0.03125D, 1.0D);
         this.gravelNoise = this.soulsandGravelNoiseGen.generateNoiseOctaves(this.gravelNoise, baseX, 109, baseZ, 16, 1, 16, 0.03125D, 1.0D, 0.03125D);
-        
+
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
                 BlockState topState = STATE_NETHERRACK;
                 BlockState groundState = STATE_NETHERRACK;
-                
+
                 boolean soulSand = this.soulsandNoise[x + z * 16] + this.nukkitRandom.nextDouble() * 0.2D > 0.0D;
                 boolean gravel = this.gravelNoise[x + z * 16] + this.nukkitRandom.nextDouble() * 0.2D > 0.0D;
                 int surfaceHeight = (int)(this.surfaceNoise[x + z * 16] / 3.0D + 3.0D + this.nukkitRandom.nextDouble() * 0.25D);
                 int deep = -1;
                 for (int y = 127; y >= 0; y--) {
-                    if (y <= this.nukkitRandom.nextBoundInt(5) || y >= 127 - this.nukkitRandom.nextBoundInt(5)) {
+                    if (y <= this.nukkitRandom.nextBoundedInt(5) || y >= 127 - this.nukkitRandom.nextBoundedInt(5)) {
                         chunk.setBlockState(x, y, z, STATE_BEDROCK);
                         continue;
                     } else {
@@ -282,11 +283,11 @@ public class PowerNukkitNether extends Generator {
                                         groundState = STATE_SOULSAND;
                                     }
                                 }
-                                
+
                                 /*if (y < 64 && (topState == null || topState.equals(BlockState.AIR))) {
                                     topState = STATE_LAVA;
                                 }*/
-                                
+
                                 deep = surfaceHeight;
                                 if (y >= 63) {
                                     chunk.setBlockState(z, y, x, topState);
@@ -302,21 +303,21 @@ public class PowerNukkitNether extends Generator {
                 }
             }
         }
-        
-        for (Populator populator : this.generationPopulators) {
-            populator.populate(this.getLevel(), chunkX, chunkZ, this.nukkitRandom, chunk);
+
+        for (Populator populator: this.generationPopulators) {
+            populator.populate(this.level, chunkX, chunkZ, this.nukkitRandom, chunk);
         }
     }
-    
+
     @Override
     public void populateChunk(int chunkX, int chunkZ) {
         BaseFullChunk chunk = level.getChunk(chunkX, chunkZ);
-        this.nukkitRandom.setSeed(0xdeadbeef ^ (chunkX << 8) ^ chunkZ ^ this.getLevel().getSeed());
+        this.nukkitRandom.setSeed(0xdeadbeef ^ (chunkX << 8) ^ chunkZ ^ this.level.getSeed());
         for (Populator populator: this.populators) {
-            populator.populate(this.getLevel(), chunkX, chunkZ, this.nukkitRandom, chunk);
+            populator.populate(this.level, chunkX, chunkZ, this.nukkitRandom, chunk);
         }
 
         Biome biome = Biome.getBiome(chunk.getBiomeId(7, 7));
-        biome.populateChunk(this.getLevel(), chunkX, chunkZ, this.nukkitRandom);
+        biome.populateChunk(this.level, chunkX, chunkZ, this.nukkitRandom);
     }
 }
