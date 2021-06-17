@@ -259,7 +259,7 @@ public class PowerNukkitNether extends Generator {
                 int surfaceHeight = (int)(this.surfaceNoise[x | z << 4] / 3.0D + 3.0D + this.nukkitRandom.nextDouble() / 4);
                 int deep = -1;
                 for (int y = 127; y >= 0; y--) {
-                    if (y <= this.nukkitRandom.nextBoundedInt(5) || y >= 127 - this.nukkitRandom.nextBoundedInt(5)) {
+                    if (y <= this.nukkitRandom.nextBoundedInt(BEDROCK_DEPTH) || y >= 127 - this.nukkitRandom.nextBoundedInt(BEDROCK_DEPTH)) {
                         chunk.setBlockState(z, y, x, STATE_BEDROCK);
                         continue;
                     } else {
