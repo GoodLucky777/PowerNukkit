@@ -14,12 +14,12 @@ import com.sun.jna.Native;
 public class Cubiomes {
 
     public interface CLibrary extends Library {
-        CLibrary INSTANCE = (CLibrary) Native.load(("cubiomes"), CLibrary.class);
+        CLibrary INSTANCE = (CLibrary) Native.load(("libcubiomes.so"), CLibrary.class);
         
         int genNetherScaled(int mc, long seed, int scale, int[] out, int x, int z, int w, int h, int y0, int y1);
     }
     
     public static CLibrary getInstance() {
-        return INSTANCE;
+        return CLibrary.INSTANCE;
     }
 }
