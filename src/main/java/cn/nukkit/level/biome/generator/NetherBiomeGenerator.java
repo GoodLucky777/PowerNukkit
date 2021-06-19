@@ -16,7 +16,7 @@ public class NetherBiomeGenerator {
 
     private static final int CURRENT_VERSION = 17;
     
-    private static final Int2IntMap BIOME_ID_MAP = new Int2IntOpenHashMap()
+    private static final Int2IntMap BIOME_ID_MAP = new Int2IntOpenHashMap();
     static {
         BIOME_ID_MAP.put(8, 8);
         BIOME_ID_MAP.put(170, 178);
