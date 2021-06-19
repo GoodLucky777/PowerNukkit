@@ -1,4 +1,4 @@
-package cn.nukkit.level.biome;
+package cn.nukkit.level.biome.generator;
 
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
