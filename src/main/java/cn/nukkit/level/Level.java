@@ -339,6 +339,9 @@ public class Level implements ChunkManager, Metadatable {
                 TextFormat.GREEN + levelProvider.getName() + TextFormat.WHITE));
 
         this.generatorClass = Generator.getGenerator(levelProvider.getGenerator());
+        if (generatorClass.getSimpleName().equals("PowerNukkitNether")) {
+            log.warn(TextFormat.RED + "You are using PowerNukkit's experimental world generator! If you use it to the original world from Cloudburst Nukkit, the world will be corrupted. Also, there may be a breaking change in the future.");
+        }
 
         this.useSections = usesChunkSection.getAsBoolean();
 
