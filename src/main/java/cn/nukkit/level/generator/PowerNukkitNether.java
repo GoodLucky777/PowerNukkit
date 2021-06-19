@@ -6,6 +6,7 @@ import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.biome.Biome;
+import cn.nukkit.level.biome.generator.NetherBiomeGenerator;
 import cn.nukkit.level.format.generic.BaseFullChunk;
 import cn.nukkit.level.generator.noise.vanilla.d.NoiseGeneratorOctavesD;
 import cn.nukkit.level.generator.populator.type.Populator;
@@ -90,6 +91,8 @@ public class PowerNukkitNether extends Generator {
     private long localSeed1;
     private long localSeed2;
 
+    private NetherBiomeGenerator netherBiomeGenerator;
+
     public PowerNukkitNether() {
         this(Collections.emptyMap());
     }
@@ -143,6 +146,8 @@ public class PowerNukkitNether extends Generator {
         this.netherrackExculsivityNoiseGen = new NoiseGeneratorOctavesD(this.nukkitRandom, 4);
         this.scaleNoise = new NoiseGeneratorOctavesD(this.nukkitRandom, 10);
         this.depthNoise = new NoiseGeneratorOctavesD(this.nukkitRandom, 16);
+
+        this.netherBiomeGenerator = new NetherBiomeGenerator(this.level.getSeed());
     }
 
     @Override
@@ -191,8 +196,8 @@ public class PowerNukkitNether extends Generator {
                         dens = dens * (1.0D - lowering) + lowering * -10.0D;
                     }
 
-                    /*if ((double)k < 0.0D) {
-                        double d10 = (0.0D - (double)k) / 4.0D;
+                    /*if ((double) k < 0) {
+                        double d10 = (0 - (double) k) / 4.0D;
                         d10 = Math.clamp(d10, 0.0D, 1.0D);
                         dens = dens * (1.0D - d10) + -10.0D * d10;
                     }*/
