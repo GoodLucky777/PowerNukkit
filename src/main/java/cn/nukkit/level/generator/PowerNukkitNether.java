@@ -309,7 +309,7 @@ public class PowerNukkitNether extends Generator {
                     }
                 }
 
-                chunk.setBiomeId(biomeIds[x | z << 4]);
+                chunk.setBiomeId(x, z, biomeIds[x | z << 4]);
             }
         }
 
