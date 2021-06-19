@@ -17,11 +17,13 @@ public class NetherBiomeGenerator {
     private static final int CURRENT_VERSION = 17;
     
     private static final Int2IntMap BIOME_ID_MAP = new Int2IntOpenHashMap()
-        .put(8, 8)
-        .put(170, 178)
-        .put(171, 179)
-        .put(172, 180)
-        .put(173, 181);
+    static {
+        BIOME_ID_MAP.put(8, 8);
+        BIOME_ID_MAP.put(170, 178);
+        BIOME_ID_MAP.put(171, 179);
+        BIOME_ID_MAP.put(172, 180);
+        BIOME_ID_MAP.put(173, 181);
+    }
     
     private long seed;
     
