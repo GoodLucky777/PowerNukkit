@@ -16,10 +16,12 @@ import java.io.File;
 @Since("FUTURE")
 public class Cubiomes {
 
-    public interface CLibrary extends Library {
+    static {
         File file = new File(Server.class.getClassLoader().getResource("lib").getFile());
         System.setProperty("jna.library.path", file.getAbsolutePath());
-        
+    }
+    
+    public interface CLibrary extends Library {
         CLibrary INSTANCE = (CLibrary) Native.loadLibrary("cubiomes", CLibrary.class);
         
         int genNetherScaled(int mc, long seed, int scale, int[] out, int x, int z, int w, int h, int y0, int y1);
