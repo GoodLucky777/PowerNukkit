@@ -4,6 +4,7 @@ import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.utils.Cubiomes;
 
+import it.unimi.dsi.fastutil.ints.Int2IntHashMap;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
 
 /**
@@ -15,7 +16,7 @@ public class NetherBiomeGenerator {
 
     private static final int CURRENT_VERSION = 17;
     
-    private static final Int2IntMap BIOME_ID_MAP = new Int2IntMap()
+    private static final Int2IntMap BIOME_ID_MAP = new Int2IntHashMap()
         .put(8, 8)
         .put(170, 178)
         .put(171, 179)
