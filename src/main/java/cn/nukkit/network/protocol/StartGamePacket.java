@@ -135,7 +135,7 @@ public class StartGamePacket extends DataPacket {
         this.putString(this.vanillaVersion);
         this.putLInt(16); // Limited world width
         this.putLInt(16); // Limited world height
-        this.putBoolean(false); // Nether type
+        this.putBoolean(true); // Nether type
         this.putBoolean(false); // Experimental Gameplay
 
         this.putString(this.levelId);
