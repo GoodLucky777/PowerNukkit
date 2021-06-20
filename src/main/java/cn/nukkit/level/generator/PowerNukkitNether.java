@@ -256,7 +256,7 @@ public class PowerNukkitNether extends Generator {
         this.soulsandNoise = this.soulsandGravelNoiseGen.generateNoiseOctaves(this.soulsandNoise, baseX, baseZ, 0, 16, 16, 1, 0.03125, 0.03125, 1);
         this.gravelNoise = this.soulsandGravelNoiseGen.generateNoiseOctaves(this.gravelNoise, baseX, 109, baseZ, 16, 1, 16, 0.03125, 1, 0.03125);
 
-        int[] biomeIds = netherBiomeGenerator.generateBiomeIds(baseX, baseZ); //cn.nukkit.utils.MainLogger.getLogger().info(java.util.Arrays.toString(biomeIds));
+        int[] biomeIds = netherBiomeGenerator.generateBiomeIds(baseX, baseZ);
 
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
