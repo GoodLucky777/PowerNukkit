@@ -39,4 +39,9 @@ public class BasaltDeltasBiome extends HellBiome {
     public BlockState getTopSoulsandNoiseState() {
         return STATE_BLACKSTONE;
     }
+    
+    @Override
+    public BlockState getCeilingState() {
+        return STATE_BASALT;
+    }
 }
