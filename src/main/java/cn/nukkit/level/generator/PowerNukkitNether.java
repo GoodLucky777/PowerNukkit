@@ -270,7 +270,7 @@ public class PowerNukkitNether extends Generator {
 
                 boolean soulSand = this.soulsandNoise[x | z << 4] + this.nukkitRandom.nextDouble() * 0.2D > 0.0D;
                 boolean gravel = this.gravelNoise[x | z << 4] + this.nukkitRandom.nextDouble() * 0.2D > 0.0D;
-                int surfaceHeight = (int)(this.surfaceNoise[x | z << 4] / 3.0D + 3.0D + this.nukkitRandom.nextDouble() / 4);
+                int surfaceHeight = (int) (this.surfaceNoise[x | z << 4] / 3.0D + 3.0D + this.nukkitRandom.nextDouble() / 4);
                 int deep = -1;
                 for (int y = 127; y >= 0; y--) {
                     if (y <= this.nukkitRandom.nextBoundedInt(BEDROCK_DEPTH) || y >= 127 - this.nukkitRandom.nextBoundedInt(BEDROCK_DEPTH)) {
@@ -318,7 +318,7 @@ public class PowerNukkitNether extends Generator {
             }
         }
 
-        for (Populator populator: this.generationPopulators) {
+        for (Populator populator : this.generationPopulators) {
             populator.populate(this.level, chunkX, chunkZ, this.nukkitRandom, chunk);
         }
     }
@@ -327,7 +327,7 @@ public class PowerNukkitNether extends Generator {
     public void populateChunk(int chunkX, int chunkZ) {
         BaseFullChunk chunk = level.getChunk(chunkX, chunkZ);
         this.nukkitRandom.setSeed(0xdeadbeef ^ (chunkX << 8) ^ chunkZ ^ this.level.getSeed());
-        for (Populator populator: this.populators) {
+        for (Populator populator : this.populators) {
             populator.populate(this.level, chunkX, chunkZ, this.nukkitRandom, chunk);
         }
 
