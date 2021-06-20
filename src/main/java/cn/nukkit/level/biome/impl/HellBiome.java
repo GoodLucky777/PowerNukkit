@@ -7,7 +7,6 @@ import cn.nukkit.level.biome.Biome;
 
 public class HellBiome extends Biome {
 
-    private static final BlockState STATE_LAVA = BlockState.of(STILL_LAVA);
     private static final BlockState STATE_NETHERRACK = BlockState.of(NETHERRACK);
     
     @Override
