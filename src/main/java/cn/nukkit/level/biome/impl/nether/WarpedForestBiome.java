@@ -20,11 +20,6 @@ public class WarpedForestBiome extends HellBiome {
     }
     
     @Override
-    public BlockState getGroundState() {
-        return STATE_WARPED_NYLIUM;
-    }
-    
-    @Override
     public BlockState getTopState() {
         return STATE_WARPED_NYLIUM;
     }
@@ -37,5 +32,10 @@ public class WarpedForestBiome extends HellBiome {
     @Override
     public BlockState getTopStateSoulsandNoise() {
         return STATE_WARPED_NYLIUM;
+    }
+    
+    @Override
+    public boolean isForceSurface() {
+        return true;
     }
 }
