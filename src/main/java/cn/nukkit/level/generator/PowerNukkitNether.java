@@ -191,8 +191,9 @@ public class PowerNukkitNether extends Generator {
                         noiseD > 1 ? noiseR2 : noiseR + (noiseR2 - noiseR) * noiseD;
                     dens -= nh;
                     index++;
+                    double lowering;
                     if (k > 13) {
-                        double lowering = (double)((float)(k - 13) / 3.0F);
+                        lowering = (double)((float)(k - 13) / 3.0F);
                         dens = dens * (1.0D - lowering) + lowering * -10.0D;
                     }
 
@@ -254,7 +255,7 @@ public class PowerNukkitNether extends Generator {
         this.soulsandNoise = this.soulsandGravelNoiseGen.generateNoiseOctaves(this.soulsandNoise, baseX, baseZ, 0, 16, 16, 1, 0.03125, 0.03125, 1);
         this.gravelNoise = this.soulsandGravelNoiseGen.generateNoiseOctaves(this.gravelNoise, baseX, 109, baseZ, 16, 1, 16, 0.03125, 1, 0.03125);
 
-        int[] biomeIds = netherBiomeGenerator.generateBiomeIds(chunkX, chunkZ);
+        int[] biomeIds = netherBiomeGenerator.generateBiomeIds(chunkX, chunkZ);cn.nukkit.utils.MainLogger.getLogger().info(java.util.Arrays(biomeIds).toString());
 
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
@@ -309,7 +310,7 @@ public class PowerNukkitNether extends Generator {
                     }
                 }
 
-                chunk.setBiomeId(x, z, NetherBiomeGenerator.convertBiomeId(biomeIds[x | z << 4])); cn.nukkit.utils.MainLogger.getLogger.info(chunk.getBiomeId(x, z));
+                chunk.setBiomeId(x, z, NetherBiomeGenerator.convertBiomeId(biomeIds[x | z << 4]));
             }
         }
 
