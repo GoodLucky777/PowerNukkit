@@ -42,14 +42,20 @@ public class HellBiome extends Biome {
     
     @PowerNukkitOnly
     @Since("FUTURE")
-    public BlockState getTopStateGravelNoise() {
+    public BlockState getTopGravelNoiseState() {
         return STATE_GRAVEL;
     }
     
     @PowerNukkitOnly
     @Since("FUTURE")
-    public BlockState getTopStateSoulsandNoise() {
+    public BlockState getTopSoulsandNoiseState() {
         return STATE_SOULSAND;
+    }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public BlockState getBeachState() {
+        return BlockState.AIR;
     }
     
     @PowerNukkitOnly
