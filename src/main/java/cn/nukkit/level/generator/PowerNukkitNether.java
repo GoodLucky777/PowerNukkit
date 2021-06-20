@@ -55,9 +55,7 @@ public class PowerNukkitNether extends Generator {
 
     private static final BlockState STATE_BEDROCK = BlockState.of(BEDROCK);
     private static final BlockState STATE_LAVA = BlockState.of(STILL_LAVA);
-    private static final BlockState STATE_GRAVEL = BlockState.of(GRAVEL);
     private static final BlockState STATE_NETHERRACK = BlockState.of(NETHERRACK);
-    private static final BlockState STATE_SOULSAND = BlockState.of(SOUL_SAND);
 
     private int LAVA_HEIGHT = 32;
     private int BEDROCK_DEPTH = 5;
@@ -287,11 +285,11 @@ public class PowerNukkitNether extends Generator {
                                     topState = biome.getTopState();
                                     groundState = biome.getGroundState();
                                     if (gravel) {
-                                        topState = STATE_GRAVEL;
+                                        topState = biome.getTopStateGravelNoise();
                                         groundState = biome.getGroundState();
                                     }
                                     if (soulSand) {
-                                        topState = STATE_SOULSAND;
+                                        topState = biome.getTopStateSoulsandNoise();
                                         groundState = biome.getGroundState();
                                     }
                                 }
