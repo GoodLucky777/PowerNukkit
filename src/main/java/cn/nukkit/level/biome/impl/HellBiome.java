@@ -28,7 +28,7 @@ public class HellBiome extends Biome {
     
     @PowerNukkitOnly
     @Since("FUTURE")
-    public BlockState getSurfaceTopState() {
+    public BlockState getTopState() {
         return STATE_NETHERRACK;
     }
     
