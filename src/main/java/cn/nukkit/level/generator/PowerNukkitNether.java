@@ -251,8 +251,8 @@ public class PowerNukkitNether extends Generator {
         }
 
         this.surfaceNoise = this.netherrackExculsivityNoiseGen.generateNoiseOctaves(this.surfaceNoise, baseX, baseZ, 0, 16, 16, 1, surfaceScale, surfaceScale, surfaceScale);
-        this.soulsandNoise = this.soulsandGravelNoiseGen.generateNoiseOctaves(this.soulsandNoise, baseX, baseZ, 0, 16, 16, 1, 0.03125D, 0.03125D, 1.0D);
-        this.gravelNoise = this.soulsandGravelNoiseGen.generateNoiseOctaves(this.gravelNoise, baseX, 109, baseZ, 16, 1, 16, 0.03125D, 1.0D, 0.03125D);
+        this.soulsandNoise = this.soulsandGravelNoiseGen.generateNoiseOctaves(this.soulsandNoise, baseX, baseZ, 0, 16, 16, 1, 0.03125, 0.03125, 1);
+        this.gravelNoise = this.soulsandGravelNoiseGen.generateNoiseOctaves(this.gravelNoise, baseX, 109, baseZ, 16, 1, 16, 0.03125, 1, 0.03125);
 
         int[] biomeIds = netherBiomeGenerator.generateBiomeIds(chunkX, chunkZ);
 
@@ -291,9 +291,9 @@ public class PowerNukkitNether extends Generator {
                                     }
                                 }
 
-                                /*if (y < 64 && (topState == null || topState.equals(BlockState.AIR))) {
+                                if (y < 64 && (topState == null || topState.equals(BlockState.AIR))) {
                                     topState = STATE_LAVA;
-                                }*/
+                                }
 
                                 deep = surfaceHeight;
                                 if (y >= 63) {
@@ -309,7 +309,7 @@ public class PowerNukkitNether extends Generator {
                     }
                 }
 
-                chunk.setBiomeId(x, z, NetherBiomeGenerator.convertBiomeId(biomeIds[x | z << 4]));
+                chunk.setBiomeId(x, z, NetherBiomeGenerator.convertBiomeId(biomeIds[x | z << 4])); cn.nukkit.utils.MainLogger.getLogger.info(chunk.getBiomeId(x, z));
             }
         }
 
