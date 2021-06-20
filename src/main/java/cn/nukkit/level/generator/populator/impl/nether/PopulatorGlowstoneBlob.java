@@ -1,4 +1,4 @@
-package cn.nukkit.level.generator.populator.impl;
+package cn.nukkit.level.generator.populator.impl.nether;
 
 import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.ChunkManager;
