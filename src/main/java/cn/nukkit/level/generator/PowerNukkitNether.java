@@ -10,7 +10,7 @@ import cn.nukkit.level.biome.impl.HellBiome;
 import cn.nukkit.level.biome.generator.NetherBiomeGenerator;
 import cn.nukkit.level.format.generic.BaseFullChunk;
 import cn.nukkit.level.generator.noise.vanilla.d.NoiseGeneratorOctavesD;
-import cn.nukkit.level.generator.populator.impl.PopulatorGlowStone;
+import cn.nukkit.level.generator.populator.impl.nether.PopulatorGlowstoneBlob;
 import cn.nukkit.level.generator.populator.type.Populator;
 import cn.nukkit.math.NukkitRandom;
 import cn.nukkit.math.Vector3;
@@ -149,8 +149,8 @@ public class PowerNukkitNether extends Generator {
 
         this.netherBiomeGenerator = new NetherBiomeGenerator(this.level.getSeed());
         
-        PopulatorGlowStone populatorGlowStone = new PopulatorGlowStone();
-        this.populators.add(populatorGlowStone);
+        PopulatorGlowstoneBlob populatorGlowstoneBlob = new PopulatorGlowstoneBlob(10);
+        this.populators.add(populatorGlowstoneBlob);
     }
 
     @Override
