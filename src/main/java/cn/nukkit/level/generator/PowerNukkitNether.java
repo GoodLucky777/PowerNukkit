@@ -282,7 +282,7 @@ public class PowerNukkitNether extends Generator {
                             deep = -1;
                         } else if (state.equals(STATE_NETHERRACK)) {
                             if (deep == -1) {
-                                if (surfaceHeight <= 0) {
+                                if (surfaceHeight <= 0 && !biome.isForceSurface()) {
                                     topState = BlockState.AIR;
                                     groundState = biome.getGroundState();
                                 } else if (y >= 60 && y <= 65) {
@@ -303,7 +303,7 @@ public class PowerNukkitNether extends Generator {
                                 }
 
                                 deep = surfaceHeight;
-                                if (y >= 63) {
+                                if (y >= 63 || biome.isForceSurface()) {
                                     chunk.setBlockState(z, y, x, topState);
                                 } else {
                                     chunk.setBlockState(z, y, x, groundState);
