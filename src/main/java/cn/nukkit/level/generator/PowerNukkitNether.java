@@ -289,11 +289,11 @@ public class PowerNukkitNether extends Generator {
                                     topState = biome.getTopState();
                                     groundState = biome.getGroundState();
                                     if (gravel) {
-                                        topState = biome.getTopStateGravelNoise();
+                                        topState = biome.getTopGravelNoiseState();
                                         groundState = biome.getGroundState();
                                     }
                                     if (soulSand) {
-                                        topState = biome.getTopStateSoulsandNoise();
+                                        topState = biome.getTopSoulsandNoiseState();
                                         groundState = biome.getGroundState();
                                     }
                                 }
