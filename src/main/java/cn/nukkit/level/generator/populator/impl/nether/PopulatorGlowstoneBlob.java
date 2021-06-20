@@ -31,7 +31,7 @@ public class PopulatorGlowstoneBlob extends Populator {
             int z = (chunkZ << 4) + random.nextBoundedInt(16);
             int y = random.nextBoundedInt(128);
             
-            if (level.getBlockId(x, y, z) == AIR) {
+            if (level.getBlockIdAt(x, y, z) == AIR) {
                 int upId = level.getBlockIdAt(x, y + 1, z);
                 if (upId == NETHERRACK || upId == BASALT || upId == BLACKSTONE) {
                     level.setBlockStateAt(x, y, z, STATE_GLOWSTONE);
