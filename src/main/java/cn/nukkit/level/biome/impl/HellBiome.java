@@ -51,4 +51,10 @@ public class HellBiome extends Biome {
     public BlockState getTopStateSoulsandNoise() {
         return STATE_SOULSAND;
     }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public boolean isForceSurface() {
+        return false;
+    }
 }
