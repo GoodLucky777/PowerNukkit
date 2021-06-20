@@ -11,8 +11,15 @@ import cn.nukkit.level.biome.impl.HellBiome;
 @Since("FUTURE")
 public class WarpedForestBiome extends HellBiome {
 
+    private static final BlockState STATE_WARPED_NYLIUM = BlockState.of(WARPED_NYLIUM);
+    
     @Override
     public String getName() {
         return "Warped Forest";
+    }
+    
+    @Override
+    public BlockState getSurfaceTopState() {
+        return STATE_WARPED_NYLIUM;
     }
 }
