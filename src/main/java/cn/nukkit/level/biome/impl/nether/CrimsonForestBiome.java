@@ -23,4 +23,14 @@ public class CrimsonForestBiome extends HellBiome {
     public BlockState getGroundState() {
         return STATE_CRIMSON_NYLIUM;
     }
+    
+    @Override
+    public BlockState getTopStateGravelNoise() {
+        return STATE_CRIMSON_NYLIUM;
+    }
+    
+    @Override
+    public BlockState getTopStateSoulsandNoise() {
+        return STATE_CRIMSON_NYLIUM;
+    }
 }
