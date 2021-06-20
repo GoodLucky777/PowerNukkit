@@ -196,11 +196,11 @@ public class PowerNukkitNether extends Generator {
                         dens = dens * (1.0D - lowering) + lowering * -10.0D;
                     }
 
-                    /*if ((double) k < 0) {
-                        double d10 = (0 - (double) k) / 4.0D;
-                        d10 = Math.clamp(d10, 0.0D, 1.0D);
-                        dens = dens * (1.0D - d10) + -10.0D * d10;
-                    }*/
+                    if (k < 0) {
+                        lowering = (0 - (double) k) / 4;
+                        lowering = lowering > 1 ? 1 : lowering < 0 ? 0 : lowering;
+                        dens = dens * (1 - lowering) + -10 * lowering;
+                    }
 
                     density[i][j][k] = dens;
                 }
