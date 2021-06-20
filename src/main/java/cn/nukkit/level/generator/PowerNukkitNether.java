@@ -6,6 +6,7 @@ import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.biome.Biome;
+import cn.nukkit.level.biome.impl.HellBiome;
 import cn.nukkit.level.biome.generator.NetherBiomeGenerator;
 import cn.nukkit.level.format.generic.BaseFullChunk;
 import cn.nukkit.level.generator.noise.vanilla.d.NoiseGeneratorOctavesD;
@@ -259,10 +260,10 @@ public class PowerNukkitNether extends Generator {
 
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
-                Biome biome = Biome.getBiome(NetherBiomeGenerator.convertBiomeId(biomeIds[x | z << 4]));
+                HellBiome biome = (HellBiome) Biome.getBiome(NetherBiomeGenerator.convertBiomeId(biomeIds[x | z << 4]));
                 chunk.setBiomeId(x, z, biome.getId());
                 
-                BlockState topState = biome.getSurfaceState();
+                BlockState topState = biome.getSurfaceTopState();
                 BlockState groundState = biome.getGroundState();
 
                 boolean soulSand = this.soulsandNoise[x | z << 4] + this.nukkitRandom.nextDouble() * 0.2D > 0.0D;
