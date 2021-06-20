@@ -38,4 +38,9 @@ public class CrimsonForestBiome extends HellBiome {
     public BlockState getTopStateSoulsandNoise() {
         return STATE_CRIMSON_NYLIUM;
     }
+    
+    @Override
+    public boolean isForceSurface() {
+        return true;
+    }
 }
