@@ -20,7 +20,7 @@ public class WarpedForestBiome extends HellBiome {
     }
     
     @Override
-    public BlockState getSurfaceTopState() {
+    public BlockState getGroundState() {
         return STATE_WARPED_NYLIUM;
     }
 }
