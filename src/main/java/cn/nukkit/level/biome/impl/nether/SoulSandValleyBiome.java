@@ -13,7 +13,7 @@ import cn.nukkit.level.biome.impl.HellBiome;
 public class SoulSandValleyBiome extends HellBiome {
 
     private static final BlockState STATE_SOULSAND = BlockState.of(SOUL_SAND);
-    private static final BlockState STATE_SOULSOIL = BlockState.of(SOULSOIL);
+    private static final BlockState STATE_SOUL_SOIL = BlockState.of(SOUL_SOIL);
     
     @Override
     public String getName() {
@@ -27,11 +27,11 @@ public class SoulSandValleyBiome extends HellBiome {
     
     @Override
     public BlockState getTopStateGravelNoise() {
-        return STATE_SOULSOIL;
+        return STATE_SOUL_SOIL;
     }
     
     @Override
     public BlockState getTopStateSoulsandNoise() {
-        return STATE_SOULSOIL;
+        return STATE_SOUL_SOIL;
     }
 }
