@@ -281,18 +281,18 @@ public class PowerNukkitNether extends Generator {
                         } else if (state.equals(STATE_NETHERRACK)) {
                             if (deep == -1) {
                                 if (surfaceHeight <= 0) {
-                                    topState = BlockState.AIR;
-                                    groundState = STATE_NETHERRACK;
+                                    topState = /*BlockState.AIR*/BlockState.of(STONE);
+                                    groundState = biome.getGroundState();
                                 } else if (y >= 60 && y <= 65) {
-                                    topState = STATE_NETHERRACK;
-                                    groundState = STATE_NETHERRACK;
+                                    topState = biome.getSurfaceTopState();
+                                    groundState = biome.getGroundState();
                                     if (gravel) {
                                         topState = STATE_GRAVEL;
-                                        groundState = STATE_NETHERRACK;
+                                        groundState = biome.getGroundState();
                                     }
                                     if (soulSand) {
                                         topState = STATE_SOULSAND;
-                                        groundState = STATE_SOULSAND;
+                                        groundState = biome.getGroundState();
                                     }
                                 }
 
