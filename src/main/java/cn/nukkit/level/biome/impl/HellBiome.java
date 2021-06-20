@@ -54,6 +54,12 @@ public class HellBiome extends Biome {
     
     @PowerNukkitOnly
     @Since("FUTURE")
+    public BlockState getCeilingState() {
+        return BlockState.AIR;
+    }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
     public BlockState getBeachState() {
         return BlockState.AIR;
     }
