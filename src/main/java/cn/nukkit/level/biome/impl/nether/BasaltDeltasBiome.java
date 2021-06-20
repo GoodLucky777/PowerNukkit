@@ -31,12 +31,12 @@ public class BasaltDeltasBiome extends HellBiome {
     }
     
     @Override
-    public BlockState getTopStateGravelNoise() {
+    public BlockState getTopGravelNoiseState() {
         return STATE_BLACKSTONE;
     }
     
     @Override
-    public BlockState getTopStateSoulsandNoise() {
+    public BlockState getTopSoulsandNoiseState() {
         return STATE_BLACKSTONE;
     }
 }
