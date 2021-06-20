@@ -303,7 +303,9 @@ public class PowerNukkitNether extends Generator {
                                 }
 
                                 deep = surfaceHeight;
-                                if (y >= 63 || biome.isForceSurface()) {
+                                if (LAVA_HEIGHT + 3 <= y && biome.getBeachState().equals(BlockState.AIR)) {
+                                    chunk.setBlockState(z, y, x, biome.getBeachState());
+                                } else if (y >= 63 || biome.isForceSurface()) {
                                     chunk.setBlockState(z, y, x, topState);
                                 } else {
                                     chunk.setBlockState(z, y, x, groundState);
