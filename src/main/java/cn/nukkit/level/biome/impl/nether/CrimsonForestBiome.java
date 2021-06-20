@@ -20,7 +20,7 @@ public class CrimsonForestBiome extends HellBiome {
     }
     
     @Override
-    public BlockState getSurfaceTopState() {
+    public BlockState getGroundState() {
         return STATE_CRIMSON_NYLIUM;
     }
 }
