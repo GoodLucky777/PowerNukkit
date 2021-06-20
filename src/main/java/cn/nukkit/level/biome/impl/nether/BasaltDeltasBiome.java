@@ -2,6 +2,7 @@ package cn.nukkit.level.biome.impl.nether;
 
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
+import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.biome.impl.HellBiome;
 
 /**
