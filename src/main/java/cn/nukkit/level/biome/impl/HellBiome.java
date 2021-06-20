@@ -38,10 +38,4 @@ public class HellBiome extends Biome {
     public BlockState getGroundState() {
         return STATE_NETHERRACK;
     }
-    
-    @PowerNukkitOnly
-    @Since("FUTURE")
-    public BlockState getSeaState() {
-        return STATE_LAVA;
-    }
 }
