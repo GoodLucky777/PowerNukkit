@@ -26,6 +26,11 @@ public class SoulSandValleyBiome extends HellBiome {
     }
     
     @Override
+    public BlockState getTopState() {
+        return STATE_SOULSAND;
+    }
+    
+    @Override
     public BlockState getTopStateGravelNoise() {
         return STATE_SOUL_SOIL;
     }
