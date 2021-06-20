@@ -2,6 +2,7 @@ package cn.nukkit.level.biome.impl.nether;
 
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
+import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.biome.impl.HellBiome;
 
 /**
@@ -11,8 +12,15 @@ import cn.nukkit.level.biome.impl.HellBiome;
 @Since("FUTURE")
 public class CrimsonForestBiome extends HellBiome {
 
+    private static final BlockState STATE_CRIMSON_NYLIUM = BlockState.of(CRIMSON_NYLIUM);
+    
     @Override
     public String getName() {
         return "Crimson Forest";
+    }
+    
+    @Override
+    public BlockState getSurfaceTopState() {
+        return STATE_CRIMSON_NYLIUM;
     }
 }
