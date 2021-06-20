@@ -31,9 +31,9 @@ public class NetherBiomeGenerator {
         this.seed = seed;
     }
     
-    public int[] generateBiomeIds(int chunkX, int chunkZ) {
+    public int[] generateBiomeIds(int x, int z) {
         int[] ids = new int[16 * 16];
-        Cubiomes.getInstance().genNetherScaled(CURRENT_VERSION, seed, 1, ids, chunkX, chunkZ, 16, 16, 0, 0);
+        Cubiomes.getInstance().genNetherScaled(CURRENT_VERSION, seed, 1, ids, x, z, 16, 16, 0, 0);
         return ids;
     }
     
