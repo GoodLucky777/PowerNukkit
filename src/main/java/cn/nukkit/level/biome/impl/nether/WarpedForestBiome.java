@@ -23,4 +23,14 @@ public class WarpedForestBiome extends HellBiome {
     public BlockState getGroundState() {
         return STATE_WARPED_NYLIUM;
     }
+    
+    @Override
+    public BlockState getTopStateGravelNoise() {
+        return STATE_WARPED_NYLIUM;
+    }
+    
+    @Override
+    public BlockState getTopStateSoulsandNoise() {
+        return STATE_WARPED_NYLIUM;
+    }
 }
