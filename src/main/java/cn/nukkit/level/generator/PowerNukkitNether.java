@@ -263,7 +263,7 @@ public class PowerNukkitNether extends Generator {
                 HellBiome biome = (HellBiome) Biome.getBiome(NetherBiomeGenerator.convertBiomeId(biomeIds[x | z << 4]));
                 chunk.setBiomeId(x, z, biome.getId());
                 
-                BlockState topState = biome.getSurfaceTopState();
+                BlockState topState = biome.getTopState();
                 BlockState groundState = biome.getGroundState();
 
                 boolean soulSand = this.soulsandNoise[x | z << 4] + this.nukkitRandom.nextDouble() * 0.2D > 0.0D;
@@ -281,10 +281,10 @@ public class PowerNukkitNether extends Generator {
                         } else if (state.equals(STATE_NETHERRACK)) {
                             if (deep == -1) {
                                 if (surfaceHeight <= 0) {
-                                    topState = /*BlockState.AIR*/BlockState.of(STONE);
+                                    topState = BlockState.AIR;
                                     groundState = biome.getGroundState();
                                 } else if (y >= 60 && y <= 65) {
-                                    topState = biome.getSurfaceTopState();
+                                    topState = biome.getTopState();
                                     groundState = biome.getGroundState();
                                     if (gravel) {
                                         topState = STATE_GRAVEL;
