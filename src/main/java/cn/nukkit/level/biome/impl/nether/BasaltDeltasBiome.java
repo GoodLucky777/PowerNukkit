@@ -11,8 +11,31 @@ import cn.nukkit.level.biome.impl.HellBiome;
 @Since("FUTURE")
 public class BasaltDeltasBiome extends HellBiome {
 
+    private static final BlockState STATE_BASALT = BlockState.of(BASALT);
+    private static final BlockState STATE_BLACKSTONE = BlockState.of(BLACKSTONE);
+    
     @Override
     public String getName() {
         return "Basalt Deltas";
+    }
+    
+    @Override
+    public BlockState getGroundState() {
+        return STATE_BASALT;
+    }
+    
+    @Override
+    public BlockState getTopState() {
+        return STATE_BASALT;
+    }
+    
+    @Override
+    public BlockState getTopStateGravelNoise() {
+        return STATE_BLACKSTONE;
+    }
+    
+    @Override
+    public BlockState getTopStateSoulsandNoise() {
+        return STATE_BLACKSTONE;
     }
 }
