@@ -66,7 +66,7 @@ public class PopulatorSpring extends Populator {
             }
             
             level.setBlockStateAt(x, y, z, state);
-            level.getChunk(chunkX, chunkZ).getProvider().getLevel().scheduleUpdate(state.getBlock(), new Vector3(x, y, z). 1, 0, false);
+            level.getChunk(chunkX, chunkZ).getProvider().getLevel().scheduleUpdate(state.getBlock(), new Vector3(x, y, z), 1, 0, false);
         }
     }
 }
