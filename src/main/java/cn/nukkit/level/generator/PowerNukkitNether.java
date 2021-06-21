@@ -10,6 +10,7 @@ import cn.nukkit.level.biome.impl.HellBiome;
 import cn.nukkit.level.biome.generator.NetherBiomeGenerator;
 import cn.nukkit.level.format.generic.BaseFullChunk;
 import cn.nukkit.level.generator.noise.vanilla.d.NoiseGeneratorOctavesD;
+import cn.nukkit.level.generator.populator.impl.PopulatorSpring;
 import cn.nukkit.level.generator.populator.impl.nether.PopulatorFire;
 import cn.nukkit.level.generator.populator.impl.nether.PopulatorGlowstoneBlob;
 import cn.nukkit.level.generator.populator.type.Populator;
@@ -154,6 +155,9 @@ public class PowerNukkitNether extends Generator {
         
         PopulatorGlowstoneBlob populatorGlowstoneBlob = new PopulatorGlowstoneBlob(10);
         this.populators.add(populatorGlowstoneBlob);
+        
+        PopulatorSpring populatorSpring = new PopulatorSpring(BlockState.of(LAVA), ImmutableList.of(STATE_NETHERRACK, STATE_SOULSAND, STATE_GRAVEL, BlockState.of(MAGMA_BLOCK), BlockState.of(BLACKSTONE)), 16, 0, 128);
+        this.populators.add(populatorSpring);
         
         PopulatorFire populatorFire = new PopulatorFire(BlockState.of(FIRE), 64, ImmutableList.of(STATE_NETHERRACK));
         this.populators.add(populatorFire);
