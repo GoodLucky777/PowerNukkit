@@ -14,12 +14,12 @@ import cn.nukkit.math.Vector3;
 public class PopulatorSpring extends Populator {
 
     private final BlockState state;
-    private final BlockState surroundState;
+    private final List<BlockState> surroundState;
     private final int tries;
     private final int minHeight;
     private final int maxHeight;
     
-    public PopulatorSpring(BlockState state, BlockState surroundState, int tries, int minHeight, int maxHeight) {
+    public PopulatorSpring(BlockState state, List<BlockState> surroundState, int tries, int minHeight, int maxHeight) {
         this.state = state;
         this.surroundState = surroundState;
         this.tries = tries;
@@ -37,19 +37,19 @@ public class PopulatorSpring extends Populator {
             int z = sourceZ + random.nextBoundedInt(16);
             int y = NukkitMath.randomRange(random, minHeight, maxHeight);
             
-            if (!(level.getBlockStateAt(x, y, z).equals(BlockState.AIR) || level.getBlockStateAt(x, y, z).equals(surroundState))) {
+            if (!(level.getBlockStateAt(x, y, z).equals(BlockState.AIR) || surroundState.contains(level.getBlockStateAt(x, y, z)))) {
                 continue;
             }
             
-            if (!(level.getBlockStateAt(x, y - 1, z).equals(surroundState) || level.getBlockStateAt(x, y + 1, z).equals(surroundState))) {
+            if (!(surroundState.contains(level.getBlockStateAt(x, y - 1, z)) || surroundState.contains(level.getBlockStateAt(x, y + 1, z)))) {
                 continue;
             }
             
             int surroundCount = 0;
-            if (level.getBlockStateAt(x + 1, y, z).equals(this.surroundState)) surroundCount++;
-            if (level.getBlockStateAt(x - 1, y, z).equals(this.surroundState)) surroundCount++;
-            if (level.getBlockStateAt(x, y, z + 1).equals(this.surroundState)) surroundCount++;
-            if (level.getBlockStateAt(x, y, z - 1).equals(this.surroundState)) surroundCount++;
+            if (surroundState.contains(level.getBlockStateAt(x + 1, y, z))) surroundCount++;
+            if (surroundState.contains(level.getBlockStateAt(x - 1, y, z))) surroundCount++;
+            if (surroundState.contains(level.getBlockStateAt(x, y, z + 1))) surroundCount++;
+            if (surroundState.contains(level.getBlockStateAt(x, y, z - 1))) surroundCount++;
             
             if (surroundCount != 3) {
                 continue;
