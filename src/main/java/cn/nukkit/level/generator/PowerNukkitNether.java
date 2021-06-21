@@ -156,7 +156,7 @@ public class PowerNukkitNether extends Generator {
         PopulatorGlowstoneBlob populatorGlowstoneBlob = new PopulatorGlowstoneBlob(10);
         this.populators.add(populatorGlowstoneBlob);
         
-        PopulatorSpring populatorSpring = new PopulatorSpring(BlockState.of(LAVA), ImmutableList.of(STATE_NETHERRACK, BlockState.of(SOUL_SAND), BlockState.of(GRAVEL), BlockState.of(MAGMA_BLOCK), BlockState.of(BLACKSTONE)), 16, 0, 128);
+        PopulatorSpring populatorSpring = new PopulatorSpring(BlockState.of(LAVA), ImmutableList.of(STATE_NETHERRACK, BlockState.of(SOUL_SAND), BlockState.of(GRAVEL), BlockState.of(MAGMA), BlockState.of(BLACKSTONE)), 16, 0, 128);
         this.populators.add(populatorSpring);
         
         PopulatorFire populatorFire = new PopulatorFire(BlockState.of(FIRE), 64, ImmutableList.of(STATE_NETHERRACK));
