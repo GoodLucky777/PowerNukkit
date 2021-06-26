@@ -4787,5 +4787,15 @@
     "name": "goodlucky:grenade_frag",
     "id": 6100,
     "oldId": 6100
+  },
+  {
+    "name": "goodlucky:siren",
+    "id": 6200,
+    "oldId": 6200
+  },
+  {
+    "name": "goodlucky:chick",
+    "id": 7200,
+    "oldId": 7200
   }
 ]
