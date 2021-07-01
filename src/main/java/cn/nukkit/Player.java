@@ -68,6 +68,7 @@ import cn.nukkit.positiontracking.PositionTracking;
 import cn.nukkit.positiontracking.PositionTrackingService;
 import cn.nukkit.potion.Effect;
 import cn.nukkit.resourcepacks.ResourcePack;
+import cn.nukkit.resourcepacks.ResourcePackManager;
 import cn.nukkit.scheduler.AsyncTask;
 import cn.nukkit.scheduler.TaskHandler;
 import cn.nukkit.utils.*;
@@ -2476,7 +2477,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                 ResourcePackDataInfoPacket dataInfoPacket = new ResourcePackDataInfoPacket();
                                 dataInfoPacket.packId = resourcePack.getPackId();
                                 dataInfoPacket.maxChunkSize = ResourcePackManager.getMaxChunkSize(); // 102400 is default
-                                dataInfoPacket.chunkCount = Math.ceil(resourcePack.getPackSize() / (double) dataInfoPacket.maxChunkSize);
+                                dataInfoPacket.chunkCount = (int) Math.ceil(resourcePack.getPackSize() / (double) dataInfoPacket.maxChunkSize);
                                 dataInfoPacket.compressedPackSize = resourcePack.getPackSize();
                                 dataInfoPacket.sha256 = resourcePack.getSha256();
                                 this.dataPacket(dataInfoPacket);
