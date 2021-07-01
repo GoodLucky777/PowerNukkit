@@ -141,4 +141,10 @@ public abstract class Biome implements BlockID {
     public boolean isDry() {
         return false;
     }
+    
+    @PowerNukkitOnly
+    @Since("1.4.0.0-PN")
+    public boolean canSnow() {
+        return false;
+    }
 }
