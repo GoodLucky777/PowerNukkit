@@ -2475,7 +2475,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
 
                                 ResourcePackDataInfoPacket dataInfoPacket = new ResourcePackDataInfoPacket();
                                 dataInfoPacket.packId = resourcePack.getPackId();
-                                dataInfoPacket.maxChunkSize = 1048576; //megabyte
+                                dataInfoPacket.maxChunkSize = ResourcePackManager.getMaxChunkSize(); // 102400 is default
                                 dataInfoPacket.chunkCount = resourcePack.getPackSize() / dataInfoPacket.maxChunkSize;
                                 dataInfoPacket.compressedPackSize = resourcePack.getPackSize();
                                 dataInfoPacket.sha256 = resourcePack.getSha256();
@@ -2508,8 +2508,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     ResourcePackChunkDataPacket dataPacket = new ResourcePackChunkDataPacket();
                     dataPacket.packId = resourcePack.getPackId();
                     dataPacket.chunkIndex = requestPacket.chunkIndex;
-                    dataPacket.data = resourcePack.getPackChunk(1048576 * requestPacket.chunkIndex, 1048576);
-                    dataPacket.progress = 1048576 * requestPacket.chunkIndex;
+                    dataPacket.data = resourcePack.getPackChunk(ResourcePackManager.getMaxChunkSize() * requestPacket.chunkIndex, ResourcePackManager.getMaxChunkSize());
+                    dataPacket.progress = ResourcePackManager.getMaxChunkSize() * requestPacket.chunkIndex;
                     this.dataPacket(dataPacket);
                     break;
                 case ProtocolInfo.SET_LOCAL_PLAYER_AS_INITIALIZED_PACKET:
