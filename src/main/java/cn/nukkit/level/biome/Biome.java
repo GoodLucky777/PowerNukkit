@@ -177,7 +177,7 @@ public abstract class Biome implements BlockID {
      */
     @PowerNukkitOnly
     @Since("FUTURE")
-    public float setTemperature(float temperature) {
+    public void setTemperature(float temperature) {
         this.temperature = temperature;
     }
     
