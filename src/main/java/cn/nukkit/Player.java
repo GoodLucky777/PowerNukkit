@@ -2356,7 +2356,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                             disconnectPacket.encode();
                             BatchPacket batch = new BatchPacket();
                             batch.payload = disconnectPacket.getBuffer();
-                            this.dataPacket(batch);
+                            this.dataPacketImmediately(batch);
                             // Still want to run close() to allow the player to be removed properly
                         }
                         this.close("", message, false);
@@ -2480,14 +2480,14 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                                 dataInfoPacket.chunkCount = (int) Math.ceil(resourcePack.getPackSize() / (double) dataInfoPacket.maxChunkSize);
                                 dataInfoPacket.compressedPackSize = resourcePack.getPackSize();
                                 dataInfoPacket.sha256 = resourcePack.getSha256();
-                                this.dataPacket(dataInfoPacket);
+                                this.dataResourcePacket(dataInfoPacket);
                             }
                             break;
                         case ResourcePackClientResponsePacket.STATUS_HAVE_ALL_PACKS:
                             ResourcePackStackPacket stackPacket = new ResourcePackStackPacket();
                             stackPacket.mustAccept = this.server.getForceResources();
                             stackPacket.resourcePackStack = this.server.getResourcePackManager().getResourceStack();
-                            this.dataPacket(stackPacket);
+                            this.dataResourcePacket(stackPacket);
                             break;
                         case ResourcePackClientResponsePacket.STATUS_COMPLETED:
                             this.shouldLogin = true;
@@ -6103,6 +6103,8 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
         return true;
     }
     
+    @PowerNukkitOnly
+    @Since("FUTURE")
     public boolean dataResourcePacket(DataPacket packet) {
         if (!this.connected) {
             return false;
