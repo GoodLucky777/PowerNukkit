@@ -11,7 +11,6 @@ import cn.nukkit.math.NukkitRandom;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author MagicDroidX (Nukkit Project)
@@ -22,7 +21,7 @@ public abstract class Biome implements BlockID {
     public static final Biome[] biomes = new Biome[MAX_BIOMES];
     public static final List<Biome> unorderedBiomes = new ArrayList<>();
     
-    private static final NoiseGeneratorPerlinF temperatureNoise = new NoiseGeneratorPerlinF(new Random(12345678), 1); // TODO: Get correct temperature noise seed
+    private static final NoiseGeneratorPerlinF temperatureNoise = new NoiseGeneratorPerlinF(new NukkitRandom(12345678), 1); // TODO: Get correct temperature noise seed
     
     private final ArrayList<Populator> populators = new ArrayList<>();
     private int id;
@@ -166,8 +165,8 @@ public abstract class Biome implements BlockID {
         // Above sea level (Y > 64), temperature drop 0.0016 per a block above
         if (y > 64) {
             // Apply temperature noise
-            float tNoise = this.getTemperatureNoise().getValue(x * 0.125f, z * 0.125f); // TODO: Get correct noise value
-            return this.getTemperature() - (0.0016f * ((y - 64) + tNoise));
+            float tNoise = (float) this.getTemperatureNoise().getValue(x * 0.125f, z * 0.125f); // TODO: Get correct noise value
+            return (float) this.getTemperature() - (0.0016f * ((y - 64) + tNoise));
         } else {
             return this.getTemperature();
         }
