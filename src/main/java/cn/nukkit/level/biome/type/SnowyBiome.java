@@ -30,11 +30,4 @@ public abstract class SnowyBiome extends GrassyBiome {
     public boolean canRain() {
         return false;
     }
-    
-    @PowerNukkitOnly
-    @Since("1.4.0.0-PN")
-    @Override
-    public boolean canSnow() {
-        return true;
-    }
 }
