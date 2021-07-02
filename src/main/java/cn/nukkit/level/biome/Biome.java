@@ -165,8 +165,8 @@ public abstract class Biome implements BlockID {
         // Above sea level (Y > 64), temperature drop 0.0016 per a block above
         if (y > 64) {
             // Apply temperature noise
-            float tNoise = (float) this.getTemperatureNoise().getValue(x * 0.125f, z * 0.125f); // TODO: Get correct noise value
-            return (float) this.getTemperature() - (0.0016f * ((y - 64) + tNoise));
+            float tNoise = this.getTemperatureNoise().getValue((float) x * 0.125f, (float) z * 0.125f); // TODO: Get correct noise value
+            return this.getTemperature() - (0.0016f * ((y - 64f) + tNoise));
         } else {
             return this.getTemperature();
         }
