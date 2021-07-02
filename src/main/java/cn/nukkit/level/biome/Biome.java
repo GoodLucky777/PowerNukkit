@@ -5,24 +5,30 @@ import cn.nukkit.api.Since;
 import cn.nukkit.block.BlockID;
 import cn.nukkit.level.ChunkManager;
 import cn.nukkit.level.format.FullChunk;
+import cn.nukkit.level.generator.noise.vanilla.f.NoiseGeneratorPerlinF;
 import cn.nukkit.level.generator.populator.type.Populator;
 import cn.nukkit.math.NukkitRandom;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author MagicDroidX (Nukkit Project)
  */
 public abstract class Biome implements BlockID {
+
     public static final int MAX_BIOMES = 256;
     public static final Biome[] biomes = new Biome[MAX_BIOMES];
     public static final List<Biome> unorderedBiomes = new ArrayList<>();
-
+    
+    private static final NoiseGeneratorPerlinF temperatureNoise = new NoiseGeneratorPerlinF(new Random(12345678), 1); // TODO: Get correct temperature noise seed
+    
     private final ArrayList<Populator> populators = new ArrayList<>();
     private int id;
     private float baseHeight = 0.1f;
     private float heightVariation = 0.3f;
+    private float temperature = 0.5f;
 
     protected static void register(int id, Biome biome) {
         biome.setId(id);
@@ -142,9 +148,71 @@ public abstract class Biome implements BlockID {
         return false;
     }
     
+    /**
+     * Get base temperature of the biome
+     */
     @PowerNukkitOnly
-    @Since("1.4.0.0-PN")
-    public boolean canSnow() {
+    @Since("FUTURE")
+    public float getTemperature() {
+        return this.temperature;
+    }
+    
+    /**
+     * Get temperature at specific position of the biome
+     */
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public float getTemperatureAt(double x, double y, double z) {
+        // Above sea level (Y > 64), temperature drop 0.0016 per a block above
+        if (y > 64) {
+            // Apply temperature noise
+            float tNoise = this.getTemperatureNoise().getValue(x * 0.125f, z * 0.125f); // TODO: Get correct noise value
+            return this.getTemperature() - (0.0016f * ((y - 64) + tNoise));
+        } else {
+            return this.getTemperature();
+        }
+    }
+    
+    /**
+     * Set base temperature of the biome
+     */
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public float setTemperature(float temperature) {
+        this.temperature = temperature;
+    }
+    
+    /**
+     * Check if snow can generate at specific position
+     * TODO: Support block light checking
+     */
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public boolean canSnow(double x, double y, double z) {
+        if (this.getTemperatureAt(x, y, z) < 0.15f) {
+            return true;
+        }
+        
         return false;
+    }
+    
+    /**
+     * Check if ice can generate at specific position
+     * TODO: Support block light checking
+     */
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public boolean canFreeze(double x, double y, double z) {
+        if (this.getTemperatureAt(x, y, z) < 0.15f) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public NoiseGeneratorPerlinF getTemperatureNoise() {
+        return temperatureNoise;
     }
 }
