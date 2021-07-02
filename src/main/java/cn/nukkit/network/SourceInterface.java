@@ -28,4 +28,6 @@ public interface SourceInterface {
     void shutdown();
 
     void emergencyShutdown();
+    
+    Integer putResourcePacket(Player player, DataPacket packet);
 }
