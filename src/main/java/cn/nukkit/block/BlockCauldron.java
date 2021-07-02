@@ -510,8 +510,10 @@ public class BlockCauldron extends BlockSolidMeta implements BlockEntityHolder<B
     @Override
     public void fillRain() {
         if (ThreadLocalRandom.current().nextInt(20) == 0 && !this.isFull()) { // 5%
-            this.setFillLevel(this.getFillLevel() + 1);
-            this.getLevel().setBlock(this, this, true);
+            if (Biome.getBiome(this.getLevel().getBiomeId(this.getFloorX(), this.getFloorZ())).getTemperatureAt(this.getX(), this.getY(), this.getZ()) >= 0.15f) { // Check temperature is not snowy temperature
+                this.setFillLevel(this.getFillLevel() + 1);
+                this.getLevel().setBlock(this, this, true);
+            }
         }
     }
 }
