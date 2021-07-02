@@ -1276,16 +1276,20 @@ public class Level implements ChunkManager, Metadatable {
                             
                             if (biome.canFreeze((double) x1, (double) y1, (double) z1)) {
                                 if ((targetId == BlockID.WATER && target.getDamage() == 0) || targetId == BlockID.STILL_WATER) {
-                                    this.setBlockStateAt((chunkX << 4) + x1, y1, (chunkZ << 4) + z1, STATE_ICE);
+                                    if (this.getBlockLightAt(x1, y1, z1) < 10) {
+                                        this.setBlockStateAt((chunkX << 4) + x1, y1, (chunkZ << 4) + z1, STATE_ICE);
+                                    }
                                 }
                             }
                             
                             if (isRaining && biome.canSnow((double) x1, (double) y1 + 1, (double) z1)) {
-                                if (target.canSnowAccumulate()) {
-                                    this.setBlockStateAt((chunkX << 4) + x1, y1 + 1, (chunkZ << 4) + z1, STATE_SNOW_LAYER);
-                                } else if (targetId == BlockID.SNOW_LAYER) {
-                                    if (targetId == BlockID.SNOW_LAYER) {
-                                        ((BlockSnowLayer) target).accumulateSnow(1, 2); // TODO: Check max snow height generation
+                                if (this.getBlockLightAt(x1, y1 + 1, z1) < 10) {
+                                    if (target.canSnowAccumulate()) {
+                                        this.setBlockStateAt((chunkX << 4) + x1, y1 + 1, (chunkZ << 4) + z1, STATE_SNOW_LAYER);
+                                    } else if (targetId == BlockID.SNOW_LAYER) {
+                                        if (targetId == BlockID.SNOW_LAYER) {
+                                            ((BlockSnowLayer) target).accumulateSnow(1, 2); // TODO: Check max snow height generation
+                                        }
                                     }
                                 }
                             }
