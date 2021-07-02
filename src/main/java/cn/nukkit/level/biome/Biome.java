@@ -166,7 +166,7 @@ public abstract class Biome implements BlockID {
         if (y > 64) {
             // Apply temperature noise
             float tNoise = this.getTemperatureNoise().getValue((float) x * 0.125f, (float) z * 0.125f); // TODO: Get correct noise value
-            return this.getTemperature() - (0.0016f * ((y - 64f) + tNoise));
+            return this.getTemperature() - (0.0016f * (((float) y - 64f) + tNoise));
         } else {
             return this.getTemperature();
         }
