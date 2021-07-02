@@ -1280,7 +1280,7 @@ public class Level implements ChunkManager, Metadatable {
                                 }
                             }
                             
-                            if (isRaining && biome.canSnow((double) x1, (double) y1, (double) z1)) {
+                            if (isRaining && biome.canSnow((double) x1, (double) y1 + 1, (double) z1)) {
                                 if (target.canSnowAccumulate()) {
                                     this.setBlockStateAt((chunkX << 4) + x1, y1 + 1, (chunkZ << 4) + z1, STATE_SNOW_LAYER);
                                 } else if (targetId == BlockID.SNOW_LAYER) {
