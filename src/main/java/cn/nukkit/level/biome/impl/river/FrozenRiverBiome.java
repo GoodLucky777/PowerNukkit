@@ -13,6 +13,8 @@ public class FrozenRiverBiome extends RiverBiome {
 
         WaterIcePopulator ice = new WaterIcePopulator();
         this.addPopulator(ice);
+        
+        this.setTemperature(0.0f);
     }
 
     @Override
@@ -28,12 +30,5 @@ public class FrozenRiverBiome extends RiverBiome {
     @Override
     public boolean canRain() {
         return false;
-    }
-    
-    @PowerNukkitOnly
-    @Since("1.4.0.0-PN")
-    @Override
-    public boolean canSnow() {
-        return true;
     }
 }
