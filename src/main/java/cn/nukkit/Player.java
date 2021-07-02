@@ -2511,7 +2511,7 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
                     dataPacket.chunkIndex = requestPacket.chunkIndex;
                     dataPacket.data = resourcePack.getPackChunk(ResourcePackManager.getMaxChunkSize() * requestPacket.chunkIndex, ResourcePackManager.getMaxChunkSize());
                     dataPacket.progress = ResourcePackManager.getMaxChunkSize() * requestPacket.chunkIndex;
-                    this.dataPacket(dataPacket);
+                    this.dataResourcePacket(dataPacket);
                     break;
                 case ProtocolInfo.SET_LOCAL_PLAYER_AS_INITIALIZED_PACKET:
                     if (this.locallyInitialized) {
@@ -6098,6 +6098,28 @@ public class Player extends EntityHuman implements CommandSender, InventoryHolde
             }
 
             this.interfaz.putPacket(this, packet, false, true);
+        }
+        
+        return true;
+    }
+    
+    public boolean dataResourcePacket(DataPacket packet) {
+        if (!this.connected) {
+            return false;
+        }
+
+        try (Timing ignored = Timings.getSendDataPacketTiming(packet)) {
+            DataPacketSendEvent ev = new DataPacketSendEvent(this, packet);
+            this.server.getPluginManager().callEvent(ev);
+            if (ev.isCancelled()) {
+                return false;
+            }
+
+            if (log.isTraceEnabled() && !server.isIgnoredPacket(packet.getClass())) {
+                log.trace("Resource Outbound {}: {}", this.getName(), packet);
+            }
+
+            this.interfaz.putResourcePacket(this, packet);
         }
         
         return true;
