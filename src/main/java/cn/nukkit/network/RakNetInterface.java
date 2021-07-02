@@ -254,7 +254,18 @@ public class RakNetInterface implements RakNetServerListener, AdvancedSourceInte
     public void onUnhandledDatagram(ChannelHandlerContext ctx, DatagramPacket datagramPacket) {
         this.server.handlePacket(datagramPacket.sender(), datagramPacket.content());
     }
+    
+    public Integer putResourcePacket(Player player, DataPacket packet) {
+        NukkitRakNetSession session = this.sessions.get(player.getSocketAddress());
 
+        if (session != null) {
+            packet.tryEncode();
+            session.sendResourcePacket(packet.clone());
+        }
+
+        return null;
+    }
+    
     @RequiredArgsConstructor
     private class NukkitRakNetSession implements RakNetSessionListener {
         private final RakNetServerSession raknet;
@@ -361,6 +372,24 @@ public class RakNetInterface implements RakNetServerListener, AdvancedSourceInte
                 byteBuf.writeByte(0xfe);
                 byteBuf.writeBytes(payload);
                 this.raknet.send(byteBuf, RakNetPriority.IMMEDIATE);
+            } catch (Exception e) {
+                log.error("Error occured while sending a packet immediately", e);
+            }
+        }
+        
+        private void sendResourcePacket(DataPacket packet) {
+            BinaryStream batched = new BinaryStream();
+            Preconditions.checkArgument(!(packet instanceof BatchPacket), "Cannot batch BatchPacket");
+            Preconditions.checkState(packet.isEncoded, "Packet should have already been encoded");
+            byte[] buf = packet.getBuffer();
+            batched.putUnsignedVarInt(buf.length);
+            batched.put(buf);
+            try {
+                byte[] payload = Network.deflateRaw(batched.getBuffer(), network.getServer().networkCompressionLevel);
+                ByteBuf byteBuf = ByteBufAllocator.DEFAULT.ioBuffer(1 + payload.length);
+                byteBuf.writeByte(0xfe);
+                byteBuf.writeBytes(payload);
+                this.raknet.send(byteBuf);
             } catch (Exception e) {
                 log.error("Error occured while sending a packet immediately", e);
             }
