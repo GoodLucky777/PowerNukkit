@@ -2,15 +2,18 @@ package cn.nukkit.level.biome.impl.ocean;
 
 import cn.nukkit.blockstate.BlockState;
 import cn.nukkit.level.generator.populator.impl.PopulatorDisk;
+import cn.nukkit.level.generator.populator.impl.PopulatorSeagrass;
 
 import java.util.Arrays;
 
 /**
  * @author GoodLucky777
  */
-public class FrozenOceanBiome extends OceanBiome {
+public class WarmOceanBiome extends OceanBiome {
 
-    public FrozenOceanBiome() {
+    private static final BlockState STATE_SAND = BlockState.of(SAND);
+    
+    public WarmOceanBiome() {
         PopulatorDisk populatorDiskSand = new PopulatorDisk(1.0, BlockState.of(SAND), 2, 4, 2, Arrays.asList(BlockState.of(GRASS), BlockState.of(DIRT)));
         populatorDiskSand.setBaseAmount(3);
         this.addPopulator(populatorDiskSand);
@@ -23,25 +26,26 @@ public class FrozenOceanBiome extends OceanBiome {
         populatorDiskGravel.setBaseAmount(1);
         this.addPopulator(populatorDiskGravel);
         
-        // TODO: Add Iceberg, ice and snow
+        PopulatorSeagrass populatorSeagrass = new PopulatorSeagrass(0.3);
+        populatorSeagrass.setBaseAmount(40);
+        populatorSeagrass.setBaseAmount(40);
+        this.addPopulator(populatorSeagrass);
         
         this.setBaseHeight(-1f);
         this.setHeightVariation(0.1f);
-        this.setTemperature(0.0f);
     }
     
     @Override
     public String getName() {
-        return "Frozen Ocean";
+        return "Warm Ocean";
+    }
+    
+    public BlockState getGroundState(int x, int y, int z) {
+        return STATE_SAND;
     }
     
     @Override
-    public boolean isFreezing() {
-        return true;
-    }
-    
-    @Override
-    public boolean canRain() {
-        return false;
+    public int getGroundDepth(int x, int y, int z) {
+        return 1;
     }
 }
