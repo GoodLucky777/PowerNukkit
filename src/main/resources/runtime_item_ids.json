@@ -4797,5 +4797,15 @@
     "name": "goodlucky:chick",
     "id": 7200,
     "oldId": 7200
+  },
+  {
+    "name": "goodlucky:sprout",
+    "id": 8000,
+    "oldId": 8000
+  },
+  {
+    "name": "goodlucky:shiba",
+    "id": 8001,
+    "oldId": 8001
   }
 ]
