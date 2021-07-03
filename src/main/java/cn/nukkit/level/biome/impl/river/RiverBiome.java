@@ -38,6 +38,7 @@ public class RiverBiome extends WateryBiome {
         
         this.setBaseHeight(-0.5f);
         this.setHeightVariation(0f);
+        this.setTemperature(0.5f);
     }
 
     @Override

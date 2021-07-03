@@ -40,6 +40,7 @@ public class OceanBiome extends WateryBiome {
         
         this.setBaseHeight(-1f);
         this.setHeightVariation(0.1f);
+        this.setTemperature(0.5f);
     }
 
     @Override

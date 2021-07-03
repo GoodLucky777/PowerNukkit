@@ -27,6 +27,7 @@ public class FrozenOceanBiome extends OceanBiome {
         
         this.setBaseHeight(-1f);
         this.setHeightVariation(0.1f);
+        this.setTemperature(0.0f);
     }
     
     @Override

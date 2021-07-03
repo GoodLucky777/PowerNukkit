@@ -31,6 +31,7 @@ public class FrozenRiverBiome extends RiverBiome {
         
         this.setBaseHeight(-0.5f);
         this.setHeightVariation(0f);
+        this.setTemperature(0.0f);
     }
 
     @Override
