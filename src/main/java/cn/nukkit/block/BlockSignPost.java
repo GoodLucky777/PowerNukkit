@@ -21,6 +21,7 @@ import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.nbt.tag.Tag;
 import cn.nukkit.utils.BlockColor;
 import cn.nukkit.utils.Faceable;
+
 import lombok.extern.log4j.Log4j2;
 
 import javax.annotation.Nonnull;
@@ -161,7 +162,13 @@ public class BlockSignPost extends BlockTransparentMeta implements Faceable, Blo
         if (player != null) {
             nbt.putString("Creator", player.getUniqueId().toString());
         }
-
+        
+        nbt.putString("TextOwner", "");
+        
+        nbt.putInt("SignTextColor", -16777216);
+        
+        nbt.putBoolean("IgnoreLighting", false);
+        
         if (item.hasCustomBlockData()) {
             for (Tag aTag : item.getCustomBlockData().getAllTags()) {
                 nbt.put(aTag.getName(), aTag);
