@@ -93,7 +93,7 @@ public class BlockSignPost extends BlockTransparentMeta implements Faceable, Blo
 
     @Override
     public double getResistance() {
-        return 5;
+        return 1;
     }
 
     @Override
