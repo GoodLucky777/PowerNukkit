@@ -1,6 +1,8 @@
 package cn.nukkit.blockentity;
 
 import cn.nukkit.Player;
+import cn.nukkit.api.PowerNukkitOnly;
+import cn.nukkit.api.Since;
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockSignPost;
 import cn.nukkit.event.block.SignChangeEvent;
@@ -17,6 +19,9 @@ import java.util.Objects;
 public class BlockEntitySign extends BlockEntitySpawnable {
 
     private String[] text;
+    private String textOwner;
+    private int signTextColor;
+    private boolean ignoreLighting;
 
     public BlockEntitySign(FullChunk chunk, CompoundTag nbt) {
         super(chunk, nbt);
@@ -54,7 +59,22 @@ public class BlockEntitySign extends BlockEntitySpawnable {
         if (text != null) {
             sanitizeText(text);
         }
-
+        
+        if (!namedTag.contains("TextOwner")) {
+            nbt.putString("TextOwner", "");
+        }
+        this.textOwner = nbt.getString("TextOwner");
+        
+        if (!namedTag.contains("SignTextColor")) {
+            nbt.putInt("SignTextColor", -16777216);
+        }
+        this.signTextColor = nbt.getInt("SignTextColor");
+        
+        if (!namedTag.contains("IgnoreLighting")) {
+            nbt.putBoolean("IgnoreLighting", false);
+        }
+        this.ignoreLighting = this.getBoolean("IgnoreLighting");
+        
         super.initBlockEntity();
     }
 
@@ -131,6 +151,9 @@ public class BlockEntitySign extends BlockEntitySpawnable {
         return new CompoundTag()
                 .putString("id", BlockEntity.SIGN)
                 .putString("Text", this.namedTag.getString("Text"))
+                .putString("TextOwner", this.namedTag.getString("TextOwner"))
+                .putInt("SignTextColor", this.namedTag.getInt("SignTextColor"))
+                .putBoolean("IgnoreLighting", this.namedTag.getBoolean("IgnoreLighting"))
                 .putInt("x", (int) this.x)
                 .putInt("y", (int) this.y)
                 .putInt("z", (int) this.z);
@@ -144,5 +167,23 @@ public class BlockEntitySign extends BlockEntitySpawnable {
                 lines[i] = lines[i].substring(0, Math.min(255, lines[i].length()));
             }
         }
+    }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public String getTextOwner() {
+        return this.textOwner;
+    }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public int getSignTextColor() {
+        return this.signTextColor;
+    }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public boolean isIgnoreLighting() {
+        return this.ignoreLighting;
     }
 }
