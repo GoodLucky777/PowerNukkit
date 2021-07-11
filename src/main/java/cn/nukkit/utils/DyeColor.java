@@ -5,12 +5,14 @@ import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.math.MathHelper;
 
+import java.awt.Color;
+
 import java.util.Arrays;
 
 public enum DyeColor {
 
 
-    BLACK(0, 15, 16, "Black", "Ink Sack", BlockColor.BLACK_BLOCK_COLOR, new BlockColor(0x1D1D21)),
+    BLACK(0, 15, 16, "Black", "Ink Sack", BlockColor.BLACK_BLOCK_COLOR, new BlockColor(0x1D1D21), new BlockColor(0x1D1D21), Color.BLACK),
     RED(1, 14, 1, "Red", "Rose Red", BlockColor.RED_BLOCK_COLOR, new BlockColor(0xB02E26)),
     GREEN(2, 13, 2, "Green", "Cactus Green", BlockColor.GREEN_BLOCK_COLOR, new BlockColor(0x5E7C16)),
     BROWN(3, 12, 17, "Brown", "Cocoa Beans", BlockColor.BROWN_BLOCK_COLOR, new BlockColor(0x835432)),
@@ -35,7 +37,7 @@ public enum DyeColor {
     private String dyeName;
     private BlockColor blockColor;
     private BlockColor leatherColor;
-
+    private Color rgb;
 
     private final static DyeColor[] BY_WOOL_DATA;
     private final static DyeColor[] BY_DYE_DATA;
@@ -53,6 +55,12 @@ public enum DyeColor {
     }
 
     DyeColor(int dyeColorMeta, int woolColorMeta, int itemDyeMeta, String colorName, String dyeName, BlockColor blockColor, BlockColor leatherColor) {
+        this(dyeColorMeta, woolColorMeta, itemDyeMeta, colorName, blockColor, blockColor, leatherColor, Color.BLACK);
+    }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    DyeColor(int dyeColorMeta, int woolColorMeta, int itemDyeMeta, String colorName, String dyeName, BlockColor blockColor, BlockColor leatherColor, Color rgb) {
         this.dyeColorMeta = dyeColorMeta;
         this.woolColorMeta = woolColorMeta;
         this.itemDyeMeta = itemDyeMeta;
@@ -60,6 +68,7 @@ public enum DyeColor {
         this.blockColor = blockColor;
         this.dyeName = dyeName;
         this.leatherColor = leatherColor;
+        this.rgb = rgb;
     }
 
     public BlockColor getColor() {
@@ -123,5 +132,11 @@ public enum DyeColor {
 
     public static DyeColor getByWoolData(int woolColorMeta) {
         return BY_WOOL_DATA[woolColorMeta & 0x0f];
+    }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public Color getRgb() {
+        return this,rgb;
     }
 }
