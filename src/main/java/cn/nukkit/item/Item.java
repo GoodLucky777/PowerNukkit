@@ -993,7 +993,7 @@ public class Item implements Cloneable, BlockID, ItemID {
     }
 
     @PowerNukkitOnly
-    @Since("FUTURE")
+    @Since("1.5.1.0-PN")
     @Nonnull
     public SideEffect[] getAttackSideEffects(@Nonnull Entity attacker, @Nonnull Entity entity) {
         return Arrays.stream(getEnchantments())
@@ -1579,5 +1579,4 @@ public class Item implements Cloneable, BlockID, ItemID {
             return null;
         }
     }
-
 }

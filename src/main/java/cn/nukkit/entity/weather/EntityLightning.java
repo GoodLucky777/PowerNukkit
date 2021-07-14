@@ -150,10 +150,12 @@ public class EntityLightning extends Entity implements EntityLightningStrike {
 
         return true;
     }
-    
-    
+
+
+    @PowerNukkitOnly
+    @Since("1.5.1.0-PN")
     @Override
-    public String getName() {
+    public String getOriginalName() {
         return "Lightning Bolt";
     }
 }
