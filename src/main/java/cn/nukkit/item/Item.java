@@ -175,7 +175,7 @@ public class Item implements Cloneable, BlockID, ItemID {
             RuntimeItems.getRuntimeMapping().getNetworkIdByNamespaceId(namespaceId)
                 .orElseThrow(() -> new IllegalArgumentException("The network id of \"" + identifier.getFullString() + "\" is unknown"))
         );
-        this.id = RuntimeItems.getId(legacyFullId));
+        this.id = RuntimeItems.getId(legacyFullId);
         /*if (RuntimeItems.hasData(legacyFullId)) {
             this.meta = RuntimeItems.getData(legacyFullId), amount);
         }*/
@@ -629,7 +629,7 @@ public class Item implements Cloneable, BlockID, ItemID {
     @PowerNukkitDifference(
             info = "Prevents players from getting invalid items by limiting the return to the maximum damage defined in Block.getMaxItemDamage()",
             since = "1.4.0.0-PN")
-    public static Item get(int id, Integer meta, int count, byte[] tags) {
+    private static Item get(int id, Integer meta, int count, byte[] tags) {
         try {
             Class c = null;
             if (id < 0) {
@@ -686,7 +686,89 @@ public class Item implements Cloneable, BlockID, ItemID {
             return new Item(id, meta, count).setCompoundTag(tags);
         }
     }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public static Item get(int id) {
+        return get(id, 0);
+    }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public static Item get(int id, Integer meta) {
+        return get(id, meta, 1);
+    }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public static Item get(int id, Integer meta, int count) {
+        return get(id, meta, count, EmptyArrays.EMPTY_BYTES);
+    }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    private static Item get(Identifier identifier, Integer meta, int count, byte[] tags) {
+        try {
+            int id = RuntimeItems.getId(RuntimeItems.getRuntimeMapping().getLegacyFullId(
+                RuntimeItems.getRuntimeMapping().getNetworkIdByNamespaceId(namespaceId)
+            ));
+            
+            Class c = null;
+            if (id < 0) {
+                int blockId = 255 - id;
+                c = Block.list[blockId];
+            } else {
+                c = list[id];
+            }
+            Item item;
 
+            if (id < 256) {
+                int blockId = id < 0? 255 - id : id;
+                if (meta == 0) {
+                    item = new ItemBlock(Block.get(blockId), 0, count);
+                } else if (meta == -1) {
+                    // Special case for item instances used in fuzzy recipes
+                    item = new ItemBlock(Block.get(blockId), -1);
+                } else {
+                    BlockState state = BlockState.of(blockId, meta);
+                    try {
+                        state.validate();
+                        item = state.asItemBlock(count);
+                    } catch (InvalidBlockPropertyMetaException | InvalidBlockStateException e) {
+                        log.warn("Attempted to get an ItemBlock with invalid block state in memory: {}, trying to repair the block state...", state);
+                        log.catching(org.apache.logging.log4j.Level.DEBUG, e);
+                        Block repaired = state.getBlockRepairing(null, 0, 0, 0);
+                        item = repaired.asItemBlock(count);
+                        log.error("Attempted to get an illegal item block {}:{} ({}), the meta was changed to {}",
+                                id, meta, blockId, item.getDamage(), e);
+                    } catch (UnknownRuntimeIdException e) {
+                        log.warn("Attempted to get an illegal item block {}:{} ({}), the runtime id was unknown and the meta was changed to 0",
+                                id, meta, blockId, e);
+                        item = BlockState.of(id).asItemBlock(count);
+                    }
+                }
+            } else if (c == null) {
+                item = new Item(id, meta, count);
+            } else {
+                if (meta == -1) {
+                    item = ((Item) c.getConstructor(Integer.class, int.class).newInstance(0, count)).createFuzzyCraftingRecipe();
+                } else {
+                    item = ((Item) c.getConstructor(Integer.class, int.class).newInstance(meta, count));
+                }
+            }
+
+            if (tags.length != 0) {
+                item.setCompoundTag(tags);
+            }
+            
+            return item;
+        } catch (Exception e) {
+            log.error("Error getting the item {}:{}{}! Returning an unsafe item stack!", 
+                    id, meta, id < 0? " ("+(255 - id)+")":"", e);
+            return new Item(id, meta, count).setCompoundTag(tags);
+        }
+    }
+    
     @PowerNukkitDifference(since = "1.4.0.0-PN", info = "Improve namespaced name handling and allows to get custom blocks by name")
     public static Item fromString(String str) {
         String normalized = str.trim().replace(' ', '_').toLowerCase();
