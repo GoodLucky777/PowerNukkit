@@ -26,7 +26,7 @@ public class BlockStairsTileDeepslate extends BlockStairs {
     
     @Override
     public int getId() {
-        return DEEPSLATE_BRICK_STAIRS;
+        return DEEPSLATE_TILE_STAIRS;
     }
     
     @Override
