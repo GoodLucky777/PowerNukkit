@@ -53,6 +53,11 @@ public class BlockSlabBrickDeepslate extends BlockSlab {
     }
     
     @Override
+    public boolean canHarvestWithHand() {
+        return false;
+    }
+    
+    @Override
     public int getToolTier() {
         return ItemTool.TIER_WOODEN;
     }
