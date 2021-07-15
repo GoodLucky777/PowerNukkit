@@ -103,6 +103,7 @@ public class Item implements Cloneable, BlockID, ItemID {
             ));
 
     protected Block block = null;
+    private final Identifier identifier;
     protected final int id;
     protected int meta;
     protected boolean hasMeta = true;
@@ -142,8 +143,49 @@ public class Item implements Cloneable, BlockID, ItemID {
             this.block = Block.get(this.id, this.meta);
             this.name = this.block.getName();
         }*/
+        
+        this.identifier = Identifier.fromFullString(RuntimeItems.getRuntimeMapping().getNamespacedIdByNetworkId(this.getNetworkFullId()));
     }
-
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public Item(Identifier identifier) {
+        this(identifier, 0);
+    }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public Item(Identifier identifier, Integer meta) {
+        this(identifier, meta, 1);
+    }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public Item(Identifier identifier, Integer meta, int count) {
+        this.identifier = identifier;
+        if (meta != null && meta >= 0) {
+            this.meta = meta & 0xffff;
+        } else {
+            this.hasMeta = false;
+        }
+        this.count = count;
+        
+        int legacyFullId = RuntimeItems.getRuntimeMapping().getLegacyFullId(
+            RuntimeItems.getRuntimeMapping().getNetworkIdByNamespaceId(namespaceId)
+                .orElseThrow(() -> new IllegalArgumentException("The network id of \"" + identifier.getFullString() + "\" is unknown"))
+        );
+        this.id = RuntimeItems.getId(legacyFullId));
+        /*if (RuntimeItems.hasData(legacyFullId)) {
+            this.meta = RuntimeItems.getData(legacyFullId), amount);
+        }*/
+    }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public Identifier getIdentifier() {
+        return this.identifier;
+    }
+    
     public boolean hasMeta() {
         return hasMeta;
     }
@@ -1258,10 +1300,7 @@ public class Item implements Cloneable, BlockID, ItemID {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public String getNamespaceId() {
-        RuntimeItemMapping runtimeMapping = RuntimeItems.getRuntimeMapping();
-        return runtimeMapping.getNamespacedIdByNetworkId(
-                RuntimeItems.getNetworkId(runtimeMapping.getNetworkFullId(this))
-        );
+        return this.identifier.getFullString();
     }
     
     @PowerNukkitOnly
@@ -1416,7 +1455,7 @@ public class Item implements Cloneable, BlockID, ItemID {
 
     @Override
     final public String toString() {
-        return "Item " + this.name + " (" + this.id + ":" + (!this.hasMeta ? "?" : this.meta) + ")x" + this.count + (this.hasCompoundTag() ? " tags:0x" + Binary.bytesToHexString(this.getCompoundTag()) : "");
+        return "Item " + this.name + " (" + this.identifier.getFullString() + " " + this.id + ":" + (!this.hasMeta ? "?" : this.meta) + ")x" + this.count + (this.hasCompoundTag() ? " tags:0x" + Binary.bytesToHexString(this.getCompoundTag()) : "");
     }
 
     public int getDestroySpeed(Block block, Player player) {
