@@ -5,8 +5,11 @@ import cn.nukkit.api.Since;
 import cn.nukkit.item.ItemTool;
 import cn.nukkit.utils.BlockColor;
 
+/**
+ * @author GoodLucky777
+ */
 @PowerNukkitOnly
-@Since("1.4.0.0-PN")
+@Since("FUTURE")
 public class BlockStairsBrickDeepslate extends BlockStairs {
 
     @PowerNukkitOnly
