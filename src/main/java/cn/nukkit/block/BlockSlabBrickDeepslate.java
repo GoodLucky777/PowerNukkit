@@ -3,6 +3,7 @@ package cn.nukkit.block;
 import cn.nukkit.api.PowerNukkitOnly;
 import cn.nukkit.api.Since;
 import cn.nukkit.blockproperty.BlockProperties;
+import cn.nukkit.utils.BlockColor;
 
 import javax.annotation.Nonnull;
 
@@ -64,5 +65,10 @@ public class BlockSlabBrickDeepslate extends BlockSlab {
     @Override
     public boolean isSameType(BlockSlab slab) {
         return getId() == slab.getId();
+    }
+    
+    @Override
+    public BlockColor getColor() {
+        return BlockColor.DEEPSLATE_GRAY;
     }
 }
