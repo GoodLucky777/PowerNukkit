@@ -87,6 +87,10 @@ public class Level implements ChunkManager, Metadatable {
     @PowerNukkitOnly
     @Since("1.4.0.0-PN")
     public static final Level[] EMPTY_ARRAY = new Level[0];
+    
+    static {
+        Timings.init();
+    }
 
     private static int levelIdCounter = 1;
     private static int chunkLoaderCounter = 1;
@@ -206,6 +210,7 @@ public class Level implements ChunkManager, Metadatable {
 
     private float time;
     public boolean stopTime;
+    private int nextTimeSendTick;
 
     public float skyLightSubtracted;
 
@@ -726,7 +731,7 @@ public class Level implements ChunkManager, Metadatable {
                 TextFormat.GREEN + this.getName() + TextFormat.WHITE));
         Level defaultLevel = this.server.getDefaultLevel();
 
-        for (Player player : new ArrayList<>(this.getPlayers().values())) {
+        for (Player player : this.getPlayers().values().toArray(Player.EMPTY_ARRAY)) {
             if (this == defaultLevel || defaultLevel == null) {
                 player.close(player.getLeaveMessage(), "Forced default level unload");
             } else {
@@ -843,7 +848,7 @@ public class Level implements ChunkManager, Metadatable {
     }
 
     public void sendTime() {
-        sendTime(this.players.values().toArray(Player.EMPTY_ARRAY));
+        this.sendTime(this.players.values().toArray(Player.EMPTY_ARRAY));
     }
 
     public GameRules getGameRules() {
@@ -857,9 +862,9 @@ public class Level implements ChunkManager, Metadatable {
 
         updateBlockLight(lightQueue);
         this.checkTime();
-
-        if (currentTick % 1200 == 0) { // Send time to client every 60 seconds to make sure it stay in sync
+        if (currentTick >= nextTimeSendTick) { // Send time to client every 30 seconds to make sure it
             this.sendTime();
+            nextTimeSendTick = currentTick + 30 * 20;
         }
 
         // Tick Weather
