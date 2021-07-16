@@ -15,7 +15,11 @@ public class BlockSnowPowder extends BlockFlowable {
     @PowerNukkitOnly
     @Since("FUTURE")
     public BlockSnowPowder() {
-        // Does nothing
+        this(0);
+    }
+    
+    protected BlockSnowPowder(int meta) {
+        super(0);
     }
     
     @Override
@@ -26,6 +30,12 @@ public class BlockSnowPowder extends BlockFlowable {
     @Override
     public String getName() {
         return "Powder Snow";
+    }
+    
+    @Nonnull
+    @Override
+    public BlockProperties getProperties() {
+        return CommonBlockProperties.EMPTY_PROPERTIES;
     }
     
     @Override
@@ -45,6 +55,6 @@ public class BlockSnowPowder extends BlockFlowable {
     
     @Override
     public BlockColor getColor() {
-        return BlockColor.SNOW;
+        return BlockColor.SNOW_BLOCK_COLOR;
     }
 }
