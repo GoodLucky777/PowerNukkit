@@ -2893,4 +2893,10 @@ public abstract class Entity extends Location implements Metadatable {
         this.noClip = noClip;
         this.setDataFlag(DATA_FLAGS, DATA_FLAG_HAS_COLLISION, noClip);
     }
+    
+    @PowerNukkitOnly
+    @Since("FUTURE")
+    public boolean canWalkOnPowderSnow() {
+        return false;
+    }
 }
