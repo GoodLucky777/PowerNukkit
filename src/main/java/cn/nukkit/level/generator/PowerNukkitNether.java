@@ -325,6 +325,9 @@ public class PowerNukkitNether extends Generator {
                                 }
                             } else if (deep > 0) {
                                 deep--;
+                                chunk.setBlockState(z, y, x, groundState);
+                            } else if (deep == 0) {
+                                deep--;
                                 if (biome.getCeilingState().equals(BlockState.AIR)) {
                                     chunk.setBlockState(z, y, x, groundState);
                                 } else {
